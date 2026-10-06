@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import DhakaMap from '../components/DhakaMap';
+import { sql } from '../lib/db';
+import { mapData } from '../lib/mapData';
+
+const ispSlug = Astro.url.searchParams.get('isp');
+const [isps, data] = await Promise.all([
+  sql<{ slug: string; name: string }[]>`select slug, name from isps where approved order by id`,
+  mapData(sql, ispSlug),
+]);
+const tested = data.areas.filter((a) => a.devices > 0).sort((a, b) => b.devices - a.devices);
+---
+<Base title="Dhaka internet speed map" bare jsonAlt="/api/map"
+  description="Interactive map of internet speed across Dhaka. See median download speed, upload speed and ping for every neighbourhood, filter by provider, and find the fastest ISP where you live.">
+  <h1 class="sr-only">Dhaka internet speed map</h1>
+  <DhakaMap client:only="react" initial={data} isps={[...isps]} />
+  <!-- Same data as text, for search engines, agents and screen readers -->
+  <section class="wrap block">
+    <div class="sec-head"><h2><span class="hl">Speed by area</span></h2><p>The same data as the map, as a list. {tested.length} of {data.areas.length} areas have tests so far.</p></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">Area</th><th scope="col">Download Mbps</th><th scope="col">Upload Mbps</th><th scope="col">Ping ms</th><th scope="col">Testers</th></tr></thead>
+        <tbody>
+          {tested.map((a) => (
+            <tr><th scope="row" style="font-weight:inherit;border-bottom:1px solid var(--line)"><a href={`/area/${a.slug}`}>{a.name}</a></th>
+              <td class="num">{a.local_down?.toFixed(1) ?? '—'}</td><td class="num">{a.local_up?.toFixed(1) ?? '—'}</td>
+              <td class="num">{a.local_ping?.toFixed(1) ?? '—'}</td><td class="num">{a.devices}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+import RankTable from '../../components/RankTable.astro';
+import { sql } from '../../lib/db';
+import { leaderboard, recent, MIN_DEVICES } from '../../lib/stats';
+import { AREAS } from '../../lib/options';
+import { AREA_COORDS } from '../../lib/areas';
+import { fmt } from '../../lib/format';
+
+const slug = Astro.params.slug ?? '';
+const name = AREAS[slug];
+if (!name) return new Response(null, { status: 404 });
+const [rows, latest] = await Promise.all([leaderboard(sql, { area: slug }), recent(sql, { area: slug, limit: 10 })]);
+const ranked = rows.filter((r) => r.devices >= MIN_DEVICES);
+const best = ranked[0] ?? null;
+const testers = rows.reduce((n, r) => n + r.devices, 0);
+// Nearby areas for internal linking: closest centroids.
+const [lat, lng] = AREA_COORDS[slug];
+const nearby = Object.entries(AREA_COORDS).filter(([s]) => s !== slug && s in AREAS)
+  .map(([s, [a, b]]) => ({ s, d: (a - lat) ** 2 + (b - lng) ** 2 })).sort((x, y) => x.d - y.d).slice(0, 8);
+const day = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'Asia/Dhaka' });
+const url = new URL(`/area/${slug}`, Astro.site).href;
+const schema = [
+  { '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Rankings', item: new URL('/isps', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name, item: url }] },
+  { '@type': 'ItemList', name: `Internet providers in ${name}, Dhaka, by measured speed`, numberOfItems: rows.length,
+    itemListElement: rows.slice(0, 20).map((r, i) => ({ '@type': 'ListItem', position: i + 1, name: r.name, url: new URL(`/isp/${r.slug}`, Astro.site).href })) },
+  { '@type': 'Place', name: `${name}, Dhaka`, geo: { '@type': 'GeoCoordinates', latitude: lat, longitude: lng } },
+];
+const desc = best
+  ? `${best.name} is currently the fastest measured ISP in ${name} at ${fmt(best.local_down)} Mbps. Compare all ${rows.length} providers in ${name}, Dhaka by real speed tests from ${testers} residents.`
+  : rows.length
+    ? `${rows.length} internet providers tested in ${name}, Dhaka. Early results from ${testers} residents: compare speeds and add your own test.`
+    : `Which ISP is best in ${name}, Dhaka? No tests yet. Run a 40-second speed test and help your neighbours choose.`;
+---
+<Base title={`Best internet providers in ${name}, Dhaka`} description={desc} schema={schema} noindex={rows.length === 0}
+  ogImage={`/og/area/${slug}.png`} jsonAlt={`/api/stats?area=${slug}`}>
+  <section class="wrap" style="padding-top:clamp(24px,4vw,48px)">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/isps">Rankings</a><span aria-hidden="true">/</span>{name}</nav>
+    <p class="eyebrow">{name}, Dhaka</p>
+    <h1>Best internet providers in {name}</h1>
+    <p class="lede">
+      {best ? <><a href={`/isp/${best.slug}`}><strong>{best.name}</strong></a> is the fastest provider measured in {name} right now, at a median of <strong class="num">{fmt(best.local_down)} Mbps</strong>. Based on tests from {testers} residents in the last 90 days.</>
+        : rows.length ? <>{testers} {testers === 1 ? 'resident has' : 'residents have'} tested here so far. That’s not enough to name a winner yet, so the numbers below are early signals.</>
+        : <>Nobody has tested from {name} yet.</>}
+    </p>
+    <div class="row-between" style="justify-content:flex-start;margin:22px 0 28px">
+      <a class="btn btn-primary" href="/">Test from {name}</a><a class="btn" href="/map">Open the map</a>
+    </div>
+
+    {rows.length === 0
+      ? <div class="card pop"><h3>Be the first in {name}</h3><p class="text-2" style="margin:0">One 40-second test puts {name} on the map and starts the comparison for everyone who lives here.</p></div>
+      : <RankTable rows={rows} caption={`Internet providers in ${name} ranked by median speed`} />}
+
+    {latest.length > 0 && (
+      <section class="block" style="padding-bottom:0">
+        <div class="sec-head"><h2><span class="hl">Latest tests in {name}</span></h2></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th scope="col">Provider</th><th scope="col">Download</th><th scope="col">Upload</th><th scope="col">Ping</th><th scope="col">When</th></tr></thead>
+          <tbody>{latest.map((t) => (
+            <tr><td><a href={`/isp/${t.slug}`}>{t.isp}</a></td><td class="num">{fmt(t.local_down)}</td><td class="num">{fmt(t.local_up)}</td>
+              <td class="num">{fmt(t.local_ping)}</td><td class="muted">{day(t.created_at)}</td></tr>
+          ))}</tbody>
+        </table></div>
+      </section>
+    )}
+
+    <section class="block" style="padding-bottom:0">
+      <div class="sec-head"><h2><span class="hl">Nearby areas</span></h2></div>
+      <nav class="chips" aria-label="Nearby areas">
+        {nearby.map(({ s }) => <a href={`/area/${s}`} style="text-decoration:none"><span>{AREAS[s]}</span></a>)}
+      </nav>
+    </section>
+  </section>
+</Base>

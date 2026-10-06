@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import { MIN_DEVICES } from '../lib/stats';
+---
+<Base title="How WifiRank measures and ranks ISPs"
+  description="How WifiRank tests internet speed in Dhaka, what the test does and does not measure, how results are checked for abuse, and how provider rankings are calculated.">
+  <article class="wrap prose" style="padding-top:clamp(28px,5vw,56px);max-width:780px">
+    <p class="eyebrow">Methodology</p>
+    <h1>How it works</h1>
+    <p class="lede">WifiRank exists because ISP reviews in Bangladesh contradict each other. We replace opinions with measurements, and we show exactly how those measurements are made.</p>
+
+    <h2 class="reveal"><span class="hl">What the test measures</span></h2>
+    <p>The test runs in your browser against Cloudflare’s server in Dhaka, using Cloudflare’s open-source <code>speedtest</code> engine. We record download and upload speed (Mbps), ping (round-trip latency, ms) and jitter (how much ping varies, ms). Packet loss is measured when available.</p>
+    <p><strong>This is the domestic path.</strong> It reflects how you reach content served from inside Bangladesh, which includes the local caches most big sites use. It does not measure speed to servers abroad, so a provider that looks fast here can still be slow for overseas games, calls or downloads.</p>
+    <p>The engine ramps up through larger and larger transfers and reports the 90th-percentile speed, so a brief dip doesn’t understate your connection and a single burst doesn’t overstate it.</p>
+
+    <h2 class="reveal"><span class="hl">What we store</span></h2>
+    <ul>
+      <li>Your results, the provider and area you chose, and how the device was connected (cable or Wi-Fi band).</li>
+      <li>Optionally, your package speed and price range, and a map pin rounded to about 500 metres.</li>
+      <li>The operator name of the network the test came from, and a hashed IP used only to limit abuse. We never store your raw IP address.</li>
+      <li>A random ID kept in your browser, so your repeat tests count as one person. No account, no name, no phone number.</li>
+    </ul>
+
+    <h2 class="reveal"><span class="hl">How rankings are calculated</span></h2>
+    <ul>
+      <li><strong>One person, one vote.</strong> All tests from the same device on the same provider are reduced to that device’s median first. Running 50 tests does not count 50 times.</li>
+      <li><strong>Medians, not averages.</strong> The published number is the median across devices, so a few extreme results cannot move it.</li>
+      <li><strong>Last 90 days only.</strong> Providers change, so old results expire.</li>
+      <li><strong>Minimum sample.</strong> A provider needs at least {MIN_DEVICES} testers to be ranked. Below that it is shown dimmed as an early signal.</li>
+      <li><strong>Star ratings</strong> use a Bayesian average: a provider with one 5-star review is not ranked above one with a hundred 4.6-star reviews.</li>
+    </ul>
+
+    <h2 class="reveal"><span class="hl">How we keep it honest</span></h2>
+    <ul>
+      <li>Tests run over <strong>mobile data</strong> or from an <strong>IP outside Bangladesh</strong> (usually a VPN) are detected from the network they came from and excluded.</li>
+      <li>Reviews can only be posted from a device that completed a test on that provider. Each device gets one review per provider, which it can edit.</li>
+      <li>Tests are rate-limited per device and per network.</li>
+      <li>Providers users add themselves stay hidden until checked.</li>
+    </ul>
+
+    <h2 class="reveal"><span class="hl">Known limits</span></h2>
+    <ul>
+      <li>A browser test measures your whole path, including your Wi-Fi and router. That’s why we ask how you are connected. Cable results are the truest picture of the ISP.</li>
+      <li>International speed is not measured (see above). Reviews are the best signal for it today.</li>
+      <li>Speed tests cannot see outages. That is what the star rating and comments are for.</li>
+      <li>We compare against the package range you report, which we cannot verify.</li>
+    </ul>
+
+    <h2 class="reveal"><span class="hl">Open data</span></h2>
+    <p>All aggregated results are available as JSON at <a href="/api/stats"><code>/api/stats</code></a> and <a href="/api/map"><code>/api/map</code></a>, free to reuse with attribution (CC BY 4.0). AI agents can start at <a href="/llms.txt"><code>/llms.txt</code></a>.</p>
+  </article>
+</Base>
+<style>
+  .prose h2 { margin-top: 2.2em; }
+  .prose p, .prose li, .prose dd { color: var(--text-2); }
+  .prose li { margin-bottom: .5em; }
+  .prose ul { padding-left: 1.2em; }
+  .prose strong { color: var(--text); }
+  .prose code { font: .9em var(--mono); background: var(--surface-2); padding: 2px 6px; border-radius: 6px; color: var(--text); }
+  .defs { display: grid; grid-template-columns: auto 1fr; gap: 12px 20px; padding: 20px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
+  .defs dt { font-weight: 600; }
+  .defs dd { margin: 0; }
+</style>

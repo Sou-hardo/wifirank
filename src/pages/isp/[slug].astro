@@ -1,0 +1,120 @@
+---
+import Base from '../../layouts/Base.astro';
+import RankTable from '../../components/RankTable.astro';
+import { sql } from '../../lib/db';
+import { byArea, summary, recent, MIN_DEVICES, type Row } from '../../lib/stats';
+import { AREAS } from '../../lib/options';
+import { fmt } from '../../lib/format';
+
+const [isp] = await sql<{ id: number; name: string; slug: string; website: string | null; aliases: string[] }[]>`
+  select id, name, slug, website, aliases from isps where slug = ${Astro.params.slug ?? ''} and approved`;
+if (!isp) return new Response(null, { status: 404 });
+const [all, peak, offPeak, areas, reviews, latest] = await Promise.all([
+  summary(sql, { ispId: isp.id }),
+  summary(sql, { ispId: isp.id, peak: true }),
+  summary(sql, { ispId: isp.id, peak: false }),
+  byArea(sql, { ispId: isp.id }),
+  sql<{ stars: number; comment: string | null; updated_at: Date }[]>`
+    select stars, comment, updated_at from reviews where isp_id = ${isp.id} and not hidden order by (comment is not null) desc, updated_at desc limit 30`,
+  recent(sql, { ispId: isp.id, limit: 8 }),
+]);
+const areaRows = areas.map((a) => ({ ...a, name: AREAS[a.area] ?? a.area, slug: a.area }));
+const drop = peak?.local_down && offPeak?.local_down ? Math.round((1 - peak.local_down / offPeak.local_down) * 100) : null;
+const day = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'Asia/Dhaka' });
+const url = new URL(`/isp/${isp.slug}`, Astro.site).href;
+const schema: object[] = [
+  { '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Rankings', item: new URL('/isps', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: isp.name, item: url }] },
+  { '@type': 'Organization', '@id': `${url}#isp`, name: isp.name, alternateName: isp.aliases, ...(isp.website && { sameAs: isp.website }),
+    areaServed: { '@type': 'City', name: 'Dhaka' },
+    ...(all?.rating != null && all.reviews >= 3 && { aggregateRating: { '@type': 'AggregateRating', ratingValue: all.rating.toFixed(1), reviewCount: all.reviews, bestRating: 5, worstRating: 1 } }) },
+];
+const desc = all
+  ? `${isp.name} speed test results in Dhaka: ${fmt(all.local_down)} Mbps median download, ${fmt(all.local_up)} Mbps upload, from ${all.devices} users. Peak-hour performance, speed by area and reviews.`
+  : `${isp.name} in Dhaka: no speed tests yet. Run one to add the first result.`;
+const periods: [string, string, Row | null][] = [['All day', 'Every test', all], ['Peak', '8 pm – midnight', peak], ['Off-peak', 'Rest of the day', offPeak]];
+---
+<Base title={`${isp.name} speed test & reviews in Dhaka`} description={desc} schema={schema} noindex={!all}
+  ogImage={`/og/isp/${isp.slug}.png`} jsonAlt={`/api/map?isp=${isp.slug}`}>
+  <section class="wrap" style="padding-top:clamp(24px,4vw,48px)">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/isps">Rankings</a><span aria-hidden="true">/</span>{isp.name}</nav>
+    <div class="row-between" style="align-items:end">
+      <div>
+        <h1 style="margin-bottom:10px">{isp.name}</h1>
+        <p class="text-2" style="margin:0">
+          {all?.rating != null && <><span class="stars-static" aria-hidden="true">★</span> <strong class="num">{all.rating.toFixed(1)}</strong> <span class="muted">({all.reviews} reviews)</span> · </>}
+          {all ? <>{all.devices} testers · {all.tests} tests in 90 days</> : 'No tests yet'}
+          {isp.website && <> · <a href={isp.website} rel="nofollow noopener" target="_blank">{new URL(isp.website).hostname.replace('www.', '')}</a></>}
+        </p>
+      </div>
+      <div class="row-between"><a class="btn" href={`/map?isp=${isp.slug}`}>See on map</a><a class="btn btn-primary" href="/">Test your {isp.name}</a></div>
+    </div>
+
+    {!all ? (
+      <div class="card" style="margin-top:28px"><h3>Nobody has tested {isp.name} yet</h3><p class="text-2" style="margin:0">If you use it, <a href="/">run a 40-second test</a> and you’ll be the first result here.</p></div>
+    ) : (
+      <>
+        {all.devices < MIN_DEVICES && <p class="notice" style="margin-top:24px"><span>Only {all.devices} {all.devices === 1 ? 'person has' : 'people have'} tested {isp.name} so far. Treat these numbers as an early signal, not a verdict.</span></p>}
+        <dl class="stat-row" style="margin-top:28px">
+          <div class="stat"><dt>Download</dt><dd><span data-count>{fmt(all.local_down)}</span><small>Mbps</small></dd></div>
+          <div class="stat"><dt>Upload</dt><dd><span data-count>{fmt(all.local_up)}</span><small>Mbps</small></dd></div>
+          <div class="stat"><dt>Ping</dt><dd><span data-count>{fmt(all.local_ping)}</span><small>ms</small></dd></div>
+          <div class="stat"><dt>Jitter</dt><dd><span data-count>{fmt(all.local_jitter)}</span><small>ms</small></dd></div>
+          {all.local_loss != null && <div class="stat"><dt>Packet loss</dt><dd>{(all.local_loss * 100).toFixed(1)}<small>%</small></dd></div>}
+        </dl>
+
+        <section class="block" style="padding-bottom:0">
+          <div class="sec-head"><h2><span class="hl">Peak vs off-peak</span></h2><p>
+            {drop == null ? 'Not enough evening tests yet to compare.'
+              : drop >= 15 ? `${isp.name} slows down by about ${drop}% in the evening, a sign of congestion.`
+              : drop <= -15 ? `${isp.name} is actually faster in the evening by about ${-drop}%.`
+              : `${isp.name} holds steady in the evening: within ${Math.abs(drop)}% of daytime speed.`}
+          </p></div>
+          <div class="grid grid-3">
+            {periods.map(([label, sub, r], i) => (
+              <div class={`card pop ${['', 'dark', 'lime'][i]}`}>
+                <div class="row-between"><h3 style="margin:0">{label}</h3><span class="small" style="opacity:.7">{sub}</span></div>
+                <p class="dot" style="font-size:3.6rem;line-height:1;margin:22px 0 10px;color:inherit">{fmt(r?.local_down)}<small style="font:500 .9rem var(--font);margin-left:8px;text-transform:none;opacity:.7">Mbps down</small></p>
+                <p class="small" style="margin:0">Upload {fmt(r?.local_up)} Mbps · ping {fmt(r?.local_ping)} ms · {r?.devices ?? 0} testers</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section class="block" style="padding-bottom:0">
+          <div class="sec-head"><h2><span class="hl">{isp.name} by area</span></h2><p>The same provider can perform very differently a few kilometres apart.</p></div>
+          <div><RankTable rows={areaRows} ranked={false} firstCol="Area" href={(s) => `/area/${s}`} caption={`${isp.name} median speed by area in Dhaka`} /></div>
+        </section>
+
+        <section class="block" style="padding-bottom:0">
+          <div class="sec-head"><h2><span class="hl">Reviews</span></h2><p>From people who ran a test on {isp.name}. One review per device.</p></div>
+          {reviews.length === 0 ? <p class="text-2">No reviews yet. Reviews can be left right after running a test on {isp.name}.</p> : (
+            <div class="grid grid-3">
+              {reviews.map((r) => (
+                <article class="card" style="padding:18px 20px">
+                  <div class="row-between">
+                    <span class="stars-static" role="img" aria-label={`${r.stars} out of 5 stars`}>{'★'.repeat(r.stars)}<span class="off">{'★'.repeat(5 - r.stars)}</span></span>
+                    <time class="muted small" datetime={r.updated_at.toISOString()}>{day(r.updated_at)}</time>
+                  </div>
+                  {r.comment && <p style="margin:10px 0 0" class="text-2">{r.comment}</p>}
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <section class="block" style="padding-bottom:0">
+          <div class="sec-head"><h2><span class="hl">Latest tests</span></h2></div>
+          <div class="table-wrap"><table>
+            <thead><tr><th scope="col">Area</th><th scope="col">Download</th><th scope="col">Upload</th><th scope="col">Ping</th><th scope="col">When</th></tr></thead>
+            <tbody>{latest.map((t) => (
+              <tr><td><a href={`/area/${t.area}`}>{AREAS[t.area] ?? t.area}</a></td><td class="num">{fmt(t.local_down)}</td><td class="num">{fmt(t.local_up)}</td>
+                <td class="num">{fmt(t.local_ping)}</td><td class="muted">{day(t.created_at)}</td></tr>
+            ))}</tbody>
+          </table></div>
+        </section>
+      </>
+    )}
+  </section>
+</Base>

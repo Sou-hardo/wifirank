@@ -1,0 +1,164 @@
+---
+import Base from '../layouts/Base.astro';
+import SpeedTest from '../components/SpeedTest';
+import DhakaMap from '../components/DhakaMap';
+import RankTable from '../components/RankTable.astro';
+import { sql } from '../lib/db';
+import { leaderboard, MIN_DEVICES } from '../lib/stats';
+import { mapData } from '../lib/mapData';
+import { AREAS } from '../lib/options';
+
+const [isps, [totals], board, map] = await Promise.all([
+  sql<{ id: number; name: string; slug: string; aliases: string[] }[]>`select id, name, slug, aliases from isps where approved order by id`,
+  sql<{ tests: number; devices: number; isps: number; areas: number }[]>`
+    select count(*)::int as tests, count(distinct device_id)::int as devices, count(distinct isp_id)::int as isps, count(distinct area)::int as areas
+    from tests where flag is null`,
+  leaderboard(sql, {}),
+  mapData(sql),
+]);
+const top = board.filter((r) => r.devices >= MIN_DEVICES).slice(0, 8);
+
+const faq = [
+  ['Which ISP is the best in Dhaka?', 'It depends on where you live. The same provider can be excellent in Gulshan and poor in Mirpur, because each area is served by different local lines and resellers. Pick your area on the map or the rankings page to see which providers actually perform well there.'],
+  ['What exactly does the test measure?', 'Download speed, upload speed, ping and jitter between your device and Cloudflare’s server in Dhaka. That is the domestic path, which covers the locally cached content most big sites serve. It does not measure speed to servers abroad, so it cannot tell you how overseas games or downloads will perform.'],
+  ['Why is my speed lower than the package I pay for?', 'Common causes: you are on 2.4 GHz Wi-Fi or far from the router, other people are using the connection, it is peak time (8 pm to midnight), or your ISP shares its bandwidth among too many customers. Test on a cable to rule out Wi-Fi, then compare your result with others on the same ISP in your area.'],
+  ['Is the test anonymous?', 'Yes. There is no account. We store your results, the area you chose, the name of the network your connection came from, and a hashed (scrambled) IP used only to prevent abuse. If you drop a pin, it is rounded to about 500 metres before saving.'],
+  ['How do you stop ISPs from faking results?', 'Every device counts once per ISP no matter how many tests it runs. Tests made over mobile data or a VPN are detected and excluded. Reviews can only be posted from a device that ran a test on that ISP. Rankings use medians, so a few extreme results cannot move them.'],
+];
+const schema = [
+  { '@type': 'WebApplication', name: 'WifiRank Speed Test', url: Astro.site?.href, applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: 0, priceCurrency: 'BDT' }, areaServed: { '@type': 'City', name: 'Dhaka' } },
+  { '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+];
+const n = (v: number) => v.toLocaleString('en');
+const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
+---
+<Base schema={schema} jsonAlt="/api/stats">
+  <section class="wrap hero">
+    <p class="eyebrow rise" data-n="001">Dhaka speed test</p>
+    <h1 aria-label="How fast is your internet, really?">
+      {headline.map((w, i) => <><span aria-hidden="true" style={`--i:${i}`}>{w}</span>{i === 3 ? <br /> : ' '}</>)}
+    </h1>
+    <div class="wires rise" style="--i:3">
+      <div class="wire" aria-hidden="true"><b></b><i></i><span>PROVIDER</span><i></i><b></b><i></i><span>AREA</span><i></i></div>
+      <p class="lede">Test your connection in 40 seconds and see how your provider compares with others in your area. Every result helps your neighbours choose better.</p>
+      <div class="wire" aria-hidden="true"><i></i><span>SPEED</span><i></i><b></b><i></i><span>PING</span><i></i><b></b></div>
+    </div>
+    <div class="rise" style="--i:4"><SpeedTest client:load isps={isps.map(({ id, name, aliases }) => ({ id, name, aliases }))} /></div>
+
+    {totals.tests > 0 && (
+      <div class="band reveal">
+        <div><strong data-count>{n(totals.tests)}</strong><span>Speed tests run</span></div>
+        <div><strong data-count>{totals.isps}</strong><span>Providers measured</span></div>
+        <div><strong data-count>{totals.areas}</strong><span>Areas on the map</span></div>
+        <div>
+          <p>Anonymous and crowdsourced. Each person counts once, so nobody can stuff the numbers.</p>
+          <a class="btn btn-sm" href="/methodology">How it works</a>
+        </div>
+      </div>
+    )}
+  </section>
+
+  <section class="wrap block" id="map">
+    <div class="sec-head reveal">
+      <h2><span class="hl">The map</span></h2>
+      <p>Speed changes street by street. Each circle is a neighbourhood: darker means faster, bigger means more people tested there. Tap one to see which providers win.</p>
+    </div>
+    <div class="reveal">
+      <DhakaMap client:visible initial={map} isps={isps.map(({ slug, name }) => ({ slug, name }))} compact />
+    </div>
+  </section>
+
+  {top.length > 0 && (
+    <section class="wrap block" style="padding-top:0">
+      <div class="sec-head reveal">
+        <h2><span class="hl">Rankings</span></h2>
+        <p>The fastest providers across Dhaka right now, by median download speed over the last 90 days.</p>
+        <a class="btn" href="/isps">All {board.length} providers</a>
+      </div>
+      <div class="reveal"><RankTable rows={top} caption="Fastest internet providers across Dhaka by median download speed" /></div>
+    </section>
+  )}
+
+  <section class="wrap block" style="padding-top:0">
+    <div class="sec-head reveal">
+      <h2><span class="hl">What we measure</span></h2>
+      <p>One number never tells the whole story, so every test records three things.</p>
+    </div>
+    <div class="grid grid-3">
+      <article class="card pop tilt feature reveal">
+        <div class="top">
+          <h3><span>Download</span><br /><span>and upload</span></h3>
+          <svg class="glyph" viewBox="0 0 104 104" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="52" cy="52" r="36" /><g class="orbit"><ellipse cx="52" cy="52" rx="50" ry="15" transform="rotate(-22 52 52)" /></g>
+            <g stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path class="a-down" d="M40 34v30m0 0-9-9m9 9 9-9" /><path class="a-up" d="M64 70V40m0 0-9 9m9-9 9 9" /></g>
+          </svg>
+        </div>
+        <p class="text-2">Download is streaming and browsing. Upload is video calls, backups and sending files. Many packages are fast one way and slow the other.</p>
+      </article>
+      <article class="card pop tilt feature lime reveal">
+        <div class="top">
+          <h3><span>Ping</span><br /><span>and jitter</span></h3>
+          <svg class="glyph" viewBox="0 0 104 104" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M4 52h100M4 28h100M4 76h100" opacity=".35" />
+            <path class="wave" pathLength="1" d="M6 52h16l9-24 13 48 11-36 8 20 7-8h28" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="6" cy="52" r="4" fill="currentColor" /><circle cx="98" cy="52" r="4" fill="currentColor" />
+          </svg>
+        </div>
+        <p>How quickly your connection responds, and how steady it is. These decide whether games and calls feel smooth, even on a fast line.</p>
+      </article>
+      <article class="card pop tilt feature dark reveal">
+        <div class="top">
+          <h3><span>Peak</span><br /><span>hours</span></h3>
+          <svg class="glyph" viewBox="0 0 104 104" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path class="moon" d="M74 14a16 16 0 1 0 16 22 13 13 0 0 1-16-22z" fill="#b9ff66" stroke="none" />
+            <path d="M6 92h92" />
+            <g stroke-width="9" stroke-linecap="round">{[[16, 50], [34, 40], [52, 58], [70, 72], [88, 66]].map(([x, y], i) => <path class="eq" style={`--i:${i}`} d={`M${x} 92V${y}`} />)}</g>
+          </svg>
+        </div>
+        <p>Between 8 pm and midnight everyone is online. A provider that is fast at noon can crawl at night, so we show both for every ISP.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap block" style="padding-top:0">
+    <div class="cta reveal">
+      <div>
+        <h2>Put your street on the map</h2>
+        <p>One 40-second test adds your neighbourhood to the comparison and helps the next person choose their provider with real numbers.</p>
+        <a class="btn btn-primary" href="#main">Run the speed test</a>
+      </div>
+      <svg class="art" viewBox="0 0 340 230" fill="none" aria-hidden="true">
+        <g stroke="#191a23" stroke-width="1.2">
+          <ellipse cx="170" cy="118" rx="150" ry="34" /><ellipse cx="170" cy="118" rx="150" ry="34" transform="rotate(8 170 118)" /><ellipse cx="170" cy="118" rx="150" ry="34" transform="rotate(-8 170 118)" />
+        </g>
+        <g class="bob">
+          <circle cx="170" cy="92" r="54" fill="#191a23" />
+          <ellipse cx="153" cy="88" rx="7" ry="13" fill="#fff" /><ellipse cx="187" cy="88" rx="7" ry="13" fill="#fff" />
+        </g>
+        <path class="spin" d="M252 116l9 27 28 4-22 18 8 28-23-17-23 17 8-28-22-18 28-4z" fill="#b8b8b3" />
+        <path class="spin" style="animation-direction:reverse;animation-duration:18s" d="M112 128c4 28 10 34 38 38-28 4-34 10-38 38-4-28-10-34-38-38 28-4 34-10 38-38z" fill="#b9ff66" stroke="#191a23" stroke-width="1.2" />
+      </svg>
+    </div>
+  </section>
+
+  <section class="wrap block" style="padding-top:0">
+    <div class="sec-head reveal">
+      <h2><span class="hl">Browse by area</span></h2>
+      <p>Find the best internet provider where you actually live.</p>
+    </div>
+    <nav class="chips reveal" aria-label="Areas">
+      {Object.entries(AREAS).map(([slug, name]) => <a href={`/area/${slug}`} style="text-decoration:none"><span>{name}</span></a>)}
+    </nav>
+  </section>
+
+  <section class="wrap block" style="padding-top:0">
+    <div class="sec-head reveal">
+      <h2><span class="hl">Questions</span></h2>
+      <p>What the numbers mean, and how we keep them honest.</p>
+    </div>
+    <div class="faq-list">
+      {faq.map(([q, a], i) => <details class="faq reveal" open={i === 0}><summary>{q}</summary><div>{a}</div></details>)}
+    </div>
+  </section>
+</Base>
