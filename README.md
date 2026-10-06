@@ -6,6 +6,24 @@ Crowdsourced internet speed tests and reviews for ISPs in Dhaka. Anonymous users
 
 Astro (server-rendered) + React islands + Postgres (Neon) + MapLibre.
 
+## Screenshots
+
+Figures in these screenshots come from local demo data, except the test result, which is a real run.
+
+![Home page with the speed test](docs/screenshots/home.png)
+
+| Test in progress | Result |
+|---|---|
+| ![Test running, with the data stream behind the gauge](docs/screenshots/test-running.png) | ![Finished test with thank-you and speed tier](docs/screenshots/result.png) |
+
+| Map | Rankings |
+|---|---|
+| ![Dhaka speed map with an area selected](docs/screenshots/map.png) | ![Provider rankings](docs/screenshots/rankings.png) |
+
+| Provider page | Mobile |
+|---|---|
+| ![Provider page with peak vs off-peak](docs/screenshots/provider.png) | <img src="docs/screenshots/mobile.png" alt="Home page on a phone" width="300"> |
+
 ## Run locally
 
 ```sh
