@@ -47,6 +47,7 @@ npm run dev
 ## How the numbers work
 
 - Tests run against Cloudflare's Dhaka edge with `@cloudflare/speedtest`. That is the domestic path; international speed is not measured (columns are prefixed `local_` to keep that explicit).
+- Speeds are **sustained**: the median of requests that take 250 ms or longer, not the engine's default 90th percentile, which short bursts inflate (`src/lib/sustained.ts`).
 - Each device counts once per provider (per-device median, then median across devices), last 90 days only, minimum 5 testers to rank.
 - Tests over mobile data or a non-Bangladeshi IP are stored but excluded. Reviews require a completed test.
 - Full explanation at `/methodology`.
