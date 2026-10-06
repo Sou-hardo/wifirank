@@ -13,7 +13,7 @@ const METRICS: Record<MetricKey, { label: string; long: string; unit: string; bi
   local_up: { label: 'Upload', long: 'Upload', unit: 'Mbps', bins: [10, 25, 50, 100], lowerIsBetter: false },
   local_ping: { label: 'Ping', long: 'Ping (latency)', unit: 'ms', bins: [5, 10, 20, 40], lowerIsBetter: true },
 };
-const RAMP = ['#1c5cab', '#3987e5', '#6da7ec', '#9ec5f4', '#cde2fb'];
+const RAMP = ['#7fb41b', '#5f9413', '#44740f', '#2d540c', '#183608'];
 const fmt = (v: number | null | undefined) => (v == null ? '—' : v < 10 ? v.toFixed(1) : Math.round(v).toString());
 
 const geo = (d: Data) => ({
@@ -60,10 +60,10 @@ export default function DhakaMap({ initial, isps, compact }: Props) {
         // Individual pinned results: only when zoomed in, under the area bubbles.
         map.addLayer({ id: 'points', type: 'circle', source: 'points', minzoom: 12.5,
           paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 12.5, 2.5, 16, 6], 'circle-color': c.colorExpr(metric),
-            'circle-opacity': 0.85, 'circle-stroke-width': 1, 'circle-stroke-color': '#0b0d10' } });
+            'circle-opacity': 0.9, 'circle-stroke-width': 1, 'circle-stroke-color': '#ffffff' } });
         // Areas with no tests yet: hollow markers that invite the first test.
         map.addLayer({ id: 'areas-empty', type: 'circle', source: 'areas', filter: ['==', ['get', 'devices'], 0],
-          paint: { 'circle-radius': 3.5, 'circle-color': 'transparent', 'circle-stroke-width': 1.5, 'circle-stroke-color': '#4a535d' } });
+          paint: { 'circle-radius': 3.5, 'circle-color': 'transparent', 'circle-stroke-width': 1.5, 'circle-stroke-color': '#8b8d98' } });
         map.addLayer({ id: 'areas', type: 'circle', source: 'areas', filter: ['>', ['get', 'devices'], 0],
           paint: {
             // Size grows with testers but is capped, so busy areas don't swallow their neighbours.
@@ -71,14 +71,14 @@ export default function DhakaMap({ initial, isps, compact }: Props) {
               10, ['interpolate', ['linear'], ['sqrt', ['get', 'devices']], 1, 4, 5, 8, 15, 13],
               14, ['interpolate', ['linear'], ['sqrt', ['get', 'devices']], 1, 9, 5, 18, 15, 30]],
             'circle-color': c.colorExpr(metric),
-            'circle-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0.82],
-            'circle-stroke-width': ['case', ['boolean', ['feature-state', 'selected'], false], 3, 1.5],
-            'circle-stroke-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#c6f432', '#0b0d10'],
+            'circle-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0.9],
+            'circle-stroke-width': ['case', ['boolean', ['feature-state', 'selected'], false], 3.5, 2],
+            'circle-stroke-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#191a23', '#ffffff'],
             'circle-radius-transition': { duration: 500 }, 'circle-color-transition': { duration: 400 },
           } });
         map.addLayer({ id: 'area-labels', type: 'symbol', source: 'areas', minzoom: 11.6, filter: ['>', ['get', 'devices'], 0],
           layout: { 'text-field': ['get', 'name'], 'text-font': ['Noto Sans Regular'], 'text-size': 11, 'text-offset': [0, 1.6], 'text-anchor': 'top', 'text-optional': true },
-          paint: { 'text-color': '#a7b0ba', 'text-halo-color': '#0b0d10', 'text-halo-width': 1.4 } });
+          paint: { 'text-color': '#191a23', 'text-halo-color': '#ffffff', 'text-halo-width': 1.6 } });
 
         let hovered: string | null = null;
         const hover = (id: string | null) => {
@@ -156,7 +156,7 @@ export default function DhakaMap({ initial, isps, compact }: Props) {
     setBusy(false);
   };
 
-  // One label per swatch; the ramp always runs worst → best (dark → bright).
+  // One label per swatch; the ramp always runs worst → best (light → dark).
   const bands = [`<${m.bins[0]}`, ...m.bins.slice(1).map((b, i) => `${m.bins[i]}–${b}`), `${m.bins.at(-1)}+`];
   const ranges = m.lowerIsBetter ? bands.reverse() : bands;
 
@@ -186,7 +186,7 @@ export default function DhakaMap({ initial, isps, compact }: Props) {
           <div className="label-row"><span>{m.long}</span><span className="muted">{m.unit}{m.lowerIsBetter ? ' · lower is better' : ''}</span></div>
           <div className="legend">{RAMP.map((c) => <i key={c} style={{ background: c, flex: 1 }} />)}</div>
           <div className="legend-labels">{ranges.map((r) => <span key={r}>{r}</span>)}</div>
-          <p className="muted small">Bigger circle = more testers. Hollow dot = no tests yet.</p>
+          <p className="muted small">Darker = faster. Bigger circle = more testers. Hollow dot = no tests yet.</p>
         </div>
 
         {sel ? (

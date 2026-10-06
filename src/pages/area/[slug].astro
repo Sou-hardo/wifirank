@@ -38,7 +38,7 @@ const desc = best
   ogImage={`/og/area/${slug}.png`} jsonAlt={`/api/stats?area=${slug}`}>
   <section class="wrap" style="padding-top:clamp(24px,4vw,48px)">
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/isps">Rankings</a><span aria-hidden="true">/</span>{name}</nav>
-    <p class="eyebrow">{name} · Dhaka</p>
+    <p class="eyebrow">{name}, Dhaka</p>
     <h1>Best internet providers in {name}</h1>
     <p class="lede">
       {best ? <><a href={`/isp/${best.slug}`}><strong>{best.name}</strong></a> is the fastest provider measured in {name} right now, at a median of <strong class="num">{fmt(best.local_down)} Mbps</strong>. Based on tests from {testers} residents in the last 90 days.</>
@@ -50,13 +50,13 @@ const desc = best
     </div>
 
     {rows.length === 0
-      ? <div class="card"><h3>Be the first in {name}</h3><p class="text-2" style="margin:0">One 40-second test puts {name} on the map and starts the comparison for everyone who lives here.</p></div>
+      ? <div class="card pop"><h3>Be the first in {name}</h3><p class="text-2" style="margin:0">One 40-second test puts {name} on the map and starts the comparison for everyone who lives here.</p></div>
       : <RankTable rows={rows} caption={`Internet providers in ${name} ranked by median speed`} />}
 
     {latest.length > 0 && (
       <section class="block" style="padding-bottom:0">
-        <h2>Latest tests in {name}</h2>
-        <div class="table-wrap" style="margin-top:20px"><table>
+        <div class="sec-head"><h2><span class="hl">Latest tests in {name}</span></h2></div>
+        <div class="table-wrap"><table>
           <thead><tr><th scope="col">Provider</th><th scope="col">Download</th><th scope="col">Upload</th><th scope="col">Ping</th><th scope="col">When</th></tr></thead>
           <tbody>{latest.map((t) => (
             <tr><td><a href={`/isp/${t.slug}`}>{t.isp}</a></td><td class="num">{fmt(t.local_down)}</td><td class="num">{fmt(t.local_up)}</td>
@@ -67,8 +67,8 @@ const desc = best
     )}
 
     <section class="block" style="padding-bottom:0">
-      <h2>Nearby areas</h2>
-      <nav class="chips" style="margin-top:16px" aria-label="Nearby areas">
+      <div class="sec-head"><h2><span class="hl">Nearby areas</span></h2></div>
+      <nav class="chips" aria-label="Nearby areas">
         {nearby.map(({ s }) => <a href={`/area/${s}`} style="text-decoration:none"><span>{AREAS[s]}</span></a>)}
       </nav>
     </section>

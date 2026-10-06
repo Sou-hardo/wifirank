@@ -100,38 +100,50 @@ function ResultPanel({ title, sub, m, peer }: { title: string; sub: string; m: M
 }
 
 async function shareImage(isp: string, area: string, m: Metrics | null) {
-  await document.fonts.load('600 64px "Geist Variable"').catch(() => {});
-  const W = 1080, H = 1080, c = document.createElement('canvas');
+  await Promise.all(['900 150px "Doto Variable"', '900 150px "DotPunct"', '500 64px "Space Grotesk Variable"'].map((f) => document.fonts.load(f))).catch(() => {});
+  const W = 1080, H = 1080, INK = '#191a23', LIME = '#b9ff66', c = document.createElement('canvas');
   c.width = W; c.height = H;
   const g = c.getContext('2d')!;
-  const font = (w: number, s: number, mono = false) => `${w} ${s}px ${mono ? '"Geist Mono Variable", monospace' : '"Geist Variable", system-ui, sans-serif'}`;
-  g.fillStyle = '#0b0d10'; g.fillRect(0, 0, W, H);
-  const glow = g.createRadialGradient(W * 0.8, 0, 0, W * 0.8, 0, 900);
-  glow.addColorStop(0, 'rgba(198,244,50,0.16)'); glow.addColorStop(1, 'rgba(198,244,50,0)');
-  g.fillStyle = glow; g.fillRect(0, 0, W, H);
-  // logo arcs
-  g.strokeStyle = '#c6f432'; g.lineWidth = 9; g.lineCap = 'round';
-  g.beginPath(); g.arc(112, 128, 40, Math.PI * 1.22, Math.PI * 1.78); g.stroke();
-  g.beginPath(); g.arc(112, 128, 22, Math.PI * 1.22, Math.PI * 1.78); g.stroke();
-  g.fillStyle = '#c6f432'; g.beginPath(); g.arc(112, 128, 7, 0, Math.PI * 2); g.fill();
-  g.fillStyle = '#f3f5f7'; g.font = font(650, 40); g.fillText('WifiRank', 172, 140);
+  const sans = (w: number, px: number) => `${w} ${px}px "Space Grotesk Variable", system-ui, sans-serif`;
+  const dot = (px: number) => `900 ${px}px "DotPunct", "Doto Variable", monospace`;
+  g.fillStyle = '#f3f3f1'; g.fillRect(0, 0, W, H);
+  // halftone corner
+  g.fillStyle = 'rgba(25,26,35,0.14)';
+  for (let y = 14; y < 420; y += 18) for (let x = W - 14; x > 560; x -= 18) {
+    const r = 3.2 * Math.max(0, 1 - Math.hypot(W - x, y) / 520);
+    if (r > 0.4) { g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill(); }
+  }
+  // logo
+  g.fillStyle = INK; g.beginPath(); g.roundRect(70, 70, 84, 84, 24); g.fill();
+  g.strokeStyle = LIME; g.lineWidth = 7; g.lineCap = 'round';
+  g.beginPath(); g.arc(112, 122, 33, Math.PI * 1.22, Math.PI * 1.78); g.stroke();
+  g.beginPath(); g.arc(112, 122, 19, Math.PI * 1.22, Math.PI * 1.78); g.stroke();
+  g.fillStyle = LIME; g.beginPath(); g.arc(112, 124, 6, 0, Math.PI * 2); g.fill();
+  g.fillStyle = INK; g.font = sans(600, 44); g.fillText('WifiRank', 176, 128);
 
-  g.fillStyle = '#a7b0ba'; g.font = font(500, 34); g.fillText(`${area}, Dhaka`, 80, 290, 920);
-  g.fillStyle = '#f3f5f7'; g.font = font(650, 84); g.fillText(isp, 80, 380, 920);
+  g.font = sans(500, 82); g.fillText(isp, 70, 300, 940);
+  g.fillStyle = '#4a4c57'; g.font = sans(400, 38); g.fillText(`${area}, Dhaka`, 70, 362, 940);
 
-  const y = 470;
-  g.fillStyle = '#12161b'; g.beginPath(); g.roundRect(60, y, W - 120, 400, 36); g.fill();
-  g.strokeStyle = 'rgba(255,255,255,0.08)'; g.lineWidth = 2; g.stroke();
-  const col = (title: string, v: string, unit: string, x: number, big: boolean) => {
-    g.fillStyle = '#7c8792'; g.font = font(500, 28); g.fillText(title, x, y + 90);
-    g.fillStyle = big ? '#c6f432' : '#f3f5f7'; g.font = font(600, big ? 150 : 84, true); g.fillText(v, x, y + (big ? 250 : 220));
-    g.fillStyle = '#7c8792'; g.font = font(500, 28); g.fillText(unit, x, y + (big ? 310 : 275));
+  // result card: ink outline with a hard shadow
+  const y = 430, h = 440;
+  g.fillStyle = INK; g.beginPath(); g.roundRect(70, y + 12, W - 140, h, 56); g.fill();
+  g.fillStyle = '#fff'; g.beginPath(); g.roundRect(70, y, W - 140, h, 56); g.fill();
+  g.strokeStyle = INK; g.lineWidth = 2; g.stroke();
+  const label = (t: string, x: number, ly: number, hl = false) => {
+    g.font = sans(500, 30);
+    if (hl) { g.fillStyle = LIME; g.beginPath(); g.roundRect(x - 10, ly - 34, g.measureText(t).width + 20, 46, 9); g.fill(); }
+    g.fillStyle = hl ? INK : '#6c6e79'; g.fillText(t, x, ly);
   };
-  col('Download', f1(m?.down), 'Mbps', 110, true);
-  col('Upload', f1(m?.up), 'Mbps', 560, false);
-  col('Ping', f1(m?.ping), 'ms', 820, false);
-  g.fillStyle = '#a7b0ba'; g.font = font(500, 30);
-  g.fillText(`Compare ISPs in your area → ${location.host}`, 80, 990, 920);
+  label('Download', 124, y + 88, true);
+  g.fillStyle = INK; g.font = dot(210); g.fillText(f1(m?.down), 116, y + 290);
+  g.fillStyle = '#6c6e79'; g.font = sans(500, 34); g.fillText('Mbps', 124, y + 350);
+  label('Upload', 640, y + 88); g.fillStyle = INK; g.font = dot(92); g.fillText(f1(m?.up), 636, y + 180);
+  g.fillStyle = '#6c6e79'; g.font = sans(500, 26); g.fillText('Mbps', 640, y + 216);
+  label('Ping', 640, y + 290); g.fillStyle = INK; g.font = dot(92); g.fillText(f1(m?.ping), 636, y + 382);
+  g.fillStyle = '#6c6e79'; g.font = sans(500, 26); g.fillText('ms', 640, y + 418);
+
+  g.fillStyle = '#4a4c57'; g.font = sans(400, 32);
+  g.fillText(`Compare ISPs in your area → ${location.host}`, 70, 990, 940);
 
   const blob = await new Promise<Blob>((r) => c.toBlob((b) => r(b!), 'image/png'));
   const file = new File([blob], 'wifirank-result.png', { type: 'image/png' });

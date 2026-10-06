@@ -47,14 +47,8 @@ export default function Gauge({ value, unit = 'Mbps', label, active, children }:
   return (
     <div className={`gauge ${active ? 'is-active' : ''}`}>
       <svg viewBox="0 0 320 300" aria-hidden="true">
-        <defs>
-          <linearGradient id="g-arc" x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0" stopColor="#5f7f12" />
-            <stop offset="1" stopColor="#c6f432" />
-          </linearGradient>
-        </defs>
         <path d={arc(R)} className="g-track" pathLength={1} />
-        {f > 0 && <path d={arc(R)} className="g-fill" pathLength={1} stroke="url(#g-arc)" strokeDasharray={`${f} 1`} />}
+        {f > 0 && <path d={arc(R)} className="g-fill" pathLength={1} strokeDasharray={`${f} 1`} />}
         {TICKS.map((t) => {
           const [x1, y1] = point(frac(t), R - 18), [x2, y2] = point(frac(t), R - 24);
           const [lx, ly] = point(frac(t), R - 42);
@@ -65,7 +59,7 @@ export default function Gauge({ value, unit = 'Mbps', label, active, children }:
             </g>
           );
         })}
-        {f > 0 && <circle cx={kx} cy={ky} r="9" className="g-knob" />}
+        {f > 0 && <circle cx={kx} cy={ky} r="10" className="g-knob" />}
       </svg>
       <div className="gauge-center">
         {children ?? (

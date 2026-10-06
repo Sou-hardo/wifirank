@@ -44,7 +44,7 @@ const graph = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, follow" />}
-    <meta name="theme-color" content="#0b0d10" />
+    <meta name="theme-color" content="#f3f3f1" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap.xml" />
     <link rel="alternate" type="text/plain" title="LLM guide" href="/llms.txt" />
@@ -77,6 +77,7 @@ const graph = {
           {nav.map(([href, label]) => (
             <a href={href} aria-current={(href === '/' ? path === '/' : path.startsWith(href)) ? 'page' : undefined}>{label}</a>
           ))}
+          {path !== '/' && <a class="btn btn-primary btn-sm" href="/">Run a test</a>}
         </nav>
       </div>
     </header>
@@ -84,16 +85,38 @@ const graph = {
     {!bare && (
       <footer class="site-footer">
         <div class="wrap">
-          <div>
-            <p style="margin:0 0 6px;color:var(--text-2)"><strong>{SITE}</strong>: Dhaka's internet, measured by its people.</p>
-            <p style="margin:0">Anonymous, crowdsourced results. Not affiliated with any ISP.</p>
+          <div class="top">
+            <a href="/" class="brand"><Logo /><span>{SITE}</span></a>
+            <nav aria-label="Footer">
+              <a href="/isps">Rankings</a><a href="/map">Map</a><a href="/methodology">Methodology</a>
+              <a href="/api/stats">Open data</a><a href="/llms.txt">llms.txt</a>
+            </nav>
           </div>
-          <nav aria-label="Footer">
-            <a href="/isps">Rankings</a><a href="/map">Map</a><a href="/methodology">Methodology</a>
-            <a href="/api/stats">Open data (JSON)</a><a href="/llms.txt">llms.txt</a>
-          </nav>
+          <div class="bottom">
+            <p>Dhaka’s internet, measured by its people.</p>
+            <p>Anonymous, crowdsourced results. Not affiliated with any ISP.</p>
+          </div>
         </div>
       </footer>
     )}
+    <script>
+      const els = document.querySelectorAll<HTMLElement>('[data-count]');
+      if (els.length && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            io.unobserve(e.target);
+            const el = e.target as HTMLElement, to = Number(el.dataset.count), t0 = performance.now();
+            const tick = (t: number) => {
+              const p = Math.min((t - t0) / 1100, 1);
+              el.textContent = Math.round(to * (1 - (1 - p) ** 3)).toLocaleString('en');
+              if (p < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+          }
+        });
+        els.forEach((el) => io.observe(el));
+      }
+    </script>
   </body>
 </html>

@@ -9,8 +9,9 @@ maplibregl.setWorkerUrl(workerUrl);
 
 export { maplibregl };
 
-// Speed ramp (slow → fast), same tokens as CSS --s1..--s5. Bins chosen for typical Dhaka home plans.
-export const RAMP = ['#1c5cab', '#3987e5', '#6da7ec', '#9ec5f4', '#cde2fb'];
+// Speed ramp (slow → fast), same tokens as CSS --s1..--s5; on a light map darker means faster.
+// Bins chosen for typical Dhaka home plans.
+export const RAMP = ['#7fb41b', '#5f9413', '#44740f', '#2d540c', '#183608'];
 export const METRICS = {
   local_down: { label: 'Download', long: 'Download', unit: 'Mbps', bins: [10, 25, 50, 100], lowerIsBetter: false },
   local_up: { label: 'Upload', long: 'Upload', unit: 'Mbps', bins: [10, 25, 50, 100], lowerIsBetter: false },
@@ -18,16 +19,16 @@ export const METRICS = {
 } as const;
 export type MetricKey = keyof typeof METRICS;
 
-// MapLibre expression: bin the metric into the ramp; brighter is always better.
+// MapLibre expression: bin the metric into the ramp; darker is always better.
 export function colorExpr(metric: MetricKey): any {
   const m = METRICS[metric];
   const colors = m.lowerIsBetter ? [...RAMP].reverse() : RAMP;
   const steps = m.bins.flatMap((b, i) => [b, colors[i + 1]]);
-  return ['case', ['==', ['get', metric], null], '#4a535d', ['step', ['get', metric], colors[0], ...steps]];
+  return ['case', ['==', ['get', metric], null], '#b4b6bd', ['step', ['get', metric], colors[0], ...steps]];
 }
 
 export function binColor(metric: MetricKey, v: number | null) {
-  if (v == null) return '#4a535d';
+  if (v == null) return '#b4b6bd';
   const m = METRICS[metric];
   const i = m.bins.filter((b) => v >= b).length;
   return (m.lowerIsBetter ? [...RAMP].reverse() : RAMP)[i];
@@ -37,7 +38,7 @@ export function createMap(container: HTMLElement, opts: Partial<maplibregl.MapOp
   const [w, s, e, n] = DHAKA_BOUNDS;
   const map = new maplibregl.Map({
     container,
-    style: 'https://tiles.openfreemap.org/styles/dark',
+    style: 'https://tiles.openfreemap.org/styles/positron',
     center: DHAKA_CENTER,
     zoom: 11.2,
     minZoom: 10,
@@ -49,10 +50,5 @@ export function createMap(container: HTMLElement, opts: Partial<maplibregl.MapOp
     ...opts,
   });
   map.touchZoomRotate.disableRotation();
-  map.on('style.load', () => {
-    // Blend the basemap into the page so the map feels native to the site.
-    map.setPaintProperty('background', 'background-color', '#0b0d10');
-    if (map.getLayer('water')) map.setPaintProperty('water', 'fill-color', '#101a26');
-  });
   return map;
 }

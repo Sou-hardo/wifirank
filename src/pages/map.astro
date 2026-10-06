@@ -17,9 +17,8 @@ const tested = data.areas.filter((a) => a.devices > 0).sort((a, b) => b.devices 
   <DhakaMap client:only="react" initial={data} isps={[...isps]} />
   <!-- Same data as text, for search engines, agents and screen readers -->
   <section class="wrap block">
-    <h2>Median speed by area</h2>
-    <p class="lede">The same data as the map, as a list. {tested.length} of {data.areas.length} areas have tests so far.</p>
-    <div class="table-wrap" style="margin-top:20px">
+    <div class="sec-head"><h2><span class="hl">Speed by area</span></h2><p>The same data as the map, as a list. {tested.length} of {data.areas.length} areas have tests so far.</p></div>
+    <div class="table-wrap">
       <table>
         <thead><tr><th scope="col">Area</th><th scope="col">Download Mbps</th><th scope="col">Upload Mbps</th><th scope="col">Ping ms</th><th scope="col">Testers</th></tr></thead>
         <tbody>

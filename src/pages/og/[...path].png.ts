@@ -1,8 +1,9 @@
 import type { APIRoute } from 'astro';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
-import f400 from '@fontsource/geist/files/geist-latin-400-normal.woff?inline';
-import f600 from '@fontsource/geist/files/geist-latin-600-normal.woff?inline';
+import f400 from '@fontsource/space-grotesk/files/space-grotesk-latin-400-normal.woff?inline';
+import f500 from '@fontsource/space-grotesk/files/space-grotesk-latin-500-normal.woff?inline';
+import fDot from '@fontsource/doto/files/doto-latin-900-normal.woff?inline';
 import { sql } from '../../lib/db';
 import { leaderboard, summary, MIN_DEVICES } from '../../lib/stats';
 import { AREAS } from '../../lib/options';
@@ -11,31 +12,34 @@ import { fmt } from '../../lib/format';
 // Social share cards: /og/home.png, /og/isp/<slug>.png, /og/area/<slug>.png
 const font = (uri: string) => Buffer.from(uri.slice(uri.indexOf(',') + 1), 'base64');
 const fonts = [
-  { name: 'Geist', data: font(f400), weight: 400 as const, style: 'normal' as const },
-  { name: 'Geist', data: font(f600), weight: 600 as const, style: 'normal' as const },
+  { name: 'Space Grotesk', data: font(f400), weight: 400 as const, style: 'normal' as const },
+  { name: 'Space Grotesk', data: font(f500), weight: 500 as const, style: 'normal' as const },
+  { name: 'Doto', data: font(fDot), weight: 900 as const, style: 'normal' as const },
 ];
 type Node = { type: string; props: Record<string, unknown> };
 const h = (type: string, style: Record<string, unknown>, ...children: (Node | string | null)[]): Node =>
   ({ type, props: { style: { display: 'flex', ...style }, children: children.filter((c) => c != null) } });
 
-const LIME = '#c6f432', MUTED = '#7c8792', TEXT2 = '#a7b0ba';
+const INK = '#191a23', LIME = '#b9ff66', MUTED = '#6c6e79', TEXT2 = '#4a4c57';
 const stat = (label: string, value: string, unit: string, accent = false) =>
-  h('div', { flexDirection: 'column', flex: 1, padding: '28px 32px', background: '#12161b', border: '1px solid #262c34', borderRadius: 24 },
-    h('div', { fontSize: 24, color: MUTED }, label),
-    h('div', { alignItems: 'baseline', marginTop: 10 },
-      h('div', { fontSize: 84, fontWeight: 600, letterSpacing: -4, color: accent ? LIME : '#f3f5f7' }, value),
-      h('div', { fontSize: 26, color: MUTED, marginLeft: 10 }, unit)));
+  h('div', { flexDirection: 'column', flex: 1, padding: '24px 30px 22px', background: accent ? LIME : '#fff', border: `2px solid ${INK}`, borderRadius: 30, boxShadow: `0 7px 0 ${INK}` },
+    h('div', { fontSize: 23, color: accent ? INK : MUTED }, label),
+    h('div', { alignItems: 'baseline', marginTop: 6 },
+      h('div', { fontFamily: 'Doto', fontSize: 92, fontWeight: 900, color: INK, alignItems: 'flex-end' },
+        ...value.split('.').flatMap((part, i) => (i ? [h('div', { width: 13, height: 13, background: INK, margin: '0 7px 17px' }), part] : [part]))),
+      h('div', { fontSize: 24, color: accent ? INK : MUTED, marginLeft: 10 }, unit)));
 
 function card(eyebrow: string, title: string, sub: string, stats: Node[]) {
-  return h('div', { width: 1200, height: 630, flexDirection: 'column', justifyContent: 'space-between', padding: 64, background: '#0b0d10', color: '#f3f5f7', fontFamily: 'Geist',
-      backgroundImage: 'radial-gradient(900px 500px at 85% -10%, rgba(198,244,50,0.16), transparent)' },
+  return h('div', { width: 1200, height: 630, flexDirection: 'column', justifyContent: 'space-between', padding: '56px 64px 64px', background: '#f3f3f1', color: INK, fontFamily: 'Space Grotesk',
+      backgroundImage: 'radial-gradient(circle at 100% 0%, rgba(25,26,35,0.10), transparent 45%)' },
     h('div', { alignItems: 'center', justifyContent: 'space-between' },
-      h('div', { alignItems: 'center', fontSize: 34, fontWeight: 600 },
-        h('div', { width: 18, height: 18, borderRadius: 9, background: LIME, marginRight: 16 }), 'WifiRank'),
-      h('div', { fontSize: 24, color: LIME, letterSpacing: 3 }, eyebrow.toUpperCase())),
+      h('div', { alignItems: 'center', fontSize: 34, fontWeight: 500, letterSpacing: -1 },
+        h('div', { width: 44, height: 44, borderRadius: 14, background: INK, marginRight: 14, alignItems: 'center', justifyContent: 'center' },
+          h('div', { width: 14, height: 14, borderRadius: 7, background: LIME })), 'WifiRank'),
+      h('div', { fontSize: 20, letterSpacing: 2, padding: '8px 16px', background: '#fff', border: '1px solid rgba(25,26,35,0.2)', borderRadius: 999 }, eyebrow.toUpperCase())),
     h('div', { flexDirection: 'column' },
-      h('div', { fontSize: title.length > 28 ? 62 : 78, fontWeight: 600, letterSpacing: -3, lineHeight: 1.05 }, title),
-      h('div', { fontSize: 30, color: TEXT2, marginTop: 16 }, sub)),
+      h('div', { fontSize: title.length > 28 ? 60 : 76, fontWeight: 500, letterSpacing: -3, lineHeight: 1.05 }, title),
+      h('div', { fontSize: 29, color: TEXT2, marginTop: 14 }, sub)),
     h('div', { gap: 20 }, ...stats));
 }
 

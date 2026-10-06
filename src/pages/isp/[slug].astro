@@ -65,34 +65,32 @@ const periods: [string, string, Row | null][] = [['All day', 'Every test', all],
         </dl>
 
         <section class="block" style="padding-bottom:0">
-          <h2>Peak vs off-peak</h2>
-          <p class="lede">
+          <div class="sec-head"><h2><span class="hl">Peak vs off-peak</span></h2><p>
             {drop == null ? 'Not enough evening tests yet to compare.'
               : drop >= 15 ? `${isp.name} slows down by about ${drop}% in the evening, a sign of congestion.`
               : drop <= -15 ? `${isp.name} is actually faster in the evening by about ${-drop}%.`
               : `${isp.name} holds steady in the evening: within ${Math.abs(drop)}% of daytime speed.`}
-          </p>
-          <div class="grid grid-3" style="margin-top:20px">
-            {periods.map(([label, sub, r]) => (
-              <div class="card">
-                <div class="row-between"><h3 style="margin:0">{label}</h3><span class="muted small">{sub}</span></div>
-                <p class="num" style="font-size:2.4rem;font-weight:600;margin:14px 0 2px;letter-spacing:-.04em">{fmt(r?.local_down)}<small class="muted" style="font:500 .85rem var(--font);margin-left:8px;letter-spacing:0">Mbps down</small></p>
-                <p class="muted small" style="margin:0">Upload {fmt(r?.local_up)} Mbps · ping {fmt(r?.local_ping)} ms · {r?.devices ?? 0} testers</p>
+          </p></div>
+          <div class="grid grid-3">
+            {periods.map(([label, sub, r], i) => (
+              <div class={`card pop ${['', 'dark', 'lime'][i]}`}>
+                <div class="row-between"><h3 style="margin:0">{label}</h3><span class="small" style="opacity:.7">{sub}</span></div>
+                <p class="dot" style="font-size:3.6rem;line-height:1;margin:22px 0 10px;color:inherit">{fmt(r?.local_down)}<small style="font:500 .9rem var(--font);margin-left:8px;text-transform:none;opacity:.7">Mbps down</small></p>
+                <p class="small" style="margin:0">Upload {fmt(r?.local_up)} Mbps · ping {fmt(r?.local_ping)} ms · {r?.devices ?? 0} testers</p>
               </div>
             ))}
           </div>
         </section>
 
         <section class="block" style="padding-bottom:0">
-          <h2>{isp.name} by area</h2>
-          <p class="lede">The same provider can perform very differently a few kilometres apart.</p>
-          <div style="margin-top:20px"><RankTable rows={areaRows} ranked={false} firstCol="Area" href={(s) => `/area/${s}`} caption={`${isp.name} median speed by area in Dhaka`} /></div>
+          <div class="sec-head"><h2><span class="hl">{isp.name} by area</span></h2><p>The same provider can perform very differently a few kilometres apart.</p></div>
+          <div><RankTable rows={areaRows} ranked={false} firstCol="Area" href={(s) => `/area/${s}`} caption={`${isp.name} median speed by area in Dhaka`} /></div>
         </section>
 
         <section class="block" style="padding-bottom:0">
-          <h2>Reviews</h2>
+          <div class="sec-head"><h2><span class="hl">Reviews</span></h2><p>From people who ran a test on {isp.name}. One review per device.</p></div>
           {reviews.length === 0 ? <p class="text-2">No reviews yet. Reviews can be left right after running a test on {isp.name}.</p> : (
-            <div class="grid grid-2" style="margin-top:20px">
+            <div class="grid grid-3">
               {reviews.map((r) => (
                 <article class="card" style="padding:18px 20px">
                   <div class="row-between">
@@ -107,8 +105,8 @@ const periods: [string, string, Row | null][] = [['All day', 'Every test', all],
         </section>
 
         <section class="block" style="padding-bottom:0">
-          <h2>Latest tests</h2>
-          <div class="table-wrap" style="margin-top:20px"><table>
+          <div class="sec-head"><h2><span class="hl">Latest tests</span></h2></div>
+          <div class="table-wrap"><table>
             <thead><tr><th scope="col">Area</th><th scope="col">Download</th><th scope="col">Upload</th><th scope="col">Ping</th><th scope="col">When</th></tr></thead>
             <tbody>{latest.map((t) => (
               <tr><td><a href={`/area/${t.area}`}>{AREAS[t.area] ?? t.area}</a></td><td class="num">{fmt(t.local_down)}</td><td class="num">{fmt(t.local_up)}</td>
