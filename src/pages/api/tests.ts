@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { sql } from '../../lib/db';
 import { hashIp, lookup } from '../../lib/network';
 import { AREAS, CONNECTIONS, PLANS, PRICES, slugify } from '../../lib/options';
+import { summary } from '../../lib/stats';
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const num = (v: unknown, max: number) => (typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= max ? v : null);
@@ -17,10 +18,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (!(b.connection in CONNECTIONS)) return bad('Pick a connection type');
   const plan = b.plan in PLANS ? b.plan : null;
   const price = b.price in PRICES ? b.price : null;
-  const i = b.intl ?? {}, x = b.bdix ?? {};
-  const intl = [num(i.down, 1e4), num(i.up, 1e4), num(i.ping, 1e4), num(i.jitter, 1e4), num(i.loss, 1)];
-  const bdix = [num(x.down, 1e4), num(x.up, 1e4), num(x.ping, 1e4), num(x.jitter, 1e4)];
-  if (intl[0] == null && bdix[0] == null) return bad('No speed results');
+  // local = Cloudflare's Dhaka edge; intl = our overseas test server (Singapore)
+  const l = b.local ?? {}, x = b.intl ?? {};
+  const local = [num(l.down, 1e4), num(l.up, 1e4), num(l.ping, 1e4), num(l.jitter, 1e4), num(l.loss, 1)];
+  const intl = [num(x.down, 1e4), num(x.up, 1e4), num(x.ping, 1e4), num(x.jitter, 1e4)];
+  if (local[0] == null && intl[0] == null) return bad('No speed results');
 
   const ipHash = hashIp(clientAddress);
   const [recent] = await sql`
@@ -49,11 +51,16 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const net = await lookup(clientAddress);
   const [row] = await sql`
     insert into tests (device_id, isp_id, area, lat, lng, connection, plan, price,
-      intl_down, intl_up, intl_ping, intl_jitter, intl_loss, bdix_down, bdix_up, bdix_ping, bdix_jitter,
+      local_down, local_up, local_ping, local_jitter, local_loss, intl_down, intl_up, intl_ping, intl_jitter,
       ip_hash, asn, as_org, country, flag)
     values (${b.deviceId}, ${ispId}, ${b.area}, ${grid(b.lat, 20, 27)}, ${grid(b.lng, 88, 93)}, ${b.connection}, ${plan}, ${price},
-      ${intl[0]}, ${intl[1]}, ${intl[2]}, ${intl[3]}, ${intl[4]}, ${bdix[0]}, ${bdix[1]}, ${bdix[2]}, ${bdix[3]},
+      ${local[0]}, ${local[1]}, ${local[2]}, ${local[3]}, ${local[4]}, ${intl[0]}, ${intl[1]}, ${intl[2]}, ${intl[3]},
       ${ipHash}, ${net.asn}, ${net.as_org}, ${net.country}, ${net.flag})
     returning id`;
-  return Response.json({ id: row.id, ispId, flag: net.flag, asOrg: net.as_org });
+  // How this result compares with everyone else on the same ISP in the same area.
+  const peer = net.flag ? null : await summary(sql, { ispId, area: b.area });
+  return Response.json({
+    id: row.id, ispId, flag: net.flag, asOrg: net.as_org,
+    peer: peer && { devices: peer.devices, local_down: peer.local_down, intl_down: peer.intl_down, local_ping: peer.local_ping },
+  });
 };

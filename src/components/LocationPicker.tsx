@@ -47,7 +47,9 @@ export default function LocationPicker({ open, initial, area, onClose, onPick }:
       if (initial) markerRef.current.setLngLat([initial.lng, initial.lat]).addTo(map);
       map.on('click', (e: any) => place(e.lngLat.lng, e.lngLat.lat));
       map.on('load', () => setStatus('ready'));
-      map.on('error', () => setStatus((s) => (s === 'loading' ? 'error' : s)));
+      map.on('error', (e: any) => console.warn('map:', e?.error?.message ?? e));
+      // Tile or sprite hiccups also emit 'error'; only a map that never loads is fatal.
+      setTimeout(() => setStatus((s) => (s === 'loading' ? 'error' : s)), 20000);
     }).catch(() => setStatus('error'));
     return () => { cancelled = true; };
   }, [open]);

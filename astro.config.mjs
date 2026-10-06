@@ -11,6 +11,8 @@ export default defineConfig({
   output: 'server',
   adapter: vercel(),
   integrations: [react()],
+  // Lazily imported, so Vite's dev scanner misses it without a hint.
+  vite: { optimizeDeps: { include: ['maplibre-gl'] } },
   env: {
     schema: {
       DATABASE_URL: envField.string({ context: 'server', access: 'secret' }),
@@ -18,7 +20,7 @@ export default defineConfig({
       IPINFO_TOKEN: envField.string({ context: 'server', access: 'secret', optional: true }),
       CF_TURN_KEY_ID: envField.string({ context: 'server', access: 'secret', optional: true }),
       CF_TURN_API_TOKEN: envField.string({ context: 'server', access: 'secret', optional: true }),
-      PUBLIC_BDIX_URL: envField.string({ context: 'client', access: 'public', optional: true }),
+      PUBLIC_INTL_URL: envField.string({ context: 'client', access: 'public', optional: true }),
     },
   },
 });

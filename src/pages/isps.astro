@@ -1,50 +1,59 @@
 ---
 import Base from '../layouts/Base.astro';
+import RankTable from '../components/RankTable.astro';
 import { sql } from '../lib/db';
 import { leaderboard, MIN_DEVICES } from '../lib/stats';
 import { AREAS, PLANS } from '../lib/options';
 
 const p = Astro.url.searchParams;
 const pick = (k: string, opts: object) => { const v = p.get(k) ?? ''; return v in opts ? v : null; };
-const area = pick('area', AREAS);
-const plan = pick('plan', PLANS);
-const rows = await leaderboard(sql, { area, plan });
-const f = (v: number | null, d = 1) => (v == null ? '—' : v.toFixed(d));
+const area = pick('area', AREAS), plan = pick('plan', PLANS);
+const SORTS = { local_down: 'Local download', intl_down: 'International download', intl_ping: 'International ping', local_up: 'Local upload' };
+const sort = pick('sort', SORTS) ?? 'local_down';
+if (area && !plan && sort === 'local_down') return Astro.redirect(`/area/${area}`, 301); // one canonical URL per area
+const rows = await leaderboard(sql, { area, plan, sort });
+const reliable = rows.filter((r) => r.devices >= MIN_DEVICES).length;
+const schema = [{
+  '@type': 'Dataset', name: 'Dhaka ISP speed test rankings', description: 'Median crowdsourced download, upload and latency for internet providers in Dhaka, Bangladesh, over the last 90 days.',
+  url: new URL('/isps', Astro.site).href, license: 'https://creativecommons.org/licenses/by/4.0/', spatialCoverage: 'Dhaka, Bangladesh',
+  distribution: [{ '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: new URL('/api/stats', Astro.site).href }],
+  creator: { '@type': 'Organization', name: 'WifiRank' },
+}];
 ---
-<Base title={area ? `ISPs in ${AREAS[area]}` : 'Compare ISPs'}>
-  <h1>{area ? `ISPs in ${AREAS[area]}` : 'ISPs across Dhaka'}</h1>
-  <form class="filters card">
-    <label>Area
-      <select name="area"><option value="">All of Dhaka</option>
-        {Object.entries(AREAS).map(([k, v]) => <option value={k} selected={k === area}>{v}</option>)}
-      </select>
-    </label>
-    <label>Package speed
-      <select name="plan"><option value="">Any package</option>
-        {Object.entries(PLANS).map(([k, v]) => <option value={k} selected={k === plan}>{v}</option>)}
-      </select>
-    </label>
-    <button>Filter</button>
-  </form>
-  <p class="muted">Medians from the last 90 days. Each device counts once. Greyed rows have fewer than {MIN_DEVICES} testers, so treat them as early signals.</p>
-  {rows.length === 0 ? (
-    <p class="card">No tests here yet. <a href="/">Be the first to run one</a>.</p>
-  ) : (
-    <div class="scroll"><table>
-      <thead><tr>
-        <th>ISP</th><th>BDIX ↓ Mbps</th><th>Intl ↓ Mbps</th><th>Intl ↑ Mbps</th><th>Ping ms</th><th>Jitter ms</th><th>Rating</th><th>Testers</th>
-      </tr></thead>
-      <tbody>
-        {rows.map((r) => (
-          <tr class={r.devices < MIN_DEVICES ? 'few' : ''}>
-            <td><a href={`/isp/${r.slug}`}>{r.name}</a></td>
-            <td>{f(r.bdix_down)}</td><td>{f(r.intl_down)}</td><td>{f(r.intl_up)}</td>
-            <td>{f(r.intl_ping, 0)}</td><td>{f(r.intl_jitter, 0)}</td>
-            <td>{r.rating == null ? '—' : `★ ${r.rating.toFixed(1)} (${r.reviews})`}</td>
-            <td>{r.devices}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table></div>
-  )}
+<Base title="Fastest internet providers in Dhaka, ranked" schema={schema} jsonAlt="/api/stats" noindex={!!plan || sort !== 'local_down'}
+  description={`${rows.length} Dhaka ISPs ranked by real, crowdsourced speed tests: local and international download, upload, ping and user ratings.`}>
+  <section class="wrap" style="padding-top:clamp(28px,5vw,56px)">
+    <p class="eyebrow">Rankings</p>
+    <h1>Dhaka’s internet providers, ranked by real speed</h1>
+    <p class="lede">{rows.length} providers measured by the people who use them. {reliable} have enough testers to rank reliably.</p>
+
+    <form class="card filters" style="margin:28px 0 20px">
+      <label class="field"><span class="label">Area</span>
+        <select class="input" name="area"><option value="">All of Dhaka</option>
+          {Object.entries(AREAS).map(([k, v]) => <option value={k} selected={k === area}>{v}</option>)}
+        </select>
+      </label>
+      <label class="field"><span class="label">Package</span>
+        <select class="input" name="plan"><option value="">Any package</option>
+          {Object.entries(PLANS).map(([k, v]) => <option value={k} selected={k === plan}>{v}</option>)}
+        </select>
+      </label>
+      <label class="field"><span class="label">Sort by</span>
+        <select class="input" name="sort">{Object.entries(SORTS).map(([k, v]) => <option value={k} selected={k === sort}>{v}</option>)}</select>
+      </label>
+      <button class="btn btn-primary">Apply</button>
+    </form>
+
+    {rows.length === 0
+      ? <div class="card"><h3>No tests match yet</h3><p class="text-2" style="margin:0">Be the first: <a href="/">run a test</a> and it shows up here.</p></div>
+      : <RankTable rows={rows} caption="Internet providers in Dhaka ranked by median speed" />}
+  </section>
 </Base>
+<style>
+  .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; align-items: end; }
+  .filters .btn { height: 48px; }
+</style>
+<script>
+  // Submit the filter form as soon as a select changes; the button remains for no-JS and keyboard users.
+  document.querySelectorAll<HTMLSelectElement>('.filters select').forEach((s) => s.addEventListener('change', () => s.form?.requestSubmit()));
+</script>

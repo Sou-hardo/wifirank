@@ -1,16 +1,20 @@
 // Loaded lazily (dynamic import) so pages only pay for MapLibre when a map is actually shown.
 import * as maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
+// MapLibre 6 resolves its worker relative to its own file, which bundling breaks; hand it Vite's bundled worker.
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import { DHAKA_BOUNDS, DHAKA_CENTER } from '../lib/areas';
+
+maplibregl.setWorkerUrl(workerUrl);
 
 export { maplibregl };
 
 // Speed ramp (slow → fast), same tokens as CSS --s1..--s5. Bins chosen for typical Dhaka home plans.
 export const RAMP = ['#1c5cab', '#3987e5', '#6da7ec', '#9ec5f4', '#cde2fb'];
 export const METRICS = {
-  bdix_down: { label: 'BDIX ↓', long: 'BDIX download', unit: 'Mbps', bins: [10, 25, 50, 100], lowerIsBetter: false },
-  intl_down: { label: 'Intl ↓', long: 'International download', unit: 'Mbps', bins: [10, 25, 50, 100], lowerIsBetter: false },
-  intl_ping: { label: 'Ping', long: 'Ping (latency)', unit: 'ms', bins: [15, 30, 60, 100], lowerIsBetter: true },
+  local_down: { label: 'Local ↓', long: 'Local download (Dhaka)', unit: 'Mbps', bins: [10, 25, 50, 100], lowerIsBetter: false },
+  intl_down: { label: 'Intl ↓', long: 'International download (Singapore)', unit: 'Mbps', bins: [10, 25, 50, 100], lowerIsBetter: false },
+  intl_ping: { label: 'Intl ping', long: 'Ping to Singapore', unit: 'ms', bins: [40, 60, 90, 150], lowerIsBetter: true },
 } as const;
 export type MetricKey = keyof typeof METRICS;
 

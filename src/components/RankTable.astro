@@ -1,0 +1,52 @@
+---
+import { MIN_DEVICES, type Row } from '../lib/stats';
+import { fmt } from '../lib/format';
+
+interface Props {
+  rows: (Row & { name: string; slug: string; rating?: number | null; reviews?: number })[];
+  caption: string;
+  href?: (slug: string) => string;
+  firstCol?: string;
+  ranked?: boolean; // false when rows aren't ordered by speed (e.g. areas by tester count)
+}
+const { rows, caption, href = (s) => `/isp/${s}`, firstCol = 'Provider', ranked = true } = Astro.props;
+const max = Math.max(...rows.map((r) => r.local_down ?? 0), 1);
+const hasRating = rows.some((r) => 'rating' in r);
+---
+<div class="table-wrap">
+  <table>
+    <caption class="sr-only">{caption}</caption>
+    <thead>
+      <tr>
+        <th scope="col">{firstCol}</th>
+        <th scope="col">Local ↓ <span class="sr-only">download, Mbps</span></th>
+        <th scope="col">Local ↑</th>
+        <th scope="col">Intl ↓</th>
+        <th scope="col">Intl ping</th>
+        {hasRating && <th scope="col">Rating</th>}
+        <th scope="col">Testers</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((r, i) => (
+        <tr class={r.devices < MIN_DEVICES ? 'few' : ''}>
+          <th scope="row" style="font-weight:inherit;border-bottom:1px solid var(--line)">
+            {ranked && <span class="rank">{i + 1}</span>}<a href={href(r.slug)}>{r.name}</a>
+          </th>
+          <td class="num">
+            <span class="bar" style={`width:${Math.round(((r.local_down ?? 0) / max) * 56)}px`} aria-hidden="true"></span>{fmt(r.local_down)}
+          </td>
+          <td class="num">{fmt(r.local_up)}</td>
+          <td class="num">{fmt(r.intl_down)}</td>
+          <td class="num">{fmt(r.intl_ping, 0)}</td>
+          {hasRating && <td class="num">{r.rating == null ? '—' : <><span class="stars-static" aria-hidden="true">★</span> {r.rating.toFixed(1)} <span class="muted">({r.reviews})</span></>}</td>}
+          <td class="num">{r.devices}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+<p class="muted small" style="margin-top:10px">
+  Speeds in Mbps, ping in ms. Medians from the last 90 days; each device counts once.
+  Dimmed rows have fewer than {MIN_DEVICES} testers, so treat them as early signals.
+</p>

@@ -1,12 +1,89 @@
 ---
 import Base from '../layouts/Base.astro';
 import SpeedTest from '../components/SpeedTest';
+import DhakaMap from '../components/DhakaMap';
+import RankTable from '../components/RankTable.astro';
 import { sql } from '../lib/db';
+import { leaderboard, MIN_DEVICES } from '../lib/stats';
+import { mapData } from '../lib/mapData';
+import { AREAS } from '../lib/options';
 
-const isps = await sql<{ id: number; name: string; aliases: string[] }[]>`select id, name, aliases from isps where approved order by name`;
+const [isps, [totals], board, map] = await Promise.all([
+  sql<{ id: number; name: string; slug: string; aliases: string[] }[]>`select id, name, slug, aliases from isps where approved order by id`,
+  sql<{ tests: number; devices: number; isps: number; areas: number }[]>`
+    select count(*)::int as tests, count(distinct device_id)::int as devices, count(distinct isp_id)::int as isps, count(distinct area)::int as areas
+    from tests where flag is null`,
+  leaderboard(sql, {}),
+  mapData(sql),
+]);
+const top = board.filter((r) => r.devices >= MIN_DEVICES).slice(0, 8);
+
+const faq = [
+  ['Which ISP is the best in Dhaka?', 'It depends on where you live. The same provider can be excellent in Gulshan and poor in Mirpur, because each area is served by different local lines and resellers. Pick your area on the map or the rankings page to see which providers actually perform well there.'],
+  ['What is the difference between local and international speed?', 'Local speed is how fast you reach servers inside Bangladesh, where caches for YouTube, Facebook and most popular sites live. International speed is how fast you reach servers abroad (we test against Singapore), which matters for gaming, video calls with people overseas, and large downloads. Many ISPs sell a fast local speed with a much smaller international allowance.'],
+  ['Why is my speed lower than the package I pay for?', 'Common causes: you are on 2.4 GHz Wi-Fi or far from the router, other people are using the connection, it is peak time (8 pm to midnight), or your ISP shares its international bandwidth among too many customers. Test on a cable to rule out Wi-Fi, then compare your result with others on the same ISP in your area.'],
+  ['Is the test anonymous?', 'Yes. There is no account. We store your results, the area you chose, the name of the network your connection came from, and a hashed (scrambled) IP used only to prevent abuse. If you drop a pin, it is rounded to about 500 metres before saving.'],
+  ['How do you stop ISPs from faking results?', 'Every device counts once per ISP no matter how many tests it runs. Tests made over mobile data or a VPN are detected and excluded. Reviews can only be posted from a device that ran a test on that ISP. Rankings use medians, so a few extreme results cannot move them.'],
+];
+const schema = [
+  { '@type': 'WebApplication', name: 'WifiRank Speed Test', url: Astro.site?.href, applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: 0, priceCurrency: 'BDT' }, areaServed: { '@type': 'City', name: 'Dhaka' } },
+  { '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+];
+const n = (v: number) => v.toLocaleString('en');
 ---
-<Base>
-  <h1>How fast is your ISP, really?</h1>
-  <p class="muted">Pick your ISP and area, run the test, and help everyone in Dhaka choose better. We measure both <strong>BDIX</strong> (local) and <strong>international</strong> speed, because ISPs differ most on these.</p>
-  <SpeedTest client:only="react" isps={[...isps]} />
+<Base schema={schema} jsonAlt="/api/stats">
+  <section class="wrap" style="padding-top:clamp(28px,6vw,72px)">
+    <p class="eyebrow rise">Dhaka · crowdsourced · anonymous</p>
+    <h1 class="rise" style="--i:1;max-width:16ch">How fast is your internet, <span style="color:var(--accent)">really?</span></h1>
+    <p class="lede rise" style="--i:2">Test your connection in 40 seconds and see how your provider compares with others in your area. Every result helps your neighbours choose better.</p>
+    <div class="rise" style="--i:3"><SpeedTest client:load isps={isps.map(({ id, name, aliases }) => ({ id, name, aliases }))} /></div>
+    {totals.tests > 0 && (
+      <p class="muted small rise" style="--i:4;margin-top:18px;text-align:center">
+        <span class="num">{n(totals.tests)}</span> tests from <span class="num">{n(totals.devices)}</span> people · <span class="num">{totals.isps}</span> providers · <span class="num">{totals.areas}</span> areas
+      </p>
+    )}
+  </section>
+
+  <section class="wrap block" id="map">
+    <div class="reveal">
+      <p class="eyebrow">The map</p>
+      <h2>Speed changes street by street.</h2>
+      <p class="lede">Each circle is a neighbourhood. Brighter means faster; bigger means more people tested there. Tap one to see which providers win.</p>
+    </div>
+    <div class="reveal" style="margin-top:24px">
+      <DhakaMap client:visible initial={map} isps={isps.map(({ slug, name }) => ({ slug, name }))} compact />
+    </div>
+  </section>
+
+  {top.length > 0 && (
+    <section class="wrap block" style="padding-top:0">
+      <div class="row-between reveal" style="align-items:end;margin-bottom:20px">
+        <div><p class="eyebrow">Rankings</p><h2 style="margin:0">Fastest providers across Dhaka</h2></div>
+        <a class="btn btn-sm" href="/isps">All {board.length} providers →</a>
+      </div>
+      <div class="reveal"><RankTable rows={top} caption="Fastest internet providers across Dhaka by median local download speed" /></div>
+    </section>
+  )}
+
+  <section class="wrap block" style="padding-top:0">
+    <div class="reveal"><p class="eyebrow">Why it matters</p><h2>One number never tells the whole story.</h2></div>
+    <div class="grid grid-3" style="margin-top:24px">
+      <article class="card reveal"><h3>Local speed</h3><p class="text-2" style="margin:0">How fast you reach servers inside Bangladesh. YouTube, Facebook and most big sites are cached locally, so this is what everyday browsing feels like.</p></article>
+      <article class="card reveal"><h3>International speed</h3><p class="text-2" style="margin:0">How fast you reach the rest of the world. We test against Singapore. This is where providers quietly differ the most, and it decides gaming, calls and downloads.</p></article>
+      <article class="card reveal"><h3>Peak hours</h3><p class="text-2" style="margin:0">Between 8 pm and midnight everyone is online. A provider that is fast at noon can crawl at night, so we show both for every ISP.</p></article>
+    </div>
+  </section>
+
+  <section class="wrap block" style="padding-top:0">
+    <div class="reveal"><p class="eyebrow">Browse</p><h2>Best internet provider in your area</h2></div>
+    <nav class="chips reveal" style="margin-top:20px" aria-label="Areas">
+      {Object.entries(AREAS).map(([slug, name]) => <a href={`/area/${slug}`} style="text-decoration:none"><span>{name}</span></a>)}
+    </nav>
+  </section>
+
+  <section class="wrap block" style="padding-top:0;max-width:820px">
+    <div class="reveal"><p class="eyebrow">Questions</p><h2>Good to know</h2></div>
+    {faq.map(([q, a]) => <details class="faq reveal"><summary>{q}</summary><div>{a}</div></details>)}
+  </section>
 </Base>

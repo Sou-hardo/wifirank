@@ -9,7 +9,8 @@ const R = 128, C = 160;
 const frac = (v: number) => Math.min(Math.log10(1 + Math.max(v, 0)) / Math.log10(1 + MAX), 1);
 const point = (f: number, r = R) => {
   const a = ((START + SWEEP * f) * Math.PI) / 180;
-  return [C + r * Math.cos(a), C + r * Math.sin(a)];
+  // Rounded so server and browser render identical markup (their trig differs in the last digit).
+  return [Math.round((C + r * Math.cos(a)) * 100) / 100, Math.round((C + r * Math.sin(a)) * 100) / 100];
 };
 const arc = (r: number) => {
   const [x0, y0] = point(0, r), [x1, y1] = point(1, r);
@@ -53,7 +54,7 @@ export default function Gauge({ value, unit = 'Mbps', label, active, children }:
           </linearGradient>
         </defs>
         <path d={arc(R)} className="g-track" pathLength={1} />
-        <path d={arc(R)} className="g-fill" pathLength={1} stroke="url(#g-arc)" strokeDasharray={`${f} 1`} />
+        {f > 0 && <path d={arc(R)} className="g-fill" pathLength={1} stroke="url(#g-arc)" strokeDasharray={`${f} 1`} />}
         {TICKS.map((t) => {
           const [x1, y1] = point(frac(t), R - 18), [x2, y2] = point(frac(t), R - 24);
           const [lx, ly] = point(frac(t), R - 42);

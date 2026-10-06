@@ -2,7 +2,7 @@
 // Each device counts once: per-device median first, then median across devices.
 import type { Sql } from 'postgres';
 
-const METRICS = ['intl_down', 'intl_up', 'intl_ping', 'intl_jitter', 'intl_loss', 'bdix_down', 'bdix_up', 'bdix_ping', 'bdix_jitter'] as const;
+export const METRICS = ['local_down', 'local_up', 'local_ping', 'local_jitter', 'local_loss', 'intl_down', 'intl_up', 'intl_ping', 'intl_jitter'] as const;
 export type Metric = (typeof METRICS)[number];
 export type Row = Record<Metric, number | null> & { devices: number; tests: number };
 
@@ -25,7 +25,9 @@ function where(sql: Sql, f: Filter) {
     ${f.peak == null ? sql`` : sql`and (extract(hour from t.created_at at time zone 'Asia/Dhaka') >= 20) = ${f.peak}`}`;
 }
 
-export async function leaderboard(sql: Sql, f: Filter) {
+export async function leaderboard(sql: Sql, f: Filter & { sort?: string | null } = {}) {
+  const sort = (METRICS as readonly string[]).includes(f.sort ?? '') ? f.sort! : 'local_down';
+  const dir = /ping|jitter|loss/.test(sort) ? 'asc' : 'desc';
   return sql<(Row & { name: string; slug: string; rating: number | null; reviews: number })[]>`
     with dev as (
       select t.isp_id, t.device_id, count(*) as n, ${sql.unsafe(perDevice)}
@@ -41,7 +43,7 @@ export async function leaderboard(sql: Sql, f: Filter) {
       -- Bayesian average: 5 phantom reviews at the site-wide mean
       case when r.reviews > 0 then ((5 * prior.m + r.total) / (5 + r.reviews))::real end as rating
     from agg join isps i on i.id = agg.isp_id left join r on r.isp_id = agg.isp_id cross join prior
-    order by agg.devices >= ${MIN_DEVICES} desc, coalesce(agg.bdix_down, agg.intl_down) desc nulls last`;
+    order by agg.devices >= ${MIN_DEVICES} desc, ${sql.unsafe(`agg.${sort} ${dir}`)} nulls last, agg.devices desc`;
 }
 
 export async function byArea(sql: Sql, f: Filter) {
@@ -58,8 +60,8 @@ export async function byArea(sql: Sql, f: Filter) {
 // Individual results for the map and "latest results" feed. Coordinates are already ~500 m rounded.
 export async function recent(sql: Sql, f: Filter & { limit: number; located?: boolean }) {
   return sql<{ id: number; isp: string; slug: string; area: string; lat: number | null; lng: number | null; connection: string;
-    intl_down: number | null; intl_up: number | null; intl_ping: number | null; bdix_down: number | null; created_at: Date }[]>`
-    select t.id, i.name as isp, i.slug, t.area, t.lat, t.lng, t.connection, t.intl_down, t.intl_up, t.intl_ping, t.bdix_down, t.created_at
+    local_down: number | null; local_up: number | null; local_ping: number | null; intl_down: number | null; intl_up: number | null; intl_ping: number | null; created_at: Date }[]>`
+    select t.id, i.name as isp, i.slug, t.area, t.lat, t.lng, t.connection, t.local_down, t.local_up, t.local_ping, t.intl_down, t.intl_up, t.intl_ping, t.created_at
     from tests t join isps i on i.id = t.isp_id
     where ${where(sql, f)} and i.approved ${f.located ? sql`and t.lat is not null` : sql``}
     order by t.created_at desc limit ${f.limit}`;

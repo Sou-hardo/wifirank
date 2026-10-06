@@ -1,4 +1,6 @@
-// BDIX test endpoint: run on a VPS connected to BDIX, set PUBLIC_BDIX_URL to it.
+// Speed-test endpoint for the international test: run on an overseas VPS (Singapore is where most
+// Bangladeshi international traffic and game servers go) and set PUBLIC_INTL_URL to it.
+// The same file on a BDIX-connected VPS would measure BDIX instead.
 // Speaks the same API as speed.cloudflare.com (/__down?bytes=N, /__up) so one engine drives both tests.
 // Usage: PORT=8090 node server.js   (put it behind HTTPS, e.g. Caddy, in production)
 import { createServer } from 'node:http';

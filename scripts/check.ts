@@ -15,7 +15,7 @@ try {
   await sql`insert into isps (name, slug) values ('Alpha', 'alpha'), ('Beta', 'beta')`;
   const A = '00000000-0000-0000-0000-00000000000a', B = '00000000-0000-0000-0000-00000000000b', C = '00000000-0000-0000-0000-00000000000c';
   const t = (dev: string, isp: number, down: number, opts: { flag?: string; hour?: number; area?: string } = {}) => sql`
-    insert into tests (device_id, isp_id, area, connection, intl_down, ip_hash, flag, created_at)
+    insert into tests (device_id, isp_id, area, connection, local_down, ip_hash, flag, created_at)
     values (${dev}, ${isp}, ${opts.area ?? 'mirpur-10'}, 'cable', ${down}, 'x', ${opts.flag ?? null},
       date_trunc('day', now() at time zone 'Asia/Dhaka') at time zone 'Asia/Dhaka' - interval '1 day' + make_interval(hours => ${opts.hour ?? 10}))`;
 
@@ -30,11 +30,11 @@ try {
   const alpha = rows.find((r) => r.slug === 'alpha')!;
   assert.equal(alpha.devices, 3);
   assert.equal(alpha.tests, 12);
-  assert.equal(alpha.intl_down, 50);
+  assert.equal(alpha.local_down, 50);
   assert.equal(rows[0].slug, 'beta'); // faster, both under MIN_DEVICES
 
   assert.equal((await leaderboard(sql, { area: 'banani' })).length, 1);
-  assert.equal((await summary(sql, { ispId: 1, peak: true }))?.intl_down, 50);
+  assert.equal((await summary(sql, { ispId: 1, peak: true }))?.local_down, 50);
   assert.equal((await summary(sql, { ispId: 1, peak: false }))?.devices, 2);
   assert.deepEqual((await byArea(sql, { ispId: 1 })).map((r) => [r.area, r.devices]), [['mirpur-10', 2], ['banani', 1]]);
 
