@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+import { sql } from '../../lib/db';
+import { byArea, summary, MIN_DEVICES, type Row } from '../../lib/stats';
+import { AREAS } from '../../lib/options';
+
+const [isp] = await sql`select id, name, website from isps where slug = ${Astro.params.slug ?? ''} and approved`;
+if (!isp) return new Response('Not found', { status: 404 });
+const [all, peak, offPeak, areas, reviews] = await Promise.all([
+  summary(sql, { ispId: isp.id }),
+  summary(sql, { ispId: isp.id, peak: true }),
+  summary(sql, { ispId: isp.id, peak: false }),
+  byArea(sql, isp.id),
+  sql`select stars, comment, updated_at from reviews where isp_id = ${isp.id} and not hidden order by updated_at desc limit 50`,
+]);
+const f = (v: number | null | undefined, d = 1) => (v == null ? '—' : v.toFixed(d));
+const cols: [string, (r: Row | null) => string][] = [
+  ['BDIX ↓', (r) => f(r?.bdix_down)], ['BDIX ↑', (r) => f(r?.bdix_up)], ['Intl ↓', (r) => f(r?.intl_down)], ['Intl ↑', (r) => f(r?.intl_up)],
+  ['Ping ms', (r) => f(r?.intl_ping, 0)], ['Jitter ms', (r) => f(r?.intl_jitter, 0)],
+  ['Loss', (r) => (r?.intl_loss == null ? '—' : `${(r.intl_loss * 100).toFixed(1)}%`)], ['Testers', (r) => String(r?.devices ?? 0)],
+];
+const periods: [string, Row | null][] = [['Overall', all], ['Peak', peak], ['Off-peak', offPeak]];
+---
+<Base title={isp.name}>
+  <h1>{isp.name}</h1>
+  {isp.website && <p><a href={isp.website} rel="nofollow noopener" target="_blank">{isp.website}</a></p>}
+  {all?.rating != null && <p>★ {all.rating.toFixed(1)} from {all.reviews} reviews</p>}
+
+  <h2>Peak vs off-peak</h2>
+  <p class="muted">Peak is 8 pm to midnight, when networks are busiest. A big gap means the ISP is congested in the evening.</p>
+  <div class="scroll"><table>
+    <thead><tr><th></th>{cols.map(([h]) => <th>{h}</th>)}</tr></thead>
+    <tbody>
+      {periods.map(([label, r]) => <tr><td>{label}</td>{cols.map(([, get]) => <td>{get(r)}</td>)}</tr>)}
+    </tbody>
+  </table></div>
+
+  <h2>By area</h2>
+  {areas.length === 0 ? <p class="muted">No tests yet.</p> : (
+    <div class="scroll"><table>
+      <thead><tr><th>Area</th>{cols.map(([h]) => <th>{h}</th>)}</tr></thead>
+      <tbody>
+        {areas.map((r) => (
+          <tr class={r.devices < MIN_DEVICES ? 'few' : ''}><td><a href={`/isps?area=${r.area}`}>{AREAS[r.area] ?? r.area}</a></td>{cols.map(([, get]) => <td>{get(r)}</td>)}</tr>
+        ))}
+      </tbody>
+    </table></div>
+  )}
+
+  <h2>Reviews</h2>
+  {reviews.length === 0 ? <p class="muted">No reviews yet.</p> : reviews.map((r) => (
+    <div class="card">
+      <div aria-label={`${r.stars} out of 5 stars`}>{'★'.repeat(r.stars)}<span class="muted">{'★'.repeat(5 - r.stars)}</span>
+        <small class="muted"> · {new Date(r.updated_at).toLocaleDateString('en-GB')}</small></div>
+      {r.comment && <p>{r.comment}</p>}
+    </div>
+  ))}
+</Base>

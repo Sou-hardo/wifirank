@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import SpeedTest from '../components/SpeedTest';
+import { sql } from '../lib/db';
+
+const isps = await sql<{ id: number; name: string; aliases: string[] }[]>`select id, name, aliases from isps where approved order by name`;
+---
+<Base>
+  <h1>How fast is your ISP, really?</h1>
+  <p class="muted">Pick your ISP and area, run the test, and help everyone in Dhaka choose better. We measure both <strong>BDIX</strong> (local) and <strong>international</strong> speed, because ISPs differ most on these.</p>
+  <SpeedTest client:only="react" isps={[...isps]} />
+</Base>

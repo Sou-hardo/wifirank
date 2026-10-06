@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import { sql } from '../lib/db';
+import { leaderboard, MIN_DEVICES } from '../lib/stats';
+import { AREAS, PLANS } from '../lib/options';
+
+const p = Astro.url.searchParams;
+const pick = (k: string, opts: object) => { const v = p.get(k) ?? ''; return v in opts ? v : null; };
+const area = pick('area', AREAS);
+const plan = pick('plan', PLANS);
+const rows = await leaderboard(sql, { area, plan });
+const f = (v: number | null, d = 1) => (v == null ? '—' : v.toFixed(d));
+---
+<Base title={area ? `ISPs in ${AREAS[area]}` : 'Compare ISPs'}>
+  <h1>{area ? `ISPs in ${AREAS[area]}` : 'ISPs across Dhaka'}</h1>
+  <form class="filters card">
+    <label>Area
+      <select name="area"><option value="">All of Dhaka</option>
+        {Object.entries(AREAS).map(([k, v]) => <option value={k} selected={k === area}>{v}</option>)}
+      </select>
+    </label>
+    <label>Package speed
+      <select name="plan"><option value="">Any package</option>
+        {Object.entries(PLANS).map(([k, v]) => <option value={k} selected={k === plan}>{v}</option>)}
+      </select>
+    </label>
+    <button>Filter</button>
+  </form>
+  <p class="muted">Medians from the last 90 days. Each device counts once. Greyed rows have fewer than {MIN_DEVICES} testers, so treat them as early signals.</p>
+  {rows.length === 0 ? (
+    <p class="card">No tests here yet. <a href="/">Be the first to run one</a>.</p>
+  ) : (
+    <div class="scroll"><table>
+      <thead><tr>
+        <th>ISP</th><th>BDIX ↓ Mbps</th><th>Intl ↓ Mbps</th><th>Intl ↑ Mbps</th><th>Ping ms</th><th>Jitter ms</th><th>Rating</th><th>Testers</th>
+      </tr></thead>
+      <tbody>
+        {rows.map((r) => (
+          <tr class={r.devices < MIN_DEVICES ? 'few' : ''}>
+            <td><a href={`/isp/${r.slug}`}>{r.name}</a></td>
+            <td>{f(r.bdix_down)}</td><td>{f(r.intl_down)}</td><td>{f(r.intl_up)}</td>
+            <td>{f(r.intl_ping, 0)}</td><td>{f(r.intl_jitter, 0)}</td>
+            <td>{r.rating == null ? '—' : `★ ${r.rating.toFixed(1)} (${r.reviews})`}</td>
+            <td>{r.devices}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table></div>
+  )}
+</Base>
