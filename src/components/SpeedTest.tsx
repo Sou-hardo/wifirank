@@ -341,7 +341,7 @@ export default function SpeedTest({ isps }: { isps: Isp[] }) {
                   ))}
                 </div>
                 {tried && missing === 'connection' ? <small className="error">How is this device connected?</small>
-                  : <small className="muted">Cable gives the truest ISP speed. 2.4 GHz Wi-Fi often caps below your plan.</small>}
+                  : <small className="muted hint-wide">Cable gives the truest ISP speed. 2.4 GHz Wi-Fi often caps below your plan.</small>}
               </fieldset>
 
               {error && <p className="error" role="alert">{error}</p>}

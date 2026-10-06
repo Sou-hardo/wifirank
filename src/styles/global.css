@@ -83,6 +83,7 @@ section.block { padding-block: clamp(48px, 8vw, 96px); }
 .nav a:hover { color: var(--text); background: var(--surface-2); }
 .nav a[aria-current='page'] { color: var(--text); background: var(--surface-3); }
 @media (max-width: 560px) {
+  .hint-wide { display: none; } /* keeps the Start button above the fold on phones */
   .lede { font-size: 1rem; }
   .seg span { font-size: .76rem; }
   .brand span { display: none; }
