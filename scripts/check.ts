@@ -6,6 +6,13 @@ import { PGlite } from '@electric-sql/pglite';
 import { PGLiteSocketServer } from '@electric-sql/pglite-socket';
 import postgres from 'postgres';
 import { leaderboard, byArea, summary, recent } from '../src/lib/stats.ts';
+import { sustainedMbps } from '../src/lib/sustained.ts';
+
+// Sustained speed: short bursts are ignored, the median of loaded requests is reported.
+const pt = (bytes: number, mbps: number, duration: number) => ({ bytes, bps: mbps * 1e6, duration });
+assert.equal(sustainedMbps([pt(1e5, 20, 30), pt(1e6, 173, 80), pt(1e6, 160, 85), pt(1e7, 100, 800), pt(1e7, 90, 900), pt(2.5e7, 98, 2000)]), 98);
+assert.equal(sustainedMbps([pt(1e5, 20, 30), pt(1e6, 150, 60), pt(1e6, 170, 55)]), 160); // nothing loaded yet: largest size so far
+assert.equal(sustainedMbps([]), null);
 
 const server = new PGLiteSocketServer({ db: await PGlite.create(), port: 54329 });
 await server.start();

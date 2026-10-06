@@ -12,7 +12,7 @@ import { MIN_DEVICES } from '../lib/stats';
     <h2 class="reveal"><span class="hl">What the test measures</span></h2>
     <p>The test runs in your browser against Cloudflare’s server in Dhaka, using Cloudflare’s open-source <code>speedtest</code> engine. We record download and upload speed (Mbps), ping (round-trip latency, ms) and jitter (how much ping varies, ms). Packet loss is measured when available.</p>
     <p><strong>This is the domestic path.</strong> It reflects how you reach content served from inside Bangladesh, which includes the local caches most big sites use. It does not measure speed to servers abroad, so a provider that looks fast here can still be slow for overseas games, calls or downloads.</p>
-    <p>The engine ramps up through larger and larger transfers and reports the 90th-percentile speed, so a brief dip doesn’t understate your connection and a single burst doesn’t overstate it.</p>
+    <p>The engine ramps up through larger and larger transfers. We report <strong>sustained speed</strong>: the median of the transfers long enough to load your line (a quarter of a second or more). Short bursts on small files are left out, because many connections start fast and then settle, and the settled speed is what a download or video call actually gets. This reads lower than tools that report peak or 90th-percentile speed.</p>
 
     <h2 class="reveal"><span class="hl">What we store</span></h2>
     <ul>

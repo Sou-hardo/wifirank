@@ -5,6 +5,7 @@ import Combobox, { type Option } from './Combobox';
 import Gauge from './Gauge';
 import LocationPicker from './LocationPicker';
 import { burst } from '../scripts/fx';
+import { sustainedMbps } from '../lib/sustained';
 
 type Isp = { id: number; name: string; aliases: string[] };
 type Metrics = { down: number | null; up: number | null; ping: number | null; jitter: number | null; loss?: number | null };
@@ -45,8 +46,8 @@ const num = (f: () => number | undefined) => {
   try { const v = f(); return typeof v === 'number' && Number.isFinite(v) ? v : null; } catch { return null; }
 };
 const read = (r: any): Metrics => ({
-  down: num(() => r.getDownloadBandwidth() / 1e6),
-  up: num(() => r.getUploadBandwidth() / 1e6),
+  down: num(() => sustainedMbps(r.getDownloadBandwidthPoints()) ?? undefined),
+  up: num(() => sustainedMbps(r.getUploadBandwidthPoints()) ?? undefined),
   ping: num(() => r.getUnloadedLatency()),
   jitter: num(() => r.getUnloadedJitter()),
   loss: num(() => r.getPacketLoss()),
