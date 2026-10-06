@@ -18,11 +18,9 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (!(b.connection in CONNECTIONS)) return bad('Pick a connection type');
   const plan = b.plan in PLANS ? b.plan : null;
   const price = b.price in PRICES ? b.price : null;
-  // local = Cloudflare's Dhaka edge; intl = our overseas test server (Singapore)
-  const l = b.local ?? {}, x = b.intl ?? {};
+  const l = b.local ?? {};
   const local = [num(l.down, 1e4), num(l.up, 1e4), num(l.ping, 1e4), num(l.jitter, 1e4), num(l.loss, 1)];
-  const intl = [num(x.down, 1e4), num(x.up, 1e4), num(x.ping, 1e4), num(x.jitter, 1e4)];
-  if (local[0] == null && intl[0] == null) return bad('No speed results');
+  if (local[0] == null) return bad('No speed results');
 
   const ipHash = hashIp(clientAddress);
   const [recent] = await sql`
@@ -51,16 +49,16 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const net = await lookup(clientAddress);
   const [row] = await sql`
     insert into tests (device_id, isp_id, area, lat, lng, connection, plan, price,
-      local_down, local_up, local_ping, local_jitter, local_loss, intl_down, intl_up, intl_ping, intl_jitter,
+      local_down, local_up, local_ping, local_jitter, local_loss,
       ip_hash, asn, as_org, country, flag)
     values (${b.deviceId}, ${ispId}, ${b.area}, ${grid(b.lat, 20, 27)}, ${grid(b.lng, 88, 93)}, ${b.connection}, ${plan}, ${price},
-      ${local[0]}, ${local[1]}, ${local[2]}, ${local[3]}, ${local[4]}, ${intl[0]}, ${intl[1]}, ${intl[2]}, ${intl[3]},
+      ${local[0]}, ${local[1]}, ${local[2]}, ${local[3]}, ${local[4]},
       ${ipHash}, ${net.asn}, ${net.as_org}, ${net.country}, ${net.flag})
     returning id`;
   // How this result compares with everyone else on the same ISP in the same area.
   const peer = net.flag ? null : await summary(sql, { ispId, area: b.area });
   return Response.json({
     id: row.id, ispId, flag: net.flag, asOrg: net.as_org,
-    peer: peer && { devices: peer.devices, local_down: peer.local_down, intl_down: peer.intl_down, local_ping: peer.local_ping },
+    peer: peer && { devices: peer.devices, local_down: peer.local_down },
   });
 };

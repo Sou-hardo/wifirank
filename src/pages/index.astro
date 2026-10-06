@@ -20,8 +20,8 @@ const top = board.filter((r) => r.devices >= MIN_DEVICES).slice(0, 8);
 
 const faq = [
   ['Which ISP is the best in Dhaka?', 'It depends on where you live. The same provider can be excellent in Gulshan and poor in Mirpur, because each area is served by different local lines and resellers. Pick your area on the map or the rankings page to see which providers actually perform well there.'],
-  ['What is the difference between local and international speed?', 'Local speed is how fast you reach servers inside Bangladesh, where caches for YouTube, Facebook and most popular sites live. International speed is how fast you reach servers abroad (we test against Singapore), which matters for gaming, video calls with people overseas, and large downloads. Many ISPs sell a fast local speed with a much smaller international allowance.'],
-  ['Why is my speed lower than the package I pay for?', 'Common causes: you are on 2.4 GHz Wi-Fi or far from the router, other people are using the connection, it is peak time (8 pm to midnight), or your ISP shares its international bandwidth among too many customers. Test on a cable to rule out Wi-Fi, then compare your result with others on the same ISP in your area.'],
+  ['What exactly does the test measure?', 'Download speed, upload speed, ping and jitter between your device and Cloudflare’s server in Dhaka. That is the domestic path, which covers the locally cached content most big sites serve. It does not measure speed to servers abroad, so it cannot tell you how overseas games or downloads will perform.'],
+  ['Why is my speed lower than the package I pay for?', 'Common causes: you are on 2.4 GHz Wi-Fi or far from the router, other people are using the connection, it is peak time (8 pm to midnight), or your ISP shares its bandwidth among too many customers. Test on a cable to rule out Wi-Fi, then compare your result with others on the same ISP in your area.'],
   ['Is the test anonymous?', 'Yes. There is no account. We store your results, the area you chose, the name of the network your connection came from, and a hashed (scrambled) IP used only to prevent abuse. If you drop a pin, it is rounded to about 500 metres before saving.'],
   ['How do you stop ISPs from faking results?', 'Every device counts once per ISP no matter how many tests it runs. Tests made over mobile data or a VPN are detected and excluded. Reviews can only be posted from a device that ran a test on that ISP. Rankings use medians, so a few extreme results cannot move them.'],
 ];
@@ -62,15 +62,15 @@ const n = (v: number) => v.toLocaleString('en');
         <div><p class="eyebrow">Rankings</p><h2 style="margin:0">Fastest providers across Dhaka</h2></div>
         <a class="btn btn-sm" href="/isps">All {board.length} providers →</a>
       </div>
-      <div class="reveal"><RankTable rows={top} caption="Fastest internet providers across Dhaka by median local download speed" /></div>
+      <div class="reveal"><RankTable rows={top} caption="Fastest internet providers across Dhaka by median download speed" /></div>
     </section>
   )}
 
   <section class="wrap block" style="padding-top:0">
     <div class="reveal"><p class="eyebrow">Why it matters</p><h2>One number never tells the whole story.</h2></div>
     <div class="grid grid-3" style="margin-top:24px">
-      <article class="card reveal"><h3>Local speed</h3><p class="text-2" style="margin:0">How fast you reach servers inside Bangladesh. YouTube, Facebook and most big sites are cached locally, so this is what everyday browsing feels like.</p></article>
-      <article class="card reveal"><h3>International speed</h3><p class="text-2" style="margin:0">How fast you reach the rest of the world. We test against Singapore. This is where providers quietly differ the most, and it decides gaming, calls and downloads.</p></article>
+      <article class="card reveal"><h3>Download and upload</h3><p class="text-2" style="margin:0">Download is streaming and browsing. Upload is video calls, backups and sending files. Many packages are fast one way and slow the other.</p></article>
+      <article class="card reveal"><h3>Ping and jitter</h3><p class="text-2" style="margin:0">How quickly your connection responds, and how steady it is. These decide whether games and calls feel smooth, even on a fast line.</p></article>
       <article class="card reveal"><h3>Peak hours</h3><p class="text-2" style="margin:0">Between 8 pm and midnight everyone is online. A provider that is fast at noon can crawl at night, so we show both for every ISP.</p></article>
     </div>
   </section>

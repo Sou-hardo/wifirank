@@ -20,7 +20,6 @@ export default defineConfig({
       IPINFO_TOKEN: envField.string({ context: 'server', access: 'secret', optional: true }),
       CF_TURN_KEY_ID: envField.string({ context: 'server', access: 'secret', optional: true }),
       CF_TURN_API_TOKEN: envField.string({ context: 'server', access: 'secret', optional: true }),
-      PUBLIC_INTL_URL: envField.string({ context: 'client', access: 'public', optional: true }),
     },
   },
 });

@@ -3,15 +3,15 @@ import type { MapArea, MapPoint } from '../lib/mapData';
 import Combobox, { type Option } from './Combobox';
 
 type Data = { isp: { name: string; slug: string } | null; areas: MapArea[]; points: MapPoint[] };
-type MetricKey = 'local_down' | 'intl_down' | 'intl_ping';
-type AreaIsp = { name: string; slug: string; devices: number; local_down: number | null; intl_down: number | null; intl_ping: number | null; rating: number | null };
+type MetricKey = 'local_down' | 'local_up' | 'local_ping';
+type AreaIsp = { name: string; slug: string; devices: number; local_down: number | null; local_up: number | null; local_ping: number | null; rating: number | null };
 type Props = { initial: Data; isps: { slug: string; name: string }[]; compact?: boolean };
 
 // Mirrors mapCore.METRICS so the panel can render before MapLibre has loaded.
 const METRICS: Record<MetricKey, { label: string; long: string; unit: string; bins: number[]; lowerIsBetter: boolean }> = {
-  local_down: { label: 'Local ↓', long: 'Local download', unit: 'Mbps', bins: [10, 25, 50, 100], lowerIsBetter: false },
-  intl_down: { label: 'Intl ↓', long: 'International download', unit: 'Mbps', bins: [10, 25, 50, 100], lowerIsBetter: false },
-  intl_ping: { label: 'Intl ping', long: 'Ping to Singapore', unit: 'ms', bins: [40, 60, 90, 150], lowerIsBetter: true },
+  local_down: { label: 'Download', long: 'Download', unit: 'Mbps', bins: [10, 25, 50, 100], lowerIsBetter: false },
+  local_up: { label: 'Upload', long: 'Upload', unit: 'Mbps', bins: [10, 25, 50, 100], lowerIsBetter: false },
+  local_ping: { label: 'Ping', long: 'Ping (latency)', unit: 'ms', bins: [5, 10, 20, 40], lowerIsBetter: true },
 };
 const RAMP = ['#1c5cab', '#3987e5', '#6da7ec', '#9ec5f4', '#cde2fb'];
 const fmt = (v: number | null | undefined) => (v == null ? '—' : v < 10 ? v.toFixed(1) : Math.round(v).toString());
@@ -226,7 +226,7 @@ export default function DhakaMap({ initial, isps, compact }: Props) {
                 ))}
               </ol>
             ) : (
-              <p className="text-2">{metric === 'local_down' ? 'No tests yet.' : 'No international results yet.'} <a href="/">Run a test</a> to add yours.</p>
+              <p className="text-2">No tests yet. <a href="/">Run a test</a> to add yours.</p>
             )}
           </div>
         )}

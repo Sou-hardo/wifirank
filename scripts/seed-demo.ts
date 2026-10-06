@@ -12,8 +12,8 @@ const isps = await sql<{ id: number }[]>`select id from isps where approved orde
 let seed = 7;
 const rnd = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
 const pick = <T,>(a: T[]) => a[Math.floor(rnd() * a.length)];
-const comments = ['Stable most of the day, slows down after 9 pm.', 'Support picks up fast, fixed my line in a day.', 'Good BDIX speed, YouTube is smooth.',
-  'Frequent outages during rain.', 'Fair price for the speed.', 'Ping to Singapore is great for gaming.', null, null, null];
+const comments = ['Stable most of the day, slows down after 9 pm.', 'Support picks up fast, fixed my line in a day.', 'YouTube is smooth even at night.',
+  'Frequent outages during rain.', 'Fair price for the speed.', 'Low ping, good for gaming.', null, null, null];
 
 // Peak tests land 20:00–23:59 Dhaka (UTC+6), the rest during the day.
 const at = (peak: boolean) => {
@@ -41,7 +41,6 @@ for (const area of slugs) {
           ? { lat: Math.round((lat + (rnd() - 0.5) * 0.012) * 200) / 200, lng: Math.round((lng + (rnd() - 0.5) * 0.012) * 200) / 200 }
           : { lat: null, lng: null }),
         local_down: down, local_up: down * (0.8 + rnd() * 0.2), local_ping: 3 + rnd() * 9, local_jitter: 1 + rnd() * 6, local_loss: rnd() * 0.01,
-        intl_down: down * (0.3 + rnd() * 0.5) * quality, intl_up: down * 0.4, intl_ping: 45 + rnd() * 60 / quality, intl_jitter: 2 + rnd() * 15,
         ip_hash: 'demo', created_at: at(peak),
       });
     }

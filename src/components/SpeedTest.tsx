@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import SpeedTestEngine from '@cloudflare/speedtest';
-import { PUBLIC_INTL_URL } from 'astro:env/client';
 import { AREAS, PLANS, PRICES } from '../lib/options';
 import Combobox, { type Option } from './Combobox';
 import Gauge from './Gauge';
@@ -9,9 +8,8 @@ import LocationPicker from './LocationPicker';
 type Isp = { id: number; name: string; aliases: string[] };
 type Metrics = { down: number | null; up: number | null; ping: number | null; jitter: number | null; loss?: number | null };
 type Stage = 'latency' | 'download' | 'upload' | 'packetLoss';
-type Run = 'local' | 'intl';
 type Saved = { ispId: number; flag: string | null; asOrg: string | null;
-  peer: { devices: number; local_down: number | null; intl_down: number | null; local_ping: number | null } | null };
+  peer: { devices: number; local_down: number | null } | null };
 
 const MEASUREMENTS = [
   { type: 'latency', numPackets: 1 },
@@ -67,26 +65,13 @@ const Icon = ({ d }: { d: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={d} /></svg>
 );
 
-function Steps({ run, stage, hasIntl }: { run: Run | 'done' | null; stage: Stage | null; hasIntl: boolean }) {
-  const order: Stage[] = ['latency', 'download', 'upload'];
-  const names = { latency: 'Ping', download: 'Download', upload: 'Upload' } as Record<string, string>;
-  const row = (r: Run, label: string) => {
-    const runIdx = run === 'done' ? 2 : run === r ? 1 : run === 'intl' && r === 'local' ? 2 : 0;
-    return (
-      <div className="steps-row">
-        <span className="steps-label">{label}</span>
-        {order.map((s) => {
-          const cur = stage === 'packetLoss' ? 'upload' : stage;
-          const state = runIdx === 2 ? 'done' : runIdx === 1 ? (order.indexOf(s) < order.indexOf(cur ?? 'latency') ? 'done' : s === cur ? 'active' : '') : '';
-          return <span key={s} className={`step ${state}`}>{names[s]}</span>;
-        })}
-      </div>
-    );
-  };
+function Steps({ stage, done }: { stage: Stage | null; done: boolean }) {
+  const order = ['latency', 'download', 'upload'] as const;
+  const names = { latency: 'Ping', download: 'Download', upload: 'Upload' };
+  const cur = order.indexOf((stage === 'packetLoss' ? 'upload' : stage ?? 'latency') as (typeof order)[number]);
   return (
     <div className="steps" aria-hidden="true">
-      {row('local', 'Local')}
-      {hasIntl && row('intl', 'International')}
+      {order.map((s, i) => <span key={s} className={`step ${done || i < cur ? 'done' : i === cur ? 'active' : ''}`}>{names[s]}</span>)}
     </div>
   );
 }
@@ -114,9 +99,9 @@ function ResultPanel({ title, sub, m, peer }: { title: string; sub: string; m: M
   );
 }
 
-async function shareImage(isp: string, area: string, local: Metrics | null, intl: Metrics | null) {
+async function shareImage(isp: string, area: string, m: Metrics | null) {
   await document.fonts.load('600 64px "Geist Variable"').catch(() => {});
-  const W = 1080, H = 1350, c = document.createElement('canvas');
+  const W = 1080, H = 1080, c = document.createElement('canvas');
   c.width = W; c.height = H;
   const g = c.getContext('2d')!;
   const font = (w: number, s: number, mono = false) => `${w} ${s}px ${mono ? '"Geist Mono Variable", monospace' : '"Geist Variable", system-ui, sans-serif'}`;
@@ -134,23 +119,19 @@ async function shareImage(isp: string, area: string, local: Metrics | null, intl
   g.fillStyle = '#a7b0ba'; g.font = font(500, 34); g.fillText(`${area}, Dhaka`, 80, 290, 920);
   g.fillStyle = '#f3f5f7'; g.font = font(650, 84); g.fillText(isp, 80, 380, 920);
 
-  const block = (label: string, m: Metrics | null, y: number) => {
-    g.fillStyle = '#12161b'; g.beginPath(); g.roundRect(60, y, W - 120, 340, 36); g.fill();
-    g.strokeStyle = 'rgba(255,255,255,0.08)'; g.lineWidth = 2; g.stroke();
-    g.fillStyle = '#7c8792'; g.font = font(500, 28, true); g.fillText(label, 110, y + 70);
-    const col = (title: string, v: string, unit: string, x: number, big: boolean) => {
-      g.fillStyle = '#7c8792'; g.font = font(500, 26); g.fillText(title, x, y + 140);
-      g.fillStyle = big ? '#c6f432' : '#f3f5f7'; g.font = font(600, big ? 120 : 76, true); g.fillText(v, x, y + (big ? 262 : 250));
-      g.fillStyle = '#7c8792'; g.font = font(500, 26); g.fillText(unit, x, y + 302);
-    };
-    col('Download', f1(m?.down), 'Mbps', 110, true);
-    col('Upload', f1(m?.up), 'Mbps', 520, false);
-    col('Ping', f1(m?.ping), 'ms', 800, false);
+  const y = 470;
+  g.fillStyle = '#12161b'; g.beginPath(); g.roundRect(60, y, W - 120, 400, 36); g.fill();
+  g.strokeStyle = 'rgba(255,255,255,0.08)'; g.lineWidth = 2; g.stroke();
+  const col = (title: string, v: string, unit: string, x: number, big: boolean) => {
+    g.fillStyle = '#7c8792'; g.font = font(500, 28); g.fillText(title, x, y + 90);
+    g.fillStyle = big ? '#c6f432' : '#f3f5f7'; g.font = font(600, big ? 150 : 84, true); g.fillText(v, x, y + (big ? 250 : 220));
+    g.fillStyle = '#7c8792'; g.font = font(500, 28); g.fillText(unit, x, y + (big ? 310 : 275));
   };
-  block('LOCAL · DHAKA', local, 470);
-  block(intl ? 'INTERNATIONAL · SINGAPORE' : 'INTERNATIONAL · NOT MEASURED', intl, 850);
+  col('Download', f1(m?.down), 'Mbps', 110, true);
+  col('Upload', f1(m?.up), 'Mbps', 560, false);
+  col('Ping', f1(m?.ping), 'ms', 820, false);
   g.fillStyle = '#a7b0ba'; g.font = font(500, 30);
-  g.fillText(`Compare ISPs in your area → ${location.host}`, 80, 1270, 920);
+  g.fillText(`Compare ISPs in your area → ${location.host}`, 80, 990, 920);
 
   const blob = await new Promise<Blob>((r) => c.toBlob((b) => r(b!), 'image/png'));
   const file = new File([blob], 'wifirank-result.png', { type: 'image/png' });
@@ -213,11 +194,9 @@ export default function SpeedTest({ isps }: { isps: Isp[] }) {
   const [connection, setConnection] = useState('');
   const [plan, setPlan] = useState('');
   const [price, setPrice] = useState('');
-  const [run, setRun] = useState<Run | 'done' | null>(null);
   const [stage, setStage] = useState<Stage | null>(null);
   const [live, setLive] = useState<Metrics | null>(null);
   const [local, setLocal] = useState<Metrics | null>(null);
-  const [intl, setIntl] = useState<Metrics | null>(null);
   const [saved, setSaved] = useState<Saved | null>(null);
   const [error, setError] = useState('');
   const [tried, setTried] = useState(false);
@@ -246,10 +225,9 @@ export default function SpeedTest({ isps }: { isps: Isp[] }) {
       return;
     }
     localStorage.setItem('wr_last', JSON.stringify({ isp, area, connection, plan, price }));
-    setError(''); setLocal(null); setIntl(null); setSaved(null); setLive(null);
+    setError(''); setLocal(null); setSaved(null); setLive(null); setStage(null);
     setPhase('running');
 
-    setRun('local');
     const creds = await fetch('/api/turn-creds').then((r) => (r.ok ? r.json() : null)).catch(() => null);
     const m = [...MEASUREMENTS];
     if (creds) m.splice(6, 0, { type: 'packetLoss', numPackets: 1e3, responsesWaitTime: 3000 } as any);
@@ -258,22 +236,13 @@ export default function SpeedTest({ isps }: { isps: Isp[] }) {
     if (!creds) i = { ...i, loss: null };
     setLocal(i);
 
-    let b: Metrics | null = null;
-    if (PUBLIC_INTL_URL) {
-      setRun('intl'); setLive(null); setStage(null);
-      const { loss, ...rest } = await runEngine(
-        { measurements: MEASUREMENTS, downloadApiUrl: `${PUBLIC_INTL_URL}/__down`, uploadApiUrl: `${PUBLIC_INTL_URL}/__up` }, progress);
-      b = rest;
-      setIntl(b);
-    }
-    setRun('done');
     setPhase('saving');
     // Plan/price may have been filled in while the test ran, so read them now.
     const res = await fetch('/api/tests', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         deviceId: deviceId(), ...(isp.id ? { ispId: isp.id } : { ispName: isp.name }), area, connection,
-        plan: planRef.current || null, price: priceRef.current || null, ...(pin && { lat: pin.lat, lng: pin.lng }), local: i, intl: b,
+        plan: planRef.current || null, price: priceRef.current || null, ...(pin && { lat: pin.lat, lng: pin.lng }), local: i,
       }),
     }).catch(() => null);
     const body = await res?.json().catch(() => null);
@@ -378,11 +347,11 @@ export default function SpeedTest({ isps }: { isps: Isp[] }) {
               ) : (
                 <div className="done-actions rise">
                   {saved && !saved.flag && <p className="saved"><Icon d="M20 6 9 17l-5-5" /> Saved to the {areaName} map</p>}
-                  <button type="button" className="btn btn-primary" onClick={() => shareImage(isp.name, areaName, local, intl)}>
+                  <button type="button" className="btn btn-primary" onClick={() => shareImage(isp.name, areaName, local)}>
                     <Icon d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13" /> Share result
                   </button>
                   <a className="btn" href={`/area/${area}`}>Compare ISPs in {areaName}</a>
-                  <button type="button" className="btn btn-ghost" onClick={() => { setPhase('setup'); setRun(null); setStage(null); }}>Test again</button>
+                  <button type="button" className="btn btn-ghost" onClick={() => { setPhase('setup'); setStage(null); }}>Test again</button>
                 </div>
               )}
             </div>
@@ -401,13 +370,13 @@ export default function SpeedTest({ isps }: { isps: Isp[] }) {
           ) : (
             <>
               <Gauge value={phase === 'running' ? gaugeValue : local?.down ?? null} active={phase === 'running'}
-                label={phase === 'running' ? gaugeLabel : 'Local ↓'}
+                label={phase === 'running' ? gaugeLabel : 'Download'}
                 unit={phase === 'running' && (stage === 'latency' || !stage) ? 'ms' : 'Mbps'}>
                 {phase === 'running' && (stage === 'latency' || !stage) ? (
                   <><div className="g-label">{gaugeLabel}</div><div className="g-value num">{f1(live?.ping)}</div><div className="g-unit">ms</div></>
                 ) : undefined}
               </Gauge>
-              <Steps run={run} stage={stage} hasIntl={!!PUBLIC_INTL_URL} />
+              <Steps stage={stage} done={phase !== 'running'} />
               <p className="sr-only" aria-live="polite">{phase === 'saving' ? 'Test finished, saving' : phase === 'done' ? 'Test complete' : ''}</p>
             </>
           )}
@@ -424,10 +393,7 @@ export default function SpeedTest({ isps }: { isps: Isp[] }) {
                 : <>Your connection appears to be <strong>outside Bangladesh</strong> (a VPN?), so it won’t count. Turn the VPN off and test again.</>}</span>
             </div>
           )}
-          <div className="grid grid-2">
-            <ResultPanel title="Local" sub="Servers inside Bangladesh (Cloudflare Dhaka): most websites and apps" m={local} peer={peer?.local_down} />
-            <ResultPanel title="International" sub="Overseas server in Singapore: downloads, gaming, video calls abroad" m={intl} peer={peer?.intl_down} />
-          </div>
+          <ResultPanel title="Your result" sub="Measured against Cloudflare’s server in Dhaka" m={local} peer={peer?.local_down} />
           {saved && !saved.flag && <Review ispId={saved.ispId} ispName={isp.name} />}
         </div>
       )}

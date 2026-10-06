@@ -20,8 +20,8 @@ create table if not exists tests (
   connection text not null check (connection in ('cable', 'wifi5', 'wifi24', 'wifi')),
   plan text,
   price text,
+  -- Measured against Cloudflare's Dhaka edge (the domestic path)
   local_down real, local_up real, local_ping real, local_jitter real, local_loss real,
-  intl_down real, intl_up real, intl_ping real, intl_jitter real,
   ip_hash text not null,
   asn int,
   as_org text,

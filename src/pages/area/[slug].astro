@@ -57,10 +57,10 @@ const desc = best
       <section class="block" style="padding-bottom:0">
         <h2>Latest tests in {name}</h2>
         <div class="table-wrap" style="margin-top:20px"><table>
-          <thead><tr><th scope="col">Provider</th><th scope="col">Local ↓</th><th scope="col">Local ↑</th><th scope="col">Intl ↓</th><th scope="col">Intl ping</th><th scope="col">When</th></tr></thead>
+          <thead><tr><th scope="col">Provider</th><th scope="col">Download</th><th scope="col">Upload</th><th scope="col">Ping</th><th scope="col">When</th></tr></thead>
           <tbody>{latest.map((t) => (
             <tr><td><a href={`/isp/${t.slug}`}>{t.isp}</a></td><td class="num">{fmt(t.local_down)}</td><td class="num">{fmt(t.local_up)}</td>
-              <td class="num">{fmt(t.intl_down)}</td><td class="num">{fmt(t.intl_ping, 0)}</td><td class="muted">{day(t.created_at)}</td></tr>
+              <td class="num">{fmt(t.local_ping)}</td><td class="muted">{day(t.created_at)}</td></tr>
           ))}</tbody>
         </table></div>
       </section>

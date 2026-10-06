@@ -12,9 +12,9 @@ export { maplibregl };
 // Speed ramp (slow → fast), same tokens as CSS --s1..--s5. Bins chosen for typical Dhaka home plans.
 export const RAMP = ['#1c5cab', '#3987e5', '#6da7ec', '#9ec5f4', '#cde2fb'];
 export const METRICS = {
-  local_down: { label: 'Local ↓', long: 'Local download (Dhaka)', unit: 'Mbps', bins: [10, 25, 50, 100], lowerIsBetter: false },
-  intl_down: { label: 'Intl ↓', long: 'International download (Singapore)', unit: 'Mbps', bins: [10, 25, 50, 100], lowerIsBetter: false },
-  intl_ping: { label: 'Intl ping', long: 'Ping to Singapore', unit: 'ms', bins: [40, 60, 90, 150], lowerIsBetter: true },
+  local_down: { label: 'Download', long: 'Download', unit: 'Mbps', bins: [10, 25, 50, 100], lowerIsBetter: false },
+  local_up: { label: 'Upload', long: 'Upload', unit: 'Mbps', bins: [10, 25, 50, 100], lowerIsBetter: false },
+  local_ping: { label: 'Ping', long: 'Ping (latency)', unit: 'ms', bins: [5, 10, 20, 40], lowerIsBetter: true },
 } as const;
 export type MetricKey = keyof typeof METRICS;
 

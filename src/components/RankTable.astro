@@ -19,10 +19,10 @@ const hasRating = rows.some((r) => 'rating' in r);
     <thead>
       <tr>
         <th scope="col">{firstCol}</th>
-        <th scope="col">Local ↓ <span class="sr-only">download, Mbps</span></th>
-        <th scope="col">Local ↑</th>
-        <th scope="col">Intl ↓</th>
-        <th scope="col">Intl ping</th>
+        <th scope="col">Download</th>
+        <th scope="col">Upload</th>
+        <th scope="col">Ping</th>
+        <th scope="col">Jitter</th>
         {hasRating && <th scope="col">Rating</th>}
         <th scope="col">Testers</th>
       </tr>
@@ -37,8 +37,8 @@ const hasRating = rows.some((r) => 'rating' in r);
             <span class="bar" style={`width:${Math.round(((r.local_down ?? 0) / max) * 56)}px`} aria-hidden="true"></span>{fmt(r.local_down)}
           </td>
           <td class="num">{fmt(r.local_up)}</td>
-          <td class="num">{fmt(r.intl_down)}</td>
-          <td class="num">{fmt(r.intl_ping, 0)}</td>
+          <td class="num">{fmt(r.local_ping)}</td>
+          <td class="num">{fmt(r.local_jitter)}</td>
           {hasRating && <td class="num">{r.rating == null ? '—' : <><span class="stars-static" aria-hidden="true">★</span> {r.rating.toFixed(1)} <span class="muted">({r.reviews})</span></>}</td>}
           <td class="num">{r.devices}</td>
         </tr>

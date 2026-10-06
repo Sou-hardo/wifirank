@@ -8,7 +8,6 @@
     "preview": "astro preview",
     "db:local": "pglite-server --db=.pglite --port=5432 --max-connections=10",
     "db:migrate": "node --env-file-if-exists=.env scripts/migrate.js",
-    "testserver:local": "node test-server/server.js",
     "check": "node --env-file-if-exists=.env scripts/check.ts"
   },
   "dependencies": {

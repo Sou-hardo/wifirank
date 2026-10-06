@@ -3,21 +3,15 @@ import Base from '../layouts/Base.astro';
 import { MIN_DEVICES } from '../lib/stats';
 ---
 <Base title="How WifiRank measures and ranks ISPs"
-  description="How WifiRank tests internet speed in Dhaka, what local and international speed mean, how results are checked for abuse, and how provider rankings are calculated.">
+  description="How WifiRank tests internet speed in Dhaka, what the test does and does not measure, how results are checked for abuse, and how provider rankings are calculated.">
   <article class="wrap prose" style="padding-top:clamp(28px,5vw,56px);max-width:780px">
     <p class="eyebrow">Methodology</p>
     <h1>How it works</h1>
     <p class="lede">WifiRank exists because ISP reviews in Bangladesh contradict each other. We replace opinions with measurements, and we show exactly how those measurements are made.</p>
 
     <h2>What the test measures</h2>
-    <p>Each test runs twice, against two different servers, using the same open-source engine (Cloudflare’s <code>speedtest</code> library) so the numbers are comparable.</p>
-    <dl class="defs">
-      <dt>Local</dt>
-      <dd>Against Cloudflare’s server in Dhaka. This is the domestic path, similar to how you reach locally cached content such as YouTube and Facebook.</dd>
-      <dt>International</dt>
-      <dd>Against our own server in Singapore, where most of Bangladesh’s international traffic goes. This is the path used by overseas games, video calls and downloads.</dd>
-    </dl>
-    <p>For each we record download and upload speed (Mbps), ping (round-trip latency, ms) and jitter (how much ping varies, ms). Packet loss is measured on the local path when available.</p>
+    <p>The test runs in your browser against Cloudflare’s server in Dhaka, using Cloudflare’s open-source <code>speedtest</code> engine. We record download and upload speed (Mbps), ping (round-trip latency, ms) and jitter (how much ping varies, ms). Packet loss is measured when available.</p>
+    <p><strong>This is the domestic path.</strong> It reflects how you reach content served from inside Bangladesh, which includes the local caches most big sites use. It does not measure speed to servers abroad, so a provider that looks fast here can still be slow for overseas games, calls or downloads.</p>
     <p>The engine ramps up through larger and larger transfers and reports the 90th-percentile speed, so a brief dip doesn’t understate your connection and a single burst doesn’t overstate it.</p>
 
     <h2>What we store</h2>
@@ -48,6 +42,7 @@ import { MIN_DEVICES } from '../lib/stats';
     <h2>Known limits</h2>
     <ul>
       <li>A browser test measures your whole path, including your Wi-Fi and router. That’s why we ask how you are connected. Cable results are the truest picture of the ISP.</li>
+      <li>International speed is not measured (see above). Reviews are the best signal for it today.</li>
       <li>Speed tests cannot see outages. That is what the star rating and comments are for.</li>
       <li>We compare against the package range you report, which we cannot verify.</li>
     </ul>

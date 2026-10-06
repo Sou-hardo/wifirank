@@ -2,7 +2,7 @@
 // Each device counts once: per-device median first, then median across devices.
 import type { Sql } from 'postgres';
 
-export const METRICS = ['local_down', 'local_up', 'local_ping', 'local_jitter', 'local_loss', 'intl_down', 'intl_up', 'intl_ping', 'intl_jitter'] as const;
+export const METRICS = ['local_down', 'local_up', 'local_ping', 'local_jitter', 'local_loss'] as const;
 export type Metric = (typeof METRICS)[number];
 export type Row = Record<Metric, number | null> & { devices: number; tests: number };
 
@@ -60,8 +60,8 @@ export async function byArea(sql: Sql, f: Filter) {
 // Individual results for the map and "latest results" feed. Coordinates are already ~500 m rounded.
 export async function recent(sql: Sql, f: Filter & { limit: number; located?: boolean }) {
   return sql<{ id: number; isp: string; slug: string; area: string; lat: number | null; lng: number | null; connection: string;
-    local_down: number | null; local_up: number | null; local_ping: number | null; intl_down: number | null; intl_up: number | null; intl_ping: number | null; created_at: Date }[]>`
-    select t.id, i.name as isp, i.slug, t.area, t.lat, t.lng, t.connection, t.local_down, t.local_up, t.local_ping, t.intl_down, t.intl_up, t.intl_ping, t.created_at
+    local_down: number | null; local_up: number | null; local_ping: number | null; created_at: Date }[]>`
+    select t.id, i.name as isp, i.slug, t.area, t.lat, t.lng, t.connection, t.local_down, t.local_up, t.local_ping, t.created_at
     from tests t join isps i on i.id = t.isp_id
     where ${where(sql, f)} and i.approved ${f.located ? sql`and t.lat is not null` : sql``}
     order by t.created_at desc limit ${f.limit}`;

@@ -52,7 +52,7 @@ export const GET: APIRoute = async ({ params }) => {
     const [isp] = await sql<{ id: number; name: string }[]>`select id, name from isps where slug = ${slug} and approved`;
     const s = isp && (await summary(sql, { ispId: isp.id }));
     if (isp) tree = card('Speed test results', isp.name, s ? `Measured by ${s.devices} users in Dhaka · last 90 days` : 'No tests yet. Be the first.', [
-      stat('Local download', fmt(s?.local_down), 'Mbps', true), stat('International', fmt(s?.intl_down), 'Mbps'),
+      stat('Download', fmt(s?.local_down), 'Mbps', true), stat('Upload', fmt(s?.local_up), 'Mbps'),
       stat('Rating', s?.rating != null ? s.rating.toFixed(1) : '—', s?.rating != null ? '/ 5' : '')]);
   } else if (kind === 'area' && slug && AREAS[slug]) {
     const rows = await leaderboard(sql, { area: slug });

@@ -4,8 +4,8 @@ import { AREAS } from './options';
 import { byArea, recent } from './stats';
 
 export type MapArea = { slug: string; name: string; lat: number; lng: number; devices: number;
-  local_down: number | null; intl_down: number | null; intl_ping: number | null };
-export type MapPoint = { lat: number; lng: number; isp: string; area: string; local_down: number | null; intl_down: number | null; intl_ping: number | null; at: string };
+  local_down: number | null; local_up: number | null; local_ping: number | null };
+export type MapPoint = { lat: number; lng: number; isp: string; area: string; local_down: number | null; local_up: number | null; local_ping: number | null; at: string };
 
 // Every listed area (so empty ones still show as "no tests yet") plus individual pinned results.
 export async function mapData(sql: Sql, ispSlug?: string | null) {
@@ -17,8 +17,8 @@ export async function mapData(sql: Sql, ispSlug?: string | null) {
   const by = new Map(stats.map((r) => [r.area, r]));
   const areas: MapArea[] = Object.entries(AREA_COORDS).map(([slug, [lat, lng]]) => {
     const r = by.get(slug);
-    return { slug, name: AREAS[slug], lat, lng, devices: r?.devices ?? 0, local_down: r?.local_down ?? null, intl_down: r?.intl_down ?? null, intl_ping: r?.intl_ping ?? null };
+    return { slug, name: AREAS[slug], lat, lng, devices: r?.devices ?? 0, local_down: r?.local_down ?? null, local_up: r?.local_up ?? null, local_ping: r?.local_ping ?? null };
   });
-  const points: MapPoint[] = pts.map((p) => ({ lat: p.lat!, lng: p.lng!, isp: p.isp, area: p.area, local_down: p.local_down, intl_down: p.intl_down, intl_ping: p.intl_ping, at: p.created_at.toISOString() }));
+  const points: MapPoint[] = pts.map((p) => ({ lat: p.lat!, lng: p.lng!, isp: p.isp, area: p.area, local_down: p.local_down, local_up: p.local_up, local_ping: p.local_ping, at: p.created_at.toISOString() }));
   return { isp: isp ? { name: isp.name, slug: isp.slug } : null, areas, points };
 }

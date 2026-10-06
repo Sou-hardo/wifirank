@@ -269,9 +269,7 @@ details.faq > div { padding: 0 0 20px; color: var(--text-2); max-width: 70ch; }
 @keyframes ring { from { opacity: .7; transform: scale(1); } to { opacity: 0; transform: scale(1.55); } }
 .go-hint { margin-top: 12px; font-size: .82rem; color: var(--muted); }
 
-.steps { display: grid; gap: 6px; width: min(100%, 380px); }
-.steps-row { display: grid; grid-template-columns: 96px repeat(3, 1fr); gap: 6px; align-items: center; }
-.steps-label { font: 500 .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; width: min(100%, 320px); }
 .step { text-align: center; font-size: .78rem; padding: 6px 4px; border-radius: 8px; background: var(--bg); color: var(--muted); border: 1px solid var(--line); transition: all .35s var(--ease-out); }
 .step.active { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
 .step.done { color: var(--text); background: var(--surface-3); border-color: transparent; }

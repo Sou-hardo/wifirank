@@ -31,7 +31,7 @@ const schema: object[] = [
     ...(all?.rating != null && all.reviews >= 3 && { aggregateRating: { '@type': 'AggregateRating', ratingValue: all.rating.toFixed(1), reviewCount: all.reviews, bestRating: 5, worstRating: 1 } }) },
 ];
 const desc = all
-  ? `${isp.name} speed test results in Dhaka: ${fmt(all.local_down)} Mbps median local download${all.intl_down != null ? `, ${fmt(all.intl_down)} Mbps international` : ''}, from ${all.devices} users. Peak-hour performance, speed by area and reviews.`
+  ? `${isp.name} speed test results in Dhaka: ${fmt(all.local_down)} Mbps median download, ${fmt(all.local_up)} Mbps upload, from ${all.devices} users. Peak-hour performance, speed by area and reviews.`
   : `${isp.name} in Dhaka: no speed tests yet. Run one to add the first result.`;
 const periods: [string, string, Row | null][] = [['All day', 'Every test', all], ['Peak', '8 pm – midnight', peak], ['Off-peak', 'Rest of the day', offPeak]];
 ---
@@ -57,11 +57,10 @@ const periods: [string, string, Row | null][] = [['All day', 'Every test', all],
       <>
         {all.devices < MIN_DEVICES && <p class="notice" style="margin-top:24px"><span>Only {all.devices} {all.devices === 1 ? 'person has' : 'people have'} tested {isp.name} so far. Treat these numbers as an early signal, not a verdict.</span></p>}
         <dl class="stat-row" style="margin-top:28px">
-          <div class="stat"><dt>Local download</dt><dd>{fmt(all.local_down)}<small>Mbps</small></dd></div>
-          <div class="stat"><dt>Local upload</dt><dd>{fmt(all.local_up)}<small>Mbps</small></dd></div>
-          <div class="stat"><dt>Intl download</dt><dd>{fmt(all.intl_down)}<small>Mbps</small></dd></div>
-          <div class="stat"><dt>Ping to Singapore</dt><dd>{fmt(all.intl_ping, 0)}<small>ms</small></dd></div>
-          <div class="stat"><dt>Jitter</dt><dd>{fmt(all.local_jitter, 0)}<small>ms</small></dd></div>
+          <div class="stat"><dt>Download</dt><dd>{fmt(all.local_down)}<small>Mbps</small></dd></div>
+          <div class="stat"><dt>Upload</dt><dd>{fmt(all.local_up)}<small>Mbps</small></dd></div>
+          <div class="stat"><dt>Ping</dt><dd>{fmt(all.local_ping)}<small>ms</small></dd></div>
+          <div class="stat"><dt>Jitter</dt><dd>{fmt(all.local_jitter)}<small>ms</small></dd></div>
           {all.local_loss != null && <div class="stat"><dt>Packet loss</dt><dd>{(all.local_loss * 100).toFixed(1)}<small>%</small></dd></div>}
         </dl>
 
@@ -77,8 +76,8 @@ const periods: [string, string, Row | null][] = [['All day', 'Every test', all],
             {periods.map(([label, sub, r]) => (
               <div class="card">
                 <div class="row-between"><h3 style="margin:0">{label}</h3><span class="muted small">{sub}</span></div>
-                <p class="num" style="font-size:2.4rem;font-weight:600;margin:14px 0 2px;letter-spacing:-.04em">{fmt(r?.local_down)}<small class="muted" style="font:500 .85rem var(--font);margin-left:8px;letter-spacing:0">Mbps local</small></p>
-                <p class="muted small" style="margin:0">Intl {fmt(r?.intl_down)} Mbps · ping {fmt(r?.intl_ping, 0)} ms · {r?.devices ?? 0} testers</p>
+                <p class="num" style="font-size:2.4rem;font-weight:600;margin:14px 0 2px;letter-spacing:-.04em">{fmt(r?.local_down)}<small class="muted" style="font:500 .85rem var(--font);margin-left:8px;letter-spacing:0">Mbps down</small></p>
+                <p class="muted small" style="margin:0">Upload {fmt(r?.local_up)} Mbps · ping {fmt(r?.local_ping)} ms · {r?.devices ?? 0} testers</p>
               </div>
             ))}
           </div>
@@ -110,10 +109,10 @@ const periods: [string, string, Row | null][] = [['All day', 'Every test', all],
         <section class="block" style="padding-bottom:0">
           <h2>Latest tests</h2>
           <div class="table-wrap" style="margin-top:20px"><table>
-            <thead><tr><th scope="col">Area</th><th scope="col">Local ↓</th><th scope="col">Local ↑</th><th scope="col">Intl ↓</th><th scope="col">Intl ping</th><th scope="col">When</th></tr></thead>
+            <thead><tr><th scope="col">Area</th><th scope="col">Download</th><th scope="col">Upload</th><th scope="col">Ping</th><th scope="col">When</th></tr></thead>
             <tbody>{latest.map((t) => (
               <tr><td><a href={`/area/${t.area}`}>{AREAS[t.area] ?? t.area}</a></td><td class="num">{fmt(t.local_down)}</td><td class="num">{fmt(t.local_up)}</td>
-                <td class="num">{fmt(t.intl_down)}</td><td class="num">{fmt(t.intl_ping, 0)}</td><td class="muted">{day(t.created_at)}</td></tr>
+                <td class="num">{fmt(t.local_ping)}</td><td class="muted">{day(t.created_at)}</td></tr>
             ))}</tbody>
           </table></div>
         </section>

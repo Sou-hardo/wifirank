@@ -8,7 +8,7 @@ import { AREAS, PLANS } from '../lib/options';
 const p = Astro.url.searchParams;
 const pick = (k: string, opts: object) => { const v = p.get(k) ?? ''; return v in opts ? v : null; };
 const area = pick('area', AREAS), plan = pick('plan', PLANS);
-const SORTS = { local_down: 'Local download', intl_down: 'International download', intl_ping: 'International ping', local_up: 'Local upload' };
+const SORTS = { local_down: 'Download', local_up: 'Upload', local_ping: 'Ping' };
 const sort = pick('sort', SORTS) ?? 'local_down';
 if (area && !plan && sort === 'local_down') return Astro.redirect(`/area/${area}`, 301); // one canonical URL per area
 const rows = await leaderboard(sql, { area, plan, sort });
@@ -21,7 +21,7 @@ const schema = [{
 }];
 ---
 <Base title="Fastest internet providers in Dhaka, ranked" schema={schema} jsonAlt="/api/stats" noindex={!!plan || sort !== 'local_down'}
-  description={`${rows.length} Dhaka ISPs ranked by real, crowdsourced speed tests: local and international download, upload, ping and user ratings.`}>
+  description={`${rows.length} Dhaka ISPs ranked by real, crowdsourced speed tests: download, upload, ping and user ratings.`}>
   <section class="wrap" style="padding-top:clamp(28px,5vw,56px)">
     <p class="eyebrow">Rankings</p>
     <h1>Dhaka’s internet providers, ranked by real speed</h1>
