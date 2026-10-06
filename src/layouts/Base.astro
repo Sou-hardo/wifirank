@@ -70,6 +70,7 @@ const graph = {
   </head>
   <body>
     <a href="#main" class="sr-only">Skip to content</a>
+    {!bare && <dither-art class="page-dither" mode="signal" aria-hidden="true"></dither-art>}
     <header class="site-header">
       <div class="wrap">
         <a href="/" class="brand" aria-label={`${SITE} home`}><Logo /><span>{SITE}</span></a>
@@ -84,6 +85,7 @@ const graph = {
     <main id="main"><slot /></main>
     {!bare && (
       <footer class="site-footer">
+        <dither-art class="foot-dither" mode="flow" cell="6" aria-hidden="true"></dither-art>
         <div class="wrap">
           <div class="top">
             <a href="/" class="brand"><Logo /><span>{SITE}</span></a>
@@ -100,23 +102,8 @@ const graph = {
       </footer>
     )}
     <script>
-      const els = document.querySelectorAll<HTMLElement>('[data-count]');
-      if (els.length && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        const io = new IntersectionObserver((entries) => {
-          for (const e of entries) {
-            if (!e.isIntersecting) continue;
-            io.unobserve(e.target);
-            const el = e.target as HTMLElement, to = Number(el.dataset.count), t0 = performance.now();
-            const tick = (t: number) => {
-              const p = Math.min((t - t0) / 1100, 1);
-              el.textContent = Math.round(to * (1 - (1 - p) ** 3)).toLocaleString('en');
-              if (p < 1) requestAnimationFrame(tick);
-            };
-            requestAnimationFrame(tick);
-          }
-        });
-        els.forEach((el) => io.observe(el));
-      }
+      import '../scripts/dither';
+      import '../scripts/fx';
     </script>
   </body>
 </html>

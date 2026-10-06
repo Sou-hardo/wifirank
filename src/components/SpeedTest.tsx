@@ -4,6 +4,7 @@ import { AREAS, PLANS, PRICES } from '../lib/options';
 import Combobox, { type Option } from './Combobox';
 import Gauge from './Gauge';
 import LocationPicker from './LocationPicker';
+import { burst } from '../scripts/fx';
 
 type Isp = { id: number; name: string; aliases: string[] };
 type Metrics = { down: number | null; up: number | null; ping: number | null; jitter: number | null; loss?: number | null };
@@ -60,6 +61,7 @@ function runEngine(config: object, onProgress: (m: Metrics, stage: Stage) => voi
 }
 
 // ── Small presentational pieces ─────────────────────────
+const tier = (mbps: number) => (mbps >= 100 ? 'Blazing' : mbps >= 50 ? 'Fast' : mbps >= 25 ? 'Solid' : mbps >= 10 ? 'Okay' : 'Slow');
 const f1 = (v: number | null | undefined) => (v == null ? '—' : v < 10 ? v.toFixed(1) : Math.round(v).toString());
 const Icon = ({ d }: { d: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={d} /></svg>
@@ -169,6 +171,10 @@ function Review({ ispId, ispName }: { ispId: number; ispName: string }) {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ deviceId: deviceId(), ispId, stars, comment }),
     }).catch(() => null);
+    if (res?.ok) {
+      const r = (e as any).target?.getBoundingClientRect?.();
+      if (r) burst(r.left + r.width / 2, r.top + 40, 40);
+    }
     setState(res?.ok ? 'done' : (await res?.json().catch(() => null))?.error ?? 'Couldn’t send. Try again.');
   };
   if (state === 'done') return <div className="card review-done rise"><strong>Thanks for the review.</strong> <span className="muted">Run another test any time to update it.</span></div>;
@@ -264,6 +270,11 @@ export default function SpeedTest({ isps }: { isps: Isp[] }) {
       return;
     }
     setSaved(body);
+    if (!body.flag) {
+      const r = document.querySelector('.gauge')?.getBoundingClientRect();
+      if (r) burst(r.left + r.width / 2, r.top + r.height / 2);
+      navigator.vibrate?.(30);
+    }
     setPhase('done');
   };
 
@@ -359,6 +370,13 @@ export default function SpeedTest({ isps }: { isps: Isp[] }) {
               ) : (
                 <div className="done-actions rise">
                   {saved && !saved.flag && <p className="saved"><Icon d="M20 6 9 17l-5-5" /> Saved to the {areaName} map</p>}
+                  {saved && !saved.flag && saved.peer && (
+                    <p className="thanks">
+                      Thank you. {saved.peer.devices <= 1
+                        ? <>You’re the <strong>first person</strong> to test {isp.name} in {areaName}.</>
+                        : <>You’re tester <strong className="num">#{saved.peer.devices}</strong> for {isp.name} in {areaName}.</>}
+                    </p>
+                  )}
                   <button type="button" className="btn btn-primary" onClick={() => shareImage(isp.name, areaName, local)}>
                     <Icon d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13" /> Share result
                   </button>
@@ -371,10 +389,11 @@ export default function SpeedTest({ isps }: { isps: Isp[] }) {
         </div>
 
         {/* Right: the gauge doubles as the start button */}
-        <div className="tester-stage">
+        <div className={`tester-stage ${phase === 'done' ? 'done' : ''}`}>
+          {phase === 'running' && <dither-art class="stream" mode="stream" cell="8" dir={stage === 'upload' ? 'up' : stage === 'download' || stage === 'packetLoss' ? 'down' : 'idle'} aria-hidden="true" />}
           {phase === 'setup' ? (
             <Gauge value={null}>
-              <button type="button" className={`go ${missing ? '' : 'ready'}`} onClick={start} aria-describedby={missing ? 'go-hint' : undefined}>
+              <button type="button" className={`go ${missing ? '' : 'ready magnetic'}`} onClick={start} aria-describedby={missing ? 'go-hint' : undefined}>
                 <span>GO</span>
               </button>
               <span id="go-hint" className="go-hint">{missing ? 'Fill in the left first' : 'Takes about 40 seconds'}</span>
@@ -389,6 +408,7 @@ export default function SpeedTest({ isps }: { isps: Isp[] }) {
                 ) : undefined}
               </Gauge>
               <Steps stage={stage} done={phase !== 'running'} />
+              {phase === 'done' && local?.down != null && <span className="tier">{tier(local.down)} connection</span>}
               <p className="sr-only" aria-live="polite">{phase === 'saving' ? 'Test finished, saving' : phase === 'done' ? 'Test complete' : ''}</p>
             </>
           )}

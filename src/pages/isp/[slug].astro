@@ -57,10 +57,10 @@ const periods: [string, string, Row | null][] = [['All day', 'Every test', all],
       <>
         {all.devices < MIN_DEVICES && <p class="notice" style="margin-top:24px"><span>Only {all.devices} {all.devices === 1 ? 'person has' : 'people have'} tested {isp.name} so far. Treat these numbers as an early signal, not a verdict.</span></p>}
         <dl class="stat-row" style="margin-top:28px">
-          <div class="stat"><dt>Download</dt><dd>{fmt(all.local_down)}<small>Mbps</small></dd></div>
-          <div class="stat"><dt>Upload</dt><dd>{fmt(all.local_up)}<small>Mbps</small></dd></div>
-          <div class="stat"><dt>Ping</dt><dd>{fmt(all.local_ping)}<small>ms</small></dd></div>
-          <div class="stat"><dt>Jitter</dt><dd>{fmt(all.local_jitter)}<small>ms</small></dd></div>
+          <div class="stat"><dt>Download</dt><dd><span data-count>{fmt(all.local_down)}</span><small>Mbps</small></dd></div>
+          <div class="stat"><dt>Upload</dt><dd><span data-count>{fmt(all.local_up)}</span><small>Mbps</small></dd></div>
+          <div class="stat"><dt>Ping</dt><dd><span data-count>{fmt(all.local_ping)}</span><small>ms</small></dd></div>
+          <div class="stat"><dt>Jitter</dt><dd><span data-count>{fmt(all.local_jitter)}</span><small>ms</small></dd></div>
           {all.local_loss != null && <div class="stat"><dt>Packet loss</dt><dd>{(all.local_loss * 100).toFixed(1)}<small>%</small></dd></div>}
         </dl>
 

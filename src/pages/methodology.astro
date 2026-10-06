@@ -9,12 +9,12 @@ import { MIN_DEVICES } from '../lib/stats';
     <h1>How it works</h1>
     <p class="lede">WifiRank exists because ISP reviews in Bangladesh contradict each other. We replace opinions with measurements, and we show exactly how those measurements are made.</p>
 
-    <h2>What the test measures</h2>
+    <h2 class="reveal"><span class="hl">What the test measures</span></h2>
     <p>The test runs in your browser against Cloudflare’s server in Dhaka, using Cloudflare’s open-source <code>speedtest</code> engine. We record download and upload speed (Mbps), ping (round-trip latency, ms) and jitter (how much ping varies, ms). Packet loss is measured when available.</p>
     <p><strong>This is the domestic path.</strong> It reflects how you reach content served from inside Bangladesh, which includes the local caches most big sites use. It does not measure speed to servers abroad, so a provider that looks fast here can still be slow for overseas games, calls or downloads.</p>
     <p>The engine ramps up through larger and larger transfers and reports the 90th-percentile speed, so a brief dip doesn’t understate your connection and a single burst doesn’t overstate it.</p>
 
-    <h2>What we store</h2>
+    <h2 class="reveal"><span class="hl">What we store</span></h2>
     <ul>
       <li>Your results, the provider and area you chose, and how the device was connected (cable or Wi-Fi band).</li>
       <li>Optionally, your package speed and price range, and a map pin rounded to about 500 metres.</li>
@@ -22,7 +22,7 @@ import { MIN_DEVICES } from '../lib/stats';
       <li>A random ID kept in your browser, so your repeat tests count as one person. No account, no name, no phone number.</li>
     </ul>
 
-    <h2>How rankings are calculated</h2>
+    <h2 class="reveal"><span class="hl">How rankings are calculated</span></h2>
     <ul>
       <li><strong>One person, one vote.</strong> All tests from the same device on the same provider are reduced to that device’s median first. Running 50 tests does not count 50 times.</li>
       <li><strong>Medians, not averages.</strong> The published number is the median across devices, so a few extreme results cannot move it.</li>
@@ -31,7 +31,7 @@ import { MIN_DEVICES } from '../lib/stats';
       <li><strong>Star ratings</strong> use a Bayesian average: a provider with one 5-star review is not ranked above one with a hundred 4.6-star reviews.</li>
     </ul>
 
-    <h2>How we keep it honest</h2>
+    <h2 class="reveal"><span class="hl">How we keep it honest</span></h2>
     <ul>
       <li>Tests run over <strong>mobile data</strong> or from an <strong>IP outside Bangladesh</strong> (usually a VPN) are detected from the network they came from and excluded.</li>
       <li>Reviews can only be posted from a device that completed a test on that provider. Each device gets one review per provider, which it can edit.</li>
@@ -39,7 +39,7 @@ import { MIN_DEVICES } from '../lib/stats';
       <li>Providers users add themselves stay hidden until checked.</li>
     </ul>
 
-    <h2>Known limits</h2>
+    <h2 class="reveal"><span class="hl">Known limits</span></h2>
     <ul>
       <li>A browser test measures your whole path, including your Wi-Fi and router. That’s why we ask how you are connected. Cable results are the truest picture of the ISP.</li>
       <li>International speed is not measured (see above). Reviews are the best signal for it today.</li>
@@ -47,7 +47,7 @@ import { MIN_DEVICES } from '../lib/stats';
       <li>We compare against the package range you report, which we cannot verify.</li>
     </ul>
 
-    <h2>Open data</h2>
+    <h2 class="reveal"><span class="hl">Open data</span></h2>
     <p>All aggregated results are available as JSON at <a href="/api/stats"><code>/api/stats</code></a> and <a href="/api/map"><code>/api/map</code></a>, free to reuse with attribution (CC BY 4.0). AI agents can start at <a href="/llms.txt"><code>/llms.txt</code></a>.</p>
   </article>
 </Base>

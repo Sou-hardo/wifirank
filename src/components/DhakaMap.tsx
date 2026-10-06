@@ -72,8 +72,8 @@ export default function DhakaMap({ initial, isps, compact }: Props) {
               14, ['interpolate', ['linear'], ['sqrt', ['get', 'devices']], 1, 9, 5, 18, 15, 30]],
             'circle-color': c.colorExpr(metric),
             'circle-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 1, 0.9],
-            'circle-stroke-width': ['case', ['boolean', ['feature-state', 'selected'], false], 3.5, 2],
-            'circle-stroke-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#191a23', '#ffffff'],
+            'circle-stroke-width': ['case', ['boolean', ['feature-state', 'selected'], false], 3.5, ['boolean', ['feature-state', 'hover'], false], 3, 2],
+            'circle-stroke-color': ['case', ['any', ['boolean', ['feature-state', 'selected'], false], ['boolean', ['feature-state', 'hover'], false]], '#191a23', '#ffffff'],
             'circle-radius-transition': { duration: 500 }, 'circle-color-transition': { duration: 400 },
           } });
         map.addLayer({ id: 'area-labels', type: 'symbol', source: 'areas', minzoom: 11.6, filter: ['>', ['get', 'devices'], 0],
@@ -149,6 +149,11 @@ export default function DhakaMap({ initial, isps, compact }: Props) {
     return () => { stale = true; };
   }, [selected, status]);
 
+  // Hovering a row in the list outlines its bubble on the map.
+  const spot = (id: string, on: boolean) => {
+    if (status === 'ready') mapRef.current?.setFeatureState({ source: 'areas', id }, { hover: on });
+  };
+
   const filterIsp = async (slug: string) => {
     setBusy(true);
     const d = await fetch(`/api/map${slug ? `?isp=${slug}` : ''}`).then((r) => r.json()).catch(() => null);
@@ -220,7 +225,8 @@ export default function DhakaMap({ initial, isps, compact }: Props) {
               <ol className="dmap-list">
                 {top.map((a) => (
                   <li key={a.slug}>
-                    <button type="button" onClick={() => setSelected(a.slug)}>{a.name}</button>
+                    <button type="button" onClick={() => setSelected(a.slug)} onMouseEnter={() => spot(a.slug, true)} onMouseLeave={() => spot(a.slug, false)}
+                      onFocus={() => spot(a.slug, true)} onBlur={() => spot(a.slug, false)}>{a.name}</button>
                     <span className="num">{fmt(a[metric])}<small> {m.unit}</small></span>
                   </li>
                 ))}
