@@ -34,18 +34,17 @@ const n = (v: number) => v.toLocaleString('en');
 const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
 ---
 <Base schema={schema} jsonAlt="/api/stats">
-  <section class="wrap hero">
-    <p class="eyebrow rise" data-n="001">Dhaka speed test</p>
-    <h1 aria-label="How fast is your internet, really?">
-      {headline.map((w, i) => <><span aria-hidden="true" style={`--i:${i}`}>{w}</span>{i === 3 ? <br /> : ' '}</>)}
-    </h1>
-    <div class="wires rise" style="--i:3">
-      <div class="wire" aria-hidden="true"><b></b><i></i><span>PROVIDER</span><i></i><b></b><i></i><span>AREA</span><i></i></div>
-      <p class="lede">Test your connection in 40 seconds and see how your provider compares with others in your area. Every result helps your neighbours choose better.</p>
-      <div class="wire" aria-hidden="true"><i></i><span>SPEED</span><i></i><b></b><i></i><span>PING</span><i></i><b></b></div>
-    </div>
-    <div class="rise" style="--i:4"><SpeedTest client:load isps={isps.map(({ id, name, aliases }) => ({ id, name, aliases }))} /></div>
+  <section class="hero">
+    <SpeedTest client:load isps={isps.map(({ id, name, aliases }) => ({ id, name, aliases }))} areas={map.areas}>
+      <p class="eyebrow rise" data-n="001">Dhaka speed test</p>
+      <h1 aria-label="How fast is your internet, really?">
+        {headline.map((w, i) => <><span aria-hidden="true" style={`--i:${i}`}>{w}</span>{i === 1 || i === 3 ? <br /> : ' '}</>)}
+      </h1>
+      <p class="lede rise" style="--i:3">Test your connection in 40 seconds and watch it travel across Dhaka. Every result puts your street on the map.</p>
+    </SpeedTest>
+  </section>
 
+  <section class="wrap">
     {totals.tests > 0 && (
       <div class="band reveal">
         <div><strong data-count>{n(totals.tests)}</strong><span>Speed tests run</span></div>

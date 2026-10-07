@@ -1,9 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import SpeedTestEngine from '@cloudflare/speedtest';
 import { AREAS, PLANS, PRICES } from '../lib/options';
 import Combobox, { type Option } from './Combobox';
 import Gauge from './Gauge';
 import LocationPicker from './LocationPicker';
+import TestMap from './TestMap';
+import { AREA_COORDS } from '../lib/areas';
+import type { MapArea } from '../lib/mapData';
 import { burst } from '../scripts/fx';
 import { sustainedMbps } from '../lib/sustained';
 
@@ -204,7 +207,7 @@ function Review({ ispId, ispName }: { ispId: number; ispName: string }) {
 }
 
 // ── Main flow ───────────────────────────────────────────
-export default function SpeedTest({ isps }: { isps: Isp[] }) {
+export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; areas: MapArea[]; children?: ReactNode }) {
   const [phase, setPhase] = useState<'setup' | 'running' | 'saving' | 'done'>('setup');
   const [isp, setIsp] = useState<{ id?: number; name: string }>({ name: '' });
   const [area, setArea] = useState('');
@@ -290,134 +293,141 @@ export default function SpeedTest({ isps }: { isps: Isp[] }) {
   const areaName = AREAS[area] ?? '';
   // A comparison with "others" only means something once there are a few of them.
   const peer = saved?.peer && saved.peer.devices >= 3 ? saved.peer : null;
+  const spot = pin ? [pin.lng, pin.lat] as [number, number] : AREA_COORDS[area] ? [AREA_COORDS[area][1], AREA_COORDS[area][0]] as [number, number] : null;
 
   return (
-    <div className="tester">
-      <div className="tester-grid">
-        {/* Left: setup, then optional details while the test runs */}
-        <div className="tester-side">
-          {phase === 'setup' ? (
-            <form className="setup" onSubmit={(e) => { e.preventDefault(); start(); }} noValidate>
-              <div className="field">
-                <span className="label" id="l-isp">Internet provider</span>
-                <Combobox id="f-isp" aria-labelledby="l-isp" options={ispOptions} value={isp.id ? String(isp.id) : ''} text={isp.name}
-                  placeholder="Search, e.g. Link3, Carnival, DOT"
-                  allowCustom={(t) => `Add “${t}”`}
-                  onSelect={(o, t) => setIsp(o ? { id: Number(o.value), name: o.label } : { name: t })} />
-                {tried && missing === 'isp' && <small className="error">Choose or type your provider.</small>}
-                {!isp.id && isp.name.trim().length > 1 && <small className="muted">New provider: it’ll appear on the site after a quick check.</small>}
-              </div>
-
-              <div className="field">
-                <span className="label" id="l-area">Area
-                  {pin && <span className="badge"><Icon d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11zM12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" /> Pinned</span>}
-                </span>
-                <div className="area-row">
-                  <Combobox id="f-area" aria-labelledby="l-area" options={areaOptions} value={area} placeholder="Search, e.g. Mirpur 10"
-                    onSelect={(o) => { setArea(o?.value ?? ''); if (o && pin && o.value !== pin.area) setPin(null); }} />
-                  <button type="button" className="btn map-btn" onClick={() => setPickerOpen(true)} aria-label="Pick your location on a map">
-                    <Icon d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14" /><span>Map</span>
-                  </button>
-                </div>
-                {tried && missing === 'area' && <small className="error">Pick your area, or tap it on the map.</small>}
-                {!tried && <small className="muted">Area not listed? Tap “Map” and drop a pin where you are.</small>}
-              </div>
-
-              <fieldset className="field" style={{ border: 0, padding: 0, margin: 0 }}>
-                <legend className="label">This device is on</legend>
-                <div className="seg" id="f-connection" tabIndex={-1}>
-                  {CONN.map((c) => (
-                    <label key={c.value}>
-                      <input type="radio" name="conn" value={c.value} checked={connection === c.value} onChange={() => setConnection(c.value)} />
-                      <span><Icon d={c.icon} />{c.label}</span>
-                    </label>
-                  ))}
-                </div>
-                {tried && missing === 'connection' ? <small className="error">How is this device connected?</small>
-                  : <small className="muted hint-wide">Cable gives the truest ISP speed. 2.4 GHz Wi-Fi often caps below your plan.</small>}
-              </fieldset>
-
-              {error && <p className="error" role="alert">{error}</p>}
-              <button className="btn btn-primary go-mobile">Start test</button>
-            </form>
-          ) : (
-            <div className="extras">
-              <div className="extras-head">
-                <h2>{isp.name}</h2>
-                <p className="muted">{areaName} · {CONN.find((c) => c.value === connection)?.label}</p>
-              </div>
-              {phase === 'running' || phase === 'saving' ? (
-                <>
-                  <p className="eyebrow">While you wait</p>
-                  <p className="text-2" style={{ marginTop: -6 }}>Help others compare fairly. Both optional.</p>
+    <div className={`tester is-${phase}`}>
+      <div className="tester-hero">
+        <TestMap phase={phase} stage={stage} mbps={gaugeValue} at={spot} result={local?.down ?? null} areas={areas} />
+        <div className="tester-grid">
+          {/* Left: setup, then optional details while the test runs */}
+          <div className="tester-col">
+            {phase === 'setup' && children && <div className="tester-intro">{children}</div>}
+            <div className="tester-side" data-over>
+              {phase === 'setup' ? (
+                <form className="setup" onSubmit={(e) => { e.preventDefault(); start(); }} noValidate>
                   <div className="field">
-                    <span className="label">Your package speed</span>
-                    <div className="chips">
-                      {Object.entries(PLANS).map(([k, v]) => (
-                        <label key={k}><input type="radio" name="plan" checked={plan === k} onChange={() => setPlan(k)} onClick={() => plan === k && setPlan('')} /><span>{v}</span></label>
+                    <span className="label" id="l-isp">Internet provider</span>
+                    <Combobox id="f-isp" aria-labelledby="l-isp" options={ispOptions} value={isp.id ? String(isp.id) : ''} text={isp.name}
+                      placeholder="Search, e.g. Link3, Carnival, DOT"
+                      allowCustom={(t) => `Add “${t}”`}
+                      onSelect={(o, t) => setIsp(o ? { id: Number(o.value), name: o.label } : { name: t })} />
+                    {tried && missing === 'isp' && <small className="error">Choose or type your provider.</small>}
+                    {!isp.id && isp.name.trim().length > 1 && <small className="muted">New provider: it’ll appear on the site after a quick check.</small>}
+                  </div>
+
+                  <div className="field">
+                    <span className="label" id="l-area">Area
+                      {pin && <span className="badge"><Icon d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11zM12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" /> Pinned</span>}
+                    </span>
+                    <div className="area-row">
+                      <Combobox id="f-area" aria-labelledby="l-area" options={areaOptions} value={area} placeholder="Search, e.g. Mirpur 10"
+                        onSelect={(o) => { setArea(o?.value ?? ''); if (o && pin && o.value !== pin.area) setPin(null); }} />
+                      <button type="button" className="btn map-btn" onClick={() => setPickerOpen(true)} aria-label="Pick your location on a map">
+                        <Icon d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14" /><span>Map</span>
+                      </button>
+                    </div>
+                    {tried && missing === 'area' && <small className="error">Pick your area, or tap it on the map.</small>}
+                    {!tried && <small className="muted">Area not listed? Tap “Map” and drop a pin where you are.</small>}
+                  </div>
+
+                  <fieldset className="field" style={{ border: 0, padding: 0, margin: 0 }}>
+                    <legend className="label">This device is on</legend>
+                    <div className="seg" id="f-connection" tabIndex={-1}>
+                      {CONN.map((c) => (
+                        <label key={c.value}>
+                          <input type="radio" name="conn" value={c.value} checked={connection === c.value} onChange={() => setConnection(c.value)} />
+                          <span><Icon d={c.icon} />{c.label}</span>
+                        </label>
                       ))}
                     </div>
-                  </div>
-                  <div className="field">
-                    <span className="label">Monthly bill</span>
-                    <div className="chips">
-                      {Object.entries(PRICES).map(([k, v]) => (
-                        <label key={k}><input type="radio" name="price" checked={price === k} onChange={() => setPrice(k)} onClick={() => price === k && setPrice('')} /><span>{v}</span></label>
-                      ))}
-                    </div>
-                  </div>
-                  <p className="muted small">Keep this tab open, and pause downloads and streaming on your network for the most accurate result.</p>
-                </>
+                    {tried && missing === 'connection' ? <small className="error">How is this device connected?</small>
+                      : <small className="muted hint-wide">Cable gives the truest ISP speed. 2.4 GHz Wi-Fi often caps below your plan.</small>}
+                  </fieldset>
+
+                  {error && <p className="error" role="alert">{error}</p>}
+                  <button className="btn btn-primary go-mobile">Start test</button>
+                </form>
               ) : (
-                <div className="done-actions rise">
-                  {saved && !saved.flag && <p className="saved"><Icon d="M20 6 9 17l-5-5" /> Saved to the {areaName} map</p>}
-                  {saved && !saved.flag && saved.peer && (
-                    <p className="thanks">
-                      Thank you. {saved.peer.devices <= 1
-                        ? <>You’re the <strong>first person</strong> to test {isp.name} in {areaName}.</>
-                        : <>You’re tester <strong className="num">#{saved.peer.devices}</strong> for {isp.name} in {areaName}.</>}
-                    </p>
+                <div className="extras">
+                  <div className="extras-head">
+                    <h2>{isp.name}</h2>
+                    <p className="muted">{areaName} · {CONN.find((c) => c.value === connection)?.label}</p>
+                  </div>
+                  {phase === 'running' || phase === 'saving' ? (
+                    <>
+                      <p className="eyebrow">While you wait</p>
+                      <p className="text-2" style={{ marginTop: -6 }}>Help others compare fairly. Both optional.</p>
+                      <div className="field">
+                        <span className="label">Your package speed</span>
+                        <div className="chips">
+                          {Object.entries(PLANS).map(([k, v]) => (
+                            <label key={k}><input type="radio" name="plan" checked={plan === k} onChange={() => setPlan(k)} onClick={() => plan === k && setPlan('')} /><span>{v}</span></label>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="field">
+                        <span className="label">Monthly bill</span>
+                        <div className="chips">
+                          {Object.entries(PRICES).map(([k, v]) => (
+                            <label key={k}><input type="radio" name="price" checked={price === k} onChange={() => setPrice(k)} onClick={() => price === k && setPrice('')} /><span>{v}</span></label>
+                          ))}
+                        </div>
+                      </div>
+                      <p className="muted small">Keep this tab open, and pause downloads and streaming on your network for the most accurate result.</p>
+                    </>
+                  ) : (
+                    <div className="done-actions rise">
+                      {saved && !saved.flag && <p className="saved"><Icon d="M20 6 9 17l-5-5" /> Saved to the {areaName} map</p>}
+                      {saved && !saved.flag && saved.peer && (
+                        <p className="thanks">
+                          Thank you. {saved.peer.devices <= 1
+                            ? <>You’re the <strong>first person</strong> to test {isp.name} in {areaName}.</>
+                            : <>You’re tester <strong className="num">#{saved.peer.devices}</strong> for {isp.name} in {areaName}.</>}
+                        </p>
+                      )}
+                      <button type="button" className="btn btn-primary" onClick={() => shareImage(isp.name, areaName, local)}>
+                        <Icon d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13" /> Share result
+                      </button>
+                      <a className="btn" href={`/area/${area}`}>Compare ISPs in {areaName}</a>
+                      <button type="button" className="btn btn-ghost" onClick={() => { setPhase('setup'); setStage(null); }}>Test again</button>
+                    </div>
                   )}
-                  <button type="button" className="btn btn-primary" onClick={() => shareImage(isp.name, areaName, local)}>
-                    <Icon d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13" /> Share result
-                  </button>
-                  <a className="btn" href={`/area/${area}`}>Compare ISPs in {areaName}</a>
-                  <button type="button" className="btn btn-ghost" onClick={() => { setPhase('setup'); setStage(null); }}>Test again</button>
                 </div>
               )}
             </div>
-          )}
-        </div>
+          </div>
 
-        {/* Right: the gauge doubles as the start button */}
-        <div className={`tester-stage ${phase === 'done' ? 'done' : ''}`}>
-          {phase === 'running' && <dither-art class="stream" mode="stream" cell="8" dir={stage === 'upload' ? 'up' : stage === 'download' || stage === 'packetLoss' ? 'down' : 'idle'} aria-hidden="true" />}
-          {phase === 'setup' ? (
-            <Gauge value={null}>
-              <button type="button" className={`go ${missing ? '' : 'ready magnetic'}`} onClick={start} aria-describedby={missing ? 'go-hint' : undefined}>
-                <span>GO</span>
-              </button>
-              <span id="go-hint" className="go-hint">{missing ? 'Fill in the left first' : 'Takes about 40 seconds'}</span>
-            </Gauge>
-          ) : (
-            <>
-              <Gauge value={phase === 'running' ? gaugeValue : local?.down ?? null} active={phase === 'running'}
-                label={phase === 'running' ? gaugeLabel : 'Download'}
-                unit={phase === 'running' && (stage === 'latency' || !stage) ? 'ms' : 'Mbps'}>
-                {phase === 'running' && (stage === 'latency' || !stage) ? (
-                  <><div className="g-label">{gaugeLabel}</div><div className="g-value num">{f1(live?.ping)}</div><div className="g-unit">ms</div></>
-                ) : undefined}
+          {/* Right: the gauge doubles as the start button */}
+          <div className={`tester-stage ${phase === 'done' ? 'done' : ''}`} data-over>
+            {phase === 'running' && <dither-art class="stream" mode="stream" cell="8" dir={stage === 'upload' ? 'up' : stage === 'download' || stage === 'packetLoss' ? 'down' : 'idle'} aria-hidden="true" />}
+            {phase === 'setup' ? (
+              <Gauge value={null}>
+                <button type="button" className={`go ${missing ? '' : 'ready magnetic'}`} onClick={start} aria-describedby={missing ? 'go-hint' : undefined}>
+                  <span>GO</span>
+                </button>
+                <span id="go-hint" className="go-hint">{missing ? 'Fill in the left first' : 'Takes about 40 seconds'}</span>
               </Gauge>
-              <Steps stage={stage} done={phase !== 'running'} />
-              {phase === 'done' && local?.down != null && <span className="tier">{tier(local.down)} connection</span>}
-              <p className="sr-only" aria-live="polite">{phase === 'saving' ? 'Test finished, saving' : phase === 'done' ? 'Test complete' : ''}</p>
-            </>
-          )}
+            ) : (
+              <>
+                <Gauge value={phase === 'running' ? gaugeValue : local?.down ?? null} active={phase === 'running'}
+                  label={phase === 'running' ? gaugeLabel : 'Download'}
+                  unit={phase === 'running' && (stage === 'latency' || !stage) ? 'ms' : 'Mbps'}>
+                  {phase === 'running' && (stage === 'latency' || !stage) ? (
+                    <><div className="g-label">{gaugeLabel}</div><div className="g-value num">{f1(live?.ping)}</div><div className="g-unit">ms</div></>
+                  ) : undefined}
+                </Gauge>
+                <Steps stage={stage} done={phase !== 'running'} />
+                {phase === 'done' && local?.down != null && <span className="tier">{tier(local.down)} connection</span>}
+                <p className="sr-only" aria-live="polite">{phase === 'saving' ? 'Test finished, saving' : phase === 'done' ? 'Test complete' : ''}</p>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
       {(phase === 'done' || phase === 'saving') && (
-        <div className="results">
+        <div className="results wrap">
           {saved?.flag && (
             <div className="notice rise" role="status">
               <Icon d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" />
