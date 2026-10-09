@@ -1013,5 +1013,3095 @@
         "bdt": 3500
       }
     ]
+  },
+  "Pipex Network": {
+    "source": "https://www.pipexbd.com/",
+    "packages": [
+      {
+        "name": "Basic",
+        "mbps": 50,
+        "bdt": 500
+      },
+      {
+        "name": "Standard",
+        "mbps": 80,
+        "bdt": 800
+      },
+      {
+        "name": "Talent",
+        "mbps": 100,
+        "bdt": 1000
+      },
+      {
+        "name": "Turbo",
+        "mbps": 150,
+        "bdt": 1500
+      },
+      {
+        "name": "Ultra",
+        "mbps": 200,
+        "bdt": 2000
+      },
+      {
+        "name": "Universal",
+        "mbps": 250,
+        "bdt": 2500
+      },
+      {
+        "name": "Vip",
+        "mbps": 300,
+        "bdt": 3000
+      },
+      {
+        "name": "Xpress",
+        "mbps": 400,
+        "bdt": 4000
+      },
+      {
+        "name": "Xtreme",
+        "mbps": 450,
+        "bdt": 4500
+      },
+      {
+        "name": "Zoom",
+        "mbps": 500,
+        "bdt": 5000
+      }
+    ]
+  },
+  "Mirnet": {
+    "source": "https://mirnet.com.bd/home-internet",
+    "packages": [
+      {
+        "name": "নবীন",
+        "mbps": 25,
+        "bdt": 500
+      },
+      {
+        "name": "মৌলিক",
+        "mbps": 40,
+        "bdt": 700
+      },
+      {
+        "name": "সাশ্রয়ী",
+        "mbps": 45,
+        "bdt": 800
+      },
+      {
+        "name": "প্রগতিশীল",
+        "mbps": 50,
+        "bdt": 900
+      },
+      {
+        "name": "সুনিশ্চিত",
+        "mbps": 55,
+        "bdt": 1000
+      },
+      {
+        "name": "সীমানাহীন",
+        "mbps": 60,
+        "bdt": 1100
+      },
+      {
+        "name": "প্রতিশ্রুতি",
+        "mbps": 65,
+        "bdt": 1300
+      },
+      {
+        "name": "চূড়ান্ত",
+        "mbps": 75,
+        "bdt": 1500
+      },
+      {
+        "name": "80 Mbps",
+        "mbps": 80,
+        "bdt": 1750
+      },
+      {
+        "name": "90 Mbps",
+        "mbps": 90,
+        "bdt": 2200
+      },
+      {
+        "name": "100 Mbps",
+        "mbps": 100,
+        "bdt": 2400
+      }
+    ]
+  },
+  "InfoLink": {
+    "source": "https://infolink.com.bd/packages",
+    "packages": [
+      {
+        "name": "Starter Home",
+        "mbps": 50,
+        "bdt": 500
+      },
+      {
+        "name": "Standard Home",
+        "mbps": 75,
+        "bdt": 650
+      },
+      {
+        "name": "Premium Home",
+        "mbps": 100,
+        "bdt": 1000
+      },
+      {
+        "name": "Ultra Home",
+        "mbps": 250,
+        "bdt": 2500
+      }
+    ]
+  },
+  "ISN (bangla.net)": {
+    "source": "https://www.bangla.net/package",
+    "packages": [
+      {
+        "name": "ULLAS",
+        "mbps": 5,
+        "bdt": 400
+      },
+      {
+        "name": "UCHHAS",
+        "mbps": 6,
+        "bdt": 600
+      },
+      {
+        "name": "SAMATA",
+        "mbps": 7,
+        "bdt": 650
+      },
+      {
+        "name": "SADHARON",
+        "mbps": 8,
+        "bdt": 700
+      },
+      {
+        "name": "Platinum",
+        "mbps": 10,
+        "bdt": 700
+      },
+      {
+        "name": "Diamond",
+        "mbps": 20,
+        "bdt": 1100
+      }
+    ]
+  },
+  "Drik ICT": {
+    "source": "https://www.drikict.net/",
+    "packages": [
+      {
+        "name": "Survivor / Student",
+        "mbps": 20,
+        "bdt": 400
+      },
+      {
+        "name": "Starter",
+        "mbps": 30,
+        "bdt": 466
+      },
+      {
+        "name": "Basic",
+        "mbps": 35,
+        "bdt": 500
+      },
+      {
+        "name": "On Budget",
+        "mbps": 40,
+        "bdt": 600
+      },
+      {
+        "name": "Super Saver / Gaming",
+        "mbps": 50,
+        "bdt": 700
+      },
+      {
+        "name": "Smart Deal",
+        "mbps": 70,
+        "bdt": 800
+      },
+      {
+        "name": "Best Choice",
+        "mbps": 80,
+        "bdt": 900
+      },
+      {
+        "name": "Pick & Go",
+        "mbps": 100,
+        "bdt": 1000
+      },
+      {
+        "name": "Power Boost",
+        "mbps": 120,
+        "bdt": 1200
+      },
+      {
+        "name": "No Worries",
+        "mbps": 130,
+        "bdt": 1300
+      },
+      {
+        "name": "Professionals",
+        "mbps": 150,
+        "bdt": 1500
+      },
+      {
+        "name": "Pro Max",
+        "mbps": 200,
+        "bdt": 2000
+      }
+    ]
+  },
+  "Alo Communications": {
+    "source": "https://alobd.com/alobd-tarif.pdf",
+    "packages": [
+      {
+        "name": "20 Mbps",
+        "mbps": 20,
+        "bdt": 500
+      },
+      {
+        "name": "30 Mbps",
+        "mbps": 30,
+        "bdt": 650
+      },
+      {
+        "name": "40 Mbps",
+        "mbps": 40,
+        "bdt": 800
+      },
+      {
+        "name": "70 Mbps",
+        "mbps": 70,
+        "bdt": 1000
+      },
+      {
+        "name": "90 Mbps",
+        "mbps": 90,
+        "bdt": 1200
+      },
+      {
+        "name": "120 Mbps",
+        "mbps": 120,
+        "bdt": 1500
+      },
+      {
+        "name": "150 Mbps",
+        "mbps": 150,
+        "bdt": 2000
+      },
+      {
+        "name": "200 Mbps",
+        "mbps": 200,
+        "bdt": 2500
+      }
+    ]
+  },
+  "Ranks ITT": {
+    "source": "http://www.ranksitt.net",
+    "packages": [
+      {
+        "name": "Step",
+        "mbps": 5,
+        "bdt": 500
+      },
+      {
+        "name": "Snap",
+        "mbps": 6,
+        "bdt": 600
+      },
+      {
+        "name": "March",
+        "mbps": 10,
+        "bdt": 800
+      },
+      {
+        "name": "Run",
+        "mbps": 20,
+        "bdt": 1200
+      },
+      {
+        "name": "Sprint",
+        "mbps": 25,
+        "bdt": 1470
+      },
+      {
+        "name": "Dash",
+        "mbps": 35,
+        "bdt": 1890
+      },
+      {
+        "name": "Rush",
+        "mbps": 50,
+        "bdt": 2500
+      },
+      {
+        "name": "Race",
+        "mbps": 100,
+        "bdt": 4500
+      }
+    ]
+  },
+  "X-Press Internet": {
+    "source": "https://www.xpress.ltd/home-broadband",
+    "packages": [
+      {
+        "name": "Udoy Plus",
+        "mbps": 25,
+        "bdt": 525
+      },
+      {
+        "name": "Unmesh",
+        "mbps": 30,
+        "bdt": 630
+      },
+      {
+        "name": "Uchchol Plus",
+        "mbps": 40,
+        "bdt": 735
+      },
+      {
+        "name": "Uttoron",
+        "mbps": 45,
+        "bdt": 840
+      },
+      {
+        "name": "Udbhabon",
+        "mbps": 50,
+        "bdt": 945
+      },
+      {
+        "name": "Uttal Plus",
+        "mbps": 65,
+        "bdt": 1050
+      },
+      {
+        "name": "Unmochon Plus",
+        "mbps": 85,
+        "bdt": 1260
+      },
+      {
+        "name": "Ullash Plus",
+        "mbps": 110,
+        "bdt": 1575
+      },
+      {
+        "name": "Utshob Plus",
+        "mbps": 150,
+        "bdt": 2100
+      },
+      {
+        "name": "Uchchash",
+        "mbps": 175,
+        "bdt": 2500
+      },
+      {
+        "name": "Uddipon",
+        "mbps": 200,
+        "bdt": 3000
+      }
+    ]
+  },
+  "X-Link": {
+    "source": "https://www.xlinkbd.net/",
+    "packages": [
+      {
+        "name": "Basic",
+        "mbps": 10,
+        "bdt": 525
+      },
+      {
+        "name": "Standard",
+        "mbps": 20,
+        "bdt": 650
+      },
+      {
+        "name": "Advanced",
+        "mbps": 35,
+        "bdt": 825
+      },
+      {
+        "name": "Plus",
+        "mbps": 50,
+        "bdt": 1050
+      },
+      {
+        "name": "Family",
+        "mbps": 60,
+        "bdt": 1275
+      },
+      {
+        "name": "Pro",
+        "mbps": 70,
+        "bdt": 1375
+      },
+      {
+        "name": "Gamer",
+        "mbps": 75,
+        "bdt": 1475
+      },
+      {
+        "name": "Elite",
+        "mbps": 80,
+        "bdt": 1700
+      },
+      {
+        "name": "Super",
+        "mbps": 85,
+        "bdt": 1800
+      },
+      {
+        "name": "Ultra",
+        "mbps": 90,
+        "bdt": 1900
+      },
+      {
+        "name": "Mega",
+        "mbps": 125,
+        "bdt": 2525
+      },
+      {
+        "name": "Premium",
+        "mbps": 140,
+        "bdt": 2800
+      },
+      {
+        "name": "Ultimate",
+        "mbps": 210,
+        "bdt": 4625
+      }
+    ]
+  },
+  "Race Online": {
+    "source": "https://www.race.net.bd/documents/view/2/BTRC-Approved-Internet-Tariff-2026-01-21.pdf",
+    "packages": [
+      {
+        "name": "Ek Desh Ek Rate 20 Mbps",
+        "mbps": 20,
+        "bdt": 500
+      },
+      {
+        "name": "Ek Desh Ek Rate 25 Mbps",
+        "mbps": 25,
+        "bdt": 525
+      },
+      {
+        "name": "Ek Desh Ek Rate 35 Mbps",
+        "mbps": 35,
+        "bdt": 600
+      },
+      {
+        "name": "Ek Desh Ek Rate 40 Mbps",
+        "mbps": 40,
+        "bdt": 700
+      },
+      {
+        "name": "Ek Desh Ek Rate 45 Mbps",
+        "mbps": 45,
+        "bdt": 750
+      },
+      {
+        "name": "Ek Desh Ek Rate 50 Mbps",
+        "mbps": 50,
+        "bdt": 900
+      },
+      {
+        "name": "Ek Desh Ek Rate 100 Mbps",
+        "mbps": 100,
+        "bdt": 1000
+      },
+      {
+        "name": "Ek Desh Ek Rate 120 Mbps",
+        "mbps": 120,
+        "bdt": 1200
+      },
+      {
+        "name": "Ek Desh Ek Rate 150 Mbps",
+        "mbps": 150,
+        "bdt": 1500
+      }
+    ]
+  },
+  "Dtech Online": {
+    "source": "https://webadmin.dtechonline.dev/api/packages",
+    "packages": [
+      {
+        "name": "Basic",
+        "mbps": 20,
+        "bdt": 500
+      },
+      {
+        "name": "Starter",
+        "mbps": 30,
+        "bdt": 699
+      },
+      {
+        "name": "Smart",
+        "mbps": 40,
+        "bdt": 849
+      },
+      {
+        "name": "Ultra",
+        "mbps": 50,
+        "bdt": 1000
+      },
+      {
+        "name": "Ultra +",
+        "mbps": 70,
+        "bdt": 1199
+      },
+      {
+        "name": "Premium",
+        "mbps": 80,
+        "bdt": 1500
+      },
+      {
+        "name": "Premium+",
+        "mbps": 100,
+        "bdt": 1799
+      },
+      {
+        "name": "Hyper",
+        "mbps": 125,
+        "bdt": 2250
+      },
+      {
+        "name": "Hyper+",
+        "mbps": 150,
+        "bdt": 2700
+      }
+    ]
+  },
+  "IP Communications": {
+    "source": "https://www.ipcommunicationsbd.com/",
+    "packages": [
+      {
+        "name": "BTRC 7 Mbps",
+        "mbps": 7,
+        "bdt": 525
+      },
+      {
+        "name": "Classic +",
+        "mbps": 10,
+        "bdt": 650
+      },
+      {
+        "name": "BTRC 10 Mbps",
+        "mbps": 10,
+        "bdt": 699
+      },
+      {
+        "name": "Premium +",
+        "mbps": 20,
+        "bdt": 800
+      },
+      {
+        "name": "BTRC 15 Mbps",
+        "mbps": 15,
+        "bdt": 1049
+      },
+      {
+        "name": "Express +",
+        "mbps": 30,
+        "bdt": 1200
+      },
+      {
+        "name": "BTRC 20 Mbps",
+        "mbps": 20,
+        "bdt": 1260
+      },
+      {
+        "name": "Power +",
+        "mbps": 40,
+        "bdt": 1500
+      },
+      {
+        "name": "Ultra +",
+        "mbps": 50,
+        "bdt": 2000
+      },
+      {
+        "name": "Sky +",
+        "mbps": 100,
+        "bdt": 3500
+      }
+    ]
+  },
+  "Exord Online": {
+    "source": "https://exord.bd/packages/",
+    "packages": [
+      {
+        "name": "Regular 840",
+        "mbps": 70,
+        "bdt": 840
+      },
+      {
+        "name": "Regular 1050",
+        "mbps": 100,
+        "bdt": 1050
+      },
+      {
+        "name": "Turbo 1200",
+        "mbps": 50,
+        "bdt": 1200
+      },
+      {
+        "name": "Regular 1260",
+        "mbps": 120,
+        "bdt": 1260
+      },
+      {
+        "name": "Turbo 1550",
+        "mbps": 60,
+        "bdt": 1550
+      },
+      {
+        "name": "Turbo 1800",
+        "mbps": 70,
+        "bdt": 1800
+      },
+      {
+        "name": "Turbo 2050",
+        "mbps": 80,
+        "bdt": 2050
+      },
+      {
+        "name": "Turbo 2550",
+        "mbps": 90,
+        "bdt": 2550
+      },
+      {
+        "name": "Turbo 3050",
+        "mbps": 100,
+        "bdt": 3050
+      },
+      {
+        "name": "Turbo 4050",
+        "mbps": 120,
+        "bdt": 4050
+      },
+      {
+        "name": "Turbo 5050",
+        "mbps": 150,
+        "bdt": 5050
+      }
+    ]
+  },
+  "Tahoe Communications": {
+    "source": "https://www.tahoe.com.bd/home-broadband.php",
+    "packages": [
+      {
+        "name": "Lite",
+        "mbps": 35,
+        "bdt": 800
+      },
+      {
+        "name": "Boost",
+        "mbps": 55,
+        "bdt": 1000
+      },
+      {
+        "name": "Streamer",
+        "mbps": 75,
+        "bdt": 1200
+      },
+      {
+        "name": "Turbo",
+        "mbps": 95,
+        "bdt": 1500
+      },
+      {
+        "name": "Elite",
+        "mbps": 150,
+        "bdt": 2499
+      }
+    ]
+  },
+  "Borno Internet (Bhuiyan Telecom)": {
+    "source": "https://www.bornointernet.com/pricing",
+    "packages": [
+      {
+        "name": "SUCHONA",
+        "mbps": 60,
+        "bdt": 600
+      },
+      {
+        "name": "PROGOTI",
+        "mbps": 70,
+        "bdt": 700
+      },
+      {
+        "name": "PRERONA",
+        "mbps": 80,
+        "bdt": 850
+      },
+      {
+        "name": "DURDANTO",
+        "mbps": 100,
+        "bdt": 1000
+      },
+      {
+        "name": "ODOMMO",
+        "mbps": 120,
+        "bdt": 1200
+      },
+      {
+        "name": "BADHAHIN",
+        "mbps": 150,
+        "bdt": 1500
+      },
+      {
+        "name": "ULLASH",
+        "mbps": 200,
+        "bdt": 2000
+      },
+      {
+        "name": "SADHINOTA",
+        "mbps": 300,
+        "bdt": 3000
+      },
+      {
+        "name": "BIJOY",
+        "mbps": 450,
+        "bdt": 4000
+      }
+    ]
+  },
+  "BlueNet Communication": {
+    "source": "https://www.bluenetbd.com/packages",
+    "packages": [
+      {
+        "name": "Standard Plus",
+        "mbps": 70,
+        "bdt": 840
+      },
+      {
+        "name": "Premium",
+        "mbps": 90,
+        "bdt": 1050
+      },
+      {
+        "name": "Silver Plus",
+        "mbps": 100,
+        "bdt": 1260
+      },
+      {
+        "name": "Gold Plus",
+        "mbps": 120,
+        "bdt": 1575
+      },
+      {
+        "name": "Diamond",
+        "mbps": 150,
+        "bdt": 2000
+      },
+      {
+        "name": "Diamond Plus",
+        "mbps": 180,
+        "bdt": 2500
+      },
+      {
+        "name": "Platinum",
+        "mbps": 220,
+        "bdt": 3000
+      },
+      {
+        "name": "Platinum Plus",
+        "mbps": 300,
+        "bdt": 4000
+      }
+    ]
+  },
+  "Digi Jadoo Broadband": {
+    "source": "https://jadoobroadband.com/packages/value-packs/",
+    "packages": [
+      {
+        "name": "Economy",
+        "mbps": 50,
+        "bdt": 700
+      },
+      {
+        "name": "Youth",
+        "mbps": 75,
+        "bdt": 800
+      },
+      {
+        "name": "Gamer's Pro",
+        "mbps": 100,
+        "bdt": 1000
+      },
+      {
+        "name": "Streaming King",
+        "mbps": 140,
+        "bdt": 1200
+      },
+      {
+        "name": "Speedstar",
+        "mbps": 170,
+        "bdt": 1500
+      },
+      {
+        "name": "Friends & Family",
+        "mbps": 200,
+        "bdt": 1900
+      },
+      {
+        "name": "Combo",
+        "mbps": 250,
+        "bdt": 2400
+      },
+      {
+        "name": "Share & Care",
+        "mbps": 280,
+        "bdt": 3000
+      }
+    ]
+  },
+  "GramBangla Systems": {
+    "source": "http://gbsl.com.bd/index.php/home-package/",
+    "packages": [
+      {
+        "name": "Presso",
+        "mbps": 15,
+        "bdt": 500
+      },
+      {
+        "name": "Pacco",
+        "mbps": 30,
+        "bdt": 800
+      },
+      {
+        "name": "Prezzo",
+        "mbps": 40,
+        "bdt": 1000
+      },
+      {
+        "name": "Pronto",
+        "mbps": 50,
+        "bdt": 1200
+      },
+      {
+        "name": "Presto",
+        "mbps": 70,
+        "bdt": 1500
+      },
+      {
+        "name": "Primo",
+        "mbps": 100,
+        "bdt": 2000
+      }
+    ]
+  },
+  "Unified Core": {
+    "source": "https://unifiedcore.net/package",
+    "packages": [
+      {
+        "name": "SILVER+",
+        "mbps": 25,
+        "bdt": 700
+      },
+      {
+        "name": "GOLD+",
+        "mbps": 40,
+        "bdt": 800
+      },
+      {
+        "name": "PLATINUM+",
+        "mbps": 50,
+        "bdt": 1000
+      },
+      {
+        "name": "DIAMOND+",
+        "mbps": 60,
+        "bdt": 1200
+      },
+      {
+        "name": "SAPPHIRE+",
+        "mbps": 70,
+        "bdt": 1500
+      },
+      {
+        "name": "STAR+",
+        "mbps": 85,
+        "bdt": 2000
+      }
+    ]
+  },
+  "Dhaka Internet": {
+    "source": "https://dhakainternet.com/package",
+    "packages": [
+      {
+        "name": "Gold",
+        "mbps": 40,
+        "bdt": 500
+      },
+      {
+        "name": "Platinum",
+        "mbps": 60,
+        "bdt": 600
+      },
+      {
+        "name": "Diamond",
+        "mbps": 70,
+        "bdt": 800
+      },
+      {
+        "name": "Sapphire",
+        "mbps": 80,
+        "bdt": 1000
+      },
+      {
+        "name": "Sky",
+        "mbps": 100,
+        "bdt": 1500
+      },
+      {
+        "name": "Premium",
+        "mbps": 150,
+        "bdt": 2000
+      }
+    ]
+  },
+  "Business Network (BNET)": {
+    "source": "https://www.bnet-bd.com/pages/pricing.php",
+    "packages": [
+      {
+        "name": "Home 50 Mbps",
+        "mbps": 50,
+        "bdt": 630
+      },
+      {
+        "name": "Home 70 Mbps",
+        "mbps": 70,
+        "bdt": 780
+      },
+      {
+        "name": "Home 90 Mbps",
+        "mbps": 90,
+        "bdt": 980
+      },
+      {
+        "name": "Home 100 Mbps",
+        "mbps": 100,
+        "bdt": 1050
+      },
+      {
+        "name": "Home 120 Mbps",
+        "mbps": 120,
+        "bdt": 1150
+      },
+      {
+        "name": "Home 140 Mbps",
+        "mbps": 140,
+        "bdt": 1360
+      },
+      {
+        "name": "Home 160 Mbps",
+        "mbps": 160,
+        "bdt": 1575
+      },
+      {
+        "name": "Home 200 Mbps",
+        "mbps": 200,
+        "bdt": 2200
+      },
+      {
+        "name": "Home 250 Mbps",
+        "mbps": 250,
+        "bdt": 2800
+      }
+    ]
+  },
+  "Premium Connectivity": {
+    "source": "https://www.pmcon.net/",
+    "packages": [
+      {
+        "name": "Ulka Spark",
+        "mbps": 20,
+        "bdt": 525
+      },
+      {
+        "name": "Ulka Blaze",
+        "mbps": 25,
+        "bdt": 600
+      },
+      {
+        "name": "Ulka Nova",
+        "mbps": 40,
+        "bdt": 800
+      }
+    ]
+  },
+  "Pan M Tech": {
+    "source": "https://panmtech.com",
+    "packages": [
+      {
+        "name": "Starter",
+        "mbps": 25,
+        "bdt": 500
+      },
+      {
+        "name": "Basic",
+        "mbps": 30,
+        "bdt": 525
+      },
+      {
+        "name": "Standard",
+        "mbps": 35,
+        "bdt": 600
+      },
+      {
+        "name": "Plus",
+        "mbps": 40,
+        "bdt": 650
+      },
+      {
+        "name": "Smart",
+        "mbps": 45,
+        "bdt": 700
+      },
+      {
+        "name": "Power",
+        "mbps": 50,
+        "bdt": 800
+      },
+      {
+        "name": "Ultra",
+        "mbps": 60,
+        "bdt": 1000
+      },
+      {
+        "name": "Pro",
+        "mbps": 80,
+        "bdt": 1200
+      },
+      {
+        "name": "Max",
+        "mbps": 100,
+        "bdt": 1500
+      },
+      {
+        "name": "Elite",
+        "mbps": 150,
+        "bdt": 2100
+      }
+    ]
+  },
+  "Bee Online": {
+    "source": "http://www.beeonline.com.bd/home-packages.php",
+    "packages": [
+      {
+        "name": "BEE Micro",
+        "mbps": 30,
+        "bdt": 525
+      },
+      {
+        "name": "BEE Pico",
+        "mbps": 40,
+        "bdt": 630
+      },
+      {
+        "name": "BEE Nano",
+        "mbps": 60,
+        "bdt": 735
+      },
+      {
+        "name": "BEE Basic",
+        "mbps": 70,
+        "bdt": 840
+      },
+      {
+        "name": "Bumble Bee",
+        "mbps": 100,
+        "bdt": 1050
+      },
+      {
+        "name": "Honey Bee",
+        "mbps": 120,
+        "bdt": 1260
+      },
+      {
+        "name": "BEE Impression",
+        "mbps": 80,
+        "bdt": 1575
+      },
+      {
+        "name": "BEE Ultra",
+        "mbps": 150,
+        "bdt": 2100
+      }
+    ]
+  },
+  "Amar Net System": {
+    "source": "https://amarnetsystem.com/pricing/",
+    "packages": [
+      {
+        "name": "5 Mbps",
+        "mbps": 5,
+        "bdt": 500
+      },
+      {
+        "name": "15 Mbps",
+        "mbps": 15,
+        "bdt": 800
+      },
+      {
+        "name": "20 Mbps",
+        "mbps": 20,
+        "bdt": 1000
+      },
+      {
+        "name": "30 Mbps",
+        "mbps": 30,
+        "bdt": 1500
+      },
+      {
+        "name": "80 Mbps",
+        "mbps": 80,
+        "bdt": 2000
+      },
+      {
+        "name": "100 Mbps",
+        "mbps": 100,
+        "bdt": 3000
+      }
+    ]
+  },
+  "ANOS": {
+    "source": "https://anosbd.com/packages/",
+    "packages": [
+      {
+        "name": "Home - 01",
+        "mbps": 30,
+        "bdt": 500
+      },
+      {
+        "name": "Home - 02",
+        "mbps": 40,
+        "bdt": 700
+      },
+      {
+        "name": "Home - 03",
+        "mbps": 50,
+        "bdt": 800
+      },
+      {
+        "name": "Home - 04",
+        "mbps": 70,
+        "bdt": 1000
+      },
+      {
+        "name": "Home - 05",
+        "mbps": 80,
+        "bdt": 1200
+      },
+      {
+        "name": "Home - 06",
+        "mbps": 100,
+        "bdt": 1500
+      }
+    ]
+  },
+  "Nation Communication (Amar ISP)": {
+    "source": "http://www.nationbd.com/",
+    "packages": [
+      {
+        "name": "Max",
+        "mbps": 70,
+        "bdt": 1200
+      },
+      {
+        "name": "Turbo",
+        "mbps": 100,
+        "bdt": 1500
+      },
+      {
+        "name": "Elite",
+        "mbps": 120,
+        "bdt": 1700
+      },
+      {
+        "name": "Prime",
+        "mbps": 150,
+        "bdt": 2000
+      }
+    ]
+  },
+  "Inspire Broadband": {
+    "source": "https://api.inspirebroadband.net/package/read/all",
+    "packages": [
+      {
+        "name": "Premium Starter",
+        "mbps": 50,
+        "bdt": 650
+      },
+      {
+        "name": "ECONOMY",
+        "mbps": 65,
+        "bdt": 840
+      },
+      {
+        "name": "VALUE",
+        "mbps": 90,
+        "bdt": 1050
+      },
+      {
+        "name": "SPEED",
+        "mbps": 110,
+        "bdt": 1260
+      },
+      {
+        "name": "GAMER STARTER",
+        "mbps": 120,
+        "bdt": 1365
+      },
+      {
+        "name": "MEGA",
+        "mbps": 160,
+        "bdt": 1575
+      },
+      {
+        "name": "GAMER PRO",
+        "mbps": 180,
+        "bdt": 1785
+      },
+      {
+        "name": "ULTRA",
+        "mbps": 210,
+        "bdt": 2100
+      },
+      {
+        "name": "GAMER ULTIMATE",
+        "mbps": 230,
+        "bdt": 2625
+      },
+      {
+        "name": "SUPER ULTRA",
+        "mbps": 260,
+        "bdt": 3150
+      },
+      {
+        "name": "EXTREME",
+        "mbps": 310,
+        "bdt": 4095
+      }
+    ]
+  },
+  "IDS Bangladesh": {
+    "source": "https://idsbangladesh.net/packages/",
+    "packages": [
+      {
+        "name": "Home 10 Mbps",
+        "mbps": 10,
+        "bdt": 500
+      },
+      {
+        "name": "Home 20 Mbps",
+        "mbps": 20,
+        "bdt": 800
+      },
+      {
+        "name": "Home 30 Mbps",
+        "mbps": 30,
+        "bdt": 1200
+      },
+      {
+        "name": "Home 40 Mbps",
+        "mbps": 40,
+        "bdt": 1600
+      }
+    ]
+  },
+  "Bright Technologies": {
+    "source": "https://btlbd.net/Plans",
+    "packages": [
+      {
+        "name": "Starter",
+        "mbps": 10,
+        "bdt": 500
+      },
+      {
+        "name": "Turbo",
+        "mbps": 15,
+        "bdt": 650
+      },
+      {
+        "name": "Rapid",
+        "mbps": 30,
+        "bdt": 850
+      },
+      {
+        "name": "Sonic",
+        "mbps": 40,
+        "bdt": 1000
+      },
+      {
+        "name": "Super Sonic",
+        "mbps": 50,
+        "bdt": 1200
+      },
+      {
+        "name": "Hyper",
+        "mbps": 60,
+        "bdt": 1500
+      },
+      {
+        "name": "Elite",
+        "mbps": 70,
+        "bdt": 1800
+      },
+      {
+        "name": "Ultra",
+        "mbps": 80,
+        "bdt": 2100
+      },
+      {
+        "name": "Prime",
+        "mbps": 90,
+        "bdt": 3000
+      },
+      {
+        "name": "Ultimate",
+        "mbps": 100,
+        "bdt": 4000
+      },
+      {
+        "name": "Quantum",
+        "mbps": 200,
+        "bdt": 7500
+      }
+    ]
+  },
+  "Tomato Web": {
+    "source": "https://tomatoweb.com.bd/packages/",
+    "packages": [
+      {
+        "name": "সূচনা",
+        "mbps": 20,
+        "bdt": 500
+      },
+      {
+        "name": "অগ্রণী",
+        "mbps": 25,
+        "bdt": 620
+      },
+      {
+        "name": "প্রান্তিক",
+        "mbps": 30,
+        "bdt": 700
+      },
+      {
+        "name": "আগামী",
+        "mbps": 40,
+        "bdt": 800
+      },
+      {
+        "name": "ইত্যাদি",
+        "mbps": 50,
+        "bdt": 1000
+      },
+      {
+        "name": "ঈশান",
+        "mbps": 60,
+        "bdt": 1200
+      },
+      {
+        "name": "উজ্জল",
+        "mbps": 75,
+        "bdt": 1500
+      },
+      {
+        "name": "ঊষা",
+        "mbps": 100,
+        "bdt": 2000
+      }
+    ]
+  },
+  "ZX Online": {
+    "source": "https://zxonlineltd.com/",
+    "packages": [
+      {
+        "name": "Violet",
+        "mbps": 30,
+        "bdt": 630
+      },
+      {
+        "name": "Green",
+        "mbps": 40,
+        "bdt": 735
+      },
+      {
+        "name": "Yellow",
+        "mbps": 50,
+        "bdt": 840
+      },
+      {
+        "name": "Orange",
+        "mbps": 100,
+        "bdt": 1050
+      },
+      {
+        "name": "Red",
+        "mbps": 125,
+        "bdt": 1260
+      },
+      {
+        "name": "Maroon",
+        "mbps": 150,
+        "bdt": 1575
+      },
+      {
+        "name": "Brown",
+        "mbps": 200,
+        "bdt": 2100
+      },
+      {
+        "name": "Gray",
+        "mbps": 250,
+        "bdt": 2625
+      }
+    ]
+  },
+  "Karsan Net": {
+    "source": "https://www.karsannet.com/home-internet/",
+    "packages": [
+      {
+        "name": "Startup",
+        "mbps": 7,
+        "bdt": 500
+      },
+      {
+        "name": "Basic",
+        "mbps": 10,
+        "bdt": 800
+      },
+      {
+        "name": "Silver",
+        "mbps": 15,
+        "bdt": 1000
+      },
+      {
+        "name": "Gold",
+        "mbps": 20,
+        "bdt": 1200
+      },
+      {
+        "name": "Platinum",
+        "mbps": 30,
+        "bdt": 1500
+      },
+      {
+        "name": "Diamond",
+        "mbps": 40,
+        "bdt": 2000
+      }
+    ]
+  },
+  "Net 3 Link": {
+    "source": "https://www.net3link.com/packages",
+    "packages": [
+      {
+        "name": "Bronze",
+        "mbps": 30,
+        "bdt": 525
+      },
+      {
+        "name": "Silver",
+        "mbps": 40,
+        "bdt": 625
+      },
+      {
+        "name": "Bronze Plus",
+        "mbps": 55,
+        "bdt": 750
+      },
+      {
+        "name": "Silver Plus",
+        "mbps": 70,
+        "bdt": 850
+      },
+      {
+        "name": "Gold",
+        "mbps": 100,
+        "bdt": 1050
+      },
+      {
+        "name": "Gold Plus",
+        "mbps": 130,
+        "bdt": 1200
+      },
+      {
+        "name": "Platinum",
+        "mbps": 190,
+        "bdt": 1550
+      }
+    ]
+  },
+  "Apple Net": {
+    "source": "https://www.applenetbd.com/pricing/",
+    "packages": [
+      {
+        "name": "Easy",
+        "mbps": 30,
+        "bdt": 500
+      },
+      {
+        "name": "Gold",
+        "mbps": 40,
+        "bdt": 600
+      },
+      {
+        "name": "Diamond",
+        "mbps": 60,
+        "bdt": 800
+      },
+      {
+        "name": "Exclusive",
+        "mbps": 100,
+        "bdt": 1000
+      },
+      {
+        "name": "Power",
+        "mbps": 120,
+        "bdt": 1200
+      },
+      {
+        "name": "Power Plus",
+        "mbps": 150,
+        "bdt": 1500
+      }
+    ]
+  },
+  "Click Online": {
+    "source": "https://clickonlinebd.com/",
+    "packages": [
+      {
+        "name": "BTRC Package 2",
+        "mbps": 7,
+        "bdt": 525
+      },
+      {
+        "name": "BTRC Package 3",
+        "mbps": 12,
+        "bdt": 735
+      },
+      {
+        "name": "BTRC Package 4",
+        "mbps": 15,
+        "bdt": 840
+      },
+      {
+        "name": "BTRC Package 5",
+        "mbps": 20,
+        "bdt": 1155
+      },
+      {
+        "name": "BTRC Package 6",
+        "mbps": 25,
+        "bdt": 1260
+      },
+      {
+        "name": "BTRC Package 7",
+        "mbps": 35,
+        "bdt": 1575
+      },
+      {
+        "name": "BTRC Package 8",
+        "mbps": 50,
+        "bdt": 2100
+      }
+    ]
+  },
+  "Uttara Online BD": {
+    "source": "https://uttaraonlinebd.com/internet-packages/",
+    "packages": [
+      {
+        "name": "15 Mbps",
+        "mbps": 15,
+        "bdt": 700
+      },
+      {
+        "name": "30 Mbps",
+        "mbps": 30,
+        "bdt": 1000
+      },
+      {
+        "name": "40 Mbps",
+        "mbps": 40,
+        "bdt": 1300
+      },
+      {
+        "name": "60 Mbps",
+        "mbps": 60,
+        "bdt": 1800
+      },
+      {
+        "name": "70 Mbps",
+        "mbps": 70,
+        "bdt": 2000
+      },
+      {
+        "name": "80 Mbps",
+        "mbps": 80,
+        "bdt": 2500
+      },
+      {
+        "name": "90 Mbps",
+        "mbps": 90,
+        "bdt": 3000
+      },
+      {
+        "name": "100 Mbps",
+        "mbps": 100,
+        "bdt": 3500
+      }
+    ]
+  },
+  "Jupiter Online Services": {
+    "source": "http://jupiterbd.net",
+    "packages": [
+      {
+        "name": "Package 1",
+        "mbps": 40,
+        "bdt": 525
+      },
+      {
+        "name": "Package 2",
+        "mbps": 50,
+        "bdt": 630
+      },
+      {
+        "name": "Package 3",
+        "mbps": 60,
+        "bdt": 735
+      },
+      {
+        "name": "Package 4",
+        "mbps": 70,
+        "bdt": 840
+      },
+      {
+        "name": "Package 5",
+        "mbps": 100,
+        "bdt": 1050
+      },
+      {
+        "name": "Package 6",
+        "mbps": 110,
+        "bdt": 1260
+      },
+      {
+        "name": "Package 7",
+        "mbps": 130,
+        "bdt": 1575
+      },
+      {
+        "name": "Package 8",
+        "mbps": 150,
+        "bdt": 2100
+      }
+    ]
+  },
+  "Signature International": {
+    "source": "https://signature-bd.com",
+    "packages": [
+      {
+        "name": "Basic",
+        "mbps": 40,
+        "bdt": 800
+      },
+      {
+        "name": "Beginner",
+        "mbps": 45,
+        "bdt": 1000
+      },
+      {
+        "name": "Standard",
+        "mbps": 55,
+        "bdt": 1200
+      },
+      {
+        "name": "Advanced",
+        "mbps": 65,
+        "bdt": 1500
+      },
+      {
+        "name": "Elite",
+        "mbps": 80,
+        "bdt": 2000
+      },
+      {
+        "name": "Extreme",
+        "mbps": 90,
+        "bdt": 3000
+      }
+    ]
+  },
+  "Speed Net": {
+    "source": "https://speed.net.bd/pricing-plans",
+    "packages": [
+      {
+        "name": "Speed-Net 40",
+        "mbps": 40,
+        "bdt": 525
+      },
+      {
+        "name": "Speed-Net 50",
+        "mbps": 50,
+        "bdt": 630
+      },
+      {
+        "name": "Speed-Net 80",
+        "mbps": 80,
+        "bdt": 840
+      },
+      {
+        "name": "Speed-Net 150",
+        "mbps": 150,
+        "bdt": 1050
+      },
+      {
+        "name": "Speed-Net 200",
+        "mbps": 200,
+        "bdt": 1575
+      },
+      {
+        "name": "Silver+",
+        "mbps": 250,
+        "bdt": 2100
+      }
+    ]
+  },
+  "Alpha Broadway System": {
+    "source": "https://www.alphabroadway.com/package",
+    "packages": [
+      {
+        "name": "Basic",
+        "mbps": 30,
+        "bdt": 525
+      },
+      {
+        "name": "Starter",
+        "mbps": 50,
+        "bdt": 735
+      },
+      {
+        "name": "Bronze",
+        "mbps": 70,
+        "bdt": 840
+      },
+      {
+        "name": "Silver",
+        "mbps": 100,
+        "bdt": 1050
+      },
+      {
+        "name": "Supreme",
+        "mbps": 120,
+        "bdt": 1260
+      },
+      {
+        "name": "Gold",
+        "mbps": 150,
+        "bdt": 1575
+      },
+      {
+        "name": "Platinum",
+        "mbps": 200,
+        "bdt": 2100
+      }
+    ]
+  },
+  "ACE IT Networks": {
+    "source": "https://www.ace.net.bd",
+    "packages": [
+      {
+        "name": "EDER 10 Mbps",
+        "mbps": 10,
+        "bdt": 500
+      },
+      {
+        "name": "Ek Desh Ek Rate 5 Mbps",
+        "mbps": 5,
+        "bdt": 525
+      },
+      {
+        "name": "Atom",
+        "mbps": 30,
+        "bdt": 800
+      },
+      {
+        "name": "Pico",
+        "mbps": 50,
+        "bdt": 1000
+      },
+      {
+        "name": "Nano",
+        "mbps": 60,
+        "bdt": 1200
+      },
+      {
+        "name": "Ek Desh Ek Rate 20 Mbps",
+        "mbps": 20,
+        "bdt": 1260
+      },
+      {
+        "name": "Micro",
+        "mbps": 70,
+        "bdt": 1500
+      },
+      {
+        "name": "Deca",
+        "mbps": 90,
+        "bdt": 2000
+      },
+      {
+        "name": "Exa",
+        "mbps": 100,
+        "bdt": 2500
+      },
+      {
+        "name": "Zeta",
+        "mbps": 130,
+        "bdt": 3000
+      },
+      {
+        "name": "Yotta",
+        "mbps": 150,
+        "bdt": 4000
+      }
+    ]
+  },
+  "Microlink Technology": {
+    "source": "https://microlinkbd.net/pricing/",
+    "packages": [
+      {
+        "name": "Home",
+        "mbps": 10,
+        "bdt": 500
+      },
+      {
+        "name": "Student",
+        "mbps": 15,
+        "bdt": 800
+      },
+      {
+        "name": "Freelancer",
+        "mbps": 20,
+        "bdt": 1000
+      },
+      {
+        "name": "Corporate",
+        "mbps": 25,
+        "bdt": 1200
+      },
+      {
+        "name": "Gold",
+        "mbps": 30,
+        "bdt": 1400
+      },
+      {
+        "name": "Diamond",
+        "mbps": 35,
+        "bdt": 1600
+      },
+      {
+        "name": "Learner",
+        "mbps": 40,
+        "bdt": 2000
+      },
+      {
+        "name": "Confident",
+        "mbps": 50,
+        "bdt": 2500
+      },
+      {
+        "name": "Dominant",
+        "mbps": 60,
+        "bdt": 2500
+      }
+    ]
+  },
+  "Cyber Net Communications": {
+    "source": "http://www.cybernetcommunications.net/home_internet",
+    "packages": [
+      {
+        "name": "Ek Desh Ek Rate - 1",
+        "mbps": 10,
+        "bdt": 500
+      },
+      {
+        "name": "Pack 1",
+        "mbps": 30,
+        "bdt": 550
+      },
+      {
+        "name": "Pack 2",
+        "mbps": 50,
+        "bdt": 600
+      },
+      {
+        "name": "Ek Desh Ek Rate - 2",
+        "mbps": 10,
+        "bdt": 800
+      },
+      {
+        "name": "Pack 3",
+        "mbps": 75,
+        "bdt": 850
+      },
+      {
+        "name": "Pack 4",
+        "mbps": 100,
+        "bdt": 1050
+      },
+      {
+        "name": "Ek Desh Ek Rate - 3",
+        "mbps": 20,
+        "bdt": 1200
+      },
+      {
+        "name": "Pack 5",
+        "mbps": 120,
+        "bdt": 1550
+      },
+      {
+        "name": "Pack 6",
+        "mbps": 140,
+        "bdt": 2050
+      },
+      {
+        "name": "Pack 7",
+        "mbps": 160,
+        "bdt": 3050
+      },
+      {
+        "name": "Pack 8",
+        "mbps": 180,
+        "bdt": 4050
+      },
+      {
+        "name": "Pack 9",
+        "mbps": 200,
+        "bdt": 5050
+      }
+    ]
+  },
+  "Power Net": {
+    "source": "https://www.powernet.com.bd/packages",
+    "packages": [
+      {
+        "name": "Starter+",
+        "mbps": 30,
+        "bdt": 525
+      },
+      {
+        "name": "Basic+",
+        "mbps": 45,
+        "bdt": 630
+      },
+      {
+        "name": "Standard+",
+        "mbps": 60,
+        "bdt": 735
+      },
+      {
+        "name": "Advanced+",
+        "mbps": 75,
+        "bdt": 840
+      },
+      {
+        "name": "Premium+",
+        "mbps": 100,
+        "bdt": 1050
+      },
+      {
+        "name": "Ultra+",
+        "mbps": 150,
+        "bdt": 1260
+      },
+      {
+        "name": "Pro+",
+        "mbps": 180,
+        "bdt": 1575
+      },
+      {
+        "name": "Max+",
+        "mbps": 220,
+        "bdt": 2100
+      }
+    ]
+  },
+  "Star Internet Service": {
+    "source": "https://sisbdisp.com/packages.html",
+    "packages": [
+      {
+        "name": "Bronze",
+        "mbps": 10,
+        "bdt": 500
+      },
+      {
+        "name": "Silver",
+        "mbps": 15,
+        "bdt": 650
+      },
+      {
+        "name": "Gold",
+        "mbps": 20,
+        "bdt": 800
+      },
+      {
+        "name": "Platinum",
+        "mbps": 25,
+        "bdt": 1000
+      },
+      {
+        "name": "Sapphire",
+        "mbps": 30,
+        "bdt": 1200
+      },
+      {
+        "name": "Diamond",
+        "mbps": 40,
+        "bdt": 1500
+      }
+    ]
+  },
+  "Polash Nagar Dot Net": {
+    "source": "https://polashnagor.net",
+    "packages": [
+      {
+        "name": "Exclusive-1",
+        "mbps": 20,
+        "bdt": 550
+      },
+      {
+        "name": "Package-1",
+        "mbps": 12,
+        "bdt": 600
+      },
+      {
+        "name": "Exclusive-2",
+        "mbps": 25,
+        "bdt": 650
+      },
+      {
+        "name": "Package-2",
+        "mbps": 15,
+        "bdt": 700
+      },
+      {
+        "name": "Exclusive-3",
+        "mbps": 30,
+        "bdt": 750
+      },
+      {
+        "name": "Package-3",
+        "mbps": 20,
+        "bdt": 800
+      },
+      {
+        "name": "Package-4",
+        "mbps": 30,
+        "bdt": 1000
+      },
+      {
+        "name": "Exclusive-4",
+        "mbps": 40,
+        "bdt": 1050
+      },
+      {
+        "name": "Package-5",
+        "mbps": 40,
+        "bdt": 1200
+      },
+      {
+        "name": "Package-6",
+        "mbps": 60,
+        "bdt": 1500
+      },
+      {
+        "name": "Exclusive-5",
+        "mbps": 60,
+        "bdt": 1550
+      },
+      {
+        "name": "Package-7",
+        "mbps": 80,
+        "bdt": 2000
+      }
+    ]
+  },
+  "Mirpur Tech": {
+    "source": "http://www.mirpurtech.com/",
+    "packages": [
+      {
+        "name": "Steel",
+        "mbps": 25,
+        "bdt": 525
+      },
+      {
+        "name": "Bronze",
+        "mbps": 35,
+        "bdt": 840
+      },
+      {
+        "name": "Silver",
+        "mbps": 45,
+        "bdt": 1050
+      },
+      {
+        "name": "Gold",
+        "mbps": 65,
+        "bdt": 1575
+      },
+      {
+        "name": "Platinum",
+        "mbps": 80,
+        "bdt": 2100
+      },
+      {
+        "name": "Diamond",
+        "mbps": 110,
+        "bdt": 3150
+      }
+    ]
+  },
+  "OK Network": {
+    "source": "https://www.okay.net.bd",
+    "packages": [
+      {
+        "name": "OK Starter",
+        "mbps": 35,
+        "bdt": 599
+      },
+      {
+        "name": "OK Smart",
+        "mbps": 50,
+        "bdt": 799
+      },
+      {
+        "name": "OK Turbo",
+        "mbps": 80,
+        "bdt": 999
+      },
+      {
+        "name": "OK Power",
+        "mbps": 100,
+        "bdt": 1199
+      },
+      {
+        "name": "OK Pro",
+        "mbps": 150,
+        "bdt": 1499
+      }
+    ]
+  },
+  "Tetrasoft": {
+    "source": "https://tetrasoftbd.com/internet-package/",
+    "packages": [
+      {
+        "name": "Violet",
+        "mbps": 40,
+        "bdt": 630
+      },
+      {
+        "name": "Green",
+        "mbps": 55,
+        "bdt": 735
+      },
+      {
+        "name": "Yellow",
+        "mbps": 80,
+        "bdt": 840
+      },
+      {
+        "name": "Orange",
+        "mbps": 120,
+        "bdt": 1050
+      },
+      {
+        "name": "Red",
+        "mbps": 140,
+        "bdt": 1260
+      },
+      {
+        "name": "Maroon",
+        "mbps": 170,
+        "bdt": 1575
+      },
+      {
+        "name": "Brown",
+        "mbps": 220,
+        "bdt": 2100
+      },
+      {
+        "name": "Gray",
+        "mbps": 270,
+        "bdt": 2625
+      }
+    ]
+  },
+  "Yellow Net": {
+    "source": "https://www.yellownetbd.com/packages",
+    "packages": [
+      {
+        "name": "Home Basic",
+        "mbps": 30,
+        "bdt": 525
+      },
+      {
+        "name": "Home Standard 02",
+        "mbps": 35,
+        "bdt": 630
+      },
+      {
+        "name": "Home Standard 03",
+        "mbps": 40,
+        "bdt": 735
+      },
+      {
+        "name": "Family Plan",
+        "mbps": 50,
+        "bdt": 840
+      },
+      {
+        "name": "Family Plus",
+        "mbps": 70,
+        "bdt": 1050
+      },
+      {
+        "name": "Gamer Plan",
+        "mbps": 80,
+        "bdt": 1260
+      },
+      {
+        "name": "Gamer Ultra",
+        "mbps": 100,
+        "bdt": 1575
+      },
+      {
+        "name": "Turbo Speed",
+        "mbps": 130,
+        "bdt": 1890
+      },
+      {
+        "name": "Pro Streamer",
+        "mbps": 150,
+        "bdt": 2100
+      }
+    ]
+  },
+  "BAS Network": {
+    "source": "https://www.basnetbd.com/package",
+    "packages": [
+      {
+        "name": "Radical",
+        "mbps": 60,
+        "bdt": 840
+      },
+      {
+        "name": "Sharp",
+        "mbps": 80,
+        "bdt": 1050
+      },
+      {
+        "name": "Gamestar",
+        "mbps": 100,
+        "bdt": 1250
+      },
+      {
+        "name": "Posh",
+        "mbps": 150,
+        "bdt": 1680
+      },
+      {
+        "name": "Kudos",
+        "mbps": 200,
+        "bdt": 2100
+      },
+      {
+        "name": "Lavish",
+        "mbps": 250,
+        "bdt": 3050
+      }
+    ]
+  },
+  "Xplore Net": {
+    "source": "https://xplorenetbd.com/package/",
+    "packages": [
+      {
+        "name": "Xplore 35",
+        "mbps": 35,
+        "bdt": 525
+      },
+      {
+        "name": "Xplore 45",
+        "mbps": 45,
+        "bdt": 630
+      },
+      {
+        "name": "Xplore 55",
+        "mbps": 55,
+        "bdt": 735
+      },
+      {
+        "name": "Xplore 75",
+        "mbps": 75,
+        "bdt": 840
+      },
+      {
+        "name": "Premium 80",
+        "mbps": 80,
+        "bdt": 1050
+      },
+      {
+        "name": "Premium 100",
+        "mbps": 100,
+        "bdt": 1260
+      },
+      {
+        "name": "Premium 130",
+        "mbps": 130,
+        "bdt": 1575
+      },
+      {
+        "name": "Premium 160",
+        "mbps": 160,
+        "bdt": 2100
+      },
+      {
+        "name": "Premium 190",
+        "mbps": 190,
+        "bdt": 2625
+      },
+      {
+        "name": "Premium 200",
+        "mbps": 200,
+        "bdt": 3255
+      },
+      {
+        "name": "Premium 250",
+        "mbps": 250,
+        "bdt": 4252
+      },
+      {
+        "name": "Premium 300",
+        "mbps": 300,
+        "bdt": 5775
+      }
+    ]
+  },
+  "SS Online": {
+    "source": "https://www.ssonline.com.bd/price.html",
+    "packages": [
+      {
+        "name": "Package-1",
+        "mbps": 30,
+        "bdt": 525
+      },
+      {
+        "name": "Package-2",
+        "mbps": 50,
+        "bdt": 630
+      },
+      {
+        "name": "Package-3",
+        "mbps": 80,
+        "bdt": 840
+      },
+      {
+        "name": "Package-4",
+        "mbps": 100,
+        "bdt": 1050
+      },
+      {
+        "name": "Package-5",
+        "mbps": 150,
+        "bdt": 1575
+      },
+      {
+        "name": "Package-6",
+        "mbps": 200,
+        "bdt": 2100
+      }
+    ]
+  },
+  "Vision Technologies (VTL)": {
+    "source": "https://visiontech.com.bd/internet-service/",
+    "packages": [
+      {
+        "name": "Bit",
+        "mbps": 32,
+        "bdt": 525
+      },
+      {
+        "name": "Byte",
+        "mbps": 50,
+        "bdt": 630
+      },
+      {
+        "name": "Binary",
+        "mbps": 80,
+        "bdt": 850
+      },
+      {
+        "name": "Pi",
+        "mbps": 100,
+        "bdt": 1050
+      },
+      {
+        "name": "Lambda",
+        "mbps": 130,
+        "bdt": 1250
+      },
+      {
+        "name": "Core",
+        "mbps": 160,
+        "bdt": 1550
+      }
+    ]
+  },
+  "Paradise Technologies": {
+    "source": "https://paradiseisp.com.bd/packages/",
+    "packages": [
+      {
+        "name": "Home 25 Mbps",
+        "mbps": 25,
+        "bdt": 525
+      },
+      {
+        "name": "Home 30 Mbps",
+        "mbps": 30,
+        "bdt": 630
+      },
+      {
+        "name": "Home 40 Mbps",
+        "mbps": 40,
+        "bdt": 735
+      },
+      {
+        "name": "Home 50 Mbps",
+        "mbps": 50,
+        "bdt": 840
+      },
+      {
+        "name": "Home 80 Mbps",
+        "mbps": 80,
+        "bdt": 1050
+      },
+      {
+        "name": "Home 100 Mbps",
+        "mbps": 100,
+        "bdt": 1260
+      }
+    ]
+  },
+  "Dewan Dot Net": {
+    "source": "http://dewannet.com",
+    "packages": [
+      {
+        "name": "Bronze",
+        "mbps": 15,
+        "bdt": 500
+      },
+      {
+        "name": "Gold",
+        "mbps": 20,
+        "bdt": 800
+      },
+      {
+        "name": "Platinum",
+        "mbps": 30,
+        "bdt": 1000
+      },
+      {
+        "name": "Diamond",
+        "mbps": 50,
+        "bdt": 1500
+      },
+      {
+        "name": "Diamond2",
+        "mbps": 80,
+        "bdt": 2000
+      },
+      {
+        "name": "Red Diamond",
+        "mbps": 100,
+        "bdt": 3000
+      }
+    ]
+  },
+  "Cyber Way Technology": {
+    "source": "http://www.cyberwaybd.com/",
+    "packages": [
+      {
+        "name": "Bronze",
+        "mbps": 10,
+        "bdt": 500
+      },
+      {
+        "name": "Silver",
+        "mbps": 15,
+        "bdt": 700
+      },
+      {
+        "name": "Gold",
+        "mbps": 20,
+        "bdt": 1000
+      },
+      {
+        "name": "Diamond",
+        "mbps": 30,
+        "bdt": 1500
+      },
+      {
+        "name": "Platinum",
+        "mbps": 40,
+        "bdt": 2000
+      },
+      {
+        "name": "VIP",
+        "mbps": 100,
+        "bdt": 4000
+      }
+    ]
+  },
+  "Bismillah Telecom Service": {
+    "source": "https://www.btsisp.com.bd/",
+    "packages": [
+      {
+        "name": "Package 1",
+        "mbps": 5,
+        "bdt": 500
+      },
+      {
+        "name": "Package 2",
+        "mbps": 8,
+        "bdt": 680
+      },
+      {
+        "name": "Package 3",
+        "mbps": 10,
+        "bdt": 800
+      },
+      {
+        "name": "Package 4",
+        "mbps": 15,
+        "bdt": 1000
+      }
+    ]
+  },
+  "Ping (ICOM Bangladesh)": {
+    "source": "https://ping.com.bd/recidence-plan/",
+    "packages": [
+      {
+        "name": "STUDENT",
+        "mbps": 20,
+        "bdt": 400
+      },
+      {
+        "name": "STUDENT ULTRA",
+        "mbps": 40,
+        "bdt": 700
+      },
+      {
+        "name": "INDIVIDUAL",
+        "mbps": 80,
+        "bdt": 1000
+      },
+      {
+        "name": "SILVER",
+        "mbps": 160,
+        "bdt": 1500
+      },
+      {
+        "name": "ZINC",
+        "mbps": 200,
+        "bdt": 2000
+      },
+      {
+        "name": "GOLD",
+        "mbps": 400,
+        "bdt": 3000
+      },
+      {
+        "name": "PLATINUM",
+        "mbps": 500,
+        "bdt": 3500
+      },
+      {
+        "name": "TITANIUM",
+        "mbps": 600,
+        "bdt": 4500
+      },
+      {
+        "name": "RADIUM",
+        "mbps": 1000,
+        "bdt": 6000
+      }
+    ]
+  },
+  "Info Internet Service": {
+    "source": "https://infoisp.net/packages",
+    "packages": [
+      {
+        "name": "Basic Plan",
+        "mbps": 10,
+        "bdt": 525
+      },
+      {
+        "name": "Standard Plan",
+        "mbps": 20,
+        "bdt": 840
+      },
+      {
+        "name": "Advanced Plan",
+        "mbps": 25,
+        "bdt": 1050
+      },
+      {
+        "name": "Ek Desh Ek Rate 40",
+        "mbps": 40,
+        "bdt": 1260
+      },
+      {
+        "name": "Ek Desh Ek Rate 50",
+        "mbps": 50,
+        "bdt": 1575
+      },
+      {
+        "name": "Ek Desh Ek Rate 60",
+        "mbps": 60,
+        "bdt": 1890
+      }
+    ]
+  },
+  "Peoples Integrated Alliance (PIA Internet)": {
+    "source": "https://piainternet.com/",
+    "packages": [
+      {
+        "name": "Easy",
+        "mbps": 30,
+        "bdt": 630
+      },
+      {
+        "name": "Bronze",
+        "mbps": 40,
+        "bdt": 735
+      },
+      {
+        "name": "Silver",
+        "mbps": 50,
+        "bdt": 840
+      },
+      {
+        "name": "Gold",
+        "mbps": 60,
+        "bdt": 1050
+      },
+      {
+        "name": "Platinum",
+        "mbps": 80,
+        "bdt": 1260
+      },
+      {
+        "name": "Diamond",
+        "mbps": 100,
+        "bdt": 1575
+      },
+      {
+        "name": "Star",
+        "mbps": 130,
+        "bdt": 2100
+      }
+    ]
+  },
+  "Pioneer Services": {
+    "source": "https://pioneer.com.bd/site/",
+    "packages": [
+      {
+        "name": "Starter Fiber",
+        "mbps": 20,
+        "bdt": 500
+      },
+      {
+        "name": "Home Essential",
+        "mbps": 30,
+        "bdt": 600
+      },
+      {
+        "name": "Family Stream",
+        "mbps": 40,
+        "bdt": 700
+      },
+      {
+        "name": "Power Home",
+        "mbps": 50,
+        "bdt": 750
+      },
+      {
+        "name": "Premium 60",
+        "mbps": 60,
+        "bdt": 900
+      },
+      {
+        "name": "Creator 70",
+        "mbps": 70,
+        "bdt": 1100
+      },
+      {
+        "name": "Ultra 80",
+        "mbps": 80,
+        "bdt": 1400
+      },
+      {
+        "name": "Max 90",
+        "mbps": 90,
+        "bdt": 1600
+      }
+    ]
+  },
+  "Invention Technologies": {
+    "source": "https://www.itlbd.net/home-internet.php",
+    "packages": [
+      {
+        "name": "Internet 5Mb",
+        "mbps": 5,
+        "bdt": 500
+      },
+      {
+        "name": "Internet 15Mb",
+        "mbps": 15,
+        "bdt": 800
+      },
+      {
+        "name": "Internet 25Mb",
+        "mbps": 25,
+        "bdt": 1000
+      },
+      {
+        "name": "Internet 30Mb",
+        "mbps": 30,
+        "bdt": 1200
+      },
+      {
+        "name": "Internet 35Mb",
+        "mbps": 35,
+        "bdt": 1500
+      },
+      {
+        "name": "Internet 40Mb",
+        "mbps": 40,
+        "bdt": 1800
+      }
+    ]
+  },
+  "Infobase": {
+    "source": "https://infobd.net/tariff-plan/home-internet/",
+    "packages": [
+      {
+        "name": "Economy 3",
+        "mbps": 15,
+        "bdt": 500
+      },
+      {
+        "name": "Economy 2",
+        "mbps": 20,
+        "bdt": 600
+      },
+      {
+        "name": "Economy 1",
+        "mbps": 30,
+        "bdt": 800
+      },
+      {
+        "name": "Standard",
+        "mbps": 35,
+        "bdt": 1000
+      },
+      {
+        "name": "Deluxe",
+        "mbps": 45,
+        "bdt": 1200
+      },
+      {
+        "name": "Exclusive",
+        "mbps": 60,
+        "bdt": 1500
+      },
+      {
+        "name": "Super Exclusive",
+        "mbps": 80,
+        "bdt": 2000
+      }
+    ]
+  },
+  "Net Cafe": {
+    "source": "https://www.netcafe-bd.com/",
+    "packages": [
+      {
+        "name": "Regular Speed",
+        "mbps": 15,
+        "bdt": 500
+      },
+      {
+        "name": "Gaming Turbo",
+        "mbps": 25,
+        "bdt": 800
+      },
+      {
+        "name": "Super Speed",
+        "mbps": 40,
+        "bdt": 1000
+      }
+    ]
+  },
+  "Abuzz IT": {
+    "source": "https://www.abuzzit.tech",
+    "packages": [
+      {
+        "name": "Package 1",
+        "mbps": 5,
+        "bdt": 500
+      },
+      {
+        "name": "Package 2",
+        "mbps": 10,
+        "bdt": 800
+      },
+      {
+        "name": "Package 3",
+        "mbps": 15,
+        "bdt": 1000
+      },
+      {
+        "name": "Package 4",
+        "mbps": 25,
+        "bdt": 1400
+      }
+    ]
+  },
+  "Winer Communication": {
+    "source": "https://winercommunication.com/db/plans.json",
+    "packages": [
+      {
+        "name": "15 Mbps",
+        "mbps": 15,
+        "bdt": 700
+      },
+      {
+        "name": "20 Mbps",
+        "mbps": 20,
+        "bdt": 800
+      },
+      {
+        "name": "30 Mbps",
+        "mbps": 30,
+        "bdt": 1000
+      },
+      {
+        "name": "35 Mbps",
+        "mbps": 35,
+        "bdt": 1200
+      },
+      {
+        "name": "40 Mbps",
+        "mbps": 40,
+        "bdt": 1500
+      }
+    ]
+  },
+  "SSTN Technology": {
+    "source": "https://sstntechnology.com/",
+    "packages": [
+      {
+        "name": "Bronze",
+        "mbps": 20,
+        "bdt": 500
+      },
+      {
+        "name": "Silver",
+        "mbps": 25,
+        "bdt": 600
+      },
+      {
+        "name": "Gold",
+        "mbps": 30,
+        "bdt": 700
+      },
+      {
+        "name": "Platinum",
+        "mbps": 35,
+        "bdt": 800
+      },
+      {
+        "name": "Diamond",
+        "mbps": 40,
+        "bdt": 1000
+      },
+      {
+        "name": "Sapphire",
+        "mbps": 50,
+        "bdt": 1200
+      },
+      {
+        "name": "Sky",
+        "mbps": 60,
+        "bdt": 1500
+      },
+      {
+        "name": "Rocket",
+        "mbps": 70,
+        "bdt": 1700
+      },
+      {
+        "name": "Orbit",
+        "mbps": 80,
+        "bdt": 2000
+      },
+      {
+        "name": "Galaxy",
+        "mbps": 100,
+        "bdt": 2499
+      }
+    ]
+  },
+  "Planet IT Solutions": {
+    "source": "https://www.planet-itsolutions.com",
+    "packages": [
+      {
+        "name": "Basic",
+        "mbps": 10,
+        "bdt": 500
+      },
+      {
+        "name": "Standard",
+        "mbps": 20,
+        "bdt": 800
+      },
+      {
+        "name": "Popular",
+        "mbps": 30,
+        "bdt": 1000
+      },
+      {
+        "name": "Premium",
+        "mbps": 40,
+        "bdt": 1500
+      },
+      {
+        "name": "Super",
+        "mbps": 50,
+        "bdt": 2000
+      },
+      {
+        "name": "Ultra",
+        "mbps": 100,
+        "bdt": 3500
+      }
+    ]
+  },
+  "RM Communication": {
+    "source": "https://rmcommunicationltd.com/api/pricing",
+    "packages": [
+      {
+        "name": "Student",
+        "mbps": 30,
+        "bdt": 525
+      },
+      {
+        "name": "Combo",
+        "mbps": 50,
+        "bdt": 630
+      },
+      {
+        "name": "Economy",
+        "mbps": 80,
+        "bdt": 840
+      },
+      {
+        "name": "Silver",
+        "mbps": 100,
+        "bdt": 1050
+      },
+      {
+        "name": "Gold",
+        "mbps": 120,
+        "bdt": 1260
+      },
+      {
+        "name": "Gold Plus",
+        "mbps": 150,
+        "bdt": 1575
+      },
+      {
+        "name": "Platinum+",
+        "mbps": 180,
+        "bdt": 1890
+      },
+      {
+        "name": "Diamond+",
+        "mbps": 200,
+        "bdt": 2100
+      }
+    ]
+  },
+  "IT Base": {
+    "source": "https://www.itbasebd.com/packages.html",
+    "packages": [
+      {
+        "name": "Green",
+        "mbps": 10,
+        "bdt": 400
+      },
+      {
+        "name": "Economy",
+        "mbps": 30,
+        "bdt": 500
+      },
+      {
+        "name": "Popular 45",
+        "mbps": 45,
+        "bdt": 600
+      },
+      {
+        "name": "Silver",
+        "mbps": 65,
+        "bdt": 700
+      },
+      {
+        "name": "Popular 80",
+        "mbps": 80,
+        "bdt": 800
+      },
+      {
+        "name": "Popular 125",
+        "mbps": 125,
+        "bdt": 1000
+      },
+      {
+        "name": "Platinum",
+        "mbps": 150,
+        "bdt": 1200
+      },
+      {
+        "name": "Popular 200",
+        "mbps": 200,
+        "bdt": 1500
+      },
+      {
+        "name": "Star",
+        "mbps": 250,
+        "bdt": 2000
+      },
+      {
+        "name": "SKY",
+        "mbps": 300,
+        "bdt": 3000
+      }
+    ]
   }
 }

@@ -13,7 +13,7 @@ import { sustainedMbps } from '../lib/sustained';
 
 type Pkg = { name: string | null; mbps: number; bdt: number };
 // Typical Dhaka monthly bills, offered when we have no package list for the provider.
-const BILLS = [500, 800, 1000, 1200, 1500, 2000];
+const BILLS = [400, 500, 600, 800, 1000, 1200, 1500, 1800, 2000, 2500, 3000];
 type Isp = { id: number; name: string; aliases: string[] };
 type Metrics = { down: number | null; up: number | null; ping: number | null; jitter: number | null; loss?: number | null };
 type Stage = 'latency' | 'download' | 'upload' | 'packetLoss';
