@@ -5,7 +5,7 @@ import Combobox, { type Option } from './Combobox';
 import Gauge from './Gauge';
 import LocationPicker from './LocationPicker';
 import TestMap from './TestMap';
-import { AREA_COORDS } from '../lib/areas';
+import { AREA_COORDS, nearestArea } from '../lib/areas';
 import type { MapArea } from '../lib/mapData';
 import { burst } from '../scripts/fx';
 import { sustainedMbps } from '../lib/sustained';
@@ -13,8 +13,9 @@ import { sustainedMbps } from '../lib/sustained';
 type Isp = { id: number; name: string; aliases: string[] };
 type Metrics = { down: number | null; up: number | null; ping: number | null; jitter: number | null; loss?: number | null };
 type Stage = 'latency' | 'download' | 'upload' | 'packetLoss';
+type Pin = { lat: number; lng: number; area: string };
 type Net = { asOrg: string | null; flag: string | null; isp: { id: number; name: string } | null };
-type Saved = { ispId: number; flag: string | null; asOrg: string | null;
+type Saved = { id: number; ispId: number; flag: string | null; asOrg: string | null;
   peer: { devices: number; local_down: number | null } | null };
 
 const MEASUREMENTS = [
@@ -64,6 +65,14 @@ function runEngine(config: object, onProgress: (m: Metrics, stage: Stage) => voi
     t.onError = (e) => console.warn('speedtest:', e); // single failed measurements are non-fatal
   });
 }
+
+// Resolves to null when denied, unavailable or too slow; the caller falls back to the map picker.
+const locate = () => new Promise<Pin | null>((ok) => {
+  if (!navigator.geolocation) return ok(null);
+  navigator.geolocation.getCurrentPosition(
+    ({ coords: { latitude: lat, longitude: lng } }) => ok({ lat, lng, area: nearestArea(lat, lng).slug }),
+    () => ok(null), { timeout: 10000, maximumAge: 600000 });
+});
 
 // ── Small presentational pieces ─────────────────────────
 const tier = (mbps: number) => (mbps >= 100 ? 'Blazing' : mbps >= 50 ? 'Fast' : mbps >= 25 ? 'Solid' : mbps >= 10 ? 'Okay' : 'Slow');
@@ -163,8 +172,9 @@ async function shareImage(isp: string, area: string, m: Metrics | null) {
   }
 }
 
-function Review({ ispId, ispName }: { ispId: number; ispName: string }) {
+function Review({ testId, ispId, ispName }: { testId: number; ispId: number; ispName: string }) {
   const [stars, setStars] = useState(0);
+  const [price, setPrice] = useState('');
   const [hover, setHover] = useState(0);
   const [comment, setComment] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'done' | string>('idle');
@@ -174,7 +184,7 @@ function Review({ ispId, ispName }: { ispId: number; ispName: string }) {
     setState('sending');
     const res = await fetch('/api/reviews', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ deviceId: deviceId(), ispId, stars, comment }),
+      body: JSON.stringify({ deviceId: deviceId(), testId, ispId, stars: stars || null, comment, price: price || null }),
     }).catch(() => null);
     if (res?.ok) {
       const r = (e as any).target?.getBoundingClientRect?.();
@@ -182,10 +192,10 @@ function Review({ ispId, ispName }: { ispId: number; ispName: string }) {
     }
     setState(res?.ok ? 'done' : (await res?.json().catch(() => null))?.error ?? 'Couldn’t send. Try again.');
   };
-  if (state === 'done') return <div className="card review-done rise"><strong>Thanks for the review.</strong> <span className="muted">Run another test any time to update it.</span></div>;
+  if (state === 'done') return <div className="card review-done rise"><strong>Thanks, that helps others compare.</strong> <span className="muted">Run another test any time to update it.</span></div>;
   return (
     <form className="card review rise" onSubmit={submit} style={{ ['--i' as any]: 2 }}>
-      <h3>How is {ispName} overall? <span className="muted">Optional</span></h3>
+      <h3>How is {ispName} overall? <span className="muted">All optional</span></h3>
       <p className="muted">Speed is half the story. Uptime, support and value matter too.</p>
       <div className="star-input" role="radiogroup" aria-label="Rating" onMouseLeave={() => setHover(0)}>
         {[1, 2, 3, 4, 5].map((n) => (
@@ -198,10 +208,19 @@ function Review({ ispId, ispName }: { ispId: number; ispName: string }) {
       </div>
       <textarea className="input" maxLength={1000} rows={3} value={comment} onChange={(e) => setComment(e.target.value)}
         placeholder="Outages? Support response? Worth the price? (optional)" aria-label="Comment" />
+      <div className="field">
+        <span className="label">Monthly bill</span>
+        <div className="chips">
+          {Object.entries(PRICES).map(([k, v]) => (
+            <label key={k}><input type="radio" name="price" checked={price === k} onChange={() => setPrice(k)} onClick={() => price === k && setPrice('')} /><span>{v}</span></label>
+          ))}
+        </div>
+      </div>
       <div className="row-between">
         <small className="muted">Anonymous. Be fair, and don’t include personal details.</small>
-        <button className="btn btn-primary" disabled={!stars || state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Post review'}</button>
+        <button className="btn btn-primary" disabled={!(stars || price) || (!!comment.trim() && !stars) || state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Submit'}</button>
       </div>
+      {!!comment.trim() && !stars && <small className="muted">Add a star rating to post your comment.</small>}
       {state !== 'idle' && state !== 'sending' && <p className="error" role="alert">{state}</p>}
     </form>
   );
@@ -212,11 +231,11 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
   const [phase, setPhase] = useState<'setup' | 'running' | 'saving' | 'done'>('setup');
   const [isp, setIsp] = useState<{ id?: number; name: string }>({ name: '' });
   const [area, setArea] = useState('');
-  const [pin, setPin] = useState<{ lat: number; lng: number; area: string } | null>(null);
+  const [pin, setPin] = useState<Pin | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [locating, setLocating] = useState(false);
   const [connection, setConnection] = useState('');
   const [plan, setPlan] = useState('');
-  const [price, setPrice] = useState('');
   const [stage, setStage] = useState<Stage | null>(null);
   const [live, setLive] = useState<Metrics | null>(null);
   const [local, setLocal] = useState<Metrics | null>(null);
@@ -229,7 +248,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
   useEffect(() => {
     try {
       const last = JSON.parse(localStorage.getItem('wr_last') ?? 'null');
-      if (last) { setIsp(last.isp ?? { name: '' }); setArea(last.area ?? ''); setConnection(last.connection ?? ''); setPlan(last.plan ?? ''); setPrice(last.price ?? ''); }
+      if (last) { setIsp(last.isp ?? { name: '' }); setConnection(last.connection ?? ''); setPlan(last.plan ?? ''); }
     } catch {}
     // Detect the provider from the connection; a remembered choice wins (it may be a neighbourhood reseller).
     fetch('/api/whoami').then((r) => (r.ok ? r.json() : null)).then((n: Net | null) => {
@@ -240,13 +259,11 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
   }, []);
 
   const ispOptions = useMemo<Option[]>(() => isps.map((i) => ({ value: String(i.id), label: i.name, terms: i.aliases })), [isps]);
-  const areaOptions = useMemo<Option[]>(() => Object.entries(AREAS).map(([value, label]) => ({ value, label })), []);
-  const missing = !isp.name.trim() ? 'isp' : !area ? 'area' : !connection ? 'connection' : null;
+  const missing = !isp.name.trim() ? 'isp' : !connection ? 'connection' : null;
 
-  // Refs so the async run reads optional answers given while the test was running.
-  const planRef = useRef(plan), priceRef = useRef(price);
+  // Ref so the async run reads a plan picked while the test was running.
+  const planRef = useRef(plan);
   planRef.current = plan;
-  priceRef.current = price;
 
   const start = async () => {
     setTried(true);
@@ -254,7 +271,16 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
       document.getElementById(`f-${missing}`)?.focus();
       return;
     }
-    localStorage.setItem('wr_last', JSON.stringify({ isp, area, connection, plan, price }));
+    setLocating(true);
+    const p = await locate();
+    setLocating(false);
+    if (p) run(p);
+    else setPickerOpen(true); // location denied or unavailable: let them drop a pin instead
+  };
+
+  const run = async (p: Pin) => {
+    setPin(p); setArea(p.area);
+    localStorage.setItem('wr_last', JSON.stringify({ isp, connection, plan }));
     setError(''); setLocal(null); setSaved(null); setLive(null); setStage(null);
     setPhase('running');
 
@@ -267,12 +293,12 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
     setLocal(i);
 
     setPhase('saving');
-    // Plan/price may have been filled in while the test ran, so read them now.
+    // Plan may have been filled in while the test ran, so read it now.
     const res = await fetch('/api/tests', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        deviceId: deviceId(), ...(isp.id ? { ispId: isp.id } : { ispName: isp.name }), area, connection,
-        plan: planRef.current || null, price: priceRef.current || null, ...(pin && { lat: pin.lat, lng: pin.lng }), local: i,
+        deviceId: deviceId(), ...(isp.id ? { ispId: isp.id } : { ispName: isp.name }), area: p.area, connection,
+        plan: planRef.current || null, lat: p.lat, lng: p.lng, local: i,
       }),
     }).catch(() => null);
     const body = await res?.json().catch(() => null);
@@ -290,7 +316,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
     setPhase('done');
   };
 
-  useEffect(() => { localStorage.setItem('wr_last', JSON.stringify({ isp, area, connection, plan, price })); }, [plan, price]);
+  useEffect(() => { localStorage.setItem('wr_last', JSON.stringify({ isp, connection, plan })); }, [plan]);
 
   const gaugeValue = phase === 'running'
     ? stage === 'upload' ? live?.up ?? null : stage === 'download' || stage === 'packetLoss' ? live?.down ?? null : null
@@ -325,21 +351,6 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
                     {isp.id && isp.id === net?.isp?.id && <small className="muted">Detected from your connection. Use a local provider? Pick it instead.</small>}
                   </div>
 
-                  <div className="field">
-                    <span className="label" id="l-area">Area
-                      {pin && <span className="badge"><Icon d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11zM12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" /> Pinned</span>}
-                    </span>
-                    <div className="area-row">
-                      <Combobox id="f-area" aria-labelledby="l-area" options={areaOptions} value={area} placeholder="Search, e.g. Mirpur 10"
-                        onSelect={(o) => { setArea(o?.value ?? ''); if (o && pin && o.value !== pin.area) setPin(null); }} />
-                      <button type="button" className="btn map-btn" onClick={() => setPickerOpen(true)} aria-label="Pick your location on a map">
-                        <Icon d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14" /><span>Map</span>
-                      </button>
-                    </div>
-                    {tried && missing === 'area' && <small className="error">Pick your area, or tap it on the map.</small>}
-                    {!tried && <small className="muted">Area not listed? Tap “Map” and drop a pin where you are.</small>}
-                  </div>
-
                   <fieldset className="field" style={{ border: 0, padding: 0, margin: 0 }}>
                     <legend className="label">This device is on</legend>
                     <div className="seg" id="f-connection" tabIndex={-1}>
@@ -354,8 +365,9 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
                       : <small className="muted hint-wide">Cable gives the truest ISP speed. 2.4 GHz Wi-Fi often caps below your plan.</small>}
                   </fieldset>
 
+                  <small className="muted">We use your location to pick your area, rounded to about 500&nbsp;m.</small>
                   {error && <p className="error" role="alert">{error}</p>}
-                  <button className="btn btn-primary go-mobile">Start test</button>
+                  <button className="btn btn-primary go-mobile" disabled={locating}>{locating ? 'Finding your location…' : 'Start test'}</button>
                 </form>
               ) : (
                 <div className="extras">
@@ -366,20 +378,12 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
                   {phase === 'running' || phase === 'saving' ? (
                     <>
                       <p className="eyebrow">While you wait</p>
-                      <p className="text-2" style={{ marginTop: -6 }}>Help others compare fairly. Both optional.</p>
+                      <p className="text-2" style={{ marginTop: -6 }}>Help others compare fairly. Optional.</p>
                       <div className="field">
                         <span className="label">Your package speed</span>
                         <div className="chips">
                           {Object.entries(PLANS).map(([k, v]) => (
                             <label key={k}><input type="radio" name="plan" checked={plan === k} onChange={() => setPlan(k)} onClick={() => plan === k && setPlan('')} /><span>{v}</span></label>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="field">
-                        <span className="label">Monthly bill</span>
-                        <div className="chips">
-                          {Object.entries(PRICES).map(([k, v]) => (
-                            <label key={k}><input type="radio" name="price" checked={price === k} onChange={() => setPrice(k)} onClick={() => price === k && setPrice('')} /><span>{v}</span></label>
                           ))}
                         </div>
                       </div>
@@ -412,10 +416,10 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
             {phase === 'running' && <dither-art class="stream" mode="stream" cell="8" dir={stage === 'upload' ? 'up' : stage === 'download' || stage === 'packetLoss' ? 'down' : 'idle'} aria-hidden="true" />}
             {phase === 'setup' ? (
               <Gauge value={null}>
-                <button type="button" className={`go ${missing ? '' : 'ready magnetic'}`} onClick={start} aria-describedby={missing ? 'go-hint' : undefined}>
+                <button type="button" className={`go ${missing ? '' : 'ready magnetic'}`} onClick={start} disabled={locating} aria-describedby={missing ? 'go-hint' : undefined}>
                   <span>GO</span>
                 </button>
-                <span id="go-hint" className="go-hint">{missing ? 'Fill in the left first' : 'Takes about 40 seconds'}</span>
+                <span id="go-hint" className="go-hint">{missing ? 'Fill in the left first' : locating ? 'Finding your location…' : 'Takes about 40 seconds'}</span>
               </Gauge>
             ) : (
               <>
@@ -453,12 +457,12 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
             </div>
           )}
           <ResultPanel title="Your result" sub="Measured against Cloudflare’s server in Dhaka" m={local} peer={peer?.local_down} />
-          {saved && !saved.flag && <Review ispId={saved.ispId} ispName={isp.name} />}
+          {saved && !saved.flag && <Review testId={saved.id} ispId={saved.ispId} ispName={isp.name} />}
         </div>
       )}
 
       <LocationPicker open={pickerOpen} initial={pin} area={area} onClose={() => setPickerOpen(false)}
-        onPick={(p) => { setPin(p); setArea(p.area); setPickerOpen(false); }} />
+        onPick={(p) => { setPickerOpen(false); run(p); }} />
     </div>
   );
 }
