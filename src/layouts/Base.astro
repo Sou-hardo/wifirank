@@ -10,6 +10,7 @@ interface Props {
   noindex?: boolean;
   jsonAlt?: string; // machine-readable version of this page's data, for agents
   bare?: boolean; // full-bleed pages (map) skip the footer
+  dither?: boolean; // animated backdrop behind the top of the page; off where a map fills that space
 }
 const SITE = 'WifiRank';
 const {
@@ -20,12 +21,13 @@ const {
   noindex = false,
   jsonAlt,
   bare = false,
+  dither = !bare,
 } = Astro.props;
 const fullTitle = title ? `${title} · ${SITE}` : `${SITE}: Compare internet providers in Dhaka by real speed tests`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const og = new URL(ogImage, Astro.site);
 const path = Astro.url.pathname;
-const nav = [['/', 'Test'], ['/map', 'Map'], ['/isps', 'Rankings'], ['/methodology', 'How it works']];
+const nav = [['/map', 'Map'], ['/isps', 'Rankings'], ['/methodology', 'How it works']];
 const graph = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -70,15 +72,15 @@ const graph = {
   </head>
   <body>
     <a href="#main" class="sr-only">Skip to content</a>
-    {!bare && <dither-art class="page-dither" mode="signal" aria-hidden="true"></dither-art>}
+    {dither && <dither-art class="page-dither" mode="signal" aria-hidden="true"></dither-art>}
     <header class="site-header">
       <div class="wrap">
         <a href="/" class="brand" aria-label={`${SITE} home`}><Logo /><span>{SITE}</span></a>
         <nav class="nav" aria-label="Main">
           {nav.map(([href, label]) => (
-            <a href={href} aria-current={(href === '/' ? path === '/' : path.startsWith(href)) ? 'page' : undefined}>{label}</a>
+            <a href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}</a>
           ))}
-          {path !== '/' && <a class="btn btn-primary btn-sm" href="/">Run a test</a>}
+          <a class="btn btn-primary btn-sm" href="/" aria-current={path === '/' ? 'page' : undefined}>{/* shortened on phones, where the full label doesn't fit */}<span class="wide">Run a test</span><span class="narrow">Test</span></a>
         </nav>
       </div>
     </header>

@@ -78,6 +78,7 @@ export default function TestMap({ phase, stage, mbps, at, result, areas }: Props
         new c.maplibregl.Marker({ element: edge }).setLngLat(EDGE).addTo(map);
         const node = Object.assign(document.createElement('div'), { className: 'tm-me', innerHTML: '<i></i><i></i><i></i><b></b><span></span>' });
         me.current = { node, marker: new c.maplibregl.Marker({ element: node }).setLngLat(EDGE) };
+        el.current?.classList.add('is-ready'); // not via className: MapLibre adds its own classes to this node
         setReady(true);
       });
     });

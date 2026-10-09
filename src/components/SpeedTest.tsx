@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useState, type ReactNode } from 'react';
 import SpeedTestEngine from '@cloudflare/speedtest';
 import { AREAS } from '../lib/options';
 import PACKAGES from '../../data/isp-packages.json';
@@ -39,9 +39,9 @@ const MEASUREMENTS = [
 ];
 
 const CONN = [
-  { value: 'cable', label: 'Cable', icon: 'M7 3v5M17 3v5M5 8h14v3a7 7 0 0 1-14 0V8zM12 18v3' },
   { value: 'wifi5', label: '5 GHz', icon: 'M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0M12 20h.01' },
   { value: 'wifi24', label: '2.4 GHz', icon: 'M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0M12 20h.01' },
+  { value: 'cable', label: 'Cable', icon: 'M7 3v5M17 3v5M5 8h14v3a7 7 0 0 1-14 0V8zM12 18v3' },
   { value: 'wifi', label: 'Not sure', icon: 'M9 9a3 3 0 1 1 4 2.8c-.6.3-1 .9-1 1.6V14M12 18h.01' },
 ];
 
@@ -257,12 +257,15 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
   const [tried, setTried] = useState(false);
   const [net, setNet] = useState<Net | null>(null);
 
-  // Restore last choices so repeat testers start in one tap.
-  useEffect(() => {
+  // Restore the last provider for repeat testers. The connection is asked fresh every time: it changes between tests.
+  // Layout effect: applied in the same paint as hydration.
+  useLayoutEffect(() => {
     try {
       const last = JSON.parse(localStorage.getItem('wr_last') ?? 'null');
-      if (last) { setIsp(last.isp ?? { name: '' }); setConnection(last.connection ?? ''); }
+      if (last) setIsp(last.isp ?? { name: '' });
     } catch {}
+  }, []);
+  useEffect(() => {
     // Detect the provider from the connection; a remembered choice wins (it may be a neighbourhood reseller).
     fetch('/api/whoami').then((r) => (r.ok ? r.json() : null)).then((n: Net | null) => {
       if (!n) return;
@@ -289,7 +292,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
 
   const run = async (p: Pin) => {
     setPin(p); setArea(p.area);
-    localStorage.setItem('wr_last', JSON.stringify({ isp, connection }));
+    localStorage.setItem('wr_last', JSON.stringify({ isp }));
     setError(''); setLocal(null); setSaved(null); setLive(null); setStage(null);
     setPhase('running');
 
@@ -353,13 +356,16 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
                       placeholder="Search, e.g. Link3, Carnival, DOT"
                       allowCustom={(t) => `Add “${t}”`}
                       onSelect={(o, t) => setIsp(o ? { id: Number(o.value), name: o.label } : { name: t })} />
-                    {tried && missing === 'isp' && <small className="error">Choose or type your provider.</small>}
-                    {!isp.id && isp.name.trim().length > 1 && <small className="muted">New provider: it’ll appear on the site after a quick check.</small>}
-                    {isp.id && isp.id === net?.isp?.id && <small className="muted">Detected from your connection. Use a local provider? Pick it instead.</small>}
+                    {/* Always present, so a hint that arrives late (provider detection) doesn't move the form */}
+                    <div className="field-note">
+                      {tried && missing === 'isp' && <small className="error">Choose or type your provider.</small>}
+                      {!isp.id && isp.name.trim().length > 1 && <small className="muted">New provider: it’ll appear on the site after a quick check.</small>}
+                      {isp.id && isp.id === net?.isp?.id && <small className="muted">Detected from your connection. Use a local provider? Pick it instead.</small>}
+                    </div>
                   </div>
 
                   <fieldset className="field" style={{ border: 0, padding: 0, margin: 0 }}>
-                    <legend className="label">This device is on</legend>
+                    <legend className="label">This device is on{!connection && <span className="pick">Please select ↓</span>}</legend>
                     <div className="seg" id="f-connection" tabIndex={-1}>
                       {CONN.map((c) => (
                         <label key={c.value}>

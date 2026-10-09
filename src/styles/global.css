@@ -99,9 +99,9 @@ section.block { padding-block: clamp(56px, 8vw, 110px); }
 .nav { display: flex; align-items: center; gap: 2px; }
 .nav a:not(.btn) { padding: 8px 13px; border-radius: 999px; text-decoration: none; color: var(--text-2); font-size: .95rem; transition: background .2s, color .2s; }
 .nav a:not(.btn):hover { color: var(--ink); background: var(--surface-3); }
-.nav a[aria-current='page'] { color: var(--ink); background: var(--surface); box-shadow: 0 0 0 1px var(--line-strong); }
+.nav a:not(.btn)[aria-current='page'] { color: var(--ink); background: var(--surface); box-shadow: 0 0 0 1px var(--line-strong); }
 .nav .btn { margin-left: 10px; }
-@media (max-width: 720px) { .nav .btn { display: none; } }
+.nav .btn .narrow { display: none; }
 @media (max-width: 560px) {
   .bar { display: none; }
   th, td { padding: 13px 10px; }
@@ -110,6 +110,9 @@ section.block { padding-block: clamp(56px, 8vw, 110px); }
   .seg span { font-size: .76rem; }
   .brand span { display: none; }
   .nav a:not(.btn) { padding: 8px 9px; font-size: .88rem; }
+  .nav .btn { margin-left: 4px; }
+  .nav .btn .wide { display: none; }
+  .nav .btn .narrow { display: inline; }
 }
 
 .site-footer { background: var(--ink); color: #c9cad2; border-radius: var(--r-lg) var(--r-lg) 0 0; padding: 124px 0 44px; margin-top: clamp(56px, 8vw, 110px); font-size: .95rem; }
@@ -167,6 +170,7 @@ section.block { padding-block: clamp(56px, 8vw, 110px); }
 .card.dark .arrow { background: #fff; color: var(--ink); }
 
 .field { display: grid; gap: 8px; }
+.field-note { display: grid; align-content: start; gap: 8px; min-height: 44px; } /* room for a two-line hint */
 legend.label { padding: 0; margin-bottom: 8px; }
 .field > .label { font-size: .88rem; font-weight: 500; color: var(--ink); display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
 .input {
@@ -188,6 +192,9 @@ textarea.input { resize: vertical; min-height: 96px; line-height: 1.5; }
 .seg span svg { width: 18px; height: 18px; }
 .seg label:hover span { background: var(--surface-3); }
 .seg input:checked + span { background: var(--ink); color: #fff; }
+/* Bouncing tag beside the question until an option is picked; negative margin keeps the label row's height unchanged */
+.pick { margin-block: -5px; padding: 4px 10px; border-radius: 999px; background: var(--accent); color: var(--ink); box-shadow: 0 0 0 1px var(--ink), 0 2px 0 var(--ink); font: 500 .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; animation: pick .6s ease-in-out infinite alternate; }
+@keyframes pick { to { translate: 0 4px; } }
 .seg input:focus-visible + span, .chips input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 2px; }
 @media (max-width: 350px) { #f-connection { grid-auto-flow: row; grid-template-columns: 1fr 1fr; } }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -278,7 +285,7 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 
 /* ── Hero: the speed test plays out on a live map of Dhaka ── */
 .hero h1 { font: 900 clamp(1.8rem, 1rem + 3vw, 3.4rem)/0.98 'Doto Variable', var(--mono); letter-spacing: -0.02em; word-spacing: -0.28em; text-transform: uppercase; margin: 0 0 .3em; }
-.hero h1 span { display: inline-block; animation: boot 1.1s steps(1) both; animation-delay: calc(var(--i, 0) * 180ms + 100ms); }
+.hero h1 span { display: inline-block; animation: boot .7s steps(1) both; animation-delay: calc(var(--i, 0) * 110ms + 80ms); }
 @keyframes boot { 0% { opacity: 0; } 8% { opacity: 1; } 16% { opacity: .15; } 26% { opacity: 1; } 38% { opacity: .5; } 50%, 100% { opacity: 1; } }
 
 /* Stat band under the tester */
@@ -339,7 +346,6 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 }
 .tester-grid > * > * { pointer-events: auto; }
 .tester-col { display: grid; gap: 22px; }
-.tester-intro .eyebrow { margin-bottom: 14px; }
 .tester-intro .lede { margin: 0; max-width: 40ch; }
 .tester-side { background: var(--surface); border: 1px solid var(--ink); border-radius: 32px; box-shadow: var(--hard); padding: clamp(20px, 2.4vw, 30px); }
 .setup, .extras { display: grid; gap: 22px; }
@@ -466,8 +472,12 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 }
 
 /* ── Maps ───────────────────────────────────────────── */
-.map-msg { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; text-align: center; padding: 24px; color: var(--text-2); background: var(--surface-3); }
-.maplibregl-map { font-family: var(--font); background: var(--surface-3); }
+.map-msg { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; text-align: center; padding: 24px; color: var(--text-2); background: var(--bg); }
+/* --bg matches the basemap's land colour, so a map that is still loading looks like the page, not a grey slab */
+.maplibregl-map { font-family: var(--font); background: var(--bg); }
+/* Tiles arrive piecemeal; keep the canvas hidden until the first complete frame, then fade it in */
+:is(.tmap, .dmap-canvas) .maplibregl-canvas { opacity: 0; transition: opacity .5s ease-out; }
+:is(.tmap, .dmap-canvas).is-ready .maplibregl-canvas { opacity: 1; }
 .maplibregl-ctrl-group { background: var(--surface) !important; border: 1px solid var(--ink); border-radius: 12px !important; overflow: hidden; box-shadow: 0 3px 0 var(--ink) !important; }
 .maplibregl-ctrl-group button { width: 36px; height: 36px; }
 .maplibregl-ctrl-group button + button { border-top: 1px solid var(--line) !important; }

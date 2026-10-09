@@ -105,6 +105,7 @@ export default function DhakaMap({ initial, isps, compact }: Props) {
           popup.setLngLat(e.lngLat).setHTML(`<strong>${p.isp}</strong><span class="tip-v">${fmt(p[key] ?? null)} <small>${METRICS[key].unit}</small></span><small>${new Date(p.at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })} · one test</small>`).addTo(map);
         });
         map.on('mouseleave', 'points', () => popup.remove());
+        el.current?.classList.add('is-ready'); // not via className: MapLibre adds its own classes to this node
         setStatus('ready');
       });
       map.on('error', (e: any) => console.warn('map:', e?.error?.message ?? e));

@@ -31,10 +31,9 @@ const schema = [
 const n = (v: number) => v.toLocaleString('en');
 const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
 ---
-<Base schema={schema} jsonAlt="/api/stats">
+<Base schema={schema} jsonAlt="/api/stats" dither={false}>
   <section class="hero">
     <SpeedTest client:load isps={isps.map(({ id, name, aliases }) => ({ id, name, aliases }))} areas={map.areas}>
-      <p class="eyebrow rise" data-n="001">Dhaka speed test</p>
       <h1 aria-label="How fast is your internet, really?">
         {headline.map((w, i) => <><span aria-hidden="true" style={`--i:${i}`}>{w}</span>{i === 1 || i === 3 ? <br /> : ' '}</>)}
       </h1>
