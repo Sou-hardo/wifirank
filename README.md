@@ -10,11 +10,13 @@ Astro (server-rendered) + React islands + Postgres (Neon) + MapLibre.
 
 Figures in these screenshots come from local demo data, except the test result, which is a real run.
 
-![Home page with the speed test](docs/screenshots/home.png)
+The speed test runs on a live map of Dhaka: pick your area and the map flies to it, packets stream between you and Cloudflare's Dhaka edge while it measures, and your result lands as a pin.
+
+![Home page: the speed test over a live map of Dhaka](docs/screenshots/home.png)
 
 | Test in progress | Result |
 |---|---|
-| ![Test running, with the data stream behind the gauge](docs/screenshots/test-running.png) | ![Finished test with thank-you and speed tier](docs/screenshots/result.png) |
+| ![Test running: packets travel along an arc between the tester and the Cloudflare edge](docs/screenshots/test-running.png) | ![Finished test: the result lands as a pin on the map](docs/screenshots/result.png) |
 
 | Map | Rankings |
 |---|---|
@@ -22,7 +24,7 @@ Figures in these screenshots come from local demo data, except the test result, 
 
 | Provider page | Mobile |
 |---|---|
-| ![Provider page with peak vs off-peak](docs/screenshots/provider.png) | <img src="docs/screenshots/mobile.png" alt="Home page on a phone" width="300"> |
+| ![Provider page with peak vs off-peak](docs/screenshots/provider.png) | <img src="docs/screenshots/mobile.png" alt="Test running on a phone" width="300"> |
 
 ## Run locally
 
