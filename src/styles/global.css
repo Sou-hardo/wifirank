@@ -384,8 +384,10 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 .gauge.is-active .g-label::before { content: ''; display: inline-block; width: 7px; height: 7px; margin-right: 8px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 3px var(--accent); animation: blink 1s ease-in-out infinite; vertical-align: middle; }
 @keyframes blink { 50% { opacity: .2; } }
 
+/* The idle dial: GO sits exactly on the dial's centre (160/300 down), with the hint in the arc's opening below it. */
+.gauge-center:has(.go) { --go: clamp(124px, 34vw, 160px); padding-top: 6.25%; }
 .go {
-  position: relative; width: clamp(124px, 34vw, 160px); aspect-ratio: 1; border-radius: 50%; cursor: pointer;
+  position: relative; width: var(--go); aspect-ratio: 1; border-radius: 50%; cursor: pointer;
   border: 1px dashed var(--line-strong); background: var(--surface-2); color: var(--muted);
   font: 900 clamp(2rem, 6vw, 2.7rem)/1 var(--dot); letter-spacing: .04em;
   transition: transform .3s var(--ease-spring), box-shadow .3s var(--ease-spring), background .3s, color .3s;
@@ -396,7 +398,7 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 .go.ready::before, .go.ready::after { content: ''; position: absolute; inset: -1.5px; border-radius: 50%; border: 1.5px solid var(--ink); animation: ring 2.6s var(--ease-out) infinite; pointer-events: none; }
 .go.ready::after { animation-delay: 1.3s; }
 @keyframes ring { from { opacity: .5; transform: scale(1); } to { opacity: 0; transform: scale(1.5); } }
-.go-hint { margin-top: 16px; font-size: .84rem; color: var(--muted); }
+.go-hint { position: absolute; inset: calc(53.33% + var(--go) / 2 + 18px) 0 auto; font-size: .84rem; color: var(--muted); }
 
 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; width: min(100%, 330px); }
 .step { text-align: center; font: 500 .72rem var(--mono); letter-spacing: .04em; text-transform: uppercase; padding: 8px 4px; border-radius: 999px; background: var(--surface); color: var(--muted); border: 1px solid var(--line-strong); transition: all .35s var(--ease-out); }
