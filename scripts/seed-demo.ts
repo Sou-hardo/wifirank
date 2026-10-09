@@ -36,7 +36,7 @@ for (const area of slugs) {
       const down = plan * quality * (peak ? 0.6 : 1) * (0.7 + rnd() * 0.4);
       rows.push({
         device_id: dev, isp_id: id, area, connection: pick(['cable', 'wifi5', 'wifi24', 'wifi']),
-        plan: plan <= 20 ? '10-20' : plan <= 40 ? '20-40' : plan <= 60 ? '40-60' : '60-100', price: pick(['500-800', '800-1200', '1200-2000']),
+        plan: plan <= 20 ? '10-20' : plan <= 40 ? '20-40' : plan <= 60 ? '40-60' : '60-100', price: String(pick([800, 1050, 1200, 1500, 2000])),
         ...(rnd() < 0.5
           ? { lat: Math.round((lat + (rnd() - 0.5) * 0.012) * 200) / 200, lng: Math.round((lng + (rnd() - 0.5) * 0.012) * 200) / 200 }
           : { lat: null, lng: null }),

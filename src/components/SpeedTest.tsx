@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import SpeedTestEngine from '@cloudflare/speedtest';
-import { AREAS, PLANS, PRICES } from '../lib/options';
+import { AREAS, PLANS } from '../lib/options';
+import PACKAGES from '../../data/isp-packages.json';
 import Combobox, { type Option } from './Combobox';
 import Gauge from './Gauge';
 import LocationPicker from './LocationPicker';
@@ -10,6 +11,7 @@ import type { MapArea } from '../lib/mapData';
 import { burst } from '../scripts/fx';
 import { sustainedMbps } from '../lib/sustained';
 
+type Pkg = { name: string | null; mbps: number; bdt: number };
 type Isp = { id: number; name: string; aliases: string[] };
 type Metrics = { down: number | null; up: number | null; ping: number | null; jitter: number | null; loss?: number | null };
 type Stage = 'latency' | 'download' | 'upload' | 'packetLoss';
@@ -175,6 +177,8 @@ async function shareImage(isp: string, area: string, m: Metrics | null) {
 function Review({ testId, ispId, ispName }: { testId: number; ispId: number; ispName: string }) {
   const [stars, setStars] = useState(0);
   const [price, setPrice] = useState('');
+  const pkgs: Pkg[] = (PACKAGES as Record<string, { packages: Pkg[] }>)[ispName]?.packages ?? [];
+  const listed = pkgs.some((p) => String(p.bdt) === price);
   const [hover, setHover] = useState(0);
   const [comment, setComment] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'done' | string>('idle');
@@ -184,7 +188,7 @@ function Review({ testId, ispId, ispName }: { testId: number; ispId: number; isp
     setState('sending');
     const res = await fetch('/api/reviews', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ deviceId: deviceId(), testId, ispId, stars: stars || null, comment, price: price || null }),
+      body: JSON.stringify({ deviceId: deviceId(), testId, ispId, stars: stars || null, comment, price: price ? Number(price) : null }),
     }).catch(() => null);
     if (res?.ok) {
       const r = (e as any).target?.getBoundingClientRect?.();
@@ -209,12 +213,19 @@ function Review({ testId, ispId, ispName }: { testId: number; ispId: number; isp
       <textarea className="input" maxLength={1000} rows={3} value={comment} onChange={(e) => setComment(e.target.value)}
         placeholder="Outages? Support response? Worth the price? (optional)" aria-label="Comment" />
       <div className="field">
-        <span className="label">Monthly bill</span>
-        <div className="chips">
-          {Object.entries(PRICES).map(([k, v]) => (
-            <label key={k}><input type="radio" name="price" checked={price === k} onChange={() => setPrice(k)} onClick={() => price === k && setPrice('')} /><span>{v}</span></label>
-          ))}
-        </div>
+        <span className="label" id="l-bill">{pkgs.length ? 'Your package' : 'Monthly bill'}</span>
+        {pkgs.length > 0 && (
+          <div className="chips">
+            {pkgs.map((p) => (
+              <label key={`${p.mbps}-${p.bdt}`}>
+                <input type="radio" name="price" checked={price === String(p.bdt)} onChange={() => setPrice(String(p.bdt))} onClick={() => price === String(p.bdt) && setPrice('')} />
+                <span>{p.mbps} Mbps · ৳{p.bdt.toLocaleString('en-IN')}</span>
+              </label>
+            ))}
+          </div>
+        )}
+        <input className="input" type="number" inputMode="numeric" min={100} max={100000} aria-labelledby="l-bill"
+          placeholder={pkgs.length ? 'Not listed? Monthly bill in ৳' : 'Monthly bill in ৳'} value={listed ? '' : price} onChange={(e) => setPrice(e.target.value)} />
       </div>
       <div className="row-between">
         <small className="muted">Anonymous. Be fair, and don’t include personal details.</small>
