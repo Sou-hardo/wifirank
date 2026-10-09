@@ -13,6 +13,7 @@ import { sustainedMbps } from '../lib/sustained';
 type Isp = { id: number; name: string; aliases: string[] };
 type Metrics = { down: number | null; up: number | null; ping: number | null; jitter: number | null; loss?: number | null };
 type Stage = 'latency' | 'download' | 'upload' | 'packetLoss';
+type Net = { asOrg: string | null; flag: string | null; isp: { id: number; name: string } | null };
 type Saved = { ispId: number; flag: string | null; asOrg: string | null;
   peer: { devices: number; local_down: number | null } | null };
 
@@ -222,6 +223,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
   const [saved, setSaved] = useState<Saved | null>(null);
   const [error, setError] = useState('');
   const [tried, setTried] = useState(false);
+  const [net, setNet] = useState<Net | null>(null);
 
   // Restore last choices so repeat testers start in one tap.
   useEffect(() => {
@@ -229,6 +231,12 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
       const last = JSON.parse(localStorage.getItem('wr_last') ?? 'null');
       if (last) { setIsp(last.isp ?? { name: '' }); setArea(last.area ?? ''); setConnection(last.connection ?? ''); setPlan(last.plan ?? ''); setPrice(last.price ?? ''); }
     } catch {}
+    // Detect the provider from the connection; a remembered choice wins (it may be a neighbourhood reseller).
+    fetch('/api/whoami').then((r) => (r.ok ? r.json() : null)).then((n: Net | null) => {
+      if (!n) return;
+      setNet(n);
+      if (n.isp && !n.flag) setIsp((cur) => (cur.name.trim() ? cur : n.isp!));
+    }).catch(() => {});
   }, []);
 
   const ispOptions = useMemo<Option[]>(() => isps.map((i) => ({ value: String(i.id), label: i.name, terms: i.aliases })), [isps]);
@@ -314,6 +322,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
                       onSelect={(o, t) => setIsp(o ? { id: Number(o.value), name: o.label } : { name: t })} />
                     {tried && missing === 'isp' && <small className="error">Choose or type your provider.</small>}
                     {!isp.id && isp.name.trim().length > 1 && <small className="muted">New provider: it’ll appear on the site after a quick check.</small>}
+                    {isp.id && isp.id === net?.isp?.id && <small className="muted">Detected from your connection. Use a local provider? Pick it instead.</small>}
                   </div>
 
                   <div className="field">
@@ -434,6 +443,13 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
               <span>{saved.flag === 'mobile_data'
                 ? <>This ran over <strong>mobile data ({saved.asOrg})</strong>, so it won’t count toward {isp.name}. Switch to your home Wi-Fi or cable and test again.</>
                 : <>Your connection appears to be <strong>outside Bangladesh</strong> (a VPN?), so it won’t count. Turn the VPN off and test again.</>}</span>
+            </div>
+          )}
+          {saved && !saved.flag && net?.isp && net.isp.id !== saved.ispId && (
+            <div className="notice info rise" role="status">
+              <Icon d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 16v-4M12 8h.01" />
+              <span>You chose <strong>{isp.name}</strong>, and your connection runs on <strong>{net.isp.name}</strong>’s network.
+                That’s normal: many neighbourhood providers rent their line from a bigger ISP. Your result counts toward {isp.name}.</span>
             </div>
           )}
           <ResultPanel title="Your result" sub="Measured against Cloudflare’s server in Dhaka" m={local} peer={peer?.local_down} />
