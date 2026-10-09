@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import SpeedTestEngine from '@cloudflare/speedtest';
-import { AREAS, PLANS } from '../lib/options';
+import { AREAS } from '../lib/options';
 import PACKAGES from '../../data/isp-packages.json';
 import Combobox, { type Option } from './Combobox';
 import Gauge from './Gauge';
@@ -249,7 +249,6 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
   const [pickerOpen, setPickerOpen] = useState(false);
   const [locating, setLocating] = useState(false);
   const [connection, setConnection] = useState('');
-  const [plan, setPlan] = useState('');
   const [stage, setStage] = useState<Stage | null>(null);
   const [live, setLive] = useState<Metrics | null>(null);
   const [local, setLocal] = useState<Metrics | null>(null);
@@ -262,7 +261,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
   useEffect(() => {
     try {
       const last = JSON.parse(localStorage.getItem('wr_last') ?? 'null');
-      if (last) { setIsp(last.isp ?? { name: '' }); setConnection(last.connection ?? ''); setPlan(last.plan ?? ''); }
+      if (last) { setIsp(last.isp ?? { name: '' }); setConnection(last.connection ?? ''); }
     } catch {}
     // Detect the provider from the connection; a remembered choice wins (it may be a neighbourhood reseller).
     fetch('/api/whoami').then((r) => (r.ok ? r.json() : null)).then((n: Net | null) => {
@@ -274,10 +273,6 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
 
   const ispOptions = useMemo<Option[]>(() => isps.map((i) => ({ value: String(i.id), label: i.name, terms: i.aliases })), [isps]);
   const missing = !isp.name.trim() ? 'isp' : !connection ? 'connection' : null;
-
-  // Ref so the async run reads a plan picked while the test was running.
-  const planRef = useRef(plan);
-  planRef.current = plan;
 
   const start = async () => {
     setTried(true);
@@ -294,7 +289,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
 
   const run = async (p: Pin) => {
     setPin(p); setArea(p.area);
-    localStorage.setItem('wr_last', JSON.stringify({ isp, connection, plan }));
+    localStorage.setItem('wr_last', JSON.stringify({ isp, connection }));
     setError(''); setLocal(null); setSaved(null); setLive(null); setStage(null);
     setPhase('running');
 
@@ -312,7 +307,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         deviceId: deviceId(), ...(isp.id ? { ispId: isp.id } : { ispName: isp.name }), area: p.area, connection,
-        plan: planRef.current || null, lat: p.lat, lng: p.lng, local: i,
+        lat: p.lat, lng: p.lng, local: i,
       }),
     }).catch(() => null);
     const body = await res?.json().catch(() => null);
@@ -329,8 +324,6 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
     }
     setPhase('done');
   };
-
-  useEffect(() => { localStorage.setItem('wr_last', JSON.stringify({ isp, connection, plan })); }, [plan]);
 
   const gaugeValue = phase === 'running'
     ? stage === 'upload' ? live?.up ?? null : stage === 'download' || stage === 'packetLoss' ? live?.down ?? null : null
@@ -390,15 +383,6 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
                   {phase === 'running' || phase === 'saving' ? (
                     <>
                       <p className="eyebrow">While you wait</p>
-                      <p className="text-2" style={{ marginTop: -6 }}>Help others compare fairly. Optional.</p>
-                      <div className="field">
-                        <span className="label">Your package speed</span>
-                        <div className="chips">
-                          {Object.entries(PLANS).map(([k, v]) => (
-                            <label key={k}><input type="radio" name="plan" checked={plan === k} onChange={() => setPlan(k)} onClick={() => plan === k && setPlan('')} /><span>{v}</span></label>
-                          ))}
-                        </div>
-                      </div>
                       <p className="muted small">Keep this tab open, and pause downloads and streaming on your network for the most accurate result.</p>
                     </>
                   ) : (

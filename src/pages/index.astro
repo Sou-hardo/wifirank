@@ -1,12 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import SpeedTest from '../components/SpeedTest';
-import DhakaMap from '../components/DhakaMap';
 import RankTable from '../components/RankTable.astro';
 import { sql } from '../lib/db';
 import { leaderboard, MIN_DEVICES } from '../lib/stats';
 import { mapData } from '../lib/mapData';
-import { AREAS } from '../lib/options';
 
 const [isps, [totals], board, map] = await Promise.all([
   sql<{ id: number; name: string; slug: string; aliases: string[] }[]>`select id, name, slug, aliases from isps where approved order by id`,
@@ -58,18 +56,8 @@ const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
     )}
   </section>
 
-  <section class="wrap block" id="map">
-    <div class="sec-head reveal">
-      <h2><span class="hl">The map</span></h2>
-      <p>Speed changes street by street. Each circle is a neighbourhood: darker means faster, bigger means more people tested there. Tap one to see which providers win.</p>
-    </div>
-    <div class="reveal">
-      <DhakaMap client:visible initial={map} isps={isps.map(({ slug, name }) => ({ slug, name }))} compact />
-    </div>
-  </section>
-
   {top.length > 0 && (
-    <section class="wrap block" style="padding-top:0">
+    <section class="wrap block">
       <div class="sec-head reveal">
         <h2><span class="hl">Rankings</span></h2>
         <p>The fastest providers across Dhaka right now, by median download speed over the last 90 days.</p>
@@ -79,7 +67,7 @@ const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
     </section>
   )}
 
-  <section class="wrap block" style="padding-top:0">
+  <section class="wrap block" style={top.length > 0 ? 'padding-top:0' : undefined}>
     <div class="sec-head reveal">
       <h2><span class="hl">What we measure</span></h2>
       <p>One number never tells the whole story, so every test records three things.</p>
@@ -139,16 +127,6 @@ const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
         <path class="spin" style="animation-direction:reverse;animation-duration:18s" d="M112 128c4 28 10 34 38 38-28 4-34 10-38 38-4-28-10-34-38-38 28-4 34-10 38-38z" fill="#b9ff66" stroke="#191a23" stroke-width="1.2" />
       </svg>
     </div>
-  </section>
-
-  <section class="wrap block" style="padding-top:0">
-    <div class="sec-head reveal">
-      <h2><span class="hl">Browse by area</span></h2>
-      <p>Find the best internet provider where you actually live.</p>
-    </div>
-    <nav class="chips reveal" aria-label="Areas">
-      {Object.entries(AREAS).map(([slug, name]) => <a href={`/area/${slug}`} style="text-decoration:none"><span>{name}</span></a>)}
-    </nav>
   </section>
 
   <section class="wrap block" style="padding-top:0">
