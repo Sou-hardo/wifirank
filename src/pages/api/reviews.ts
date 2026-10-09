@@ -15,6 +15,7 @@ export const POST: APIRoute = async ({ request }) => {
     const rows = await sql`update tests set price = ${price} where id = ${b.testId} and device_id = ${b.deviceId}::uuid returning 1`.catch(() => []);
     if (!rows.length) return Response.json({ error: 'Run a speed test first' }, { status: 403 });
   }
+  let name: string | null = null; // the pseudonym the review is published under
   if (stars) {
     const comment = typeof b.comment === 'string' ? b.comment.trim().slice(0, 1000) || null : null;
     // Only devices that ran a test on this ISP may review it; one editable review per device per ISP.
@@ -23,8 +24,9 @@ export const POST: APIRoute = async ({ request }) => {
       select device_id, isp_id, ${stars}, ${comment} from tests
       where device_id = ${b.deviceId}::uuid and isp_id = ${b.ispId} limit 1
       on conflict (device_id, isp_id) do update set stars = excluded.stars, comment = excluded.comment, updated_at = now()
-      returning 1`.catch(() => []);
+      returning name`.catch(() => []);
     if (!rows.length) return Response.json({ error: 'Run a speed test for this ISP first' }, { status: 403 });
+    name = rows[0].name;
   }
-  return Response.json({ ok: true });
+  return Response.json({ ok: true, name });
 };

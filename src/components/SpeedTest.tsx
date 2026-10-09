@@ -176,6 +176,39 @@ async function shareImage(isp: string, area: string, m: Metrics | null) {
   }
 }
 
+// Die faces as lit cells of a 3×3 grid.
+const PIPS = [[4], [0, 8], [0, 4, 8], [0, 2, 6, 8], [0, 2, 4, 6, 8], [0, 2, 3, 5, 6, 8]];
+const ROLL_MS = 1100; // matches the `roll` keyframes
+
+// A die tumbles in and the reviewer's random public name settles out of scrambled letters.
+function NameReveal({ name }: { name: string }) {
+  const [rolling, setRolling] = useState(() => !matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const [face, setFace] = useState(4);
+  const [text, setText] = useState(name);
+  useEffect(() => {
+    if (!rolling) return;
+    const t0 = performance.now();
+    const id = setInterval(() => {
+      const p = (performance.now() - t0) / ROLL_MS;
+      if (p >= 1) { clearInterval(id); setText(name); return setRolling(false); }
+      setFace(Math.floor(Math.random() * 6));
+      // Letters lock in left to right as the die slows down.
+      setText([...name].map((ch, i) => (ch === ' ' || i < p * name.length ? ch : 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)])).join(''));
+    }, 70);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <div className={`alias ${rolling ? 'rolling' : 'set'}`}>
+      <span className="die" aria-hidden="true">{Array.from({ length: 9 }, (_, i) => <i key={i} className={PIPS[face].includes(i) ? 'on' : ''} />)}</span>
+      <p>
+        <small className="muted">Your review is posted as</small>
+        <strong aria-hidden="true">{text}</strong>
+        <span className="sr-only" role="status">{name}</span>
+      </p>
+    </div>
+  );
+}
+
 function Review({ testId, ispId, ispName }: { testId: number; ispId: number; ispName: string }) {
   const [stars, setStars] = useState(0);
   const [price, setPrice] = useState('');
@@ -188,6 +221,7 @@ function Review({ testId, ispId, ispName }: { testId: number; ispId: number; isp
   const [hover, setHover] = useState(0);
   const [comment, setComment] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'done' | string>('idle');
+  const [alias, setAlias] = useState<string | null>(null);
   const words = ['', 'Terrible', 'Poor', 'Okay', 'Good', 'Excellent'];
   const submit = async (e: { preventDefault(): void }) => {
     e.preventDefault();
@@ -196,13 +230,20 @@ function Review({ testId, ispId, ispName }: { testId: number; ispId: number; isp
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ deviceId: deviceId(), testId, ispId, stars: stars || null, comment, price: price ? Number(price) : null }),
     }).catch(() => null);
+    const body = await res?.json().catch(() => null);
     if (res?.ok) {
       const r = (e as any).target?.getBoundingClientRect?.();
       if (r) burst(r.left + r.width / 2, r.top + 40, 40);
+      setAlias(body?.name ?? null); // only a star rating is published under a name
     }
-    setState(res?.ok ? 'done' : (await res?.json().catch(() => null))?.error ?? 'Couldn’t send. Try again.');
+    setState(res?.ok ? 'done' : body?.error ?? 'Couldn’t send. Try again.');
   };
-  if (state === 'done') return <div className="review-done rise"><strong>Thanks, that helps others compare.</strong> <span className="muted">Run another test any time to update it.</span></div>;
+  if (state === 'done') return (
+    <div className="review-done rise">
+      {alias && <NameReveal name={alias} />}
+      <strong>Thanks, that helps others compare.</strong> <span className="muted">Run another test any time to update it.</span>
+    </div>
+  );
   return (
     <form className="review rise" onSubmit={submit} style={{ ['--i' as any]: 2 }}>
       <h3>Rate {ispName} <span className="muted">Optional</span></h3>
