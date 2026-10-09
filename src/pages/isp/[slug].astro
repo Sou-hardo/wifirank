@@ -15,7 +15,7 @@ const [all, peak, offPeak, areas, reviews, latest] = await Promise.all([
   summary(sql, { ispId: isp.id, peak: false }),
   byArea(sql, { ispId: isp.id }),
   sql<{ stars: number; comment: string | null; updated_at: Date }[]>`
-    select stars, comment, updated_at from reviews where isp_id = ${isp.id} and not hidden order by (comment is not null) desc, updated_at desc limit 30`,
+    select name, stars, comment, updated_at from reviews where isp_id = ${isp.id} and not hidden order by (comment is not null) desc, updated_at desc limit 30`,
   recent(sql, { ispId: isp.id, limit: 8 }),
 ]);
 const areaRows = areas.map((a) => ({ ...a, name: AREAS[a.area] ?? a.area, slug: a.area }));
@@ -97,7 +97,8 @@ const periods: [string, string, Row | null][] = [['All day', 'Every test', all],
                     <span class="stars-static" role="img" aria-label={`${r.stars} out of 5 stars`}>{'★'.repeat(r.stars)}<span class="off">{'★'.repeat(5 - r.stars)}</span></span>
                     <time class="muted small" datetime={r.updated_at.toISOString()}>{day(r.updated_at)}</time>
                   </div>
-                  {r.comment && <p style="margin:10px 0 0" class="text-2">{r.comment}</p>}
+                  <p style="margin:10px 0 0" class="small"><strong>{r.name}</strong></p>
+                  {r.comment && <p style="margin:4px 0 0" class="text-2">{r.comment}</p>}
                 </article>
               ))}
             </div>
