@@ -80,7 +80,7 @@ export default function LocationPicker({ open, initial, area, onClose, onPick }:
         </header>
         <div className="picker-map" ref={el}>
           {status === 'loading' && <div className="map-msg">Loading map…</div>}
-          {status === 'error' && <div className="map-msg">The map couldn’t load. Pick your area by name instead.</div>}
+          {status === 'error' && <div className="map-msg">The map couldn’t load. Allow location access and try again.</div>}
           <button type="button" className="btn btn-sm locate" onClick={locate}>
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg>
             Use my location
