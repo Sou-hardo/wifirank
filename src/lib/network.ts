@@ -7,9 +7,14 @@ export const hashIp = (ip: string) => createHash('sha256').update(IP_SALT + ip).
 // ponytail: name-based match; add ASN list if operators rebrand
 const MOBILE = /grameenphone|robi|axiata|airtel|banglalink|teletalk/i;
 
+// Loopback and LAN addresses, which is all the dev server ever sees.
+const LOCAL = /^(::1$|(::ffff:)?(127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.))/;
+
 export async function lookup(ip: string) {
   try {
-    const res = await fetch(`https://ipinfo.io/${ip}/json${IPINFO_TOKEN ? `?token=${IPINFO_TOKEN}` : ''}`, {
+    // In dev, look up this machine's own public IP instead (ipinfo does that when no IP is given).
+    const target = import.meta.env.DEV && LOCAL.test(ip) ? '' : `${ip}/`;
+    const res = await fetch(`https://ipinfo.io/${target}json${IPINFO_TOKEN ? `?token=${IPINFO_TOKEN}` : ''}`, {
       signal: AbortSignal.timeout(3000),
     });
     const j = await res.json();
