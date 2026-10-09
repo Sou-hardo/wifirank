@@ -19,7 +19,7 @@ create table if not exists tests (
   lng real,
   connection text not null check (connection in ('cable', 'wifi5', 'wifi24', 'wifi')),
   plan text,
-  price text,
+  price text, -- monthly bill in ৳ (early rows hold range keys like '800-1200')
   -- Measured against Cloudflare's Dhaka edge (the domestic path)
   local_down real, local_up real, local_ping real, local_jitter real, local_loss real,
   ip_hash text not null,

@@ -1,12 +1,12 @@
 import type { APIRoute } from 'astro';
 import { sql } from '../../lib/db';
-import { PRICES } from '../../lib/options';
 
-// Post-test feedback: stars (+ optional comment) and/or the monthly bill. Each part is optional.
+// Post-test feedback: stars (+ optional comment) and/or the monthly bill in ৳. Each part is optional.
 export const POST: APIRoute = async ({ request }) => {
   const b = await request.json().catch(() => null);
   const stars = b?.stars ?? null;
-  const price = b?.price in PRICES ? b.price : null;
+  const price = Number.isInteger(b?.price) && b.price >= 100 && b.price <= 100000 ? String(b.price) : null; // ৳ per month
+  if (b?.price != null && !price) return Response.json({ error: 'Enter a monthly bill between ৳100 and ৳1,00,000' }, { status: 400 });
   if (stars != null && (!Number.isInteger(stars) || stars < 1 || stars > 5)) return Response.json({ error: 'Pick 1–5 stars' }, { status: 400 });
   if (!stars && !price) return Response.json({ error: 'Add a rating or your monthly bill' }, { status: 400 });
 

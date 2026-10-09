@@ -17,15 +17,6 @@ export const PLANS = {
   '200+': '200+ Mbps',
 } as const;
 
-export const PRICES = {
-  'lt500': 'Under ৳500',
-  '500-800': '৳500–800',
-  '800-1200': '৳800–1,200',
-  '1200-2000': '৳1,200–2,000',
-  '2000-3500': '৳2,000–3,500',
-  '3500+': '৳3,500+',
-} as const;
-
 const AREA_NAMES = [
   'Adabor', 'Aftabnagar', 'Agargaon', 'Ashkona', 'Azimpur', 'Badda', 'Banani', 'Banasree', 'Bangshal',
   'Baridhara', 'Baridhara DOHS', 'Bashabo', 'Bashundhara R/A', 'Beraid', 'Cantonment', 'Chawkbazar',

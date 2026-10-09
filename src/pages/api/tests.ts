@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { sql } from '../../lib/db';
 import { hashIp, lookup } from '../../lib/network';
-import { AREAS, CONNECTIONS, PLANS, PRICES, slugify } from '../../lib/options';
+import { AREAS, CONNECTIONS, PLANS, slugify } from '../../lib/options';
 import { summary } from '../../lib/stats';
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -17,7 +17,6 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (!(b.area in AREAS)) return bad('Pick an area');
   if (!(b.connection in CONNECTIONS)) return bad('Pick a connection type');
   const plan = b.plan in PLANS ? b.plan : null;
-  const price = b.price in PRICES ? b.price : null;
   const l = b.local ?? {};
   const local = [num(l.down, 1e4), num(l.up, 1e4), num(l.ping, 1e4), num(l.jitter, 1e4), num(l.loss, 1)];
   if (local[0] == null) return bad('No speed results');
@@ -48,10 +47,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
   const net = await lookup(clientAddress);
   const [row] = await sql`
-    insert into tests (device_id, isp_id, area, lat, lng, connection, plan, price,
+    insert into tests (device_id, isp_id, area, lat, lng, connection, plan,
       local_down, local_up, local_ping, local_jitter, local_loss,
       ip_hash, asn, as_org, country, flag)
-    values (${b.deviceId}, ${ispId}, ${b.area}, ${grid(b.lat, 20, 27)}, ${grid(b.lng, 88, 93)}, ${b.connection}, ${plan}, ${price},
+    values (${b.deviceId}, ${ispId}, ${b.area}, ${grid(b.lat, 20, 27)}, ${grid(b.lng, 88, 93)}, ${b.connection}, ${plan},
       ${local[0]}, ${local[1]}, ${local[2]}, ${local[3]}, ${local[4]},
       ${ipHash}, ${net.asn}, ${net.as_org}, ${net.country}, ${net.flag})
     returning id`;
