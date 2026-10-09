@@ -350,8 +350,9 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 .extras-head h2 { margin: 0 0 4px; font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.2rem); }
 .extras-head p { margin: 0; }
 .extras .eyebrow { margin-bottom: 0; justify-self: start; }
-.done-actions { display: grid; gap: 10px; justify-items: start; }
-.done-actions .btn { min-width: 240px; }
+.done-actions { display: grid; gap: 12px; justify-items: start; }
+.done-actions .review, .done-actions .review-done { justify-self: stretch; border-top: 1px solid var(--line); padding-top: 14px; }
+.done-links { display: flex; flex-wrap: wrap; gap: 8px; justify-self: stretch; border-top: 1px solid var(--line); padding-top: 14px; }
 .saved { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); padding: 6px 12px 6px 9px; border-radius: 999px; font-weight: 500; font-size: .92rem; margin: 0 0 6px; }
 .tester-stage { display: grid; justify-items: center; gap: 10px; position: relative; justify-self: end; width: min(100%, 400px); transition: width .7s var(--ease-out); }
 /* While the map is busy the gauge docks smaller in the corner, a frosted dial over the city */
@@ -411,8 +412,11 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 .result h3 { margin: 0; }
 .result header span { font-size: .88rem; }
 .peer { margin: 16px 0 0; font-size: .95rem; color: var(--text-2); }
-.review { display: grid; gap: 14px; }
+.review { display: grid; gap: 12px; }
 .review h3, .review p { margin: 0; }
+.review h3 .muted { font-size: .8rem; font-weight: 400; margin-left: 6px; }
+.review textarea.input { min-height: 68px; }
+.review .chips span { padding: 7px 12px; font-size: .84rem; }
 .star-input { display: flex; align-items: center; gap: 2px; }
 .star-input button { background: none; border: 0; padding: 4px; cursor: pointer; border-radius: 8px; transition: transform .25s var(--ease-spring); }
 .star-input button:hover { transform: scale(1.2) rotate(-8deg); }
@@ -451,6 +455,10 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
   .tester-grid:has(.setup) .tester-stage { display: none; }
   .go-mobile { display: inline-flex; padding: 18px; font-size: 1.1rem; }
   .done-actions { justify-items: stretch; }
+  /* Once the test is done the map and dial shrink so the rating is on the first screen. */
+  .tester.is-done .tmap.tmap { height: 22dvh; min-height: 150px; }
+  .tester.is-done .tester-stage { width: min(100%, 210px); }
+  .tester.is-done .steps { display: none; }
 }
 
 /* ── Maps ───────────────────────────────────────────── */

@@ -12,6 +12,8 @@ import { burst } from '../scripts/fx';
 import { sustainedMbps } from '../lib/sustained';
 
 type Pkg = { name: string | null; mbps: number; bdt: number };
+// Typical Dhaka monthly bills, offered when we have no package list for the provider.
+const BILLS = [500, 800, 1000, 1200, 1500, 2000];
 type Isp = { id: number; name: string; aliases: string[] };
 type Metrics = { down: number | null; up: number | null; ping: number | null; jitter: number | null; loss?: number | null };
 type Stage = 'latency' | 'download' | 'upload' | 'packetLoss';
@@ -178,7 +180,11 @@ function Review({ testId, ispId, ispName }: { testId: number; ispId: number; isp
   const [stars, setStars] = useState(0);
   const [price, setPrice] = useState('');
   const pkgs: Pkg[] = (PACKAGES as Record<string, { packages: Pkg[] }>)[ispName]?.packages ?? [];
-  const listed = pkgs.some((p) => String(p.bdt) === price);
+  const taka = (n: number) => `৳${n.toLocaleString('en-IN')}`;
+  const chips = pkgs.length
+    ? pkgs.map((p) => ({ key: `${p.mbps}-${p.bdt}`, bdt: p.bdt, label: `${p.mbps} Mbps · ${taka(p.bdt)}` }))
+    : BILLS.map((b) => ({ key: String(b), bdt: b, label: taka(b) }));
+  const listed = chips.some((c) => String(c.bdt) === price);
   const [hover, setHover] = useState(0);
   const [comment, setComment] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'done' | string>('idle');
@@ -196,11 +202,10 @@ function Review({ testId, ispId, ispName }: { testId: number; ispId: number; isp
     }
     setState(res?.ok ? 'done' : (await res?.json().catch(() => null))?.error ?? 'Couldn’t send. Try again.');
   };
-  if (state === 'done') return <div className="card review-done rise"><strong>Thanks, that helps others compare.</strong> <span className="muted">Run another test any time to update it.</span></div>;
+  if (state === 'done') return <div className="review-done rise"><strong>Thanks, that helps others compare.</strong> <span className="muted">Run another test any time to update it.</span></div>;
   return (
-    <form className="card review rise" onSubmit={submit} style={{ ['--i' as any]: 2 }}>
-      <h3>How is {ispName} overall? <span className="muted">All optional</span></h3>
-      <p className="muted">Speed is half the story. Uptime, support and value matter too.</p>
+    <form className="review rise" onSubmit={submit} style={{ ['--i' as any]: 2 }}>
+      <h3>Rate {ispName} <span className="muted">Optional</span></h3>
       <div className="star-input" role="radiogroup" aria-label="Rating" onMouseLeave={() => setHover(0)}>
         {[1, 2, 3, 4, 5].map((n) => (
           <button type="button" key={n} role="radio" aria-checked={stars === n} aria-label={`${n} star${n > 1 ? 's' : ''}: ${words[n]}`}
@@ -210,28 +215,28 @@ function Review({ testId, ispId, ispName }: { testId: number; ispId: number; isp
         ))}
         <span className="star-word" aria-hidden="true">{words[hover || stars]}</span>
       </div>
-      <textarea className="input" maxLength={1000} rows={3} value={comment} onChange={(e) => setComment(e.target.value)}
-        placeholder="Outages? Support response? Worth the price? (optional)" aria-label="Comment" />
+      {/* The comment box only appears once they've rated, so the card stays short enough to see whole. */}
+      {stars > 0 && (
+        <textarea className="input" maxLength={1000} rows={2} value={comment} onChange={(e) => setComment(e.target.value)}
+          placeholder="Outages? Support response? Worth the price? (optional)" aria-label="Comment" />
+      )}
       <div className="field">
         <span className="label" id="l-bill">{pkgs.length ? 'Your package' : 'Monthly bill'}</span>
-        {pkgs.length > 0 && (
-          <div className="chips">
-            {pkgs.map((p) => (
-              <label key={`${p.mbps}-${p.bdt}`}>
-                <input type="radio" name="price" checked={price === String(p.bdt)} onChange={() => setPrice(String(p.bdt))} onClick={() => price === String(p.bdt) && setPrice('')} />
-                <span>{p.mbps} Mbps · ৳{p.bdt.toLocaleString('en-IN')}</span>
-              </label>
-            ))}
-          </div>
-        )}
+        <div className="chips">
+          {chips.map((c) => (
+            <label key={c.key}>
+              <input type="radio" name="price" checked={price === String(c.bdt)} onChange={() => setPrice(String(c.bdt))} onClick={() => price === String(c.bdt) && setPrice('')} />
+              <span>{c.label}</span>
+            </label>
+          ))}
+        </div>
         <input className="input" type="number" inputMode="numeric" min={100} max={100000} aria-labelledby="l-bill"
-          placeholder={pkgs.length ? 'Not listed? Monthly bill in ৳' : 'Monthly bill in ৳'} value={listed ? '' : price} onChange={(e) => setPrice(e.target.value)} />
+          placeholder={pkgs.length ? 'Not listed? Monthly bill in ৳' : 'Other amount in ৳'} value={listed ? '' : price} onChange={(e) => setPrice(e.target.value)} />
       </div>
       <div className="row-between">
-        <small className="muted">Anonymous. Be fair, and don’t include personal details.</small>
-        <button className="btn btn-primary" disabled={!(stars || price) || (!!comment.trim() && !stars) || state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Submit'}</button>
+        <small className="muted">Anonymous. No personal details.</small>
+        <button className="btn btn-primary" disabled={!(stars || price) || state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Submit'}</button>
       </div>
-      {!!comment.trim() && !stars && <small className="muted">Add a star rating to post your comment.</small>}
       {state !== 'idle' && state !== 'sending' && <p className="error" role="alert">{state}</p>}
     </form>
   );
@@ -410,11 +415,17 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
                             : <>You’re tester <strong className="num">#{saved.peer.devices}</strong> for {isp.name} in {areaName}.</>}
                         </p>
                       )}
-                      <button type="button" className="btn btn-primary" onClick={() => shareImage(isp.name, areaName, local)}>
-                        <Icon d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13" /> Share result
-                      </button>
-                      <a className="btn" href={`/area/${area}`}>Compare ISPs in {areaName}</a>
-                      <button type="button" className="btn btn-ghost" onClick={() => { setPhase('setup'); setStage(null); }}>Test again</button>
+                      {/* The review sits here, beside the result, so nobody has to scroll to find it. */}
+                      {saved && !saved.flag && (
+                        <Review testId={saved.id} ispId={saved.ispId} ispName={isps.find((i) => i.id === saved.ispId)?.name ?? isp.name} />
+                      )}
+                      <div className="done-links">
+                        <button type="button" className="btn btn-sm" onClick={() => shareImage(isp.name, areaName, local)}>
+                          <Icon d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13" /> Share
+                        </button>
+                        <a className="btn btn-sm" href={`/area/${area}`}>Compare ISPs</a>
+                        <button type="button" className="btn btn-sm btn-ghost" onClick={() => { setPhase('setup'); setStage(null); }}>Test again</button>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -468,7 +479,6 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
             </div>
           )}
           <ResultPanel title="Your result" sub="Measured against Cloudflare’s server in Dhaka" m={local} peer={peer?.local_down} />
-          {saved && !saved.flag && <Review testId={saved.id} ispId={saved.ispId} ispName={isp.name} />}
         </div>
       )}
 
