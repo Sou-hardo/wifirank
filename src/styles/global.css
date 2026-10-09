@@ -103,7 +103,6 @@ section.block { padding-block: clamp(56px, 8vw, 110px); }
 .nav .btn { margin-left: 10px; }
 @media (max-width: 720px) { .nav .btn { display: none; } }
 @media (max-width: 560px) {
-  .hint-wide { display: none; } /* keeps the Start button above the fold on phones */
   .bar { display: none; }
   th, td { padding: 13px 10px; }
   th:first-child, td:first-child { padding-left: 16px; }
@@ -417,6 +416,11 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 .review h3 .muted { font-size: .8rem; font-weight: 400; margin-left: 6px; }
 .review textarea.input { min-height: 68px; }
 .review .chips span { padding: 7px 12px; font-size: .84rem; }
+.review-submit { width: 100%; padding: 17px 22px; font-size: 1.05rem; font-weight: 600; background: var(--accent); box-shadow: 0 4px 0 var(--ink); }
+.review-submit:hover { background: var(--ink); color: #fff; }
+.review-submit:active { transform: translateY(4px); box-shadow: none; }
+.review-submit:disabled { background: var(--surface-3); box-shadow: none; opacity: .6; }
+.review-note { text-align: center; }
 .star-input { display: flex; align-items: center; gap: 2px; }
 .star-input button { background: none; border: 0; padding: 4px; cursor: pointer; border-radius: 8px; transition: transform .25s var(--ease-spring); }
 .star-input button:hover { transform: scale(1.2) rotate(-8deg); }

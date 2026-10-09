@@ -233,10 +233,8 @@ function Review({ testId, ispId, ispName }: { testId: number; ispId: number; isp
         <input className="input" type="number" inputMode="numeric" min={100} max={100000} aria-labelledby="l-bill"
           placeholder={pkgs.length ? 'Not listed? Monthly bill in ৳' : 'Other amount in ৳'} value={listed ? '' : price} onChange={(e) => setPrice(e.target.value)} />
       </div>
-      <div className="row-between">
-        <small className="muted">Anonymous. No personal details.</small>
-        <button className="btn btn-primary" disabled={!(stars || price) || state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Submit'}</button>
-      </div>
+      <button className="btn review-submit" disabled={!(stars || price) || state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Submit review'}</button>
+      <small className="muted review-note">Anonymous. No personal details.</small>
       {state !== 'idle' && state !== 'sending' && <p className="error" role="alert">{state}</p>}
     </form>
   );
@@ -377,11 +375,9 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
                         </label>
                       ))}
                     </div>
-                    {tried && missing === 'connection' ? <small className="error">How is this device connected?</small>
-                      : <small className="muted hint-wide">Cable gives the truest ISP speed. 2.4 GHz Wi-Fi often caps below your plan.</small>}
+                    {tried && missing === 'connection' && <small className="error">How is this device connected?</small>}
                   </fieldset>
 
-                  <small className="muted">We use your location to pick your area, rounded to about 500&nbsp;m.</small>
                   {error && <p className="error" role="alert">{error}</p>}
                   <button className="btn btn-primary go-mobile" disabled={locating}>{locating ? 'Finding your location…' : 'Start test'}</button>
                 </form>
