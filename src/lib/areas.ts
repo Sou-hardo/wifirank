@@ -15,4 +15,6 @@ export function nearestArea(lat: number, lng: number) {
 
 // Rough Dhaka metro bounds for the map: [west, south, east, north].
 export const DHAKA_BOUNDS: [number, number, number, number] = [90.2, 23.62, 90.58, 23.98];
+// Bangladesh bounds: how far the map lets you pan.
+export const BD_BOUNDS: [number, number, number, number] = [88.0, 20.6, 92.7, 26.65];
 export const DHAKA_CENTER: [number, number] = [90.4, 23.79];
