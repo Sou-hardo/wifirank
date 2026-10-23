@@ -8,7 +8,8 @@
     "preview": "astro preview",
     "db:local": "pglite-server --db=.pglite --port=5432 --max-connections=10",
     "db:migrate": "node --env-file-if-exists=.env scripts/migrate.js",
-    "check": "node --env-file-if-exists=.env scripts/check.ts"
+    "check": "node --env-file-if-exists=.env scripts/check.ts",
+    "data:build": "node scripts/build-directory.ts"
   },
   "dependencies": {
     "@astrojs/react": "^7.0.1",
