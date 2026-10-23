@@ -159,9 +159,24 @@ for (const a of [...isps]) {
   isps.splice(isps.indexOf(drop), 1);
 }
 console.log('Merged twins:', mergedPairs);
-for (const i of isps) { i.slug = slug(i.name); if (!i.sources.length && i.source) i.sources = [i.source]; }
+const accessTypes = read('access-types');
+for (const i of isps) {
+  i.slug = slug(i.name);
+  const access = accessTypes[i.slug];
+  if (access) {
+    i.accessType = access.type;
+    i.aliases = [...new Set([...i.aliases, ...(access.aliases ?? [])])];
+  }
+  if (!i.sources.length && i.source) i.sources = [i.source];
+}
 // Keep package-level provenance even for the preserved hand-curated packages.
 for (const p of Object.values(packages) as any[]) for (const row of p.packages) row.source ??= p.source;
 const orderedPackages = Object.fromEntries([...new Set([...curatedPackageNames, ...isps.map(i => i.name)])].filter(name => packages[name]).map(name => [name, packages[name]]));
 write('isps', isps); write('isp-packages', orderedPackages); write('districts', districts.sort((a, b) => a.name.localeCompare(b.name)));
 console.log(JSON.stringify({ isps: isps.length, withPackages: isps.filter(i => packages[i.name]?.packages.length).length, packages: Object.values(packages).reduce((n: number, p: any) => n + p.packages.length, 0), withoutDistrict: isps.filter(i => !i.districts.length).length, withoutDistrictOrNationwide: isps.filter(i => !i.districts.length && !i.nationwide).length, districts: districts.length, districtsCovered: new Set(isps.flatMap(i => i.districts)).size }));
+
+// Licence scope is a conservative warning signal, not proof of a transit relationship.
+// Any shared ASN is ambiguous too: it must never select an arbitrary provider.
+const upstreams = [...new Set(isps.filter(i => i.asn && /Nationwide|Divisional|IIG|Transit/i.test(i.licence)).map(i => i.asn))].sort((a, b) => a - b);
+write('upstream-asns', upstreams);
+console.log(`Upstream candidate ASNs: ${upstreams.length}`);

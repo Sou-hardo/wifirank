@@ -24202,7 +24202,9 @@
   },
   {
     "name": "gpfi",
-    "aliases": [],
+    "aliases": [
+      "Grameenphone gpfi"
+    ],
     "website": null,
     "asn": null,
     "districts": [
@@ -24217,7 +24219,8 @@
     "addresses": [],
     "renewalDates": [],
     "possiblyLapsed": false,
-    "slug": "gpfi"
+    "slug": "gpfi",
+    "accessType": "fixed_wireless"
   },
   {
     "name": "Gr Storm Internet &",
