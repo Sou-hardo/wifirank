@@ -1,7 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useState, type KeyboardEvent, type ReactNode } from 'react';
 import SpeedTestEngine from '@cloudflare/speedtest';
 import { AREAS, DISTRICT_NAMES, locationHref } from '../lib/options';
-import PACKAGES from '../../data/isp-packages.json';
 import Combobox, { type Option } from './Combobox';
 import Gauge from './Gauge';
 import LocationPicker from './LocationPicker';
@@ -212,7 +211,13 @@ function NameReveal({ name }: { name: string }) {
 function Review({ testId, ispId, ispName }: { testId: number; ispId: number; ispName: string }) {
   const [stars, setStars] = useState(0);
   const [price, setPrice] = useState('');
-  const pkgs: Pkg[] = (PACKAGES as Record<string, { packages: Pkg[] }>)[ispName]?.packages ?? [];
+  // The package list covers ~3,000 providers (hundreds of KB), so load it only when the review form opens.
+  const [pkgs, setPkgs] = useState<Pkg[]>([]);
+  useEffect(() => {
+    let live = true;
+    import('../../data/isp-packages.json').then((m) => { if (live) setPkgs(((m.default as Record<string, { packages: Pkg[] }>)[ispName]?.packages) ?? []); });
+    return () => { live = false; };
+  }, [ispName]);
   const taka = (n: number) => `৳${n.toLocaleString('en-IN')}`;
   const chips = pkgs.length
     ? pkgs.map((p) => ({ key: `${p.mbps}-${p.bdt}`, bdt: p.bdt, label: `${p.mbps} Mbps · ${taka(p.bdt)}` }))

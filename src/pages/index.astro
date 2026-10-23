@@ -7,6 +7,7 @@ import { sql } from '../lib/db';
 import { leaderboard, MIN_DEVICES } from '../lib/stats';
 import { mapData } from '../lib/mapData';
 
+const bySlug = new Map(PROVIDERS.map(i => [i.slug, i]));
 const [isps, [totals], board, map] = await Promise.all([
   sql<{ id: number; name: string; slug: string; aliases: string[] }[]>`select id, name, slug, aliases from isps where approved order by id`,
   sql<{ tests: number; devices: number; isps: number; areas: number }[]>`
@@ -34,7 +35,7 @@ const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
 ---
 <Base schema={schema} jsonAlt="/api/stats" dither={false}>
   <section class="hero">
-    <SpeedTest client:load isps={isps.map(({ id, name, aliases, slug }) => ({ id, name, aliases, districts: PROVIDERS.find(i => i.slug === slug)?.districts ?? [], nationwide: PROVIDERS.find(i => i.slug === slug)?.nationwide ?? false }))} areas={map.areas}>
+    <SpeedTest client:load isps={isps.map(({ id, name, aliases, slug }) => ({ id, name, aliases, districts: bySlug.get(slug)?.districts ?? [], nationwide: bySlug.get(slug)?.nationwide ?? false }))} areas={map.areas}>
       <h1 aria-label="How fast is your internet, really?">
         {headline.map((w, i) => <><span aria-hidden="true" style={`--i:${i}`}>{w}</span>{i === 1 || i === 3 ? <br /> : ' '}</>)}
       </h1>
