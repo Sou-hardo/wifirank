@@ -3,7 +3,7 @@ import * as maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 // MapLibre 6 resolves its worker relative to its own file, which bundling breaks; hand it Vite's bundled worker.
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
-import { DHAKA_BOUNDS, DHAKA_CENTER } from '../lib/areas';
+import { BD_BOUNDS, DHAKA_CENTER } from '../lib/areas';
 
 maplibregl.setWorkerUrl(workerUrl);
 
@@ -35,15 +35,15 @@ export function binColor(metric: MetricKey, v: number | null) {
 }
 
 export function createMap(container: HTMLElement, opts: Partial<maplibregl.MapOptions> = {}) {
-  const [w, s, e, n] = DHAKA_BOUNDS;
+  const [w, s, e, n] = BD_BOUNDS;
   const map = new maplibregl.Map({
     container,
     style: 'https://tiles.openfreemap.org/styles/positron',
     center: DHAKA_CENTER,
     zoom: 11.2,
-    minZoom: 10,
+    minZoom: 6,
     maxZoom: 17,
-    maxBounds: [[w - 0.15, s - 0.12], [e + 0.15, n + 0.12]],
+    maxBounds: [[w - 0.5, s - 0.5], [e + 0.5, n + 0.5]],
     attributionControl: { compact: true },
     dragRotate: false,
     pitchWithRotate: false,
