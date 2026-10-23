@@ -33,6 +33,12 @@ create index if not exists tests_isp_area on tests (isp_id, area, created_at);
 create index if not exists tests_device on tests (device_id, created_at);
 create index if not exists tests_ip on tests (ip_hash, created_at);
 
+-- Idempotent upgrades also applied by scripts/migrate.js to existing deployments.
+alter table isps add column if not exists access_type text;
+alter table tests add column if not exists district text;
+alter table tests add column if not exists access_type text not null default 'fixed_line';
+create index if not exists tests_asn_district on tests (asn, district, created_at) include (ip_hash, isp_id, flag, access_type);
+
 -- Public pseudonym for a review, e.g. 'Sleepy Batman'. Random, unrelated to the device, never reused.
 -- Two words while those last, then a second adjective ('Quiet Sleepy Batman') so the pool stays in the hundreds of thousands.
 create or replace function review_name() returns text language plpgsql volatile as $$

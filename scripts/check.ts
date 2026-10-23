@@ -6,7 +6,27 @@ import { PGlite } from '@electric-sql/pglite';
 import { PGLiteSocketServer } from '@electric-sql/pglite-socket';
 import postgres from 'postgres';
 import { leaderboard, byArea, summary, recent } from '../src/lib/stats.ts';
+import { providerChoice, qualifies, classifyAccess } from '../src/lib/detection.ts';
+import { crowdSuggestion } from '../src/lib/crowd.ts';
+import { districtForArea } from '../src/lib/options.ts';
 import { sustainedMbps } from '../src/lib/sustained.ts';
+
+const detected = { isp: { id: 1, name: 'Alpha' }, upstream: false, flag: null, suggested: null };
+assert.deepEqual(providerChoice({ name: '' }, detected), detected.isp);
+assert.deepEqual(providerChoice({ name: '' }, { ...detected, upstream: true }), { name: '' });
+assert.deepEqual(providerChoice({ name: 'My reseller' }, detected), { name: 'My reseller' });
+assert.deepEqual(providerChoice({ name: '' }, detected, true), { name: '' }); // user cleared text
+assert.deepEqual(providerChoice({ name: '' }, { ...detected, suggested: { id: 2, name: 'Beta', reason: 'crowd' } }), { name: '' });
+assert.equal(qualifies(2, 2), false);
+assert.equal(qualifies(3, 6), true);
+assert.equal(qualifies(3, 7), false);
+assert.deepEqual(classifyAccess('mobile_data', 'fixed_wireless', false), { flag: null, accessType: 'fixed_wireless' });
+assert.equal(classifyAccess('mobile_data', null, true).flag, null);
+assert.equal(classifyAccess('mobile_data', null, false).flag, 'mobile_data');
+assert.equal(classifyAccess('foreign_ip', 'fixed_wireless', true).flag, 'foreign_ip');
+assert.equal(districtForArea('mirpur-10'), 'dhaka');
+assert.equal(districtForArea('bogura'), 'bogura');
+assert.equal(districtForArea('unknown'), null);
 
 // Sustained speed: short bursts are ignored, the median of loaded requests is reported.
 const pt = (bytes: number, mbps: number, duration: number) => ({ bytes, bps: mbps * 1e6, duration });
@@ -58,6 +78,34 @@ try {
   await sql`insert into reviews (device_id, isp_id, stars) values (${A}, 1, 1), (${B}, 1, 1), (${C}, 2, 5)`;
   const beta = (await leaderboard(sql, {})).find((r) => r.slug === 'beta')!;
   assert.ok(beta.rating! < 5 && beta.rating! > 2.33);
+  // Actual indexed crowd query: one latest vote per hash, 180-day window,
+  // district isolation, excluded flags, and FWA exceptions.
+  const vote = async (hash: string, isp = 1, opts: { flag?: string; fwa?: boolean; days?: number; district?: string } = {}) => sql`
+    insert into tests (device_id, isp_id, area, district, connection, local_down, ip_hash, asn, flag, access_type, created_at)
+    values (${A}, ${isp}, 'bogura', ${opts.district ?? 'bogura'}, 'wifi5', 40, ${hash}, 12345,
+      ${opts.flag ?? null}, ${opts.fwa ? 'fixed_wireless' : 'fixed_line'}, now() - make_interval(days => ${opts.days ?? 0}))`;
+  await vote('one'); await vote('two');
+  for (let i = 0; i < 5; i++) await vote('two');
+  assert.equal(await crowdSuggestion(sql, 12345, 'bogura'), null);
+  await vote('three', 1, { flag: 'mobile_data', fwa: true });
+  assert.equal((await crowdSuggestion(sql, 12345, 'bogura'))?.id, 1);
+  for (let i = 0; i < 8; i++) {
+    await vote(`foreign${i}`, 2, { flag: 'foreign_ip', fwa: true });
+    await vote(`phone${i}`, 2, { flag: 'mobile_data' });
+    await vote(`old${i}`, 2, { days: 181 });
+    await vote(`district${i}`, 2, { district: 'dhaka' });
+  }
+  assert.equal((await crowdSuggestion(sql, 12345, 'bogura'))?.id, 1);
+  for (let i = 0; i < 3; i++) await vote(`beta${i}`, 2);
+  assert.ok(await crowdSuggestion(sql, 12345, 'bogura')); // 3/6 qualifies
+  await vote('beta3', 2);
+  assert.equal((await crowdSuggestion(sql, 12345, 'bogura'))?.id, 2);
+  // Reusing a hash changes its vote rather than adding another one.
+  await vote('one', 2);
+  assert.equal((await crowdSuggestion(sql, 12345, 'bogura'))?.id, 2);
+  assert.equal((await recent(sql, { limit: 100, accessType: 'fixed_wireless' })).length, 1);
+  // Reapplying schema upgrades is safe and retains results.
+  await sql.unsafe(readFileSync('db/schema.sql', 'utf8'));
   console.log('ok');
 } finally {
   await sql.end();

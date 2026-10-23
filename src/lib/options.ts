@@ -1,4 +1,4 @@
-import districts from '../../data/districts.json';
+import districts from '../../data/districts.json' with { type: 'json' };
 // Shared between client form, API validation and pages.
 
 export const CONNECTIONS = {
@@ -41,3 +41,6 @@ export const AREAS: Record<string, string> = Object.fromEntries(
 
 export const DISTRICT_NAMES = Object.fromEntries(districts.map(d => [d.slug, d.name]));
 export const locationHref = (slug: string) => slug in DISTRICT_NAMES ? `/district/${slug}` : `/area/${slug}`;
+
+// All original neighbourhood options belong to Dhaka; other options are districts.
+export const districtForArea = (area: string) => area in DISTRICT_NAMES ? area : area in AREAS ? 'dhaka' : null;
