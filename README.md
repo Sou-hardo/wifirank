@@ -77,3 +77,44 @@ Run `npm run data:build` to rebuild `data/isps.json`, `data/isp-packages.json` a
 Run `npm run db:migrate` against the target database after updating the directory, so all providers become selectable in speed tests. The migration preserves ISP IDs and historical tests. Directory profiles work from the committed data even before reseeding.
 
 District associations combine licence locations, resolved BTRC CSV districts, addresses and published coverage. Unresolved locations stay unknown. Nationwide is licence scope, not a promise of service at any address. Historical renewal dates are marked possibly lapsed only when the sole source is the December 2024 BTRC list; status is evaluated at the fixed research date in the build script. Entries marked `not-isp` by site research are excluded unless already curated. Scraper notes remain on profiles, and bdix.app packages retain their attribution. No live network access is needed to rebuild.
+
+### ISP detection and fixed wireless
+
+Run `npm run db:migrate` before deploying this change. It adds `tests.district`,
+`tests.access_type`, `isps.access_type`, and the covering `(asn, district, created_at)`
+index, backfills known historical districts, and seeds provider access metadata.
+It is safe to rerun. Existing tests already retain detected ASN and hashed IP.
+
+`npm run data:build` also produces `data/upstream-asns.json`: 294 unique ASNs with
+Nationwide/Divisional or IIG/transit-like licence scope. This is a warning signal,
+not proof of a transit relationship. Shared ASNs and locally learned reseller
+choices also prevent silent selection. Small ISP ASNs can prefill an empty,
+untouched form; remembered or typed choices always win.
+
+Crowd suggestions use the last 180 days, at least 3 distinct IP hashes, and at
+least 50% of independent choices for an ASN/district. Each hash gets one latest
+vote, so repeated tests cannot increase its weight. Foreign and phone mobile
+results are excluded; declared FWA is eligible. The single indexed query is
+cached for five minutes, with bounded process-local storage. No raw IPs or new
+identifiers are stored. Thresholds live in `src/lib/detection.ts`.
+
+Provider metadata in `data/sources/access-types.json` and the explicit 5G/4G home
+router checkbox both declare fixed wireless. The server determines metadata from
+the selected provider, clears only the mobile-data exclusion, and preserves
+foreign-IP exclusion. Phone data remains excluded. Stats support
+`/api/stats?accessType=fixed_wireless` or `fixed_line`; latest results expose
+`access_type`. Fixed-line is a broad category, not a claim that a line is fibre.
+
+Grameenphone's [official terms](https://www.grameenphone.com/gpfibkashterms-conditions-url-english)
+and [5G FWA page](https://www.grameenphone.com/gpfi-5g-fwa) identify gpfi as FWA.
+Research found no documented, reliable subscriber ASN, prefix, PTR, hostname,
+company, or privacy-field discriminator from phone data, so detection does not
+attempt one. The existing `gpfi` record keeps its ID/slug/packages and gains the
+`Grameenphone gpfi` search alias. This mechanism supports future FWA brands by
+adding catalogue metadata.
+
+For local browser checks only, `/?devAsn=23688` simulates Link3 (upstream) and
+`/?devAsn=134712` simulates Pipex Network (small ISP). `/api/whoami` accepts the
+same fixture and an optional district slug. The ASN override is compiled out in
+production. Without it, loopback development requests look up the machine's own
+public IP through ipinfo.
