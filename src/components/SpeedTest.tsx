@@ -422,17 +422,17 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                     <Combobox id="f-isp" aria-labelledby="l-isp" options={ispOptions} value={isp.id ? String(isp.id) : ''} text={isp.name}
                       placeholder="Search, e.g. Link3, Carnival, DOT"
                       allowCustom={(t) => `Add “${t}”`}
-                      onSelect={(o, t) => { choiceTouched.current = true; setIsp(o ? { id: Number(o.value), name: o.label } : { name: t }); }} />
+                      onSelect={(o, t) => { choiceTouched.current = true; setFixedWireless(false); setIsp(o ? { id: Number(o.value), name: o.label } : { name: t }); }} />
                     {net?.suggested && !isp.name.trim() && (
                       <div className="provider-suggestion" role="status">
                         <p><strong>{net.suggested.name}</strong> may be your provider. {net.suggested.reason}.</p>
-                        <button type="button" className="btn btn-sm" onClick={() => setIsp(net.suggested!)}>Use {net.suggested.name}</button>
+                        <button type="button" className="btn btn-sm" onClick={() => { setFixedWireless(false); setIsp(net.suggested!); }}>Use {net.suggested.name}</button>
                       </div>
                     )}
                     {net?.upstream && net.isp && !isp.name.trim() && (
                       <div className="provider-suggestion" role="status">
                         <p>Detected <strong>{net.isp.name}</strong>’s network. On a local ISP? Choose it above.</p>
-                        <button type="button" className="btn btn-sm" onClick={() => setIsp(net.isp!)}>Use {net.isp.name}</button>
+                        <button type="button" className="btn btn-sm" onClick={() => { setFixedWireless(false); setIsp(net.isp!); }}>Use {net.isp.name}</button>
                       </div>
                     )}
                     {/* Detection hints stay beside the provider search. */}
@@ -453,10 +453,12 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                         </label>
                       ))}
                     </div>
-                    <label className="fwa-choice">
-                      <input type="checkbox" checked={providerFwa || fixedWireless} disabled={providerFwa} onChange={e => setFixedWireless(e.target.checked)} />
-                      <span>5G/4G home router (e.g. gpfi)<small className="muted">Fixed wireless home internet, rather than phone data or a hotspot.</small></span>
-                    </label>
+                    {providerFwa && (
+                      <label className="fwa-choice">
+                        <input type="checkbox" checked={fixedWireless} onChange={e => setFixedWireless(e.target.checked)} />
+                        <span>5G/4G home router (e.g. gpfi)<small className="muted">Check this only for the home router, not phone data or a hotspot.</small></span>
+                      </label>
+                    )}
                     {tried && missing === 'connection' && <small className="error">How is this device connected?</small>}
                   </fieldset>
 

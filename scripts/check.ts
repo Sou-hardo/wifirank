@@ -20,10 +20,11 @@ assert.deepEqual(providerChoice({ name: '' }, { ...detected, suggested: { id: 2,
 assert.equal(qualifies(2, 2), false);
 assert.equal(qualifies(3, 6), true);
 assert.equal(qualifies(3, 7), false);
-assert.deepEqual(classifyAccess('mobile_data', 'fixed_wireless', false), { flag: null, accessType: 'fixed_wireless' });
-assert.equal(classifyAccess('mobile_data', null, true).flag, null);
-assert.equal(classifyAccess('mobile_data', null, false).flag, 'mobile_data');
-assert.equal(classifyAccess('foreign_ip', 'fixed_wireless', true).flag, 'foreign_ip');
+assert.deepEqual(classifyAccess('mobile_data', 'fwa', true), { flag: null, accessType: 'fixed_wireless' });
+assert.deepEqual(classifyAccess('mobile_data', null, true), { flag: 'mobile_data', accessType: 'fixed_line' }); // declaration cannot turn a non-FWA ISP into FWA
+assert.deepEqual(classifyAccess('mobile_data', 'fwa', false), { flag: 'mobile_data', accessType: 'fixed_line' }); // unchecked declaration remains excluded
+assert.deepEqual(classifyAccess('mobile_data', 'fixed_wireless', true), { flag: 'mobile_data', accessType: 'fixed_line' }); // access type alone is not FWA metadata
+assert.deepEqual(classifyAccess('foreign_ip', 'fwa', true), { flag: 'foreign_ip', accessType: 'fixed_wireless' }); // non-mobile flags remain excluded
 assert.equal(districtForArea('mirpur-10'), 'dhaka');
 assert.equal(districtForArea('bogura'), 'bogura');
 assert.equal(districtForArea('unknown'), null);
@@ -41,16 +42,16 @@ try {
   await sql.unsafe(readFileSync('db/schema.sql', 'utf8'));
   await sql`insert into isps (name, slug) values ('Alpha', 'alpha'), ('Beta', 'beta')`;
   const A = '00000000-0000-0000-0000-00000000000a', B = '00000000-0000-0000-0000-00000000000b', C = '00000000-0000-0000-0000-00000000000c';
-  const t = (dev: string, isp: number, down: number, opts: { flag?: string; hour?: number; area?: string } = {}) => sql`
-    insert into tests (device_id, isp_id, area, connection, local_down, ip_hash, flag, created_at)
-    values (${dev}, ${isp}, ${opts.area ?? 'mirpur-10'}, 'cable', ${down}, 'x', ${opts.flag ?? null},
+  const t = (dev: string, isp: number, down: number, opts: { flag?: string; fwa?: boolean; hour?: number; area?: string } = {}) => sql`
+    insert into tests (device_id, isp_id, area, connection, local_down, ip_hash, flag, access_type, created_at)
+    values (${dev}, ${isp}, ${opts.area ?? 'mirpur-10'}, 'cable', ${down}, 'x', ${opts.flag ?? null}, ${opts.fwa ? 'fixed_wireless' : 'fixed_line'},
       date_trunc('day', now() at time zone 'Asia/Dhaka') at time zone 'Asia/Dhaka' - interval '1 day' + make_interval(hours => ${opts.hour ?? 10}))`;
 
   // Device A spams 10 slow runs; B and C one fast run each. Per-device collapse → median of [10, 50, 60] = 50.
   for (let i = 0; i < 10; i++) await t(A, 1, 10);
   await t(B, 1, 50, { hour: 21 });
   await t(C, 1, 60, { area: 'banani' });
-  await t(C, 1, 1000, { flag: 'mobile_data' }); // flagged: ignored
+  await t(C, 1, 1000, { flag: 'mobile_data', fwa: true }); // even flagged FWA rows are ignored unless declaration reclassifies them
   await t(A, 2, 100);
 
   const rows = await leaderboard(sql, {});
@@ -79,7 +80,7 @@ try {
   const beta = (await leaderboard(sql, {})).find((r) => r.slug === 'beta')!;
   assert.ok(beta.rating! < 5 && beta.rating! > 2.33);
   // Actual indexed crowd query: one latest vote per hash, 180-day window,
-  // district isolation, excluded flags, and FWA exceptions.
+  // district isolation, and exclusion of all flagged rows.
   const vote = async (hash: string, isp = 1, opts: { flag?: string; fwa?: boolean; days?: number; district?: string } = {}) => sql`
     insert into tests (device_id, isp_id, area, district, connection, local_down, ip_hash, asn, flag, access_type, created_at)
     values (${A}, ${isp}, 'bogura', ${opts.district ?? 'bogura'}, 'wifi5', 40, ${hash}, 12345,
@@ -87,7 +88,9 @@ try {
   await vote('one'); await vote('two');
   for (let i = 0; i < 5; i++) await vote('two');
   assert.equal(await crowdSuggestion(sql, 12345, 'bogura'), null);
-  await vote('three', 1, { flag: 'mobile_data', fwa: true });
+  await vote('mobile-fwa', 1, { flag: 'mobile_data', fwa: true });
+  assert.equal(await crowdSuggestion(sql, 12345, 'bogura'), null);
+  await vote('three', 1, { fwa: true });
   assert.equal((await crowdSuggestion(sql, 12345, 'bogura'))?.id, 1);
   for (let i = 0; i < 8; i++) {
     await vote(`foreign${i}`, 2, { flag: 'foreign_ip', fwa: true });

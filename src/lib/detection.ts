@@ -12,10 +12,13 @@ export function providerChoice(current: { id?: number; name: string }, net: Dete
 }
 export const qualifies = (ips: number, total: number) => ips >= CROWD.minIps && total > 0 && ips / total >= CROWD.minShare;
 
-// gpfi is officially FWA: https://www.grameenphone.com/gpfibkashterms-conditions-url-english
-// No documented subscriber prefix/hostname discriminator was found. The provider
-// catalogue or explicit home-router declaration determines access type, never ASN.
-export function classifyAccess(flag: string | null, providerType: string | null, declared: boolean) {
-  const accessType = providerType === 'fixed_wireless' || declared ? 'fixed_wireless' : 'fixed_line';
-  return { accessType, flag: flag === 'mobile_data' && accessType === 'fixed_wireless' ? null : flag };
+// Provider FWA metadata is separate from IP detection: mobile data is included only
+// when the user confirms the FWA home-router connection.
+export function classifyAccess(flag: string | null, providerTech: string | null, declared: boolean) {
+  const isFwaProvider = providerTech === 'fwa';
+  const declaredFwa = isFwaProvider && declared;
+  const accessType = flag === 'mobile_data'
+    ? declaredFwa ? 'fixed_wireless' : 'fixed_line'
+    : isFwaProvider ? 'fixed_wireless' : 'fixed_line';
+  return { accessType, flag: flag === 'mobile_data' && declaredFwa ? null : flag };
 }

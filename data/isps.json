@@ -24220,7 +24220,8 @@
     "renewalDates": [],
     "possiblyLapsed": false,
     "slug": "gpfi",
-    "accessType": "fixed_wireless"
+    "accessType": "fixed_wireless",
+    "tech": "fwa"
   },
   {
     "name": "Gr Storm Internet &",

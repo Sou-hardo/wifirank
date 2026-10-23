@@ -165,6 +165,7 @@ for (const i of isps) {
   const access = accessTypes[i.slug];
   if (access) {
     i.accessType = access.type;
+    if (access.tech) i.tech = access.tech;
     i.aliases = [...new Set([...i.aliases, ...(access.aliases ?? [])])];
   }
   if (!i.sources.length && i.source) i.sources = [i.source];

@@ -56,5 +56,7 @@ const upstreams = read('upstream-asns');
 assert.ok(!upstreams.includes(59340), 'Help Line (59340) must autofill');
 assert.deepEqual(upstreams, [...new Set(isps.filter((i: any) => i.asn && /Nationwide|IIG|Transit/i.test(i.licence)).map((i: any) => i.asn))].sort((a: any, b: any) => a - b));
 assert.equal(isps.find((i: any) => i.slug === 'gpfi').accessType, 'fixed_wireless');
+assert.equal(isps.find((i: any) => i.slug === 'gpfi').tech, 'fwa');
+assert.notEqual(isps.find((i: any) => i.slug === 'starlink')?.tech, 'fwa');
 assert.ok(isps.find((i: any) => i.slug === 'gpfi').aliases.includes('Grameenphone gpfi'));
 assert.ok(packages.gpfi.packages.length > 0);

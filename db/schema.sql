@@ -35,6 +35,7 @@ create index if not exists tests_ip on tests (ip_hash, created_at);
 
 -- Idempotent upgrades also applied by scripts/migrate.js to existing deployments.
 alter table isps add column if not exists access_type text;
+alter table isps add column if not exists tech text;
 alter table tests add column if not exists district text;
 alter table tests add column if not exists access_type text not null default 'fixed_line';
 create index if not exists tests_asn_district on tests (asn, district, created_at) include (ip_hash, isp_id, flag, access_type);

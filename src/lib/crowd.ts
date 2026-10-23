@@ -10,7 +10,7 @@ export async function crowdSuggestion(sql: Sql, asn: number, district: string) {
       from tests
       where asn = ${asn} and district = ${district}
         and created_at > now() - make_interval(days => ${CROWD.days})
-        and (flag is null or (flag = 'mobile_data' and access_type = 'fixed_wireless'))
+        and flag is null
       order by ip_hash, created_at desc, id desc
     ), counts as (
       select isp_id, count(*)::int as ips from votes group by isp_id

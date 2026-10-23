@@ -47,8 +47,8 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (!ispId) return bad('Pick your ISP');
 
   const net = await lookup(clientAddress);
-  const [provider] = await sql`select access_type from isps where id = ${ispId}`;
-  const { flag, accessType } = classifyAccess(net.flag, provider.access_type, b.fixedWireless === true);
+  const [provider] = await sql`select tech from isps where id = ${ispId}`;
+  const { flag, accessType } = classifyAccess(net.flag, provider.tech, b.fixedWireless === true);
   const district = districtForArea(b.area);
   const [row] = await sql`
     insert into tests (device_id, isp_id, area, lat, lng, connection, plan,

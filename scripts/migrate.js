@@ -9,8 +9,8 @@ await sql.unsafe(readFileSync('db/schema.sql', 'utf8'));
 const isps = JSON.parse(readFileSync('data/isps.json', 'utf8'));
 for (const i of isps) {
   await sql`
-    insert into isps (name, slug, aliases, website, asn, access_type) values (${i.name}, ${i.slug ?? slugify(i.name)}, ${i.aliases ?? []}, ${i.website ?? null}, ${i.asn ?? null}, ${i.accessType ?? null})
-    on conflict (slug) do update set name = excluded.name, aliases = excluded.aliases, website = excluded.website, asn = excluded.asn, access_type = excluded.access_type, approved = true`;
+    insert into isps (name, slug, aliases, website, asn, access_type, tech) values (${i.name}, ${i.slug ?? slugify(i.name)}, ${i.aliases ?? []}, ${i.website ?? null}, ${i.asn ?? null}, ${i.accessType ?? null}, ${i.tech ?? null})
+    on conflict (slug) do update set name = excluded.name, aliases = excluded.aliases, website = excluded.website, asn = excluded.asn, access_type = excluded.access_type, tech = excluded.tech, approved = true`;
 }
 // Backfill only known legacy area options, leaving unknown historical areas unassigned.
 const districts = JSON.parse(readFileSync('data/districts.json', 'utf8')).map(d => d.slug);

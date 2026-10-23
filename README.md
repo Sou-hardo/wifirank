@@ -81,7 +81,7 @@ District associations combine licence locations, resolved BTRC CSV districts, ad
 ### ISP detection and fixed wireless
 
 Run `npm run db:migrate` before deploying this change. It adds `tests.district`,
-`tests.access_type`, `isps.access_type`, and the covering `(asn, district, created_at)`
+`tests.access_type`, `isps.access_type`, `isps.tech`, and the covering `(asn, district, created_at)`
 index, backfills known historical districts, and seeds provider access metadata.
 It is safe to rerun. Existing tests already retain detected ASN and hashed IP.
 
@@ -98,10 +98,11 @@ results are excluded; declared FWA is eligible. The single indexed query is
 cached for five minutes, with bounded process-local storage. No raw IPs or new
 identifiers are stored. Thresholds live in `src/lib/detection.ts`.
 
-Provider metadata in `data/sources/access-types.json` and the explicit 5G/4G home
-router checkbox both declare fixed wireless. The server determines metadata from
-the selected provider, clears only the mobile-data exclusion, and preserves
-foreign-IP exclusion. Phone data remains excluded. Stats support
+Provider metadata in `data/sources/access-types.json` identifies gpfi as FWA.
+Only a provider marked `tech: "fwa"` shows the 5G/4G home-router checkbox. A
+mobile-data test is included only when the user checks it; other providers and
+unchecked mobile-data tests remain excluded. Foreign-IP exclusion is preserved.
+Stats support
 `/api/stats?accessType=fixed_wireless` or `fixed_line`; latest results expose
 `access_type`. Fixed-line is a broad category, not a claim that a line is fibre.
 

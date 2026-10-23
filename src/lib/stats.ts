@@ -19,7 +19,7 @@ type Filter = { accessType?: 'fixed_line' | 'fixed_wireless' | null; district?: 
 // Peak = 20:00–23:59 Dhaka time, when congestion shows.
 function where(sql: Sql, f: Filter) {
   return sql`
-    (t.flag is null or (t.flag = 'mobile_data' and t.access_type = 'fixed_wireless')) and t.created_at > now() - interval '90 days'
+    t.flag is null and t.created_at > now() - interval '90 days'
     ${f.accessType ? sql`and t.access_type = ${f.accessType}` : sql``}
     ${f.area ? sql`and t.area = ${f.area}` : sql``}
     ${f.district ? f.district === 'dhaka' ? sql`and (t.area = 'dhaka' or t.area not in ${sql(districts.map(d => d.slug))})` : sql`and t.area = ${f.district}` : sql``}
