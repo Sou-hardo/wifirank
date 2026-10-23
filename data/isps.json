@@ -351,7 +351,9 @@
   {
     "name": "Mazeda Networks",
     "aliases": [
-      "Mazeda Networks Ltd."
+      "Mazeda Networks Ltd.",
+      "Mazeda Network",
+      "Mazeda Network Ltd"
     ],
     "website": "https://www.mazeda.net",
     "asn": 63996,
@@ -359,13 +361,16 @@
     "districts": [
       "dhaka"
     ],
-    "licence": "Unspecified",
+    "licence": "Divisional",
     "sources": [
       "apnic",
+      "bdix.app",
       "wifirank"
     ],
     "nationwide": false,
-    "addresses": [],
+    "addresses": [
+      "House #123, Flat #B4, Road #13/A, West Dhanmondi, Dhaka"
+    ],
     "renewalDates": [],
     "possiblyLapsed": false,
     "slug": "mazeda-networks"
@@ -1188,18 +1193,24 @@
     "name": "IP Communications",
     "aliases": [
       "IP Communications Ltd.",
-      "IP Com"
+      "IP Com",
+      "IP Communication"
     ],
     "website": "https://www.ipcommunicationsbd.com",
     "asn": 147314,
     "source": "https://www.peeringdb.com/asn/147314",
-    "districts": [],
-    "licence": "Unspecified",
+    "districts": [
+      "dhaka"
+    ],
+    "licence": "Nationwide",
     "sources": [
+      "bdix.app",
       "wifirank"
     ],
-    "nationwide": false,
-    "addresses": [],
+    "nationwide": true,
+    "addresses": [
+      "Khawaja Tower (11th Floor), Dhaka"
+    ],
     "renewalDates": [],
     "possiblyLapsed": false,
     "slug": "ip-communications"
@@ -1988,7 +1999,9 @@
     "name": "Cosmopolitan Communications",
     "aliases": [
       "Cosmopolitan Communications Limited",
-      "CCL"
+      "CCL",
+      "Cosmopolitan Communication",
+      "Cosmopolitan Communication Ltd."
     ],
     "website": "http://cosmocom.net",
     "asn": 136759,
@@ -1996,13 +2009,16 @@
     "districts": [
       "dhaka"
     ],
-    "licence": "Unspecified",
+    "licence": "Nationwide",
     "sources": [
       "apnic",
+      "bdix.app",
       "wifirank"
     ],
-    "nationwide": false,
-    "addresses": [],
+    "nationwide": true,
+    "addresses": [
+      "Khan Sons Center , 37 Kawran Bazar, Commercial Area, 4th Floor, Dhaka-1215"
+    ],
     "renewalDates": [],
     "possiblyLapsed": false,
     "slug": "cosmopolitan-communications"
@@ -2523,13 +2539,16 @@
   },
   {
     "name": "Cyber Net Communications",
-    "aliases": [],
+    "aliases": [
+      "Cyber Net Communication"
+    ],
     "website": "http://www.cybernetcommunications.net",
     "asn": 138343,
     "source": "https://www.peeringdb.com/asn/138343",
     "districts": [],
-    "licence": "Unspecified",
+    "licence": "Upazila/Thana",
     "sources": [
+      "bdix.app",
       "wifirank"
     ],
     "nationwide": false,
@@ -4058,9 +4077,7 @@
     "website": "https://aoneonlinebd.net",
     "asn": 137078,
     "districts": [
-      "dhaka",
-      "kushtia",
-      "magura"
+      "dhaka"
     ],
     "licence": "District",
     "sources": [
@@ -4278,7 +4295,6 @@
     "website": "https://asonlinebd.net",
     "asn": 141448,
     "districts": [
-      "bogura",
       "dhaka",
       "sherpur"
     ],
@@ -4698,7 +4714,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "bdix.app",
@@ -6028,42 +6046,27 @@
   },
   {
     "name": "Airnet communication",
-    "aliases": [],
+    "aliases": [
+      "Airnet Communications"
+    ],
     "website": "https://airnet.com.bd",
     "asn": 151835,
     "districts": [
       "pirojpur"
     ],
-    "licence": "Upazila/Thana",
+    "licence": "Upazila/Thana, Nationwide",
     "sources": [
       "apnic",
       "bdix.app"
     ],
     "source": "https://bdix.app",
-    "nationwide": false,
-    "addresses": [],
-    "renewalDates": [],
-    "possiblyLapsed": false,
-    "slug": "airnet-communication"
-  },
-  {
-    "name": "Airnet Communications",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [],
-    "licence": "Nationwide",
-    "sources": [
-      "bdix.app"
-    ],
-    "source": "https://bdix.app/isp/airnet-communications",
     "nationwide": true,
     "addresses": [
       "Holding No- 179, Shop-01,Rubi Plaza, Shah Mostofa Road, Moulovibazar-3200"
     ],
     "renewalDates": [],
     "possiblyLapsed": false,
-    "slug": "airnet-communications"
+    "slug": "airnet-communication"
   },
   {
     "name": "AJA Connection",
@@ -6167,8 +6170,7 @@
     "asn": 139029,
     "districts": [
       "dhaka",
-      "faridpur",
-      "pabna"
+      "faridpur"
     ],
     "licence": "Upazila/Thana, Divisional",
     "sources": [
@@ -7272,7 +7274,9 @@
     ],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "bdix.app",
@@ -9052,7 +9056,9 @@
     ],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "narayanganj"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "bdix.app",
@@ -10166,25 +10172,8 @@
   {
     "name": "Bani Network",
     "aliases": [
-      "Bani Network Ltd"
-    ],
-    "website": null,
-    "asn": null,
-    "districts": [],
-    "licence": "Upazila/Thana",
-    "sources": [
-      "bdix.app"
-    ],
-    "source": "https://bdix.app",
-    "nationwide": false,
-    "addresses": [],
-    "renewalDates": [],
-    "possiblyLapsed": false,
-    "slug": "bani-network"
-  },
-  {
-    "name": "Bani Networks",
-    "aliases": [
+      "Bani Network Ltd",
+      "Bani Networks",
       "Bani Networks Ltd."
     ],
     "website": null,
@@ -10194,9 +10183,10 @@
     ],
     "licence": "Upazila/Thana",
     "sources": [
+      "bdix.app",
       "btrc-pdf-2024-12"
     ],
-    "source": "https://btrc.gov.bd",
+    "source": "https://bdix.app",
     "nationwide": false,
     "addresses": [
       "Ka-99/6, South Mohakhali, Banani, Dhaka-1213."
@@ -10205,7 +10195,7 @@
       "8-Jan-2027"
     ],
     "possiblyLapsed": false,
-    "slug": "bani-networks"
+    "slug": "bani-network"
   },
   {
     "name": "Baniajuri Network",
@@ -10343,7 +10333,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "bdix.app",
@@ -10802,7 +10794,9 @@
   {
     "name": "Best Communication",
     "aliases": [
-      "Best Communication Ltd"
+      "Best Communication Ltd",
+      "Best Communications",
+      "Best Communications Limited"
     ],
     "website": null,
     "asn": 140669,
@@ -10829,25 +10823,6 @@
     ],
     "possiblyLapsed": false,
     "slug": "best-communication"
-  },
-  {
-    "name": "Best Communications",
-    "aliases": [
-      "Best Communications Limited"
-    ],
-    "website": null,
-    "asn": null,
-    "districts": [],
-    "licence": "Upazila/Thana",
-    "sources": [
-      "bdix.app"
-    ],
-    "source": "https://bdix.app",
-    "nationwide": false,
-    "addresses": [],
-    "renewalDates": [],
-    "possiblyLapsed": false,
-    "slug": "best-communications"
   },
   {
     "name": "Best Net",
@@ -10974,7 +10949,8 @@
     "asn": 9451,
     "districts": [
       "dhaka",
-      "kishoreganj"
+      "kishoreganj",
+      "nilphamari"
     ],
     "licence": "Divisional",
     "sources": [
@@ -11123,7 +11099,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "btrc-pdf-2024-12"
@@ -11376,8 +11354,7 @@
     "districts": [
       "chattogram",
       "dhaka",
-      "kishoreganj",
-      "kushtia"
+      "kishoreganj"
     ],
     "licence": "Nationwide",
     "sources": [
@@ -11420,7 +11397,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "dhaka"
+      "dhaka",
+      "kishoreganj"
     ],
     "licence": "Divisional",
     "sources": [
@@ -11502,7 +11480,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "btrc-pdf-2024-12"
@@ -11689,7 +11669,8 @@
     "website": null,
     "asn": 137432,
     "districts": [
-      "dhaka"
+      "dhaka",
+      "narayanganj"
     ],
     "licence": "Divisional, Nationwide",
     "sources": [
@@ -11730,7 +11711,9 @@
     "aliases": [],
     "website": "https://bluecommunication.net.bd",
     "asn": 151608,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "apnic",
@@ -12087,7 +12070,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "manikganj"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "btrc-pdf-2024-12"
@@ -12849,7 +12834,8 @@
     "website": "https://c1communication.net",
     "asn": 149033,
     "districts": [
-      "chattogram"
+      "chattogram",
+      "comilla"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -13674,7 +13660,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "btrc-pdf-2024-12"
@@ -13779,7 +13767,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "btrc-pdf-2024-12"
@@ -13825,7 +13815,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "narayanganj"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "btrc-pdf-2024-12"
@@ -14816,29 +14808,6 @@
     "slug": "corporate-broadband"
   },
   {
-    "name": "Cosmopolitan Communication",
-    "aliases": [
-      "Cosmopolitan Communication Ltd."
-    ],
-    "website": null,
-    "asn": null,
-    "districts": [
-      "dhaka"
-    ],
-    "licence": "Nationwide",
-    "sources": [
-      "bdix.app"
-    ],
-    "source": "https://bdix.app/isp/cosmopolitan-communication-ltd",
-    "nationwide": true,
-    "addresses": [
-      "Khan Sons Center , 37 Kawran Bazar, Commercial Area, 4th Floor, Dhaka-1215"
-    ],
-    "renewalDates": [],
-    "possiblyLapsed": false,
-    "slug": "cosmopolitan-communication"
-  },
-  {
     "name": "Cox Link IT",
     "aliases": [],
     "website": null,
@@ -15325,23 +15294,6 @@
     ],
     "possiblyLapsed": true,
     "slug": "cyber-net-caf"
-  },
-  {
-    "name": "Cyber Net Communication",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [],
-    "licence": "Upazila/Thana",
-    "sources": [
-      "bdix.app"
-    ],
-    "source": "https://bdix.app",
-    "nationwide": false,
-    "addresses": [],
-    "renewalDates": [],
-    "possiblyLapsed": false,
-    "slug": "cyber-net-communication"
   },
   {
     "name": "Cyber network",
@@ -16023,7 +15975,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "btrc-pdf-2024-12"
@@ -17574,7 +17528,9 @@
   },
   {
     "name": "DL Network Service",
-    "aliases": [],
+    "aliases": [
+      "DL Network Services"
+    ],
     "website": null,
     "asn": null,
     "districts": [
@@ -17582,6 +17538,7 @@
     ],
     "licence": "Upazila/Thana",
     "sources": [
+      "bdix.app",
       "btrc-pdf-2024-12"
     ],
     "source": "https://btrc.gov.bd",
@@ -17594,23 +17551,6 @@
     ],
     "possiblyLapsed": false,
     "slug": "dl-network-service"
-  },
-  {
-    "name": "DL Network Services",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [],
-    "licence": "Upazila/Thana",
-    "sources": [
-      "bdix.app"
-    ],
-    "source": "https://bdix.app/isp/dl-network-services",
-    "nationwide": false,
-    "addresses": [],
-    "renewalDates": [],
-    "possiblyLapsed": false,
-    "slug": "dl-network-services"
   },
   {
     "name": "DN Internet",
@@ -17676,7 +17616,6 @@
     "website": "https://dnet.com.bd",
     "asn": 134506,
     "districts": [
-      "bogura",
       "mymensingh",
       "sherpur"
     ],
@@ -18138,7 +18077,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "btrc-pdf-2024-12"
@@ -19080,7 +19021,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "narayanganj"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "btrc-pdf-2024-12"
@@ -22321,8 +22264,7 @@
     "website": "https://furiousnet.net",
     "asn": 150429,
     "districts": [
-      "dhaka",
-      "magura"
+      "dhaka"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -22757,8 +22699,7 @@
   {
     "name": "G-Network",
     "aliases": [
-      "G- Network",
-      "GS Network"
+      "G- Network"
     ],
     "website": null,
     "asn": null,
@@ -22773,12 +22714,10 @@
     "source": "https://bdix.app",
     "nationwide": false,
     "addresses": [
-      "39/A, Din Nath Sen Road, Gandaria, Dhaka-1204.",
       "Jamgora, Zirabo, Ashulia, Dhaka-1341"
     ],
     "renewalDates": [
-      "30-May-2027",
-      "6-May-2023"
+      "30-May-2027"
     ],
     "possiblyLapsed": false,
     "slug": "g-network"
@@ -22949,8 +22888,7 @@
     "districts": [
       "barisal",
       "dhaka",
-      "faridpur",
-      "pabna"
+      "faridpur"
     ],
     "licence": "Divisional, Upazila/Thana",
     "sources": [
@@ -23953,25 +23891,10 @@
     "slug": "gold-cable"
   },
   {
-    "name": "Gold Cable & Communication",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [],
-    "licence": "Upazila/Thana",
-    "sources": [
-      "bdix.app"
-    ],
-    "source": "https://bdix.app",
-    "nationwide": false,
-    "addresses": [],
-    "renewalDates": [],
-    "possiblyLapsed": false,
-    "slug": "gold-cable-communication"
-  },
-  {
     "name": "Gold Cable & Communications",
-    "aliases": [],
+    "aliases": [
+      "Gold Cable & Communication"
+    ],
     "website": "https://goldcable.net",
     "asn": 149015,
     "districts": [
@@ -24828,11 +24751,37 @@
     "slug": "grs-internet-root"
   },
   {
+    "name": "GS Network",
+    "aliases": [],
+    "website": null,
+    "asn": null,
+    "districts": [
+      "dhaka"
+    ],
+    "licence": "Upazila/Thana",
+    "sources": [
+      "bdix.app",
+      "btrc-pdf-2024-12"
+    ],
+    "source": "https://bdix.app",
+    "nationwide": false,
+    "addresses": [
+      "39/A, Din Nath Sen Road, Gandaria, Dhaka-1204."
+    ],
+    "renewalDates": [
+      "6-May-2023"
+    ],
+    "possiblyLapsed": false,
+    "slug": "gs-network"
+  },
+  {
     "name": "Gumati Online",
     "aliases": [],
     "website": "https://gumationline.com",
     "asn": 150732,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "District",
     "sources": [
       "apnic",
@@ -26555,7 +26504,8 @@
     "website": "https://www.hackthissite.org/",
     "asn": 138658,
     "districts": [
-      "dhaka"
+      "dhaka",
+      "narayanganj"
     ],
     "licence": "Divisional, Upazila/Thana",
     "sources": [
@@ -27060,8 +27010,7 @@
     "asn": 140962,
     "districts": [
       "chattogram",
-      "dhaka",
-      "kushtia"
+      "dhaka"
     ],
     "licence": "Nationwide",
     "sources": [
@@ -27100,15 +27049,18 @@
   },
   {
     "name": "Ideal Communication Network",
-    "aliases": [],
+    "aliases": [
+      "Ideal Communications Network"
+    ],
     "website": "https://icn.com.bd",
     "asn": 134505,
     "districts": [
       "pabna"
     ],
-    "licence": "Unspecified",
+    "licence": "Divisional",
     "sources": [
-      "apnic"
+      "apnic",
+      "bdix.app"
     ],
     "source": "https://btrc.gov.bd",
     "nationwide": false,
@@ -27160,23 +27112,6 @@
     ],
     "possiblyLapsed": true,
     "slug": "ideal-communications"
-  },
-  {
-    "name": "Ideal Communications Network",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [],
-    "licence": "Divisional",
-    "sources": [
-      "bdix.app"
-    ],
-    "source": "https://bdix.app/isp/ideal-communications-network",
-    "nationwide": false,
-    "addresses": [],
-    "renewalDates": [],
-    "possiblyLapsed": false,
-    "slug": "ideal-communications-network"
   },
   {
     "name": "Ideal Network",
@@ -27880,7 +27815,8 @@
     "website": "https://intercloud.com.bd/",
     "asn": 58923,
     "districts": [
-      "dhaka"
+      "dhaka",
+      "sirajganj"
     ],
     "licence": "Nationwide",
     "sources": [
@@ -27973,7 +27909,6 @@
     "asn": 149523,
     "districts": [
       "dhaka",
-      "lalmonirhat",
       "nilphamari"
     ],
     "licence": "Upazila/Thana",
@@ -28206,27 +28141,6 @@
     ],
     "possiblyLapsed": false,
     "slug": "iota-internet-service"
-  },
-  {
-    "name": "IP Communication",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [
-      "dhaka"
-    ],
-    "licence": "Nationwide",
-    "sources": [
-      "bdix.app"
-    ],
-    "source": "https://bdix.app/isp/ip-communication",
-    "nationwide": true,
-    "addresses": [
-      "Khawaja Tower (11th Floor), Dhaka"
-    ],
-    "renewalDates": [],
-    "possiblyLapsed": false,
-    "slug": "ip-communication"
   },
   {
     "name": "IP Internet",
@@ -28990,7 +28904,8 @@
     "website": null,
     "asn": 152342,
     "districts": [
-      "chattogram"
+      "chattogram",
+      "comilla"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -30265,7 +30180,9 @@
     ],
     "website": null,
     "asn": 151484,
-    "districts": [],
+    "districts": [
+      "narayanganj"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "apnic",
@@ -31489,7 +31406,8 @@
     "website": "https://kotbarionline.com.bd",
     "asn": 150175,
     "districts": [
-      "chattogram"
+      "chattogram",
+      "comilla"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -31561,7 +31479,9 @@
     "aliases": [],
     "website": "https://kronline.net",
     "asn": 151501,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "apnic",
@@ -33439,7 +33359,9 @@
     ],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Divisional",
     "sources": [
       "btrc-pdf-2024-12"
@@ -33616,7 +33538,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "brahmanbaria"
+      "brahmanbaria",
+      "comilla"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -35282,7 +35205,9 @@
     ],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "narayanganj"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "btrc-pdf-2024-12"
@@ -36469,7 +36394,9 @@
     ],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "narayanganj"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "bdix.app",
@@ -38778,29 +38705,6 @@
     "slug": "mayasoft"
   },
   {
-    "name": "Mazeda Network",
-    "aliases": [
-      "Mazeda Network Ltd"
-    ],
-    "website": null,
-    "asn": null,
-    "districts": [
-      "dhaka"
-    ],
-    "licence": "Divisional",
-    "sources": [
-      "bdix.app"
-    ],
-    "source": "https://bdix.app/isp/mazeda-network-ltd",
-    "nationwide": false,
-    "addresses": [
-      "House #123, Flat #B4, Road #13/A, West Dhanmondi, Dhaka"
-    ],
-    "renewalDates": [],
-    "possiblyLapsed": false,
-    "slug": "mazeda-network"
-  },
-  {
     "name": "MBD Connection",
     "aliases": [],
     "website": "https://mbdconnection.net",
@@ -38971,8 +38875,7 @@
     "website": "https://cueclub.com.bd",
     "asn": 135353,
     "districts": [
-      "dhaka",
-      "magura"
+      "dhaka"
     ],
     "licence": "Unspecified",
     "sources": [
@@ -39354,8 +39257,7 @@
     "website": "https://mercurytrades.net",
     "asn": 154058,
     "districts": [
-      "dhaka",
-      "kushtia"
+      "dhaka"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -39404,9 +39306,7 @@
     "aliases": [],
     "website": "https://metaphornet.net",
     "asn": 134201,
-    "districts": [
-      "kushtia"
-    ],
+    "districts": [],
     "licence": "District",
     "sources": [
       "apnic",
@@ -39902,8 +39802,7 @@
     "website": "https://mirpurnetbd.com",
     "asn": 139632,
     "districts": [
-      "dhaka",
-      "kushtia"
+      "dhaka"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -40440,7 +40339,9 @@
     ],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "jhenaidah"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "bdix.app",
@@ -44377,7 +44278,9 @@
     ],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Divisional",
     "sources": [
       "btrc-pdf-2024-12"
@@ -45856,8 +45759,7 @@
     "website": "https://optimusonlinebd.com",
     "asn": 150808,
     "districts": [
-      "dhaka",
-      "magura"
+      "dhaka"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -47722,7 +47624,9 @@
     "aliases": [],
     "website": null,
     "asn": 141033,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "apnic",
@@ -48266,8 +48170,7 @@
     "website": "https://quad.com.bd",
     "asn": 140606,
     "districts": [
-      "faridpur",
-      "pabna"
+      "faridpur"
     ],
     "licence": "District",
     "sources": [
@@ -48430,23 +48333,6 @@
     "renewalDates": [],
     "possiblyLapsed": false,
     "slug": "quick-service-dot-com"
-  },
-  {
-    "name": "R & R Communications",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [],
-    "licence": "Upazila/Thana",
-    "sources": [
-      "bdix.app"
-    ],
-    "source": "https://bdix.app",
-    "nationwide": false,
-    "addresses": [],
-    "renewalDates": [],
-    "possiblyLapsed": false,
-    "slug": "r-r-communications"
   },
   {
     "name": "R B Broadband",
@@ -48721,7 +48607,8 @@
   {
     "name": "R.R communication",
     "aliases": [
-      "RR Communication"
+      "RR Communication",
+      "R & R Communications"
     ],
     "website": "https://rrcommunication.net",
     "asn": 152139,
@@ -48881,7 +48768,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "bdix.app",
@@ -49201,7 +49090,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "chandpur"
+      "chandpur",
+      "kishoreganj"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -50525,8 +50415,7 @@
     "website": "https://renesaonline.com",
     "asn": 139027,
     "districts": [
-      "dhaka",
-      "magura"
+      "dhaka"
     ],
     "licence": "Unspecified",
     "sources": [
@@ -51124,7 +51013,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "btrc-pdf-2024-12"
@@ -51258,7 +51149,9 @@
     "aliases": [],
     "website": "https://roshnicommunication.net",
     "asn": 154394,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "apnic",
@@ -52058,7 +51951,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "narayanganj"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "btrc-pdf-2024-12"
@@ -52455,15 +52350,18 @@
   },
   {
     "name": "S.S.R.B Internet Service",
-    "aliases": [],
+    "aliases": [
+      "S.S.R.B Internet Services"
+    ],
     "website": "https://ssrbinternet.com",
     "asn": 135045,
     "districts": [
       "chapainawabganj"
     ],
-    "licence": "Unspecified",
+    "licence": "District",
     "sources": [
-      "apnic"
+      "apnic",
+      "bdix.app"
     ],
     "source": "https://btrc.gov.bd",
     "nationwide": false,
@@ -52471,23 +52369,6 @@
     "renewalDates": [],
     "possiblyLapsed": false,
     "slug": "s-s-r-b-internet-service"
-  },
-  {
-    "name": "S.S.R.B Internet Services",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [],
-    "licence": "District",
-    "sources": [
-      "bdix.app"
-    ],
-    "source": "https://bdix.app",
-    "nationwide": false,
-    "addresses": [],
-    "renewalDates": [],
-    "possiblyLapsed": false,
-    "slug": "s-s-r-b-internet-services"
   },
   {
     "name": "SA Cyber Net",
@@ -52726,8 +52607,7 @@
     "asn": 137385,
     "districts": [
       "dhaka",
-      "gazipur",
-      "lalmonirhat"
+      "gazipur"
     ],
     "licence": "Unspecified",
     "sources": [
@@ -53011,8 +52891,7 @@
     "asn": null,
     "districts": [
       "chapainawabganj",
-      "dhaka",
-      "dinajpur"
+      "dhaka"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -53386,7 +53265,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "narayanganj"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "btrc-pdf-2024-12"
@@ -53530,7 +53411,8 @@
     "asn": 142615,
     "districts": [
       "brahmanbaria",
-      "chattogram"
+      "chattogram",
+      "comilla"
     ],
     "licence": "Divisional",
     "sources": [
@@ -53759,7 +53641,9 @@
     "aliases": [],
     "website": "https://sayedtechnology.net",
     "asn": 152636,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "District",
     "sources": [
       "apnic",
@@ -55404,7 +55288,9 @@
     ],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "narayanganj"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "bdix.app",
@@ -55535,8 +55421,7 @@
     "website": "https://shoily.net",
     "asn": 137197,
     "districts": [
-      "faridpur",
-      "pabna"
+      "faridpur"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -56902,7 +56787,9 @@
     "website": null,
     "asn": null,
     "districts": [
-      "dhaka"
+      "dhaka",
+      "kishoreganj",
+      "nilphamari"
     ],
     "licence": "Divisional",
     "sources": [
@@ -58129,8 +58016,7 @@
     "asn": 135882,
     "districts": [
       "dhaka",
-      "faridpur",
-      "pabna"
+      "faridpur"
     ],
     "licence": "Divisional",
     "sources": [
@@ -59267,7 +59153,8 @@
     "website": "https://starcommunicationbd.com",
     "asn": 139841,
     "districts": [
-      "chattogram"
+      "chattogram",
+      "comilla"
     ],
     "licence": "Divisional",
     "sources": [
@@ -59436,7 +59323,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "narayanganj"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "bdix.app",
@@ -60208,7 +60097,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "narayanganj"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "bdix.app",
@@ -61858,7 +61749,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "chattogram"
+      "chattogram",
+      "dhaka"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -62353,7 +62245,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "chandpur"
+      "chandpur",
+      "comilla"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -62376,7 +62269,8 @@
     "website": "https://timescommunication.net",
     "asn": 149832,
     "districts": [
-      "chandpur"
+      "chandpur",
+      "comilla"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -62733,8 +62627,7 @@
     "website": "https://touchcombd.com",
     "asn": 146953,
     "districts": [
-      "dhaka",
-      "kushtia"
+      "dhaka"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -63198,7 +63091,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "btrc-pdf-2024-12"
@@ -63273,7 +63168,9 @@
   },
   {
     "name": "Twenty One Network",
-    "aliases": [],
+    "aliases": [
+      "Twenty One Networks"
+    ],
     "website": null,
     "asn": null,
     "districts": [
@@ -63281,6 +63178,7 @@
     ],
     "licence": "Upazila/Thana",
     "sources": [
+      "bdix.app",
       "btrc-pdf-2024-12"
     ],
     "source": "https://btrc.gov.bd",
@@ -63291,25 +63189,8 @@
     "renewalDates": [
       "23-Jul-2023"
     ],
-    "possiblyLapsed": true,
-    "slug": "twenty-one-network"
-  },
-  {
-    "name": "Twenty One Networks",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [],
-    "licence": "Upazila/Thana",
-    "sources": [
-      "bdix.app"
-    ],
-    "source": "https://bdix.app",
-    "nationwide": false,
-    "addresses": [],
-    "renewalDates": [],
     "possiblyLapsed": false,
-    "slug": "twenty-one-networks"
+    "slug": "twenty-one-network"
   },
   {
     "name": "U MAX Internet",
@@ -64292,7 +64173,6 @@
     "website": "https://www.valleyinternational.org/",
     "asn": 138596,
     "districts": [
-      "barisal",
       "dhaka",
       "gopalganj",
       "khulna"
@@ -64507,7 +64387,9 @@
     "aliases": [],
     "website": "https://www.victoriansonline.com/",
     "asn": 134502,
-    "districts": [],
+    "districts": [
+      "comilla"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "apnic",
@@ -64666,15 +64548,18 @@
   },
   {
     "name": "Vision Plus Internet Service",
-    "aliases": [],
+    "aliases": [
+      "Vision Plus Internet Services"
+    ],
     "website": "https://visionplusisp.com",
     "asn": 142050,
     "districts": [
       "dhaka"
     ],
-    "licence": "Unspecified",
+    "licence": "Upazila/Thana",
     "sources": [
-      "apnic"
+      "apnic",
+      "bdix.app"
     ],
     "source": "https://btrc.gov.bd",
     "nationwide": false,
@@ -64685,23 +64570,6 @@
     "renewalDates": [],
     "possiblyLapsed": false,
     "slug": "vision-plus-internet-service"
-  },
-  {
-    "name": "Vision Plus Internet Services",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [],
-    "licence": "Upazila/Thana",
-    "sources": [
-      "bdix.app"
-    ],
-    "source": "https://bdix.app",
-    "nationwide": false,
-    "addresses": [],
-    "renewalDates": [],
-    "possiblyLapsed": false,
-    "slug": "vision-plus-internet-services"
   },
   {
     "name": "Voglu Internet",
@@ -65993,6 +65861,30 @@
     "slug": "youth-net-software-technologies"
   },
   {
+    "name": "Z Net",
+    "aliases": [],
+    "website": null,
+    "asn": null,
+    "districts": [
+      "dhaka"
+    ],
+    "licence": "Upazila/Thana",
+    "sources": [
+      "bdix.app",
+      "btrc-pdf-2024-12"
+    ],
+    "source": "https://bdix.app",
+    "nationwide": false,
+    "addresses": [
+      "Bamoli, Sarulia, Demra, Dhaka-1360"
+    ],
+    "renewalDates": [
+      "15-Dec-2024"
+    ],
+    "possiblyLapsed": false,
+    "slug": "z-net"
+  },
+  {
     "name": "Z Online",
     "aliases": [],
     "website": null,
@@ -66072,9 +65964,7 @@
   },
   {
     "name": "Z.S. Net",
-    "aliases": [
-      "Z Net"
-    ],
+    "aliases": [],
     "website": "https://zsnetbd.com",
     "asn": 149644,
     "districts": [
@@ -66091,14 +65981,12 @@
     "addresses": [
       "60/2, Purana Paltan (Ground Floor), Paltan, Dhaka-1000",
       "60/2, Purana Paltan (Ground Floor), Paltan, Dhaka-1001",
-      "60/2, Purana Paltan (Ground Floor), Paltan, Dhaka-1002",
-      "Bamoli, Sarulia, Demra, Dhaka-1360"
+      "60/2, Purana Paltan (Ground Floor), Paltan, Dhaka-1002"
     ],
     "notes": [
       "P-2 700 and P-3 1000 seen without speeds, not recorded; placeholder lorem text"
     ],
     "renewalDates": [
-      "15-Dec-2024",
       "5-Feb-2027"
     ],
     "possiblyLapsed": false,
@@ -66192,7 +66080,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "narayanganj"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "bdix.app",
@@ -66389,6 +66279,7 @@
       "barisal",
       "bogura",
       "chattogram",
+      "comilla",
       "dhaka",
       "gazipur",
       "khulna",

@@ -7,21 +7,28 @@ const display = (s: string) => s.replace(/^m\s*\/\s*s\.?\s*/i, '').replace(/\s*\
 const norm = (s: string) => slug(display(s)).replace(/-/g, '');
 const geo = read('geo');
 const districts = Object.entries(geo.districts).map(([name, d]: [string, any]) => ({ name, slug: slug(name), ...d }));
-const synonyms: Record<string, string> = { comilla: 'cumilla', bogra: 'bogura', jessore: 'jashore', chittagong: 'chattogram', barishal: 'barisal', 'cox s bazar': 'coxsbazar', "cox's bazar": 'coxsbazar' };
-const canonical = (s: string) => synonyms[s.toLowerCase()] ?? s.toLowerCase();
+const synonyms: Record<string, string> = { comilla: 'cumilla', bogra: 'bogura', jessore: 'jashore', chittagong: 'chattogram', chattagram: 'chattogram', barishal: 'barisal', 'cox s bazar': 'coxsbazar', narayangonj: 'narayanganj', narayanganj: 'narayanganj', manikgonj: 'manikganj' };
 const words = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+const canonical = (s: string) => synonyms[words(s)] ?? words(s);
 const districtOf = (s: string) => districts.find(d => canonical(d.name) === canonical(s))?.slug;
+const districtNames = districts.map(d => ({ slug: d.slug, names: [...new Set([d.name, canonical(d.name), ...Object.keys(synonyms).filter(k => canonical(k) === canonical(d.name))])].map(words) }));
+// The supplied map collapses repeated names and splits some multiword thana names.
+// Ambiguous places and generic fragments cannot identify a district alone.
+const ambiguousUpazilas = new Set(['sadar', 'kotwali', 'kaliganj', 'kawkhali', 'companiganj', 'harirampur', 'sreepur', 'shibganj', 'pirganj', 'nawabganj', 'daulatpur', 'doulatpur', 'mirpur', 'mohammadpur', 'bandar', 'kachua', 'lohagara', 'durgapur', 'new', 'market', 'shah', 'ali', 'darus', 'salam', 'industrial', 'nagar', 'airport', 'cantonment']);
+const upazilas = Object.entries(geo.upazila_to_district).map(([name, district]) => ({ name: words(name), district: districtOf(district as string) })).filter(u => u.district && !ambiguousUpazilas.has(u.name)).map(u => ({ ...u, labelled: new RegExp(`(?:^| )(?:p s|ps|thana|upazila) ${u.name}(?: |$)|(?:^| )${u.name} (?:thana|upazila)(?: |$)`) }));
 function locate(parts: string[]) {
   const found = new Set<string>();
   for (const part of parts) {
     const text = ` ${words(part)} `;
-    for (const d of districts) {
-      const names = [d.name, ...Object.keys(synonyms).filter(k => canonical(k) === canonical(d.name))];
-      if (names.some(n => text.includes(` ${words(n)} `))) found.add(d.slug);
+    const explicit = districtNames.filter(d => d.names.some(n => text.includes(` ${n} `) && !text.includes(` ${n} division `)));
+    for (const d of explicit) found.add(d.slug);
+    if (explicit.length) continue;
+    // Resolve whole address components or explicitly labelled PS/thana/upazila names,
+    // never incidental substrings such as a road or company name.
+    const components = part.split(/[,;\n]/).map(words);
+    for (const u of upazilas) {
+      if (components.some(c => c === u.name || u.labelled.test(c))) found.add(u.district!);
     }
-    // Upazila names are only resolved as whole locations; substring matching ambiguous names is unsafe.
-    const district = geo.upazila_to_district[part.toLowerCase()];
-    if (district && districtOf(district)) found.add(districtOf(district)!);
   }
   return [...found].sort();
 }
@@ -128,30 +135,33 @@ for (const row of licences) {
   const get = (k: string) => row[header.indexOf(k)] ?? '';
   const i = index.get(norm(get('name')));
   if (!i) continue;
-  const district = districtOf(get('district'));
-  if (district) i.districts = [...new Set([...i.districts, district])].sort();
+  i.districts = [...new Set([...i.districts, ...locate([get('district'), get('location'), get('address')])])].sort();
 }
-// Plural/singular twins (Communication/Communications) are one licensee when ASNs don't conflict, districts overlap, and neither is hand-curated.
-const twin = (s: string) => display(s).toLowerCase().replace(/[^a-z0-9 ]/g, '').replace(/s\b/g, '').replace(/ /g, '');
+// Singularize known business nouns only: initials such as SRS, TS and TKS are identities.
+const twin = (s: string) => display(s).toLowerCase().replace(/\b(communications|networks|links|services|systems|technologies)\b/g, w => w === 'technologies' ? 'technology' : w.slice(0, -1)).replace(/[^a-z0-9]/g, '');
 const curatedNames = new Set(curated.map((c: any) => c.name));
+const mergedPairs: string[] = [];
 for (const a of [...isps]) {
-  if (!isps.includes(a) || curatedNames.has(a.name)) continue;
-  const b = isps.find((o: any) => o !== a && !curatedNames.has(o.name) && twin(o.name) === twin(a.name) && (!o.asn || !a.asn || o.asn === a.asn) && o.districts.some((d: string) => a.districts.includes(d)));
-  if (!b) continue;
-  // Keep whichever twin owns packages (else the one with an ASN, else the plural "s" spelling already in use).
-  const [keep, drop] = (packages[b.name] && !packages[a.name]) || (!packages[a.name] && b.asn && !a.asn) ? [b, a] : [a, b];
+  if (!isps.includes(a)) continue;
+  const b = isps.find((o: any) => o !== a && twin(o.name) === twin(a.name) && (!o.asn || !a.asn || o.asn === a.asn) && (!o.districts.length || !a.districts.length || o.districts.some((d: string) => a.districts.includes(d))));
+  if (!b || (curatedNames.has(a.name) && curatedNames.has(b.name))) continue;
+  // Preserve the curated identity and tariffs; otherwise prefer packages, then ASN.
+  const priority = (i: any) => (curatedNames.has(i.name) ? 8 : 0) + (curatedPackageNames.includes(i.name) ? 4 : 0) + (packages[i.name] ? 2 : 0) + (i.asn ? 1 : 0);
+  const [keep, drop] = priority(b) > priority(a) ? [b, a] : [a, b];
+  mergedPairs.push(`${drop.name} -> ${keep.name}`);
   keep.aliases = [...new Set([...keep.aliases, drop.name, ...drop.aliases])].filter((n: string) => n !== keep.name);
-  for (const k of ['asn', 'website'] as const) keep[k] ??= drop[k];
+  for (const k of ['asn', 'website', 'source'] as const) keep[k] ??= drop[k];
   for (const k of ['districts', 'sources', 'addresses', 'renewalDates', 'notes']) if (drop[k]) keep[k] = [...new Set([...(keep[k] ?? []), ...drop[k]])].sort();
   keep.licence = [...new Set([...keep.licence.split(', '), ...drop.licence.split(', ')].filter((l: string) => l !== 'Unspecified'))].join(', ') || 'Unspecified';
   keep.nationwide ||= drop.nationwide; keep.possiblyLapsed &&= drop.possiblyLapsed;
-  if (packages[drop.name] && !packages[keep.name]) { packages[keep.name] = packages[drop.name]; }
+  if (packages[drop.name] && !packages[keep.name]) packages[keep.name] = packages[drop.name];
   delete packages[drop.name];
   isps.splice(isps.indexOf(drop), 1);
 }
+console.log('Merged twins:', mergedPairs);
 for (const i of isps) { i.slug = slug(i.name); if (!i.sources.length && i.source) i.sources = [i.source]; }
 // Keep package-level provenance even for the preserved hand-curated packages.
 for (const p of Object.values(packages) as any[]) for (const row of p.packages) row.source ??= p.source;
 const orderedPackages = Object.fromEntries([...new Set([...curatedPackageNames, ...isps.map(i => i.name)])].filter(name => packages[name]).map(name => [name, packages[name]]));
 write('isps', isps); write('isp-packages', orderedPackages); write('districts', districts.sort((a, b) => a.name.localeCompare(b.name)));
-console.log(JSON.stringify({ isps: isps.length, withPackages: isps.filter(i => packages[i.name]?.packages.length).length, packages: Object.values(packages).reduce((n: number, p: any) => n + p.packages.length, 0), districts: districts.length, districtsCovered: new Set(isps.flatMap(i => i.districts)).size }));
+console.log(JSON.stringify({ isps: isps.length, withPackages: isps.filter(i => packages[i.name]?.packages.length).length, packages: Object.values(packages).reduce((n: number, p: any) => n + p.packages.length, 0), withoutDistrict: isps.filter(i => !i.districts.length).length, withoutDistrictOrNationwide: isps.filter(i => !i.districts.length && !i.nationwide).length, districts: districts.length, districtsCovered: new Set(isps.flatMap(i => i.districts)).size }));

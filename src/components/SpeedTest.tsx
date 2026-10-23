@@ -287,7 +287,9 @@ function Review({ testId, ispId, ispName }: { testId: number; ispId: number; isp
 }
 
 // ── Main flow ───────────────────────────────────────────
-export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; areas: MapArea[]; children?: ReactNode }) {
+// Tuples avoid repeating property names and long district slugs in Astro's HTML props.
+export default function SpeedTest({ providers, districtSlugs, areas, children }: { providers: [number, string, string[], string, number][]; districtSlugs: string[]; areas: MapArea[]; children?: ReactNode }) {
+  const isps = useMemo<Isp[]>(() => providers.map(([id, name, aliases, districts, nationwide]) => ({ id, name, aliases, districts: districts ? districts.split(',').map(d => districtSlugs[Number(d)]) : [], nationwide: !!nationwide })), [providers, districtSlugs]);
   const [phase, setPhase] = useState<'setup' | 'running' | 'saving' | 'done'>('setup');
   const [isp, setIsp] = useState<{ id?: number; name: string }>({ name: '' });
   const [area, setArea] = useState('');

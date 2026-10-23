@@ -1,5 +1,5 @@
 ---
-import { PROVIDERS } from '../lib/directory';
+import { DISTRICTS, PROVIDERS } from '../lib/directory';
 import Base from '../layouts/Base.astro';
 import SpeedTest from '../components/SpeedTest';
 import RankTable from '../components/RankTable.astro';
@@ -7,6 +7,7 @@ import { sql } from '../lib/db';
 import { leaderboard, MIN_DEVICES } from '../lib/stats';
 import { mapData } from '../lib/mapData';
 
+const districtSlugs = DISTRICTS.map(d => d.slug);
 const bySlug = new Map(PROVIDERS.map(i => [i.slug, i]));
 const [isps, [totals], board, map] = await Promise.all([
   sql<{ id: number; name: string; slug: string; aliases: string[] }[]>`select id, name, slug, aliases from isps where approved order by id`,
@@ -35,7 +36,7 @@ const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
 ---
 <Base schema={schema} jsonAlt="/api/stats" dither={false}>
   <section class="hero">
-    <SpeedTest client:load isps={isps.map(({ id, name, aliases, slug }) => ({ id, name, aliases, districts: bySlug.get(slug)?.districts ?? [], nationwide: bySlug.get(slug)?.nationwide ?? false }))} areas={map.areas}>
+    <SpeedTest client:load providers={isps.map(({ id, name, aliases, slug }) => [id, name, aliases.filter(a => a !== name), (bySlug.get(slug)?.districts ?? []).map(d => districtSlugs.indexOf(d)).join(','), bySlug.get(slug)?.nationwide ? 1 : 0])} districtSlugs={districtSlugs} areas={map.areas}>
       <h1 aria-label="How fast is your internet, really?">
         {headline.map((w, i) => <><span aria-hidden="true" style={`--i:${i}`}>{w}</span>{i === 1 || i === 3 ? <br /> : ' '}</>)}
       </h1>

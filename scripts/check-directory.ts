@@ -36,4 +36,18 @@ assert.ok(isps.find((i: any) => i.name === 'CDC Internet').nationwide);
 assert.ok(isps.find((i: any) => i.name === 'Qubee'));
 assert.ok(!packages['CDC Internet'] && !packages.Qubee);
 assert.equal(packages['Bograinfo.com'].confidence, 'low');
+// District aliases, conservative address lookup, and ASN-aware twin regressions.
+for (const [name, district] of [['Amazing Online', 'comilla'], ['AT Link', 'narayanganj'], ['Bondhu IT Zone', 'manikganj'], ['Moheshpur Telecom', 'jhenaidah']]) {
+  assert.ok(isps.find((i: any) => i.name === name).districts.includes(district), name);
+}
+assert.deepEqual(isps.find((i: any) => i.name === 'Comilla Cable Tv Online Chattogram Division').districts, ['comilla']);
+const mazeda = isps.find((i: any) => i.name === 'Mazeda Networks');
+assert.equal(mazeda.asn, 63996);
+assert.ok(mazeda.aliases.includes('Mazeda Network'));
+assert.ok(!isps.some((i: any) => i.name === 'Mazeda Network') && !packages['Mazeda Network']);
+for (const [a, b] of [['Speed Link', 'Speed Links'], ['Ideal Communication', 'Ideal Communications'], ['SR Communication', 'SRS Communication'], ['T Network', 'TS Network'], ['T.K. Network', 'TKS Network']]) {
+  assert.ok(isps.some((i: any) => i.name === a) && isps.some((i: any) => i.name === b), `${a} != ${b}`);
+}
+// The Broadband360 notes name no districts; do not turn "18 district cities" into coverage.
+assert.deepEqual(isps.find((i: any) => i.name === 'Velocity Networks').districts, []);
 console.log('directory ok');

@@ -17392,29 +17392,6 @@
       }
     ]
   },
-  "Mazeda Network": {
-    "source": "https://bdix.app/isp/mazeda-network-ltd",
-    "packages": [
-      {
-        "name": "One",
-        "mbps": 25,
-        "bdt": 525,
-        "source": "https://bdix.app/isp/mazeda-network-ltd"
-      },
-      {
-        "name": "Two",
-        "mbps": 40,
-        "bdt": 735,
-        "source": "https://bdix.app/isp/mazeda-network-ltd"
-      },
-      {
-        "name": "Three",
-        "mbps": 50,
-        "bdt": 840,
-        "source": "https://bdix.app/isp/mazeda-network-ltd"
-      }
-    ]
-  },
   "MBD Connection": {
     "source": "https://mbdconnection.net",
     "packages": [
