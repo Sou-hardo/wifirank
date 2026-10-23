@@ -85,8 +85,8 @@ Run `npm run db:migrate` before deploying this change. It adds `tests.district`,
 index, backfills known historical districts, and seeds provider access metadata.
 It is safe to rerun. Existing tests already retain detected ASN and hashed IP.
 
-`npm run data:build` also produces `data/upstream-asns.json`: 294 unique ASNs with
-Nationwide/Divisional or IIG/transit-like licence scope. This is a warning signal,
+`npm run data:build` also produces `data/upstream-asns.json`: the unique ASNs with
+Nationwide or IIG/transit-like licence scope. This is a warning signal,
 not proof of a transit relationship. Shared ASNs and locally learned reseller
 choices also prevent silent selection. Small ISP ASNs can prefill an empty,
 untouched form; remembered or typed choices always win.

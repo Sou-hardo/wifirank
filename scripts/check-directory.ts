@@ -53,7 +53,8 @@ assert.deepEqual(isps.find((i: any) => i.name === 'Velocity Networks').districts
 console.log('directory ok');
 
 const upstreams = read('upstream-asns');
-assert.deepEqual(upstreams, [...new Set(isps.filter((i: any) => i.asn && /Nationwide|Divisional|IIG|Transit/i.test(i.licence)).map((i: any) => i.asn))].sort((a: any, b: any) => a - b));
+assert.ok(!upstreams.includes(59340), 'Help Line (59340) must autofill');
+assert.deepEqual(upstreams, [...new Set(isps.filter((i: any) => i.asn && /Nationwide|IIG|Transit/i.test(i.licence)).map((i: any) => i.asn))].sort((a: any, b: any) => a - b));
 assert.equal(isps.find((i: any) => i.slug === 'gpfi').accessType, 'fixed_wireless');
 assert.ok(isps.find((i: any) => i.slug === 'gpfi').aliases.includes('Grameenphone gpfi'));
 assert.ok(packages.gpfi.packages.length > 0);

@@ -175,8 +175,9 @@ const orderedPackages = Object.fromEntries([...new Set([...curatedPackageNames, 
 write('isps', isps); write('isp-packages', orderedPackages); write('districts', districts.sort((a, b) => a.name.localeCompare(b.name)));
 console.log(JSON.stringify({ isps: isps.length, withPackages: isps.filter(i => packages[i.name]?.packages.length).length, packages: Object.values(packages).reduce((n: number, p: any) => n + p.packages.length, 0), withoutDistrict: isps.filter(i => !i.districts.length).length, withoutDistrictOrNationwide: isps.filter(i => !i.districts.length && !i.nationwide).length, districts: districts.length, districtsCovered: new Set(isps.flatMap(i => i.districts)).size }));
 
+// Divisional licences are regional (often small ISPs such as Help Line), so they keep auto-fill.
 // Licence scope is a conservative warning signal, not proof of a transit relationship.
 // Any shared ASN is ambiguous too: it must never select an arbitrary provider.
-const upstreams = [...new Set(isps.filter(i => i.asn && /Nationwide|Divisional|IIG|Transit/i.test(i.licence)).map(i => i.asn))].sort((a, b) => a - b);
+const upstreams = [...new Set(isps.filter(i => i.asn && /Nationwide|IIG|Transit/i.test(i.licence)).map(i => i.asn))].sort((a, b) => a - b);
 write('upstream-asns', upstreams);
 console.log(`Upstream candidate ASNs: ${upstreams.length}`);
