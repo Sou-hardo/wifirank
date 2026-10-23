@@ -131,6 +131,24 @@ for (const row of licences) {
   const district = districtOf(get('district'));
   if (district) i.districts = [...new Set([...i.districts, district])].sort();
 }
+// Plural/singular twins (Communication/Communications) are one licensee when ASNs don't conflict, districts overlap, and neither is hand-curated.
+const twin = (s: string) => display(s).toLowerCase().replace(/[^a-z0-9 ]/g, '').replace(/s\b/g, '').replace(/ /g, '');
+const curatedNames = new Set(curated.map((c: any) => c.name));
+for (const a of [...isps]) {
+  if (!isps.includes(a) || curatedNames.has(a.name)) continue;
+  const b = isps.find((o: any) => o !== a && !curatedNames.has(o.name) && twin(o.name) === twin(a.name) && (!o.asn || !a.asn || o.asn === a.asn) && o.districts.some((d: string) => a.districts.includes(d)));
+  if (!b) continue;
+  // Keep whichever twin owns packages (else the one with an ASN, else the plural "s" spelling already in use).
+  const [keep, drop] = (packages[b.name] && !packages[a.name]) || (!packages[a.name] && b.asn && !a.asn) ? [b, a] : [a, b];
+  keep.aliases = [...new Set([...keep.aliases, drop.name, ...drop.aliases])].filter((n: string) => n !== keep.name);
+  for (const k of ['asn', 'website'] as const) keep[k] ??= drop[k];
+  for (const k of ['districts', 'sources', 'addresses', 'renewalDates', 'notes']) if (drop[k]) keep[k] = [...new Set([...(keep[k] ?? []), ...drop[k]])].sort();
+  keep.licence = [...new Set([...keep.licence.split(', '), ...drop.licence.split(', ')].filter((l: string) => l !== 'Unspecified'))].join(', ') || 'Unspecified';
+  keep.nationwide ||= drop.nationwide; keep.possiblyLapsed &&= drop.possiblyLapsed;
+  if (packages[drop.name] && !packages[keep.name]) { packages[keep.name] = packages[drop.name]; }
+  delete packages[drop.name];
+  isps.splice(isps.indexOf(drop), 1);
+}
 for (const i of isps) { i.slug = slug(i.name); if (!i.sources.length && i.source) i.sources = [i.source]; }
 // Keep package-level provenance even for the preserved hand-curated packages.
 for (const p of Object.values(packages) as any[]) for (const row of p.packages) row.source ??= p.source;

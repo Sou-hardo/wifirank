@@ -6160,32 +6160,9 @@
   },
   {
     "name": "AK Network",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [
-      "dhaka"
+    "aliases": [
+      "AK Networks"
     ],
-    "licence": "Upazila/Thana",
-    "sources": [
-      "bdix.app",
-      "btrc-pdf-2024-12"
-    ],
-    "source": "https://bdix.app/isp/ak-network",
-    "nationwide": false,
-    "addresses": [
-      "357, Rosulbag, Ashkona, Dakshinkhan, Dhaka-1230.",
-      "House No: 418 (Old New 889), Kuwati Mosque Road, Vatara, Dhaka"
-    ],
-    "renewalDates": [
-      "16-Oct-2024"
-    ],
-    "possiblyLapsed": false,
-    "slug": "ak-network"
-  },
-  {
-    "name": "AK Networks",
-    "aliases": [],
     "website": null,
     "asn": 139029,
     "districts": [
@@ -6193,22 +6170,25 @@
       "faridpur",
       "pabna"
     ],
-    "licence": "Divisional",
+    "licence": "Upazila/Thana, Divisional",
     "sources": [
       "apnic",
       "bdix.app",
       "btrc-pdf-2024-12"
     ],
-    "source": "https://bdix.app",
+    "source": "https://bdix.app/isp/ak-network",
     "nationwide": false,
     "addresses": [
-      "Holding No:175/12, Bhanga Town,Bhanga, Faridpur 7830"
+      "357, Rosulbag, Ashkona, Dakshinkhan, Dhaka-1230.",
+      "Holding No:175/12, Bhanga Town,Bhanga, Faridpur 7830",
+      "House No: 418 (Old New 889), Kuwati Mosque Road, Vatara, Dhaka"
     ],
     "renewalDates": [
+      "16-Oct-2024",
       "28-Apr-2027"
     ],
     "possiblyLapsed": false,
-    "slug": "ak-networks"
+    "slug": "ak-network"
   },
   {
     "name": "Akania Online",
@@ -7762,31 +7742,10 @@
     "slug": "antaranga-dot-com"
   },
   {
-    "name": "Antaranga Network",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [
-      "chattogram"
-    ],
-    "licence": "Upazila/Thana",
-    "sources": [
-      "btrc-pdf-2024-12"
-    ],
-    "source": "https://btrc.gov.bd",
-    "nationwide": false,
-    "addresses": [
-      "Abdurpara, Majar Gate, Antaranga Tower, Halishahar, South Kattali, Halishahar, Chattogram"
-    ],
-    "renewalDates": [
-      "8-Nov-2023"
-    ],
-    "possiblyLapsed": true,
-    "slug": "antaranga-network"
-  },
-  {
     "name": "Antaranga Networks",
-    "aliases": [],
+    "aliases": [
+      "Antaranga Network"
+    ],
     "website": "https://antaranga.net",
     "asn": 138584,
     "districts": [
@@ -7795,15 +7754,20 @@
     "licence": "Upazila/Thana",
     "sources": [
       "apnic",
-      "bdix.app"
+      "bdix.app",
+      "btrc-pdf-2024-12"
     ],
     "source": "https://bdix.app",
     "nationwide": false,
-    "addresses": [],
+    "addresses": [
+      "Abdurpara, Majar Gate, Antaranga Tower, Halishahar, South Kattali, Halishahar, Chattogram"
+    ],
     "notes": [
       "also Smart TV/Gaming/D-1..D-4 day/night plans skipped"
     ],
-    "renewalDates": [],
+    "renewalDates": [
+      "8-Nov-2023"
+    ],
     "possiblyLapsed": false,
     "slug": "antaranga-networks"
   },
@@ -13351,19 +13315,23 @@
     "slug": "chandona-online"
   },
   {
-    "name": "Chandpur Online System",
-    "aliases": [],
+    "name": "Chandpur Online Systems",
+    "aliases": [
+      "Chandpur Online System"
+    ],
     "website": null,
-    "asn": null,
+    "asn": 150698,
     "districts": [
       "chandpur",
       "chattogram"
     ],
     "licence": "Divisional",
     "sources": [
+      "apnic",
+      "bdix.app",
       "btrc-pdf-2024-12"
     ],
-    "source": "https://btrc.gov.bd",
+    "source": "https://bdix.app",
     "nationwide": false,
     "addresses": [
       "Holding No.-721-00, J. M. Sengupto Road, Chandpur-3600. Date"
@@ -13371,26 +13339,6 @@
     "renewalDates": [
       "5-Feb-2023"
     ],
-    "possiblyLapsed": true,
-    "slug": "chandpur-online-system"
-  },
-  {
-    "name": "Chandpur Online Systems",
-    "aliases": [],
-    "website": null,
-    "asn": 150698,
-    "districts": [
-      "chandpur"
-    ],
-    "licence": "Divisional",
-    "sources": [
-      "apnic",
-      "bdix.app"
-    ],
-    "source": "https://bdix.app",
-    "nationwide": false,
-    "addresses": [],
-    "renewalDates": [],
     "possiblyLapsed": false,
     "slug": "chandpur-online-systems"
   },
@@ -22809,7 +22757,8 @@
   {
     "name": "G-Network",
     "aliases": [
-      "G- Network"
+      "G- Network",
+      "GS Network"
     ],
     "website": null,
     "asn": null,
@@ -22824,10 +22773,12 @@
     "source": "https://bdix.app",
     "nationwide": false,
     "addresses": [
+      "39/A, Din Nath Sen Road, Gandaria, Dhaka-1204.",
       "Jamgora, Zirabo, Ashulia, Dhaka-1341"
     ],
     "renewalDates": [
-      "30-May-2027"
+      "30-May-2027",
+      "6-May-2023"
     ],
     "possiblyLapsed": false,
     "slug": "g-network"
@@ -24787,31 +24738,10 @@
     "slug": "green-network"
   },
   {
-    "name": "Green Surma Communication",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [
-      "sylhet"
-    ],
-    "licence": "Divisional",
-    "sources": [
-      "btrc-pdf-2024-12"
-    ],
-    "source": "https://btrc.gov.bd",
-    "nationwide": false,
-    "addresses": [
-      "111, Garden Road, (Ground Floor), Mendibag, Sylhet."
-    ],
-    "renewalDates": [
-      "4-Jul-2023"
-    ],
-    "possiblyLapsed": true,
-    "slug": "green-surma-communication"
-  },
-  {
     "name": "Green Surma Communications",
-    "aliases": [],
+    "aliases": [
+      "Green Surma Communication"
+    ],
     "website": "https://gsc.com.bd",
     "asn": 135124,
     "districts": [
@@ -24820,12 +24750,17 @@
     "licence": "Divisional",
     "sources": [
       "apnic",
-      "bdix.app"
+      "bdix.app",
+      "btrc-pdf-2024-12"
     ],
     "source": "https://bdix.app",
     "nationwide": false,
-    "addresses": [],
-    "renewalDates": [],
+    "addresses": [
+      "111, Garden Road, (Ground Floor), Mendibag, Sylhet."
+    ],
+    "renewalDates": [
+      "4-Jul-2023"
+    ],
     "possiblyLapsed": false,
     "slug": "green-surma-communications"
   },
@@ -24893,30 +24828,6 @@
     "slug": "grs-internet-root"
   },
   {
-    "name": "GS Network",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [
-      "dhaka"
-    ],
-    "licence": "Upazila/Thana",
-    "sources": [
-      "bdix.app",
-      "btrc-pdf-2024-12"
-    ],
-    "source": "https://bdix.app",
-    "nationwide": false,
-    "addresses": [
-      "39/A, Din Nath Sen Road, Gandaria, Dhaka-1204."
-    ],
-    "renewalDates": [
-      "6-May-2023"
-    ],
-    "possiblyLapsed": false,
-    "slug": "gs-network"
-  },
-  {
     "name": "Gumati Online",
     "aliases": [],
     "website": "https://gumationline.com",
@@ -24935,19 +24846,25 @@
     "slug": "gumati-online"
   },
   {
-    "name": "Habiganj Net Communication",
-    "aliases": [],
-    "website": null,
-    "asn": null,
+    "name": "Habiganj Net Communications",
+    "aliases": [
+      "HNC Broadband",
+      "Habiganj Net Communication"
+    ],
+    "website": "https://habiganj.net",
+    "asn": 141443,
     "districts": [
       "habiganj",
       "sylhet"
     ],
     "licence": "Divisional",
     "sources": [
-      "btrc-pdf-2024-12"
+      "apnic",
+      "bdix.app",
+      "btrc-pdf-2024-12",
+      "https://habiganj.net"
     ],
-    "source": "https://btrc.gov.bd",
+    "source": "https://bdix.app",
     "nationwide": false,
     "addresses": [
       "Khaja Garden City (3rd Floor), Town Hall Road, Habiganj."
@@ -24955,29 +24872,6 @@
     "renewalDates": [
       "6-Feb-2024"
     ],
-    "possiblyLapsed": true,
-    "slug": "habiganj-net-communication"
-  },
-  {
-    "name": "Habiganj Net Communications",
-    "aliases": [
-      "HNC Broadband"
-    ],
-    "website": "https://habiganj.net",
-    "asn": 141443,
-    "districts": [
-      "habiganj"
-    ],
-    "licence": "Divisional",
-    "sources": [
-      "apnic",
-      "bdix.app",
-      "https://habiganj.net"
-    ],
-    "source": "https://bdix.app",
-    "nationwide": false,
-    "addresses": [],
-    "renewalDates": [],
     "possiblyLapsed": false,
     "notes": [
       "Prices effective 1 April 2026."
@@ -59276,11 +59170,14 @@
   },
   {
     "name": "SS Network",
-    "aliases": [],
+    "aliases": [
+      "SS Networks"
+    ],
     "website": null,
     "asn": 149508,
     "districts": [
-      "dhaka"
+      "dhaka",
+      "kushtia"
     ],
     "licence": "Upazila/Thana",
     "sources": [
@@ -59291,37 +59188,15 @@
     "source": "https://bdix.app",
     "nationwide": false,
     "addresses": [
+      "24/54, Adorshapara, Dhaka Road, Chorhas, Kushtia-7000",
       "House: 61/1 & 61/2, Road-04, Block-B, Section-12, Pallabi, Dhaka-1216."
     ],
     "renewalDates": [
-      "1-Aug-2024"
+      "1-Aug-2024",
+      "8-Feb-2023"
     ],
     "possiblyLapsed": false,
     "slug": "ss-network"
-  },
-  {
-    "name": "SS Networks",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [
-      "dhaka",
-      "kushtia"
-    ],
-    "licence": "Upazila/Thana",
-    "sources": [
-      "btrc-pdf-2024-12"
-    ],
-    "source": "https://btrc.gov.bd",
-    "nationwide": false,
-    "addresses": [
-      "24/54, Adorshapara, Dhaka Road, Chorhas, Kushtia-7000"
-    ],
-    "renewalDates": [
-      "8-Feb-2023"
-    ],
-    "possiblyLapsed": true,
-    "slug": "ss-networks"
   },
   {
     "name": "SSCN Technology",
@@ -66118,30 +65993,6 @@
     "slug": "youth-net-software-technologies"
   },
   {
-    "name": "Z Net",
-    "aliases": [],
-    "website": null,
-    "asn": null,
-    "districts": [
-      "dhaka"
-    ],
-    "licence": "Upazila/Thana",
-    "sources": [
-      "bdix.app",
-      "btrc-pdf-2024-12"
-    ],
-    "source": "https://bdix.app",
-    "nationwide": false,
-    "addresses": [
-      "Bamoli, Sarulia, Demra, Dhaka-1360"
-    ],
-    "renewalDates": [
-      "15-Dec-2024"
-    ],
-    "possiblyLapsed": false,
-    "slug": "z-net"
-  },
-  {
     "name": "Z Online",
     "aliases": [],
     "website": null,
@@ -66221,7 +66072,9 @@
   },
   {
     "name": "Z.S. Net",
-    "aliases": [],
+    "aliases": [
+      "Z Net"
+    ],
     "website": "https://zsnetbd.com",
     "asn": 149644,
     "districts": [
@@ -66238,12 +66091,14 @@
     "addresses": [
       "60/2, Purana Paltan (Ground Floor), Paltan, Dhaka-1000",
       "60/2, Purana Paltan (Ground Floor), Paltan, Dhaka-1001",
-      "60/2, Purana Paltan (Ground Floor), Paltan, Dhaka-1002"
+      "60/2, Purana Paltan (Ground Floor), Paltan, Dhaka-1002",
+      "Bamoli, Sarulia, Demra, Dhaka-1360"
     ],
     "notes": [
       "P-2 700 and P-3 1000 seen without speeds, not recorded; placeholder lorem text"
     ],
     "renewalDates": [
+      "15-Dec-2024",
       "5-Feb-2027"
     ],
     "possiblyLapsed": false,
