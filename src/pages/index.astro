@@ -26,7 +26,7 @@ const faq = [
 ];
 const schema = [
   { '@type': 'WebApplication', name: 'WifiRank Speed Test', url: Astro.site?.href, applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any',
-    offers: { '@type': 'Offer', price: 0, priceCurrency: 'BDT' }, areaServed: { '@type': 'City', name: 'Dhaka' } },
+    offers: { '@type': 'Offer', price: 0, priceCurrency: 'BDT' }, areaServed: { '@type': 'Country', name: 'Bangladesh' } },
   { '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
 ];
 const n = (v: number) => v.toLocaleString('en');
@@ -60,10 +60,10 @@ const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
     <section class="wrap block">
       <div class="sec-head reveal">
         <h2><span class="hl">Rankings</span></h2>
-        <p>The fastest providers across Dhaka right now, by median download speed over the last 90 days.</p>
+        <p>The fastest providers across Bangladesh right now, by median download speed over the last 90 days.</p>
         <a class="btn" href="/isps">All {board.length} providers</a>
       </div>
-      <div class="reveal"><RankTable rows={top} caption="Fastest internet providers across Dhaka by median download speed" /></div>
+      <div class="reveal"><RankTable rows={top} caption="Fastest internet providers across Bangladesh by median download speed" /></div>
     </section>
   )}
 

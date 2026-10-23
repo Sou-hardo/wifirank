@@ -15,7 +15,7 @@ interface Props {
 const SITE = 'WifiRank';
 const {
   title,
-  description = 'Real ISP speeds across Dhaka, measured by the people who use them. Compare download and upload speed, ping and reviews for every area before you choose an internet provider.',
+  description = 'Real ISP speeds across Bangladesh, measured by the people who use them. Compare download and upload speed, ping and reviews for every area before you choose an internet provider.',
   ogImage = '/og-home.jpg',
   schema = [],
   noindex = false,
@@ -23,7 +23,7 @@ const {
   bare = false,
   dither = !bare,
 } = Astro.props;
-const fullTitle = title ? `${title} · ${SITE}` : `${SITE}: Compare internet providers in Dhaka by real speed tests`;
+const fullTitle = title ? `${title} · ${SITE}` : `${SITE}: Compare internet providers in Bangladesh by real speed tests`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const og = new URL(ogImage, Astro.site);
 const path = Astro.url.pathname;
@@ -32,7 +32,7 @@ const graph = {
   '@context': 'https://schema.org',
   '@graph': [
     { '@type': 'WebSite', '@id': `${Astro.site}#site`, name: SITE, url: Astro.site?.href, inLanguage: 'en',
-      description: 'Crowdsourced internet speed tests and reviews of ISPs in Dhaka, Bangladesh.' },
+      description: 'Crowdsourced internet speed tests and reviews of ISPs in Bangladesh.' },
     ...schema,
   ],
 };
@@ -66,7 +66,7 @@ const graph = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={og} />
     <meta name="geo.region" content="BD-13" />
-    <meta name="geo.placename" content="Dhaka" />
+    <meta name="geo.placename" content="Bangladesh" />
     <script type="application/ld+json" set:html={JSON.stringify(graph)} />
     <slot name="head" />
   </head>
@@ -97,7 +97,7 @@ const graph = {
             </nav>
           </div>
           <div class="bottom">
-            <p>Dhaka’s internet, measured by its people.</p>
+            <p>Bangladesh’s internet, measured by its people.</p>
             <p>Anonymous, crowdsourced results. Not affiliated with any ISP.</p>
           </div>
         </div>
