@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useState, type KeyboardEvent, type ReactNode } from 'react';
 import SpeedTestEngine from '@cloudflare/speedtest';
 import { AREAS } from '../lib/options';
 import PACKAGES from '../../data/isp-packages.json';
@@ -289,6 +289,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
   const [pin, setPin] = useState<Pin | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [locating, setLocating] = useState(false);
+  const [sheet, setSheet] = useState(false); // phones: GO opens the setup form as a bottom sheet
   const [connection, setConnection] = useState('');
   const [stage, setStage] = useState<Stage | null>(null);
   const [live, setLive] = useState<Metrics | null>(null);
@@ -318,12 +319,16 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
   const ispOptions = useMemo<Option[]>(() => isps.map((i) => ({ value: String(i.id), label: i.name, terms: i.aliases })), [isps]);
   const missing = !isp.name.trim() ? 'isp' : !connection ? 'connection' : null;
 
+  // Focus the sheet itself, not a field: focusing the provider search would pop the phone keyboard straight away.
+  useEffect(() => { if (sheet) document.querySelector<HTMLElement>('.tester-side.open')?.focus(); }, [sheet]);
+
   const start = async () => {
     setTried(true);
     if (missing) {
       document.getElementById(`f-${missing}`)?.focus();
       return;
     }
+    setSheet(false);
     setLocating(true);
     const p = await locate();
     setLocating(false);
@@ -388,7 +393,9 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
           {/* Left: setup, then optional details while the test runs */}
           <div className="tester-col">
             {phase === 'setup' && children && <div className="tester-intro">{children}</div>}
-            <div className="tester-side" data-over>
+            {sheet && <button type="button" className="sheet-scrim" aria-label="Close" onClick={() => setSheet(false)} />}
+            <div className={`tester-side ${sheet ? 'open' : ''}`} data-over
+              {...(sheet && { role: 'dialog', 'aria-modal': true, tabIndex: -1, 'aria-label': 'Test details', onKeyDown: (e: KeyboardEvent) => e.key === 'Escape' && setSheet(false) })}>
               {phase === 'setup' ? (
                 <form className="setup" onSubmit={(e) => { e.preventDefault(); start(); }} noValidate>
                   <div className="field">
@@ -465,10 +472,10 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
             {phase === 'running' && <dither-art class="stream" mode="stream" cell="8" dir={stage === 'upload' ? 'up' : stage === 'download' || stage === 'packetLoss' ? 'down' : 'idle'} aria-hidden="true" />}
             {phase === 'setup' ? (
               <Gauge value={null}>
-                <button type="button" className={`go ${missing ? '' : 'ready magnetic'}`} onClick={start} disabled={locating} aria-describedby={missing ? 'go-hint' : undefined}>
+                <button type="button" className={`go ${missing ? '' : 'ready magnetic'}`} onClick={() => (matchMedia('(max-width: 820px)').matches ? setSheet(true) : start())} disabled={locating} aria-describedby={missing ? 'go-hint' : undefined}>
                   <span>GO</span>
                 </button>
-                <span id="go-hint" className="go-hint">{missing ? 'Fill in the left first' : locating ? 'Finding your location…' : 'Takes about 40 seconds'}</span>
+                <span id="go-hint" className="go-hint">{missing ? <><span className="d-only">Fill in the left first</span><span className="m-only">Takes about 40 seconds</span></> : locating ? 'Finding your location…' : 'Takes about 40 seconds'}</span>
               </Gauge>
             ) : (
               <>

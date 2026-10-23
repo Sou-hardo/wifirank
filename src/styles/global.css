@@ -352,6 +352,7 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 .area-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
 .map-btn { padding-inline: 16px; }
 .go-mobile { display: none; }
+.m-only, .sheet-scrim { display: none; }
 .extras-head h2 { margin: 0 0 4px; font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.2rem); }
 .extras-head p { margin: 0; }
 .extras .eyebrow { margin-bottom: 0; justify-self: start; }
@@ -473,8 +474,22 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
   .tester-intro { background: var(--bg); border: 1px solid var(--ink); border-radius: 24px; padding: 18px; }
   .tester-stage, .tester:is(.is-running, .is-saving, .is-done) .tester-stage { justify-self: center; width: min(100%, 360px); }
   .tester-stage { order: -1; }
-  /* Before the test, a phone gets a plain full-width button instead of the idle gauge. */
-  .tester-grid:has(.setup) .tester-stage { display: none; }
+  /* Before the test, a phone gets the dial over a full-screen map; GO opens the form as a bottom sheet. */
+  .tester.is-setup .tester-hero { min-height: calc(100dvh - var(--header-h)); display: grid; }
+  .tester.is-setup .tmap.tmap { position: absolute; inset: 0; height: auto; min-height: 0; border-bottom: 0; }
+  .tester.is-setup .tester-hero::before { display: block; background: linear-gradient(180deg, rgb(243 243 241 / .94) 0, rgb(243 243 241 / .55) 32%, transparent 60%); }
+  .tester.is-setup .tester-grid { margin-top: 0; padding-block: 22px 28px; grid-template-rows: auto 1fr; }
+  .tester.is-setup .tester-intro { background: none; border: 0; padding: 0; }
+  .tester.is-setup .tester-stage { order: 0; align-self: center; }
+  .tester.is-setup .tester-side:not(.open) { display: none; }
+  .tester-side.open { position: fixed; inset: auto 0 0; z-index: 31; border-radius: 28px 28px 0 0; border-width: 1px 0 0; box-shadow: 0 -12px 40px rgb(25 26 35 / .2); padding: 24px 20px calc(20px + env(safe-area-inset-bottom)); animation: sheet .35s var(--ease-out); }
+  /* While the provider list is open the sheet grows to full height, so the list isn't under the keyboard. */
+  .tester-side.open:has([aria-expanded="true"]) { top: calc(var(--header-h) + 8px); border-radius: 28px; }
+  .tester-side.open:focus { outline: none; }
+  .sheet-scrim { display: block; position: fixed; inset: 0; z-index: 30; border: 0; padding: 0; background: rgb(25 26 35 / .45); animation: fade .3s ease-out; }
+  .go:not(.ready) { background: var(--accent); color: var(--ink); border: 1.5px solid var(--ink); box-shadow: 0 7px 0 var(--ink); }
+  .d-only { display: none; }
+  .m-only { display: inline; }
   .go-mobile { display: inline-flex; padding: 18px; font-size: 1.1rem; }
   .done-actions { justify-items: stretch; }
   /* Once the test is done the map and dial shrink so the rating is on the first screen. */
