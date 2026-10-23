@@ -9,7 +9,8 @@ const site = process.env.SITE_URL
 export default defineConfig({
   site,
   output: 'server',
-  adapter: vercel(),
+  // satori loads harfbuzz's wasm with fs at runtime, which Vercel's file tracing misses.
+  adapter: vercel({ includeFiles: ['./node_modules/harfbuzzjs/hb.wasm'] }),
   integrations: [react()],
   // Lazily imported, so Vite's dev scanner misses it without a hint.
   vite: { optimizeDeps: { include: ['maplibre-gl'] } },
