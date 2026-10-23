@@ -24,7 +24,7 @@ export default function Combobox({ options, value, text: controlled, onSelect, p
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
   // Parent can set the value from elsewhere (e.g. a map tap); reflect it in the input.
-  useEffect(() => { if (selected) setText(selected.label); }, [selected]);
+  useEffect(() => { setText(controlled ?? selected?.label ?? ''); }, [selected, controlled]);
 
   const q = norm(text);
   const results = useMemo(() => {
@@ -71,7 +71,7 @@ export default function Combobox({ options, value, text: controlled, onSelect, p
         aria-expanded={open}
         aria-controls={listId}
         aria-autocomplete="list"
-        aria-activedescendant={open && rows.length ? `${listId}-${active}` : undefined}
+        aria-activedescendant={open && rows.length && active < rows.length ? `${listId}-${active}` : undefined}
         aria-labelledby={aria['aria-labelledby']}
         autoComplete="off"
         spellCheck={false}
@@ -93,6 +93,7 @@ export default function Combobox({ options, value, text: controlled, onSelect, p
         }}
         onKeyDown={onKey}
       />
+      {open && rows.length === 0 && <p className="small muted" role="status">No matches. Try another name.</p>}
       {open && rows.length > 0 && (
         <ul className="combo-list" role="listbox" id={listId} onMouseDown={(e) => e.preventDefault()}>
           {rows.map((o, i) => (

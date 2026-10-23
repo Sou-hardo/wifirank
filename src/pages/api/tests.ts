@@ -1,7 +1,8 @@
 import type { APIRoute } from 'astro';
 import { sql } from '../../lib/db';
 import { hashIp, lookup } from '../../lib/network';
-import { AREAS, CONNECTIONS, PLANS, slugify } from '../../lib/options';
+import { AREAS, CONNECTIONS, PLANS, slugify, districtForArea } from '../../lib/options';
+import { classifyAccess } from '../../lib/detection';
 import { summary } from '../../lib/stats';
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -46,18 +47,21 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (!ispId) return bad('Pick your ISP');
 
   const net = await lookup(clientAddress);
+  const [provider] = await sql`select tech from isps where id = ${ispId}`;
+  const { flag, accessType } = classifyAccess(net.flag, provider.tech, b.fixedWireless === true);
+  const district = districtForArea(b.area);
   const [row] = await sql`
     insert into tests (device_id, isp_id, area, lat, lng, connection, plan,
       local_down, local_up, local_ping, local_jitter, local_loss,
-      ip_hash, asn, as_org, country, flag)
+      ip_hash, asn, as_org, country, flag, district, access_type)
     values (${b.deviceId}, ${ispId}, ${b.area}, ${grid(b.lat, 20, 27)}, ${grid(b.lng, 88, 93)}, ${b.connection}, ${plan},
       ${local[0]}, ${local[1]}, ${local[2]}, ${local[3]}, ${local[4]},
-      ${ipHash}, ${net.asn}, ${net.as_org}, ${net.country}, ${net.flag})
+      ${ipHash}, ${net.asn}, ${net.as_org}, ${net.country}, ${flag}, ${district}, ${accessType})
     returning id`;
   // How this result compares with everyone else on the same ISP in the same area.
-  const peer = net.flag ? null : await summary(sql, { ispId, area: b.area });
+  const peer = flag ? null : await summary(sql, { ispId, area: b.area });
   return Response.json({
-    id: row.id, ispId, flag: net.flag, asOrg: net.as_org,
+    id: row.id, ispId, flag, accessType, asOrg: net.as_org,
     peer: peer && { devices: peer.devices, local_down: peer.local_down },
   });
 };

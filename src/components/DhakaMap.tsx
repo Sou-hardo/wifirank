@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { MapArea, MapPoint } from '../lib/mapData';
+import { DISTRICT_NAMES, locationHref } from '../lib/options';
 import Combobox, { type Option } from './Combobox';
 
 type Data = { isp: { name: string; slug: string } | null; areas: MapArea[]; points: MapPoint[] };
 type MetricKey = 'local_down' | 'local_up' | 'local_ping';
 type AreaIsp = { name: string; slug: string; devices: number; local_down: number | null; local_up: number | null; local_ping: number | null; rating: number | null };
-type Props = { initial: Data; isps: { slug: string; name: string }[]; compact?: boolean };
+type Props = { initial: Data; providers: [string, string, string, number][]; districtSlugs: string[]; compact?: boolean };
 
 // Mirrors mapCore.METRICS so the panel can render before MapLibre has loaded.
 const METRICS: Record<MetricKey, { label: string; long: string; unit: string; bins: number[]; lowerIsBetter: boolean }> = {
@@ -21,7 +22,8 @@ const geo = (d: Data) => ({
   points: { type: 'FeatureCollection', features: d.points.map((p) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [p.lng, p.lat] }, properties: p })) },
 });
 
-export default function DhakaMap({ initial, isps, compact }: Props) {
+export default function DhakaMap({ initial, providers, districtSlugs, compact }: Props) {
+  const [district, setDistrict] = useState('');
   const el = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
   const core = useRef<any>(null);
@@ -33,7 +35,13 @@ export default function DhakaMap({ initial, isps, compact }: Props) {
   const [busy, setBusy] = useState(false);
 
   const m = METRICS[metric];
-  const ispOptions = useMemo<Option[]>(() => [{ value: '', label: 'All providers' }, ...isps.map((i) => ({ value: i.slug, label: i.name }))], [isps]);
+  const isps = useMemo(() => providers.map(([slug, name, districts, nationwide]) => ({
+    slug,
+    name,
+    districts: districts ? districts.split(',').map(index => districtSlugs[Number(index)]) : [],
+    nationwide: !!nationwide,
+  })), [providers, districtSlugs]);
+  const ispOptions = useMemo<Option[]>(() => [{ value: '', label: 'All providers' }, ...isps.filter(i => !district || i.nationwide || i.districts.includes(district)).map((i) => ({ value: i.slug, label: i.name }))], [isps, district]);
   const hasMetric = data.areas.some((a) => a[metric] != null);
   const top = useMemo(() => data.areas.filter((a) => a[metric] != null)
     .sort((a, b) => (m.lowerIsBetter ? a[metric]! - b[metric]! : b[metric]! - a[metric]!)).slice(0, compact ? 5 : 8), [data, metric]);
@@ -182,6 +190,8 @@ export default function DhakaMap({ initial, isps, compact }: Props) {
 
         {!compact && (
           <div className="field">
+            <label className="label" htmlFor="map-district">District</label>
+            <select id="map-district" className="input" value={district} onChange={e => { const s = e.target.value; setDistrict(s); const a = data.areas.find(a => a.slug === s); if (a) { setSelected(s); mapRef.current?.flyTo({ center: [a.lng, a.lat], zoom: 9 }); } }}><option value="">All Bangladesh</option>{Object.entries(DISTRICT_NAMES).map(([s,n]) => <option key={s} value={s}>{n}</option>)}</select>
             <span className="label" id="l-map-isp">Provider</span>
             <Combobox aria-labelledby="l-map-isp" options={ispOptions} value={data.isp?.slug ?? ''} placeholder="All providers"
               onSelect={(o) => { if (o && o.value !== (data.isp?.slug ?? '')) filterIsp(o.value); }} />
@@ -215,7 +225,7 @@ export default function DhakaMap({ initial, isps, compact }: Props) {
                   ))}
                   {!areaIsps && <li className="muted">Loading providers…</li>}
                 </ol>
-                <a className="btn btn-sm" href={`/area/${sel.slug}`}>All providers in {sel.name} →</a>
+                <a className="btn btn-sm" href={locationHref(sel.slug)}>All providers in {sel.name} →</a>
               </>
             )}
           </div>

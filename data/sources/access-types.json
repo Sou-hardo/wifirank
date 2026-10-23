@@ -1,0 +1,11 @@
+{
+  "gpfi": {
+    "type": "fixed_wireless",
+    "tech": "fwa",
+    "source": "https://www.grameenphone.com/gpfibkashterms-conditions-url-english",
+    "note": "Official terms define gpfi as Fixed Wireless Access at the customer's premises. No reliable public subscriber ASN/prefix/PTR distinction from phone data was found; a separate home-router declaration is required, never an IP inference.",
+    "aliases": [
+      "Grameenphone gpfi"
+    ]
+  }
+}

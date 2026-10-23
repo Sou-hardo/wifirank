@@ -1,0 +1,1195 @@
+{
+  "entries": [
+    {
+      "name": "Touch Online",
+      "researchNote": "city-chattogram.md",
+      "source": "https://touchonline.net.bd/our-packages",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "DIGANTA",
+          "mbps": 25,
+          "bdt": 525,
+          "source": "https://touchonline.net.bd/our-packages",
+          "vat": "unknown"
+        },
+        {
+          "name": "DIGANTA+",
+          "mbps": 30,
+          "bdt": 630,
+          "source": "https://touchonline.net.bd/our-packages",
+          "vat": "unknown"
+        },
+        {
+          "name": "DURANTA",
+          "mbps": 35,
+          "bdt": 735,
+          "source": "https://touchonline.net.bd/our-packages",
+          "vat": "unknown"
+        },
+        {
+          "name": "DURANTA+",
+          "mbps": 40,
+          "bdt": 840,
+          "source": "https://touchonline.net.bd/our-packages",
+          "vat": "unknown"
+        },
+        {
+          "name": "AFURANTO",
+          "mbps": 75,
+          "bdt": 1050,
+          "source": "https://touchonline.net.bd/our-packages",
+          "vat": "unknown"
+        }
+      ],
+      "asn": 139283,
+      "districts": [
+        "chattogram"
+      ]
+    },
+    {
+      "name": "Plus Net BD",
+      "researchNote": "city-chattogram.md",
+      "source": "https://plus.net.bd/pricing",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "CTG Lite",
+          "mbps": 50,
+          "bdt": 800,
+          "source": "https://plus.net.bd/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "CTG Basic",
+          "mbps": 100,
+          "bdt": 1000,
+          "source": "https://plus.net.bd/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "CTG Standard",
+          "mbps": 120,
+          "bdt": 1200,
+          "source": "https://plus.net.bd/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "CTG Pro",
+          "mbps": 150,
+          "bdt": 1500,
+          "source": "https://plus.net.bd/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "CTG Premium",
+          "mbps": 200,
+          "bdt": 2000,
+          "source": "https://plus.net.bd/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "Cumilla Starter",
+          "mbps": 30,
+          "bdt": 600,
+          "source": "https://plus.net.bd/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "Cumilla Lite",
+          "mbps": 50,
+          "bdt": 800,
+          "source": "https://plus.net.bd/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "Cumilla Basic",
+          "mbps": 80,
+          "bdt": 1000,
+          "source": "https://plus.net.bd/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "Cumilla Standard",
+          "mbps": 100,
+          "bdt": 1200,
+          "source": "https://plus.net.bd/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "Cumilla Pro",
+          "mbps": 120,
+          "bdt": 1500,
+          "source": "https://plus.net.bd/pricing",
+          "vat": "unknown"
+        }
+      ],
+      "asn": 137526,
+      "districts": [
+        "chattogram",
+        "comilla"
+      ]
+    },
+    {
+      "name": "Chittagong Telecom Services",
+      "researchNote": "city-chattogram.md",
+      "source": "https://ctgtel.net/pricing",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "Basic",
+          "mbps": 35,
+          "bdt": 700,
+          "source": "https://ctgtel.net/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "Standard",
+          "mbps": 50,
+          "bdt": 800,
+          "source": "https://ctgtel.net/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "Premium",
+          "mbps": 100,
+          "bdt": 1000,
+          "source": "https://ctgtel.net/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "Ultra",
+          "mbps": 130,
+          "bdt": 1200,
+          "source": "https://ctgtel.net/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "Mega",
+          "mbps": 150,
+          "bdt": 1500,
+          "source": "https://ctgtel.net/pricing",
+          "vat": "unknown"
+        }
+      ],
+      "asn": 58912,
+      "districts": [
+        "chattogram"
+      ],
+      "aliases": [
+        "CTGTEL"
+      ]
+    },
+    {
+      "name": "cloudone",
+      "researchNote": "city-chattogram.md",
+      "source": "https://cloudone.com.bd/packages",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "Entry",
+          "mbps": 30,
+          "bdt": 700,
+          "source": "https://cloudone.com.bd/packages",
+          "vat": "unknown"
+        },
+        {
+          "name": "Standard",
+          "mbps": 50,
+          "bdt": 800,
+          "source": "https://cloudone.com.bd/packages",
+          "vat": "unknown"
+        },
+        {
+          "name": "Plus",
+          "mbps": 100,
+          "bdt": 1000,
+          "source": "https://cloudone.com.bd/packages",
+          "vat": "unknown"
+        },
+        {
+          "name": "Premium",
+          "mbps": 200,
+          "bdt": 1500,
+          "source": "https://cloudone.com.bd/packages",
+          "vat": "unknown"
+        }
+      ],
+      "districts": []
+    },
+    {
+      "name": "E-Village",
+      "researchNote": "city-chattogram.md",
+      "source": "https://evillagectg.com",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "BasicPlus",
+          "mbps": 30,
+          "bdt": 600,
+          "source": "https://evillagectg.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "Lite",
+          "mbps": 50,
+          "bdt": 800,
+          "source": "https://evillagectg.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "Standard",
+          "mbps": 100,
+          "bdt": 1000,
+          "source": "https://evillagectg.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "Premium",
+          "mbps": 120,
+          "bdt": 1200,
+          "source": "https://evillagectg.com",
+          "vat": "unknown"
+        }
+      ],
+      "districts": []
+    },
+    {
+      "name": "MUX Technologies",
+      "researchNote": "city-chattogram.md",
+      "source": "https://muxtechnologies.net",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "Basic",
+          "mbps": 50,
+          "bdt": 800,
+          "source": "https://muxtechnologies.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "Advance",
+          "mbps": 100,
+          "bdt": 1000,
+          "source": "https://muxtechnologies.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "Paragon",
+          "mbps": 120,
+          "bdt": 1200,
+          "source": "https://muxtechnologies.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "Storm",
+          "mbps": 150,
+          "bdt": 1500,
+          "source": "https://muxtechnologies.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "Ultimate",
+          "mbps": 200,
+          "bdt": 2000,
+          "source": "https://muxtechnologies.net",
+          "vat": "unknown"
+        }
+      ],
+      "districts": [
+        "chattogram"
+      ]
+    },
+    {
+      "name": "Chittagong Data Communication",
+      "researchNote": "city-chattogram.md",
+      "source": "https://cdc-bd.com/pricing",
+      "confidence": "low",
+      "packages": [
+        {
+          "name": "50 Mbps",
+          "mbps": 50,
+          "bdt": 850,
+          "source": "https://cdc-bd.com/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "50 Mbps",
+          "mbps": 50,
+          "bdt": 950,
+          "source": "https://cdc-bd.com/pricing",
+          "vat": "unknown"
+        }
+      ],
+      "publishPackages": false,
+      "note": "Low-confidence identity in notes; distinct from CDC Internet at cdclbd.net. Prices retained for audit only.",
+      "districts": []
+    },
+    {
+      "name": "Habiganj Net Communications",
+      "researchNote": "city-sylhet.md",
+      "source": "https://habiganj.net",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "Starter",
+          "mbps": 20,
+          "bdt": 520,
+          "source": "https://habiganj.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "Bronze",
+          "mbps": 40,
+          "bdt": 820,
+          "source": "https://habiganj.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "Silver",
+          "mbps": 50,
+          "bdt": 1020,
+          "source": "https://habiganj.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "Gold",
+          "mbps": 60,
+          "bdt": 1220,
+          "source": "https://habiganj.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "Platinum",
+          "mbps": 80,
+          "bdt": 1520,
+          "source": "https://habiganj.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "Diamond",
+          "mbps": 100,
+          "bdt": 2220,
+          "source": "https://habiganj.net",
+          "vat": "unknown"
+        }
+      ],
+      "asn": 141443,
+      "aliases": [
+        "HNC Broadband"
+      ],
+      "districts": [
+        "habiganj"
+      ],
+      "note": "Prices effective 1 April 2026."
+    },
+    {
+      "name": "Skynet Broadband Service",
+      "researchNote": "city-sylhet.md",
+      "source": "https://skynet.com.bd/pricing",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "Starter",
+          "mbps": 20,
+          "bdt": 500,
+          "source": "https://skynet.com.bd/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "Marshmello",
+          "mbps": 30,
+          "bdt": 600,
+          "source": "https://skynet.com.bd/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "FriendBuzz",
+          "mbps": 40,
+          "bdt": 700,
+          "source": "https://skynet.com.bd/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "Standard",
+          "mbps": 60,
+          "bdt": 800,
+          "source": "https://skynet.com.bd/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "Premium",
+          "mbps": 80,
+          "bdt": 900,
+          "source": "https://skynet.com.bd/pricing",
+          "vat": "unknown"
+        },
+        {
+          "name": "Infinity",
+          "mbps": 100,
+          "bdt": 1000,
+          "source": "https://skynet.com.bd/pricing",
+          "vat": "unknown"
+        }
+      ],
+      "districts": [
+        "sylhet",
+        "moulvibazar"
+      ]
+    },
+    {
+      "name": "Swapno Network",
+      "researchNote": "city-sylhet.md",
+      "source": "https://swapnonetwork.net",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "5 Mbps",
+          "mbps": 5,
+          "bdt": 500,
+          "source": "https://swapnonetwork.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "12 Mbps",
+          "mbps": 12,
+          "bdt": 599,
+          "source": "https://swapnonetwork.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "30 Mbps",
+          "mbps": 30,
+          "bdt": 999,
+          "source": "https://swapnonetwork.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "45 Mbps",
+          "mbps": 45,
+          "bdt": 1299,
+          "source": "https://swapnonetwork.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "55 Mbps",
+          "mbps": 55,
+          "bdt": 1599,
+          "source": "https://swapnonetwork.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "62 Mbps",
+          "mbps": 62,
+          "bdt": 1999,
+          "source": "https://swapnonetwork.net",
+          "vat": "unknown"
+        }
+      ],
+      "districts": [
+        "sylhet",
+        "sunamganj"
+      ],
+      "note": "5 Mbps tier has 1:8 contention."
+    },
+    {
+      "name": "Sarker Net",
+      "researchNote": "city-khulna-rajshahi.md",
+      "source": "https://sarkernet.com/package",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "Economy",
+          "mbps": 20,
+          "bdt": 600,
+          "source": "https://sarkernet.com/package",
+          "vat": "unknown"
+        },
+        {
+          "name": "Starter",
+          "mbps": 32,
+          "bdt": 700,
+          "source": "https://sarkernet.com/package",
+          "vat": "unknown"
+        },
+        {
+          "name": "Deluxe",
+          "mbps": 42,
+          "bdt": 800,
+          "source": "https://sarkernet.com/package",
+          "vat": "unknown"
+        },
+        {
+          "name": "Super",
+          "mbps": 50,
+          "bdt": 1000,
+          "source": "https://sarkernet.com/package",
+          "vat": "unknown"
+        },
+        {
+          "name": "Gamer",
+          "mbps": 70,
+          "bdt": 1500,
+          "source": "https://sarkernet.com/package",
+          "vat": "unknown"
+        }
+      ],
+      "districts": [
+        "sirajganj"
+      ],
+      "note": "VAT unclear in hand-research notes."
+    },
+    {
+      "name": "Contrivance Technology",
+      "researchNote": "city-rangpur-barishal.md",
+      "source": "https://contrivancebd.com",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "8 Mbps",
+          "mbps": 8,
+          "bdt": 500,
+          "source": "https://contrivancebd.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "15 Mbps",
+          "mbps": 15,
+          "bdt": 900,
+          "source": "https://contrivancebd.com",
+          "vat": "unknown"
+        }
+      ],
+      "districts": [
+        "dinajpur"
+      ],
+      "note": "8 Mbps has no real IP; 15 Mbps has real IP. VAT unknown."
+    },
+    {
+      "name": "Padma Online",
+      "researchNote": "north.md",
+      "source": "https://padmaonline-bd.com/",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "25 Mbps",
+          "mbps": 25,
+          "bdt": 525,
+          "source": "https://padmaonline-bd.com/",
+          "vat": "unknown"
+        },
+        {
+          "name": "30 Mbps",
+          "mbps": 30,
+          "bdt": 630,
+          "source": "https://padmaonline-bd.com/",
+          "vat": "unknown"
+        },
+        {
+          "name": "40 Mbps",
+          "mbps": 40,
+          "bdt": 700,
+          "source": "https://padmaonline-bd.com/",
+          "vat": "unknown"
+        },
+        {
+          "name": "50 Mbps",
+          "mbps": 50,
+          "bdt": 840,
+          "source": "https://padmaonline-bd.com/",
+          "vat": "unknown"
+        },
+        {
+          "name": "70 Mbps",
+          "mbps": 70,
+          "bdt": 1050,
+          "source": "https://padmaonline-bd.com/",
+          "vat": "unknown"
+        },
+        {
+          "name": "80 Mbps",
+          "mbps": 80,
+          "bdt": 1350,
+          "source": "https://padmaonline-bd.com/",
+          "vat": "unknown"
+        },
+        {
+          "name": "120 Mbps",
+          "mbps": 120,
+          "bdt": 1575,
+          "source": "https://padmaonline-bd.com/",
+          "vat": "unknown"
+        },
+        {
+          "name": "200 Mbps",
+          "mbps": 200,
+          "bdt": 2625,
+          "source": "https://padmaonline-bd.com/",
+          "vat": "unknown"
+        }
+      ],
+      "districts": [
+        "rajshahi"
+      ],
+      "note": "Source URL from committed master snapshot; note questions ASN, so no ASN override."
+    },
+    {
+      "name": "Advance Telecom",
+      "researchNote": "north.md",
+      "source": "https://advancetelbd.com",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "20 Mbps",
+          "mbps": 20,
+          "bdt": 525,
+          "source": "https://advancetelbd.com",
+          "vat": "incl"
+        },
+        {
+          "name": "50 Mbps",
+          "mbps": 50,
+          "bdt": 840,
+          "source": "https://advancetelbd.com",
+          "vat": "incl"
+        }
+      ],
+      "vat": "incl",
+      "note": "Source URL from committed master snapshot.",
+      "districts": []
+    },
+    {
+      "name": "Comilla Online",
+      "researchNote": "north.md",
+      "source": "https://bdhub.com",
+      "confidence": "low",
+      "packages": [
+        {
+          "name": "5 Mbps",
+          "mbps": 5,
+          "bdt": 500,
+          "source": "https://bdhub.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "7 Mbps",
+          "mbps": 7,
+          "bdt": 600,
+          "source": "https://bdhub.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "10 Mbps",
+          "mbps": 10,
+          "bdt": 800,
+          "source": "https://bdhub.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "20 Mbps",
+          "mbps": 20,
+          "bdt": 1200,
+          "source": "https://bdhub.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "25 Mbps",
+          "mbps": 25,
+          "bdt": 1550,
+          "source": "https://bdhub.com",
+          "vat": "unknown"
+        }
+      ],
+      "districts": [
+        "comilla",
+        "rangpur"
+      ],
+      "note": "Source URL from master snapshot; notes give conflicting ASNs 133443/132598, so no ASN override."
+    },
+    {
+      "name": "Pabna Online",
+      "researchNote": "north.md",
+      "source": "https://pabnaonline.net",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "15 Mbps",
+          "mbps": 15,
+          "bdt": 500,
+          "source": "https://pabnaonline.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "25 Mbps",
+          "mbps": 25,
+          "bdt": 800,
+          "source": "https://pabnaonline.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "40 Mbps",
+          "mbps": 40,
+          "bdt": 1000,
+          "source": "https://pabnaonline.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "50 Mbps",
+          "mbps": 50,
+          "bdt": 1200,
+          "source": "https://pabnaonline.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "60 Mbps",
+          "mbps": 60,
+          "bdt": 1500,
+          "source": "https://pabnaonline.net",
+          "vat": "unknown"
+        },
+        {
+          "name": "80 Mbps",
+          "mbps": 80,
+          "bdt": 2000,
+          "source": "https://pabnaonline.net",
+          "vat": "unknown"
+        }
+      ],
+      "note": "Source URL from master snapshot. Older secondary-source range in city notes omitted.",
+      "districts": []
+    },
+    {
+      "name": "Bogra Broadband",
+      "researchNote": "north.md",
+      "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+      "confidence": "low",
+      "packages": [
+        {
+          "name": "10 Mbps",
+          "mbps": 10,
+          "bdt": 500,
+          "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+          "vat": "unknown"
+        },
+        {
+          "name": "50 Mbps",
+          "mbps": 50,
+          "bdt": 1200,
+          "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+          "vat": "unknown"
+        },
+        {
+          "name": "Business",
+          "mbps": 100,
+          "bdt": 2000,
+          "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+          "vat": "unknown"
+        }
+      ],
+      "districts": [
+        "bogura"
+      ],
+      "vat": "unknown",
+      "note": "Only explicit endpoints transcribed; intermediate tiers absent. Original ISP URL was not recorded; source links the committed research note, not an official tariff."
+    },
+    {
+      "name": "Spider Mesh",
+      "researchNote": "north.md",
+      "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+      "confidence": "low",
+      "packages": [
+        {
+          "name": "15 Mbps",
+          "mbps": 15,
+          "bdt": 500,
+          "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+          "vat": "excl"
+        },
+        {
+          "name": "20 Mbps",
+          "mbps": 20,
+          "bdt": 525,
+          "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+          "vat": "excl"
+        }
+      ],
+      "districts": [
+        "bogura"
+      ],
+      "vat": "excl",
+      "note": "VAT additional. Original ISP URL was not recorded; source links the committed research note, not an official tariff."
+    },
+    {
+      "name": "World Touch Cyber Cafe",
+      "researchNote": "north.md",
+      "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+      "confidence": "low",
+      "packages": [
+        {
+          "name": "45 Mbps",
+          "mbps": 45,
+          "bdt": 840,
+          "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+          "vat": "unknown"
+        },
+        {
+          "name": "25 Mbps",
+          "mbps": 25,
+          "bdt": 840,
+          "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+          "vat": "unknown"
+        }
+      ],
+      "districts": [
+        "bogura"
+      ],
+      "vat": "unknown",
+      "note": "Two different speeds at the same recorded price; retained as written. Original ISP URL was not recorded; source links the committed research note, not an official tariff."
+    },
+    {
+      "name": "Bograinfo.com",
+      "researchNote": "north.md",
+      "source": "https://bograinfo.com",
+      "confidence": "low",
+      "packages": [
+        {
+          "name": "15 Mbps",
+          "mbps": 15,
+          "bdt": 525,
+          "source": "https://bograinfo.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "20 Mbps",
+          "mbps": 20,
+          "bdt": 600,
+          "source": "https://bograinfo.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "30 Mbps",
+          "mbps": 30,
+          "bdt": 800,
+          "source": "https://bograinfo.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "40 Mbps",
+          "mbps": 40,
+          "bdt": 1200,
+          "source": "https://bograinfo.com",
+          "vat": "unknown"
+        }
+      ],
+      "districts": [
+        "bogura"
+      ],
+      "note": "Conflicting pages: hand notes differ from extracted /plans speeds. Hand notes take precedence; source host from master snapshot."
+    },
+    {
+      "name": "Help Line",
+      "researchNote": "north.md",
+      "source": "https://helpline.com.bd",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "Unlimited A",
+          "mbps": 10,
+          "bdt": 500,
+          "source": "https://helpline.com.bd",
+          "vat": "excl"
+        },
+        {
+          "name": "Unlimited B",
+          "mbps": 40,
+          "bdt": 800,
+          "source": "https://helpline.com.bd",
+          "vat": "excl"
+        },
+        {
+          "name": "Unlimited C",
+          "mbps": 70,
+          "bdt": 1200,
+          "source": "https://helpline.com.bd",
+          "vat": "excl"
+        }
+      ],
+      "vat": "excl",
+      "districts": [
+        "bogura"
+      ]
+    },
+    {
+      "name": "ArrowNet",
+      "researchNote": "sylhet-khulna.md",
+      "source": "https://arrownetsylhet.com",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "Lite",
+          "mbps": 50,
+          "bdt": 690,
+          "source": "https://arrownetsylhet.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "Economy",
+          "mbps": 80,
+          "bdt": 850,
+          "source": "https://arrownetsylhet.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "Basic",
+          "mbps": 120,
+          "bdt": 1000,
+          "source": "https://arrownetsylhet.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "Standard",
+          "mbps": 140,
+          "bdt": 1200,
+          "source": "https://arrownetsylhet.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "Pro",
+          "mbps": 160,
+          "bdt": 1400,
+          "source": "https://arrownetsylhet.com",
+          "vat": "unknown"
+        }
+      ],
+      "districts": [
+        "sylhet"
+      ]
+    },
+    {
+      "name": "Neef It Sylhet",
+      "researchNote": "sylhet-khulna.md",
+      "source": "https://neefitsylhet.com",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "Starter",
+          "mbps": 60,
+          "bdt": 700,
+          "source": "https://neefitsylhet.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "Standard",
+          "mbps": 130,
+          "bdt": 1000,
+          "source": "https://neefitsylhet.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "Premium",
+          "mbps": 150,
+          "bdt": 1250,
+          "source": "https://neefitsylhet.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "Ultra",
+          "mbps": 200,
+          "bdt": 1500,
+          "source": "https://neefitsylhet.com",
+          "vat": "unknown"
+        }
+      ],
+      "districts": [
+        "sylhet"
+      ]
+    },
+    {
+      "name": "Salt Sync",
+      "researchNote": "sylhet-khulna.md",
+      "source": "https://saltsync.com",
+      "confidence": "low",
+      "packages": [
+        {
+          "name": "60 Mbps",
+          "mbps": 60,
+          "bdt": 630,
+          "source": "https://saltsync.com",
+          "vat": "unknown"
+        },
+        {
+          "name": "100 Mbps",
+          "mbps": 100,
+          "bdt": 840,
+          "source": "https://saltsync.com",
+          "vat": "unknown"
+        }
+      ],
+      "note": "Notes question Khulna coverage; confirmed separately in city notes. Unpriced tiers and contradictory 300 Mbps tier omitted.",
+      "districts": []
+    },
+    {
+      "name": "Velocity Networks",
+      "researchNote": "nationwide.md",
+      "source": "https://broadband360.com.bd",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "60 Mbps",
+          "mbps": 60,
+          "bdt": 1111,
+          "source": "https://broadband360.com.bd",
+          "vat": "unknown"
+        },
+        {
+          "name": "110 Mbps",
+          "mbps": 110,
+          "bdt": 1999,
+          "source": "https://broadband360.com.bd",
+          "vat": "unknown"
+        },
+        {
+          "name": "150 Mbps",
+          "mbps": 150,
+          "bdt": 3333,
+          "source": "https://broadband360.com.bd",
+          "vat": "unknown"
+        },
+        {
+          "name": "200 Mbps",
+          "mbps": 200,
+          "bdt": 4222,
+          "source": "https://broadband360.com.bd",
+          "vat": "unknown"
+        }
+      ],
+      "aliases": [
+        "Broadband360"
+      ],
+      "districts": []
+    },
+    {
+      "name": "Skyview Online",
+      "researchNote": "audit.md",
+      "source": "http://skyviewonline.com",
+      "confidence": "recorded",
+      "packages": [
+        {
+          "name": "Turbo",
+          "mbps": 35,
+          "bdt": 500,
+          "source": "http://skyviewonline.com",
+          "vat": "incl"
+        },
+        {
+          "name": "Boost",
+          "mbps": 45,
+          "bdt": 600,
+          "source": "http://skyviewonline.com",
+          "vat": "incl"
+        },
+        {
+          "name": "Ultra",
+          "mbps": 55,
+          "bdt": 700,
+          "source": "http://skyviewonline.com",
+          "vat": "incl"
+        },
+        {
+          "name": "Xpress",
+          "mbps": 80,
+          "bdt": 800,
+          "source": "http://skyviewonline.com",
+          "vat": "incl"
+        },
+        {
+          "name": "Prime",
+          "mbps": 120,
+          "bdt": 1000,
+          "source": "http://skyviewonline.com",
+          "vat": "incl"
+        },
+        {
+          "name": "Mega",
+          "mbps": 140,
+          "bdt": 1200,
+          "source": "http://skyviewonline.com",
+          "vat": "incl"
+        },
+        {
+          "name": "Super",
+          "mbps": 170,
+          "bdt": 1500,
+          "source": "http://skyviewonline.com",
+          "vat": "incl"
+        },
+        {
+          "name": "Hyper",
+          "mbps": 220,
+          "bdt": 2000,
+          "source": "http://skyviewonline.com",
+          "vat": "incl"
+        }
+      ],
+      "vat": "incl",
+      "note": "Source host from curated provider snapshot.",
+      "districts": []
+    },
+    {
+      "name": "CDC Internet",
+      "researchNote": "nationwide.md",
+      "source": "https://cdclbd.net",
+      "confidence": "low",
+      "packages": [],
+      "nationwide": true,
+      "note": "Nationwide fiber provider. Only site title read; earlier-search price fragments not promoted.",
+      "districts": []
+    },
+    {
+      "name": "Qubee",
+      "researchNote": "city-khulna-rajshahi.md",
+      "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/city-khulna-rajshahi.md",
+      "confidence": "low",
+      "packages": [],
+      "districts": [
+        "natore",
+        "pabna",
+        "rajshahi",
+        "sirajganj"
+      ],
+      "note": "Directory coverage claim only; original directory URL not recorded. No prices or current operating-status claim."
+    }
+  ],
+  "excluded": [
+    {
+      "name": "Netway",
+      "researchNote": "north.md",
+      "note": "20/800 is about five years stale; skipped."
+    },
+    {
+      "name": "Telnet",
+      "researchNote": "audit.md",
+      "note": "2021 tariff skipped."
+    },
+    {
+      "name": "Daffodil",
+      "researchNote": "audit.md",
+      "note": "Ambiguous speed labels and 2021-era tariff skipped."
+    },
+    {
+      "name": "Starlink",
+      "researchNote": "nationwide.md",
+      "note": "Unverified prices remain unpublished by decision."
+    },
+    {
+      "name": "Grameenphone gpfi",
+      "researchNote": "nationwide.md",
+      "note": "July 2024 search-summary prices remain unpublished by decision."
+    },
+    {
+      "name": "Trishal Net / EasyNet Wifi / COL / Orbit / Agni",
+      "researchNote": "city-mymensingh-dhakafringe.md / city-chattogram.md / north.md",
+      "note": "Unverified leads, snippets or price claims lacking recorded original URL; skipped."
+    }
+  ]
+}

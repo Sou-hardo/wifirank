@@ -1,4 +1,5 @@
 ---
+import Directory from '../components/Directory.astro';
 import Base from '../layouts/Base.astro';
 import RankTable from '../components/RankTable.astro';
 import { sql } from '../lib/db';
@@ -14,22 +15,23 @@ if (area && !plan && sort === 'local_down') return Astro.redirect(`/area/${area}
 const rows = await leaderboard(sql, { area, plan, sort });
 const reliable = rows.filter((r) => r.devices >= MIN_DEVICES).length;
 const schema = [{
-  '@type': 'Dataset', name: 'Dhaka ISP speed test rankings', description: 'Median crowdsourced download, upload and latency for internet providers in Dhaka, Bangladesh, over the last 90 days.',
-  url: new URL('/isps', Astro.site).href, license: 'https://creativecommons.org/licenses/by/4.0/', spatialCoverage: 'Dhaka, Bangladesh',
+  '@type': 'Dataset', name: 'Bangladesh ISP directory and speed test rankings', description: 'Median crowdsourced download, upload and latency for internet providers in Bangladesh, over the last 90 days.',
+  url: new URL('/isps', Astro.site).href, license: 'https://creativecommons.org/licenses/by/4.0/', spatialCoverage: 'Bangladesh',
   distribution: [{ '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: new URL('/api/stats', Astro.site).href }],
   creator: { '@type': 'Organization', name: 'WifiRank' },
 }];
 ---
-<Base title="Fastest internet providers in Dhaka, ranked" schema={schema} jsonAlt="/api/stats" noindex={!!plan || sort !== 'local_down'}
+<Base title="Internet providers in Bangladesh by district" schema={schema} jsonAlt="/api/stats" noindex={!!plan || sort !== 'local_down'}
   description={`${rows.length} Dhaka ISPs ranked by real, crowdsourced speed tests: download, upload, ping and user ratings.`}>
   <section class="wrap" style="padding-top:clamp(28px,5vw,56px)">
-    <p class="eyebrow">Rankings</p>
-    <h1>Dhaka’s internet providers, ranked by real speed</h1>
+    <h1>Internet providers across Bangladesh</h1>
     <p class="lede">{rows.length} providers measured by the people who use them. {reliable} have enough testers to rank reliably.</p>
 
+    <Directory />
+    <h2 style="margin-top:48px">Measured speed rankings</h2>
     <form class="card filters" style="margin:28px 0 20px">
       <label class="field"><span class="label">Area</span>
-        <select class="input" name="area"><option value="">All of Dhaka</option>
+        <select class="input" name="area"><option value="">All Bangladesh</option>
           {Object.entries(AREAS).map(([k, v]) => <option value={k} selected={k === area}>{v}</option>)}
         </select>
       </label>
@@ -46,7 +48,7 @@ const schema = [{
 
     {rows.length === 0
       ? <div class="card"><h3>No tests match yet</h3><p class="text-2" style="margin:0">Be the first: <a href="/">run a test</a> and it shows up here.</p></div>
-      : <RankTable rows={rows} caption="Internet providers in Dhaka ranked by median speed" />}
+      : <RankTable rows={rows} caption="Internet providers in Bangladesh ranked by median speed" />}
   </section>
 </Base>
 <style>

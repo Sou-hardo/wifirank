@@ -1,7 +1,6 @@
-import { useEffect, useLayoutEffect, useMemo, useState, type KeyboardEvent, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useState, useRef, type KeyboardEvent, type ReactNode } from 'react';
 import SpeedTestEngine from '@cloudflare/speedtest';
-import { AREAS } from '../lib/options';
-import PACKAGES from '../../data/isp-packages.json';
+import { AREAS, DISTRICT_NAMES, locationHref, districtForArea } from '../lib/options';
 import Combobox, { type Option } from './Combobox';
 import Gauge from './Gauge';
 import LocationPicker from './LocationPicker';
@@ -10,16 +9,17 @@ import { AREA_COORDS, nearestArea } from '../lib/areas';
 import type { MapArea } from '../lib/mapData';
 import { burst } from '../scripts/fx';
 import { sustainedMbps } from '../lib/sustained';
+import { providerChoice, type Detection } from '../lib/detection';
 
 type Pkg = { name: string | null; mbps: number; bdt: number };
 // Typical Dhaka monthly bills, offered when we have no package list for the provider.
 const BILLS = [400, 500, 600, 800, 1000, 1200, 1500, 1800, 2000, 2500, 3000];
-type Isp = { id: number; name: string; aliases: string[] };
+type Isp = { id: number; name: string; aliases: string[]; districts: string[]; nationwide: boolean; fixedWireless: boolean };
 type Metrics = { down: number | null; up: number | null; ping: number | null; jitter: number | null; loss?: number | null };
 type Stage = 'latency' | 'download' | 'upload' | 'packetLoss';
 type Pin = { lat: number; lng: number; area: string };
-type Net = { asOrg: string | null; flag: string | null; isp: { id: number; name: string } | null };
-type Saved = { id: number; ispId: number; flag: string | null; asOrg: string | null;
+type Net = Detection & { asOrg: string | null; district?: string | null };
+type Saved = { id: number; ispId: number; flag: string | null; asOrg: string | null; accessType: string;
   peer: { devices: number; local_down: number | null } | null };
 
 const MEASUREMENTS = [
@@ -142,7 +142,7 @@ async function shareImage(isp: string, area: string, m: Metrics | null) {
   g.fillStyle = INK; g.font = sans(600, 44); g.fillText('WifiRank', 176, 128);
 
   g.font = sans(500, 82); g.fillText(isp, 70, 300, 940);
-  g.fillStyle = '#4a4c57'; g.font = sans(400, 38); g.fillText(`${area}, Dhaka`, 70, 362, 940);
+  g.fillStyle = '#4a4c57'; g.font = sans(400, 38); g.fillText(`${area}, Bangladesh`, 70, 362, 940);
 
   // result card: ink outline with a hard shadow
   const y = 430, h = 440;
@@ -212,7 +212,13 @@ function NameReveal({ name }: { name: string }) {
 function Review({ testId, ispId, ispName }: { testId: number; ispId: number; ispName: string }) {
   const [stars, setStars] = useState(0);
   const [price, setPrice] = useState('');
-  const pkgs: Pkg[] = (PACKAGES as Record<string, { packages: Pkg[] }>)[ispName]?.packages ?? [];
+  // The package list covers ~3,000 providers (hundreds of KB), so load it only when the review form opens.
+  const [pkgs, setPkgs] = useState<Pkg[]>([]);
+  useEffect(() => {
+    let live = true;
+    import('../../data/isp-packages.json').then((m) => { if (live) setPkgs(((m.default as Record<string, { packages: Pkg[] }>)[ispName]?.packages) ?? []); });
+    return () => { live = false; };
+  }, [ispName]);
   const taka = (n: number) => `৳${n.toLocaleString('en-IN')}`;
   const chips = pkgs.length
     ? pkgs.map((p) => ({ key: `${p.mbps}-${p.bdt}`, bdt: p.bdt, label: `${p.mbps} Mbps · ${taka(p.bdt)}` }))
@@ -282,14 +288,19 @@ function Review({ testId, ispId, ispName }: { testId: number; ispId: number; isp
 }
 
 // ── Main flow ───────────────────────────────────────────
-export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; areas: MapArea[]; children?: ReactNode }) {
+// Tuples avoid repeating property names and long district slugs in Astro's HTML props.
+export default function SpeedTest({ providers, districtSlugs, areas, children }: { providers: [number, string, string[], string, number, number][]; districtSlugs: string[]; areas: MapArea[]; children?: ReactNode }) {
+  const isps = useMemo<Isp[]>(() => providers.map(([id, name, aliases, districts, nationwide, fwa]) => ({ id, name, aliases, districts: districts ? districts.split(',').map(d => districtSlugs[Number(d)]) : [], nationwide: !!nationwide, fixedWireless: !!fwa })), [providers, districtSlugs]);
   const [phase, setPhase] = useState<'setup' | 'running' | 'saving' | 'done'>('setup');
   const [isp, setIsp] = useState<{ id?: number; name: string }>({ name: '' });
   const [area, setArea] = useState('');
+  const [district, setDistrict] = useState('');
   const [pin, setPin] = useState<Pin | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [locating, setLocating] = useState(false);
   const [sheet, setSheet] = useState(false); // phones: GO opens the setup form as a bottom sheet
+  const [fixedWireless, setFixedWireless] = useState(false);
+  const providerFwa = isps.some(i => i.id === isp.id && i.fixedWireless);
   const [connection, setConnection] = useState('');
   const [stage, setStage] = useState<Stage | null>(null);
   const [live, setLive] = useState<Metrics | null>(null);
@@ -297,6 +308,8 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
   const [saved, setSaved] = useState<Saved | null>(null);
   const [error, setError] = useState('');
   const [tried, setTried] = useState(false);
+  const choiceTouched = useRef(false);
+  const districtTouched = useRef(false);
   const [net, setNet] = useState<Net | null>(null);
 
   // Restore the last provider for repeat testers. The connection is asked fresh every time: it changes between tests.
@@ -308,15 +321,19 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
     } catch {}
   }, []);
   useEffect(() => {
-    // Detect the provider from the connection; a remembered choice wins (it may be a neighbourhood reseller).
-    fetch('/api/whoami').then((r) => (r.ok ? r.json() : null)).then((n: Net | null) => {
-      if (!n) return;
+    let live = true;
+    const params = new URLSearchParams(import.meta.env.DEV ? window.location.search : '');
+    if (district) params.set('district', district);
+    fetch(`/api/whoami?${params}`).then((r) => (r.ok ? r.json() : null)).then((n: Net | null) => {
+      if (!live || !n) return;
       setNet(n);
-      if (n.isp && !n.flag) setIsp((cur) => (cur.name.trim() ? cur : n.isp!));
+      if (!districtTouched.current && !district && n.district) setDistrict(n.district);
+      setIsp((cur) => providerChoice(cur, n, choiceTouched.current));
     }).catch(() => {});
-  }, []);
+    return () => { live = false; };
+  }, [district]);
 
-  const ispOptions = useMemo<Option[]>(() => isps.map((i) => ({ value: String(i.id), label: i.name, terms: i.aliases })), [isps]);
+  const ispOptions = useMemo<Option[]>(() => isps.filter(i => !district || i.fixedWireless || i.nationwide || i.districts.includes(district)).map((i) => ({ value: String(i.id), label: i.name, terms: i.aliases, hint: i.fixedWireless ? 'Fixed wireless · check address availability' : i.nationwide ? 'Nationwide licence' : i.districts.map(d => DISTRICT_NAMES[d]).join(', ') })), [isps, district]);
   const missing = !isp.name.trim() ? 'isp' : !connection ? 'connection' : null;
 
   // Focus the sheet itself, not a field: focusing the provider search would pop the phone keyboard straight away.
@@ -337,7 +354,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
   };
 
   const run = async (p: Pin) => {
-    setPin(p); setArea(p.area);
+    setPin(p); setArea(p.area); setDistrict(districtForArea(p.area) ?? '');
     localStorage.setItem('wr_last', JSON.stringify({ isp }));
     setError(''); setLocal(null); setSaved(null); setLive(null); setStage(null);
     setPhase('running');
@@ -355,7 +372,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
     const res = await fetch('/api/tests', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        deviceId: deviceId(), ...(isp.id ? { ispId: isp.id } : { ispName: isp.name }), area: p.area, connection,
+        deviceId: deviceId(), ...(isp.id ? { ispId: isp.id } : { ispName: isp.name }), area: p.area, connection, fixedWireless,
         lat: p.lat, lng: p.lng, local: i,
       }),
     }).catch(() => null);
@@ -399,12 +416,26 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
               {phase === 'setup' ? (
                 <form className="setup" onSubmit={(e) => { e.preventDefault(); start(); }} noValidate>
                   <div className="field">
+                    <span className="label" id="l-district">Filter providers by district</span>
+                    <select className="input" aria-labelledby="l-district" value={district} onChange={e => { districtTouched.current = true; setDistrict(e.target.value); }} style={{ marginBottom: 14 }}><option value="">All Bangladesh</option>{Object.entries(DISTRICT_NAMES).map(([s,n]) => <option key={s} value={s}>{n}</option>)}</select>
                     <span className="label" id="l-isp">Internet provider</span>
                     <Combobox id="f-isp" aria-labelledby="l-isp" options={ispOptions} value={isp.id ? String(isp.id) : ''} text={isp.name}
                       placeholder="Search, e.g. Link3, Carnival, DOT"
                       allowCustom={(t) => `Add “${t}”`}
-                      onSelect={(o, t) => setIsp(o ? { id: Number(o.value), name: o.label } : { name: t })} />
-                    {/* Always present, so a hint that arrives late (provider detection) doesn't move the form */}
+                      onSelect={(o, t) => { choiceTouched.current = true; setFixedWireless(false); setIsp(o ? { id: Number(o.value), name: o.label } : { name: t }); }} />
+                    {net?.suggested && !isp.name.trim() && (
+                      <div className="provider-suggestion" role="status">
+                        <p><strong>{net.suggested.name}</strong> may be your provider. {net.suggested.reason}.</p>
+                        <button type="button" className="btn btn-sm" onClick={() => { setFixedWireless(false); setIsp(net.suggested!); }}>Use {net.suggested.name}</button>
+                      </div>
+                    )}
+                    {net?.upstream && net.isp && !isp.name.trim() && (
+                      <div className="provider-suggestion" role="status">
+                        <p>Detected <strong>{net.isp.name}</strong>’s network. On a local ISP? Choose it above.</p>
+                        <button type="button" className="btn btn-sm" onClick={() => { setFixedWireless(false); setIsp(net.isp!); }}>Use {net.isp.name}</button>
+                      </div>
+                    )}
+                    {/* Detection hints stay beside the provider search. */}
                     <div className="field-note">
                       {tried && missing === 'isp' && <small className="error">Choose or type your provider.</small>}
                       {!isp.id && isp.name.trim().length > 1 && <small className="muted">New provider: it’ll appear on the site after a quick check.</small>}
@@ -422,6 +453,12 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
                         </label>
                       ))}
                     </div>
+                    {providerFwa && (
+                      <label className="fwa-choice">
+                        <input type="checkbox" checked={fixedWireless} onChange={e => setFixedWireless(e.target.checked)} />
+                        <span>5G/4G home router (e.g. gpfi)<small className="muted">Check this only for the home router, not phone data or a hotspot.</small></span>
+                      </label>
+                    )}
                     {tried && missing === 'connection' && <small className="error">How is this device connected?</small>}
                   </fieldset>
 
@@ -457,7 +494,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
                         <button type="button" className="btn btn-sm" onClick={() => shareImage(isp.name, areaName, local)}>
                           <Icon d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13" /> Share
                         </button>
-                        <a className="btn btn-sm" href={`/area/${area}`}>Compare ISPs</a>
+                        <a className="btn btn-sm" href={locationHref(area)}>Compare ISPs</a>
                         <button type="button" className="btn btn-sm btn-ghost" onClick={() => { setPhase('setup'); setStage(null); }}>Test again</button>
                       </div>
                     </div>
@@ -512,7 +549,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
                 That’s normal: many neighbourhood providers rent their line from a bigger ISP. Your result counts toward {isp.name}.</span>
             </div>
           )}
-          <ResultPanel title="Your result" sub="Measured against Cloudflare’s server in Dhaka" m={local} peer={peer?.local_down} />
+          <ResultPanel title="Your result" sub={saved?.accessType === 'fixed_wireless' ? 'Fixed wireless · Cloudflare’s server in Dhaka' : 'Measured against Cloudflare’s server in Dhaka'} m={local} peer={peer?.local_down} />
         </div>
       )}
 

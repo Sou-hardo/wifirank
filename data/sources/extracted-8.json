@@ -1,0 +1,2064 @@
+[
+ {
+  "name": "Sarker Net",
+  "site": "https://sarkernet.com",
+  "asn": 138649,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://sarkernet.com/package",
+  "packages": [
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 600,
+    "vat": "excl"
+   },
+   {
+    "name": "32 Mbps",
+    "mbps": 32,
+    "bdt": 700,
+    "vat": "excl"
+   },
+   {
+    "name": "42 Mbps",
+    "mbps": 42,
+    "bdt": 800,
+    "vat": "excl"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 1000,
+    "vat": "excl"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 1500,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Sirajganj"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Saturn Internet Service",
+  "site": "https://www.saturninternetbd.com/",
+  "asn": 133209,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://www.saturninternetbd.com/package",
+  "packages": [
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "12 Mbps",
+    "mbps": 12,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "35 Mbps",
+    "mbps": 35,
+    "bdt": 1400,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 1600,
+    "vat": "unknown"
+   },
+   {
+    "name": "45 Mbps",
+    "mbps": 45,
+    "bdt": 1800,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Kafrul, Dhaka"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Sayed Technology",
+  "site": "https://sayedtechnology.net",
+  "asn": 152636,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://sayedtechnology.net/#package",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "8 Mbps",
+    "mbps": 8,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 1200,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Cumilla"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "SB Net City",
+  "site": "https://sbnetcity.com",
+  "asn": 150451,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://sbnetcity.com/#packages",
+  "packages": [
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Lakshmipur"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "SB Network",
+  "site": "https://sbnetworkbd.com",
+  "asn": 136215,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://sbnetworkbd.com/",
+  "packages": [
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "12 Mbps",
+    "mbps": 12,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "35 Mbps",
+    "mbps": 35,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Kallyanpur, Dhaka"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "SBC-21 System",
+  "site": "https://sbc21systembd.com",
+  "asn": 135374,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://sbc21systembd.com/",
+  "packages": [
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 500,
+    "vat": "excl"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 550,
+    "vat": "excl"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 600,
+    "vat": "excl"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 700,
+    "vat": "excl"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 800,
+    "vat": "excl"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 999,
+    "vat": "excl"
+   },
+   {
+    "name": "130 Mbps",
+    "mbps": 130,
+    "bdt": 1199,
+    "vat": "excl"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1499,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Akkelpur",
+   "Tilekpur",
+   "Gupinathpur",
+   "Chandandighi",
+   "Punduria",
+   "Diyal",
+   "Harisara",
+   "Sonamukhi",
+   "Raikali",
+   "Kashira",
+   "Jafarpur",
+   "Mohanpur",
+   "Abadpukur"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "SD Network",
+  "site": "https://sdnetwork.net.bd",
+  "asn": 137444,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://sdnetwork.net.bd/",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 1400,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1600,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Chattogram"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "SF BD Online",
+  "site": "https://sambd.com",
+  "asn": 141439,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://sambd.com/packages/",
+  "packages": [
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 735,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "130 Mbps",
+    "mbps": 130,
+    "bdt": 1260,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1575,
+    "vat": "unknown"
+   },
+   {
+    "name": "200 Mbps",
+    "mbps": 200,
+    "bdt": 2100,
+    "vat": "unknown"
+   },
+   {
+    "name": "220 Mbps",
+    "mbps": 220,
+    "bdt": 2625,
+    "vat": "unknown"
+   },
+   {
+    "name": "250 Mbps",
+    "mbps": 250,
+    "bdt": 3150,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Badda, Dhaka"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Shajib Online",
+  "site": "https://shajibonline.com.bd",
+  "asn": 152462,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://shajibonline.com.bd/price.html",
+  "packages": [
+   {
+    "name": "7 Mbps",
+    "mbps": 7,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "45 Mbps",
+    "mbps": 45,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Jamalpur Sadar"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Shamibag Broadband Internet",
+  "site": "https://shamibagbroadband.com",
+  "asn": 147022,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://shamibagbroadband.com/",
+  "packages": [
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Sharmin Akter Shilpi t/a M/S. Saiba International",
+  "site": "https://saibabd.net",
+  "asn": 135604,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://saibabd.net/",
+  "packages": [
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "36 Mbps",
+    "mbps": 36,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "48 Mbps",
+    "mbps": 48,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 900,
+    "vat": "unknown"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "90 Mbps",
+    "mbps": 90,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "95 Mbps",
+    "mbps": 95,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 2500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Shetue Tech",
+  "site": "https://shetuetech.com",
+  "asn": 152906,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://shetuetech.com/pricing.html",
+  "packages": [
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "120 Mbps",
+    "mbps": 120,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 2500,
+    "vat": "unknown"
+   },
+   {
+    "name": "200 Mbps",
+    "mbps": 200,
+    "bdt": 3000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Noakhali"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Shilmandi Online",
+  "site": "https://shilmandionline.com",
+  "asn": 140040,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://shilmandionline.com/",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Narsingdi"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Shine Communication",
+  "site": "https://shine.net.bd",
+  "asn": 139758,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://shine.net.bd/",
+  "packages": [
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Shipon Internet",
+  "site": "https://shiponinternet.net.bd",
+  "asn": 151395,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://shiponinternet.net.bd/",
+  "packages": [
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 600,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Jhenaidah"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "SHOVO ENTERPRISE",
+  "site": "https://shuvoenterprise.net",
+  "asn": 135595,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://shuvoenterprise.net/",
+  "packages": [
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Ashulia, Dhaka"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Shubas Broadband Internet Service",
+  "site": "https://www.shubasisp.com/",
+  "asn": 142124,
+  "is_home_isp": true,
+  "status": "no-prices",
+  "packages_source": "https://www.shubasisp.com/pricing",
+  "packages": [],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Six Young Boys Online Network",
+  "site": "https://sixyoungboys.net",
+  "asn": 153516,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://sixyoungboys.net/",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 550,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 900,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1350,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Sky Business Center",
+  "site": "https://skybusiness.com.bd",
+  "asn": 150352,
+  "is_home_isp": true,
+  "status": "no-prices",
+  "packages_source": "https://skybusiness.com.bd/",
+  "packages": [],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Skylark Network",
+  "site": "https://skylarkbd.net",
+  "asn": 140644,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://skylarkbd.net/",
+  "packages": [
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Skynet Chowmuhani",
+  "site": "https://skynetchowmuhani.com",
+  "asn": 137449,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://skynetchowmuhani.com/",
+  "packages": [
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 550,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 750,
+    "vat": "unknown"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 900,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1450,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Noakhali",
+   "Chowmuhani"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Skynet Online BD",
+  "site": "https://skynetonlinebd.net",
+  "asn": 137255,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://skynetonlinebd.net/",
+  "packages": [
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 735,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "130 Mbps",
+    "mbps": 130,
+    "bdt": 1260,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1575,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "SM Internet Network",
+  "site": "https://sminternetnetwork.com",
+  "asn": 152690,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://sminternetnetwork.com/",
+  "packages": [
+   {
+    "name": "Basic",
+    "mbps": 20,
+    "bdt": 525,
+    "vat": "incl"
+   },
+   {
+    "name": "Standard",
+    "mbps": 40,
+    "bdt": 800,
+    "vat": "incl"
+   },
+   {
+    "name": "Premium",
+    "mbps": 70,
+    "bdt": 1200,
+    "vat": "incl"
+   },
+   {
+    "name": "Hyper",
+    "mbps": 100,
+    "bdt": 1500,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Chandpur"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Smart Digital",
+  "site": "https://smartdigitalbd.com",
+  "asn": 134785,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://smartdigitalbd.com/package",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 3000,
+    "vat": "unknown"
+   },
+   {
+    "name": "45 Mbps",
+    "mbps": 45,
+    "bdt": 3500,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 4000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Mohakhali, Dhaka"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Smart Link",
+  "site": "https://bdsmartlink.com",
+  "asn": 139642,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://bdsmartlink.com/",
+  "packages": [
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "75 Mbps",
+    "mbps": 75,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "120 Mbps",
+    "mbps": 120,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Halishahar",
+   "Chattogram"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "SOL-BD",
+  "site": "https://bdhub.com",
+  "asn": 132606,
+  "is_home_isp": false,
+  "status": "not-isp",
+  "packages_source": "https://bdhub.com/",
+  "packages": [],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "South Bangla Online",
+  "site": "https://southbanglaonline.net",
+  "asn": 150459,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://southbanglaonline.net/",
+  "packages": [
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "65 Mbps",
+    "mbps": 65,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "85 Mbps",
+    "mbps": 85,
+    "bdt": 1200,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Khulna"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Spark It",
+  "site": "https://sparkit.net.bd",
+  "asn": 152648,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://sparkit.net.bd/",
+  "packages": [
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "120 Mbps",
+    "mbps": 120,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "200 Mbps",
+    "mbps": 200,
+    "bdt": 1800,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Khulna"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Speed Link",
+  "site": "https://speedlinkbd.com",
+  "asn": 136406,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://speedlinkbd.com/packages",
+  "packages": [
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 3000,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 4000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Speed One",
+  "site": "https://speedone.net.bd",
+  "asn": 133766,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://speedone.net.bd/",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "16 Mbps",
+    "mbps": 16,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "21 Mbps",
+    "mbps": 21,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "26 Mbps",
+    "mbps": 26,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "33 Mbps",
+    "mbps": 33,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "52 Mbps",
+    "mbps": 52,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Kalihati, Tangail"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Speed Star Dot Net",
+  "site": "https://speedstarbd.net",
+  "asn": 149806,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://speedstarbd.net/",
+  "packages": [
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "90 Mbps",
+    "mbps": 90,
+    "bdt": 1800,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "130 Mbps",
+    "mbps": 130,
+    "bdt": 2500,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 3000,
+    "vat": "unknown"
+   },
+   {
+    "name": "180 Mbps",
+    "mbps": 180,
+    "bdt": 3500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Speed Touch Network and Technology",
+  "site": "https://stntbd.com",
+  "asn": 149649,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://stntbd.com/pricing",
+  "packages": [
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 650,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 750,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 950,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1250,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1550,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Sprint Networks",
+  "site": "https://sprintnetbd.com",
+  "asn": 150389,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://sprintnetbd.com/",
+  "packages": [
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "27 Mbps",
+    "mbps": 27,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "35 Mbps",
+    "mbps": 35,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "37 Mbps",
+    "mbps": 37,
+    "bdt": 900,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Square Net",
+  "site": "https://squarenetbd.com",
+  "asn": 149060,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://squarenetbd.com/",
+  "packages": [
+   {
+    "name": "16 Mbps",
+    "mbps": 16,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "26 Mbps",
+    "mbps": 26,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 735,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 840,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "SR Communication",
+  "site": "https://srcommunicationbd.com",
+  "asn": 137548,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://srcommunicationbd.com/",
+  "packages": [
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 735,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1050,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "SRS Communication",
+  "site": "https://srscommunication.net",
+  "asn": 154199,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://srscommunication.net/",
+  "packages": [
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Citygate",
+   "Pahartoli",
+   "Dubblemorring",
+   "Agrabad",
+   "Halishohor",
+   "Kotowali"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Star Communication",
+  "site": "https://starcommunicationbd.com",
+  "asn": 139841,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://starcommunicationbd.com/",
+  "packages": [
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 735,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1050,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Star IT",
+  "site": "https://staritisp.com",
+  "asn": 147006,
+  "is_home_isp": false,
+  "status": "dead",
+  "packages_source": "https://staritisp.com",
+  "packages": [],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Star Network",
+  "site": "https://starnetworkbd.com",
+  "asn": 134750,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://starnetworkbd.com/packages",
+  "packages": [
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "35 Mbps",
+    "mbps": 35,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "45 Mbps",
+    "mbps": 45,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Star Online",
+  "site": "https://staronlinelalpur.net",
+  "asn": 141726,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://staronlinelalpur.net/",
+  "packages": [
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Lalpur Upazila",
+   "Natore"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Streaming Internet Trade(S.I.T)",
+  "site": "https://sit.net.bd",
+  "asn": 135613,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://sit.net.bd/",
+  "packages": [
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "35 Mbps",
+    "mbps": 35,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 2500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Fatullah",
+   "Narayanganj"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Suchana Broadband",
+  "site": "https://suchanabd.net",
+  "asn": 142428,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://suchanabd.net/",
+  "packages": [
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1800,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Super Net BD",
+  "site": "https://supernet-bd.com",
+  "asn": 151843,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://supernet-bd.com/",
+  "packages": [
+   {
+    "name": "8 Mbps",
+    "mbps": 8,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "45 Mbps",
+    "mbps": 45,
+    "bdt": 1900,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Sylhet Net Broadband",
+  "site": "https://sylhetnetbroadband.com",
+  "asn": 139832,
+  "is_home_isp": true,
+  "status": "no-prices",
+  "packages_source": "https://sylhetnetbroadband.com/packages",
+  "packages": [],
+  "coverage": [
+   "Sylhet"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "Sync Online",
+  "site": "https://synconlinebd.com",
+  "asn": 140950,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://synconlinebd.com/",
+  "packages": [
+   {
+    "name": "55 Mbps",
+    "mbps": 55,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "120 Mbps",
+    "mbps": 120,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "180 Mbps",
+    "mbps": 180,
+    "bdt": 1250,
+    "vat": "unknown"
+   },
+   {
+    "name": "180 Mbps",
+    "mbps": 180,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "T Network",
+  "site": "https://tnetwork.com.bd",
+  "asn": 138043,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://tnetwork.com.bd/",
+  "packages": [
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "45 Mbps",
+    "mbps": 45,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1575,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ },
+ {
+  "name": "T.S Communication",
+  "site": "https://tscommunication.com.bd",
+  "asn": 154554,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://tscommunication.com.bd/",
+  "packages": [
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 640,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 850,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 1060,
+    "vat": "unknown"
+   },
+   {
+    "name": "35 Mbps",
+    "mbps": 35,
+    "bdt": 1580,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Magura"
+  ],
+  "notes": "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+ }
+]

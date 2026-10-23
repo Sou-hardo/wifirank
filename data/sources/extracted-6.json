@@ -1,0 +1,2161 @@
+[
+ {
+  "name": "Moustafa Ferdous",
+  "site": "https://acnbd.com",
+  "asn": 138383,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://acnbd.com/#pricing",
+  "packages": [
+   {
+    "name": "Package-1",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package-2",
+    "mbps": 15,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package-3",
+    "mbps": 20,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package-4",
+    "mbps": 25,
+    "bdt": 1400,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package-5",
+    "mbps": 30,
+    "bdt": 1600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package-6",
+    "mbps": 40,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": "peak/off-peak speeds differ; base speed listed"
+ },
+ {
+  "name": "My Net",
+  "site": "https://www.mynetonline.net/",
+  "asn": 59332,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://www.mynetonline.net/Services/Broadband-Internet/",
+  "packages": [
+   {
+    "name": "Economy",
+    "mbps": 30,
+    "bdt": 500,
+    "vat": "incl"
+   },
+   {
+    "name": "EconomyPlus",
+    "mbps": 40,
+    "bdt": 600,
+    "vat": "incl"
+   },
+   {
+    "name": "Druto",
+    "mbps": 50,
+    "bdt": 800,
+    "vat": "incl"
+   },
+   {
+    "name": "Duronta",
+    "mbps": 70,
+    "bdt": 1000,
+    "vat": "incl"
+   },
+   {
+    "name": "DurontaPlus",
+    "mbps": 100,
+    "bdt": 1500,
+    "vat": "incl"
+   },
+   {
+    "name": "Durbar",
+    "mbps": 130,
+    "bdt": 1800,
+    "vat": "incl"
+   },
+   {
+    "name": "Durjoy",
+    "mbps": 150,
+    "bdt": 2100,
+    "vat": "incl"
+   }
+  ],
+  "coverage": [
+   "Greater Mymensingh Zone"
+  ],
+  "notes": "15% VAT included per site"
+ },
+ {
+  "name": "Mynet Technologies",
+  "site": "https://mynet.com.bd",
+  "asn": 149287,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://mynet.com.bd/packages/",
+  "packages": [
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "35 Mbps",
+    "mbps": 35,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "120 Mbps",
+    "mbps": 120,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "200 Mbps",
+    "mbps": 200,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Khulna Division"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "N.R.S. Enterprise",
+  "site": "https://nrsenterprise.com",
+  "asn": 152125,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://nrsenterprise.com/#pricing",
+  "packages": [
+   {
+    "name": "Mercury",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Mars",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Venus",
+    "mbps": 15,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Neptune",
+    "mbps": 20,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Saturn",
+    "mbps": 30,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Ukhiya",
+   "Cox's Bazar"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Nahid Internet Service",
+  "site": "https://nahidinternetservice.net",
+  "asn": 154999,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://nahidinternetservice.net/package",
+  "packages": [
+   {
+    "name": "Basic",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Standard",
+    "mbps": 16,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium",
+    "mbps": 26,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Advanced",
+    "mbps": 32,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Business",
+    "mbps": 42,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Ultra",
+    "mbps": 55,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Pabna"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Nayapara Fiber Online",
+  "site": "https://nayaparafiberonline.com",
+  "asn": 154720,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://nayaparafiberonline.com/packages/",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "excl"
+   },
+   {
+    "name": "6 Mbps",
+    "mbps": 6,
+    "bdt": 560,
+    "vat": "excl"
+   },
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Gazipur"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Nayergaon Online",
+  "site": "https://nayergaononline.com",
+  "asn": 154327,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://nayergaononline.com/packages",
+  "packages": [
+   {
+    "name": "Student",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Home",
+    "mbps": 15,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Family",
+    "mbps": 20,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Big Family",
+    "mbps": 25,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Business",
+    "mbps": 50,
+    "bdt": 1400,
+    "vat": "unknown"
+   },
+   {
+    "name": "Enterprise",
+    "mbps": 100,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Chattogram",
+   "Matlab South"
+  ],
+  "notes": "Corporate Lite 100Mbps 10000 skipped"
+ },
+ {
+  "name": "Nazrul Network Service@Saidpur",
+  "site": "https://nazrulnet.com.bd",
+  "asn": 149425,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://nazrulnet.com.bd",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 400,
+    "vat": "excl"
+   },
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 500,
+    "vat": "excl"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 800,
+    "vat": "excl"
+   },
+   {
+    "name": "35 Mbps",
+    "mbps": 35,
+    "bdt": 1000,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Saidpur",
+   "Nilphamari"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Nebula I Host",
+  "site": "https://nebulaihost.com",
+  "asn": 154421,
+  "is_home_isp": false,
+  "status": "not-isp",
+  "packages_source": "https://nebulaihost.com",
+  "packages": [],
+  "coverage": [
+   "Bogura"
+  ],
+  "notes": "domain/web hosting only"
+ },
+ {
+  "name": "Neef IT Ltd.",
+  "site": "https://neefit.net",
+  "asn": 139008,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://neefit.net/packages.html",
+  "packages": [
+   {
+    "name": "Easy",
+    "mbps": 25,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Home",
+    "mbps": 50,
+    "bdt": 816,
+    "vat": "unknown"
+   },
+   {
+    "name": "Easy 60",
+    "mbps": 60,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Excellent",
+    "mbps": 100,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Kishoreganj"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Neef It Sylhet",
+  "site": "https://neefitsylhet.com",
+  "asn": 153948,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://neefitsylhet.com/packages",
+  "packages": [
+   {
+    "name": "Starter",
+    "mbps": 60,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Standard",
+    "mbps": 130,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium",
+    "mbps": 150,
+    "bdt": 1250,
+    "vat": "unknown"
+   },
+   {
+    "name": "Ultra",
+    "mbps": 200,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Sylhet"
+  ],
+  "notes": "site claims 51+ coverage areas"
+ },
+ {
+  "name": "Net 2 BD",
+  "site": "https://net2bdisp.com",
+  "asn": 148986,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://net2bdisp.com",
+  "packages": [
+   {
+    "name": "Package-1",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package-2",
+    "mbps": 8,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package-3",
+    "mbps": 12,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package-4",
+    "mbps": 20,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package-5",
+    "mbps": 30,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package-6",
+    "mbps": 40,
+    "bdt": 2500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package-7",
+    "mbps": 50,
+    "bdt": 3000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka",
+   "Tejgaon"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Net City",
+  "site": "https://netcity1.net",
+  "asn": 140898,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://netcity1.net/pricing.html",
+  "packages": [
+   {
+    "name": "Viral",
+    "mbps": 30,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "Bolt",
+    "mbps": 40,
+    "bdt": 735,
+    "vat": "unknown"
+   },
+   {
+    "name": "Buzz",
+    "mbps": 60,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "Spark",
+    "mbps": 90,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "Stream",
+    "mbps": 120,
+    "bdt": 1260,
+    "vat": "unknown"
+   },
+   {
+    "name": "Flash",
+    "mbps": 150,
+    "bdt": 1575,
+    "vat": "unknown"
+   },
+   {
+    "name": "Super Fast",
+    "mbps": 210,
+    "bdt": 2100,
+    "vat": "unknown"
+   },
+   {
+    "name": "Super Premium",
+    "mbps": 250,
+    "bdt": 2625,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Gazipur",
+   "Panishail",
+   "Kashimpur"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Net Relation",
+  "site": "https://netrelationbd.com",
+  "asn": 153337,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://netrelationbd.com/internet-packages-best-internet-package-sylhet/",
+  "packages": [
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "120 Mbps",
+    "mbps": 120,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Sylhet"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Net Satellite",
+  "site": "https://netsatellitebd.com",
+  "asn": 140632,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://netsatellitebd.com/#pricing",
+  "packages": [
+   {
+    "name": "Basic",
+    "mbps": 20,
+    "bdt": 599,
+    "vat": "unknown"
+   },
+   {
+    "name": "Starter",
+    "mbps": 35,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium",
+    "mbps": 45,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Ultimate",
+    "mbps": 60,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Chattogram",
+   "EPZ",
+   "KEPZ",
+   "Akmol Ali Road"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Net Zone Computers",
+  "site": "https://netzone.com.bd",
+  "asn": 142122,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://netzone.com.bd/packages/",
+  "packages": [
+   {
+    "name": "Plan 1",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Plan 2",
+    "mbps": 15,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Plan 3",
+    "mbps": 20,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Plan 4",
+    "mbps": 30,
+    "bdt": 800,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka",
+   "Khilgaon"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Net-E-Zen",
+  "site": "https://netezenbd.net",
+  "asn": 132800,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://netezenbd.net/#packages_part",
+  "packages": [
+   {
+    "name": "Starter",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Basic",
+    "mbps": 6,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Professional",
+    "mbps": 7,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Ultra",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Starter 15",
+    "mbps": 15,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Basic 20",
+    "mbps": 20,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Professional 25",
+    "mbps": 25,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Ultra 30",
+    "mbps": 30,
+    "bdt": 2200,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka",
+   "Sabujbagh"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Net@Home",
+  "site": "https://netathomebd.net",
+  "asn": 138619,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://netathomebd.net",
+  "packages": [
+   {
+    "name": "N@H-25",
+    "mbps": 25,
+    "bdt": 420,
+    "vat": "unknown"
+   },
+   {
+    "name": "N@H-35",
+    "mbps": 35,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "N@H-65",
+    "mbps": 65,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "N@H-75",
+    "mbps": 75,
+    "bdt": 735,
+    "vat": "unknown"
+   },
+   {
+    "name": "N@H-V85",
+    "mbps": 85,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "N@H-V105",
+    "mbps": 105,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "N@H-V125",
+    "mbps": 125,
+    "bdt": 1260,
+    "vat": "unknown"
+   },
+   {
+    "name": "N@H-V145",
+    "mbps": 145,
+    "bdt": 1470,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Net@Home-Bamoul Branch",
+  "site": "https://netathomebd.net",
+  "asn": 139779,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://netathomebd.net",
+  "packages": [
+   {
+    "name": "N@H-25",
+    "mbps": 25,
+    "bdt": 420,
+    "vat": "unknown"
+   },
+   {
+    "name": "N@H-35",
+    "mbps": 35,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "N@H-65",
+    "mbps": 65,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "N@H-75",
+    "mbps": 75,
+    "bdt": 735,
+    "vat": "unknown"
+   },
+   {
+    "name": "N@H-V85",
+    "mbps": 85,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "N@H-V105",
+    "mbps": 105,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "N@H-V125",
+    "mbps": 125,
+    "bdt": 1260,
+    "vat": "unknown"
+   },
+   {
+    "name": "N@H-V145",
+    "mbps": 145,
+    "bdt": 1470,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": "same site/packages as Net@Home main"
+ },
+ {
+  "name": "Netpark Communication",
+  "site": "https://netparkbd.net",
+  "asn": 137416,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://netparkbd.net/nppack.html",
+  "packages": [
+   {
+    "name": "Basic",
+    "mbps": 20,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Basic++",
+    "mbps": 35,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Standard",
+    "mbps": 50,
+    "bdt": 900,
+    "vat": "unknown"
+   },
+   {
+    "name": "Standard++",
+    "mbps": 60,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Corporate",
+    "mbps": 75,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium",
+    "mbps": 80,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka",
+   "Rayer Bazar"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Netpoint Moulvibazar",
+  "site": "https://www.skynet.com.bd/",
+  "asn": 150428,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://www.skynet.com.bd/pricing/",
+  "packages": [
+   {
+    "name": "Starter",
+    "mbps": 20,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Marshmello",
+    "mbps": 30,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Friend Buzz",
+    "mbps": 40,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Standard",
+    "mbps": 60,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium",
+    "mbps": 80,
+    "bdt": 900,
+    "vat": "unknown"
+   },
+   {
+    "name": "Infinity",
+    "mbps": 100,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Moulvibazar"
+  ],
+  "notes": "site is Skynet; ASN listed as Netpoint Moulvibazar"
+ },
+ {
+  "name": "Network Park",
+  "site": "https://networkpark.net.bd",
+  "asn": 154911,
+  "is_home_isp": true,
+  "status": "no-prices",
+  "packages_source": "https://networkpark.net.bd/#packages",
+  "packages": [],
+  "coverage": [
+   "Belkuchi",
+   "Sirajganj"
+  ],
+  "notes": "packages render dynamically; only \"from 500 BDT, home up to 75 Mbps, prices incl 5% VAT\" seen"
+ },
+ {
+  "name": "New Generation",
+  "site": "https://newgenisp.com",
+  "asn": 151989,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://newgenisp.com/package",
+  "packages": [
+   {
+    "name": "P1",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "P2",
+    "mbps": 15,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "P3",
+    "mbps": 20,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "P4",
+    "mbps": 30,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Legend",
+    "mbps": 40,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Super",
+    "mbps": 50,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka",
+   "Kodomtoli"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "New Top Link",
+  "site": "https://newtoplink.net",
+  "asn": 142298,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://newtoplink.net/packeages",
+  "packages": [
+   {
+    "name": "Package-3",
+    "mbps": 20,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package-4",
+    "mbps": 25,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package-5",
+    "mbps": 40,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Keraniganj"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Next System",
+  "site": "https://nextincbd.com",
+  "asn": 154356,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://nextincbd.com/packages.html",
+  "packages": [
+   {
+    "name": "Saver",
+    "mbps": 12,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 15",
+    "mbps": 15,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Economy",
+    "mbps": 20,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 30",
+    "mbps": 30,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Silver",
+    "mbps": 40,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gold",
+    "mbps": 50,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Diamond",
+    "mbps": 70,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 100",
+    "mbps": 100,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Super",
+    "mbps": 200,
+    "bdt": 2500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Hathazari",
+   "Chattogram"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Next Tech BD",
+  "site": "https://nexttechbd.net",
+  "asn": 133916,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://nexttechbd.net/pricing.php",
+  "packages": [
+   {
+    "name": "Gold",
+    "mbps": 40,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Platinum",
+    "mbps": 50,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Diamond",
+    "mbps": 60,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Sapphire",
+    "mbps": 80,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "off-peak speed lower; first package listed may omit lower tiers"
+ },
+ {
+  "name": "Ninja Network Online",
+  "site": "https://ninjanetworkonline.net",
+  "asn": 153688,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://ninjanetworkonline.net/our-packages/",
+  "packages": [
+   {
+    "name": "Blue",
+    "mbps": 25,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Green",
+    "mbps": 30,
+    "bdt": 650,
+    "vat": "unknown"
+   },
+   {
+    "name": "Orange",
+    "mbps": 40,
+    "bdt": 730,
+    "vat": "unknown"
+   },
+   {
+    "name": "Yellow",
+    "mbps": 80,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Red",
+    "mbps": 100,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Orange 150",
+    "mbps": 150,
+    "bdt": 1550,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Noakhali Broadband Network",
+  "site": "https://noakhalibroadband.net",
+  "asn": 137703,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://noakhalibroadband.net/#price",
+  "packages": [
+   {
+    "name": "Basic",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Pro",
+    "mbps": 20,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Ultra",
+    "mbps": 30,
+    "bdt": 800,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Noakhali"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Novus Network",
+  "site": "https://novusnetworkbd.com",
+  "asn": 139282,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://novusnetworkbd.com/#pricing",
+  "packages": [
+   {
+    "name": "Primary",
+    "mbps": 30,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Basic",
+    "mbps": 40,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Professional",
+    "mbps": 50,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium",
+    "mbps": 60,
+    "bdt": 900,
+    "vat": "unknown"
+   },
+   {
+    "name": "Advance",
+    "mbps": 100,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Chattogram"
+  ],
+  "notes": "a 30 Mbps 11,00 listing looks like typo, skipped"
+ },
+ {
+  "name": "NR Link",
+  "site": "https://nrlink.net",
+  "asn": 151984,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://nrlink.net/package",
+  "packages": [
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 650,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 850,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1250,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Sreepur",
+   "Gazipur"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "NS Net Connection",
+  "site": "https://nsnetconnection.net",
+  "asn": 148794,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "http://nsnetconnection.net",
+  "packages": [
+   {
+    "name": "Bronze",
+    "mbps": 6,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Silver",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gold",
+    "mbps": 15,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Gazipur",
+   "Tongi"
+  ],
+  "notes": "https failed, http worked"
+ },
+ {
+  "name": "One Net Communication Ltd",
+  "site": "https://1netbd.com",
+  "asn": 63844,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://1netbd.com/internet-packages",
+  "packages": [
+   {
+    "name": "SP-2",
+    "mbps": 40,
+    "bdt": 650,
+    "vat": "excl"
+   },
+   {
+    "name": "SP-3",
+    "mbps": 45,
+    "bdt": 750,
+    "vat": "excl"
+   },
+   {
+    "name": "SP-4",
+    "mbps": 60,
+    "bdt": 850,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "One Technology",
+  "site": "https://digitalonebd.net",
+  "asn": 139469,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://digitalonebd.net/packages",
+  "packages": [
+   {
+    "name": "Basic",
+    "mbps": 6,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Silver",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gold",
+    "mbps": 12,
+    "bdt": 880,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Narayanganj"
+  ],
+  "notes": "VIP 15 Mbps 1000 is labelled corporate, skipped"
+ },
+ {
+  "name": "One Touch Online",
+  "site": "https://onetouchonline.net",
+  "asn": 147059,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://onetouchonline.net/pricing",
+  "packages": [
+   {
+    "name": "Micro",
+    "mbps": 15,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Pico",
+    "mbps": 20,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Nano",
+    "mbps": 30,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Basic",
+    "mbps": 40,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Bumble",
+    "mbps": 60,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Uttara"
+  ],
+  "notes": "Corporate 100 Mbps 1500 skipped"
+ },
+ {
+  "name": "Onion Net Zone",
+  "site": "https://onionnetzone.com",
+  "asn": 150458,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://onionnetzone.com/pricing",
+  "packages": [
+   {
+    "name": "Package One",
+    "mbps": 10,
+    "bdt": 400,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package Two",
+    "mbps": 30,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package Three",
+    "mbps": 40,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package Four",
+    "mbps": 50,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package Five",
+    "mbps": 60,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package Six",
+    "mbps": 100,
+    "bdt": 2400,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka",
+   "Kadamtali"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Optical Communication",
+  "site": "https://opticalcommunication.com.bd",
+  "asn": 154723,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://opticalcommunication.com.bd/packages.html",
+  "packages": [
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 599,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 699,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 799,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1049,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1260,
+    "vat": "unknown"
+   },
+   {
+    "name": "130 Mbps",
+    "mbps": 130,
+    "bdt": 1599,
+    "vat": "unknown"
+   },
+   {
+    "name": "200 Mbps",
+    "mbps": 200,
+    "bdt": 1999,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Kurigram"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Optimax",
+  "site": "https://www.optimaxbd.com",
+  "asn": 38031,
+  "is_home_isp": false,
+  "status": "no-prices",
+  "packages_source": "https://www.optimaxbd.com",
+  "packages": [],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": "corporate/IX bandwidth ISP, no home packages shown"
+ },
+ {
+  "name": "Optimus Online",
+  "site": "https://optimusonlinebd.com",
+  "asn": 150808,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://optimusonlinebd.com/package/",
+  "packages": [
+   {
+    "name": "Silver",
+    "mbps": 40,
+    "bdt": 735,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gold",
+    "mbps": 50,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "Standard",
+    "mbps": 80,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "Silver+",
+    "mbps": 20,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gold+",
+    "mbps": 30,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Standard+",
+    "mbps": 40,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Platinum+",
+    "mbps": 50,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Freelancer+",
+    "mbps": 70,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gaming+",
+    "mbps": 80,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Mohammadpur",
+   "Dhaka"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Optus",
+  "site": "https://optusbd.com",
+  "asn": 151319,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "http://optusbd.com/internet-packs/",
+  "packages": [
+   {
+    "name": "10 Mbps Shared",
+    "mbps": 10,
+    "bdt": 750,
+    "vat": "unknown"
+   },
+   {
+    "name": "12 Mbps Shared",
+    "mbps": 12,
+    "bdt": 950,
+    "vat": "unknown"
+   },
+   {
+    "name": "15 Mbps Shared",
+    "mbps": 15,
+    "bdt": 1350,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps Shared",
+    "mbps": 20,
+    "bdt": 1750,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps Shared",
+    "mbps": 25,
+    "bdt": 2150,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps Shared",
+    "mbps": 30,
+    "bdt": 2550,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Bogura"
+  ],
+  "notes": "also hosting company; internet packs include IPTSP"
+ },
+ {
+  "name": "Orbital Net",
+  "site": "https://www.orbitalbd.net/",
+  "asn": 153378,
+  "is_home_isp": true,
+  "status": "no-prices",
+  "packages_source": "https://www.orbitalbd.net/packages",
+  "packages": [],
+  "coverage": [
+   "Tangail"
+  ],
+  "notes": "packages load via JS; none visible"
+ },
+ {
+  "name": "Osifa Online",
+  "site": "https://osifaonline.com",
+  "asn": 132408,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://osifaonline.com/#package",
+  "packages": [
+   {
+    "name": "Most Popular 12MB",
+    "mbps": 12,
+    "bdt": 500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Keraniganj",
+   "Maijdee"
+  ],
+  "notes": "other tiers 600-1800 BDT shown without speeds, not recorded"
+ },
+ {
+  "name": "Our Online",
+  "site": "https://ouronline.net",
+  "asn": 141155,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://ouronline.net",
+  "packages": [
+   {
+    "name": "35 Mbps",
+    "mbps": 35,
+    "bdt": 600,
+    "vat": "excl"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 700,
+    "vat": "excl"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 800,
+    "vat": "excl"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 900,
+    "vat": "excl"
+   },
+   {
+    "name": "120 Mbps",
+    "mbps": 120,
+    "bdt": 1000,
+    "vat": "excl"
+   },
+   {
+    "name": "140 Mbps",
+    "mbps": 140,
+    "bdt": 1200,
+    "vat": "excl"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1500,
+    "vat": "excl"
+   },
+   {
+    "name": "200 Mbps",
+    "mbps": 200,
+    "bdt": 2500,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Chattogram"
+  ],
+  "notes": "some labelled corporate"
+ },
+ {
+  "name": "Pabna Online",
+  "site": "https://pabnaonline.net",
+  "asn": 150745,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://pabnaonline.net/#pricing",
+  "packages": [
+   {
+    "name": "Package 1",
+    "mbps": 15,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 2",
+    "mbps": 25,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 3",
+    "mbps": 40,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 4",
+    "mbps": 50,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 5",
+    "mbps": 60,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 6",
+    "mbps": 80,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Pabna Sadar"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Padma Online",
+  "site": "https://padmaonline-bd.com/",
+  "asn": 149421,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://padmaonline-bd.com/#packages",
+  "packages": [
+   {
+    "name": "Starter Basic",
+    "mbps": 25,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "Smart Daily",
+    "mbps": 30,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "Value Streamer",
+    "mbps": 40,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Entertainment",
+    "mbps": 50,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "Power Family",
+    "mbps": 70,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "Pro Game",
+    "mbps": 80,
+    "bdt": 1350,
+    "vat": "unknown"
+   },
+   {
+    "name": "Office Zoom Pro",
+    "mbps": 120,
+    "bdt": 1575,
+    "vat": "unknown"
+   },
+   {
+    "name": "Boss Unlimited",
+    "mbps": 200,
+    "bdt": 2625,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Rajshahi",
+   "Baharampur",
+   "Laxmipur",
+   "Kasiadanga",
+   "Meherchondi",
+   "Mohisbathan",
+   "Horipur",
+   "Katakhali",
+   "Godagari"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Palashbari Online",
+  "site": "https://palashbarionline.com",
+  "asn": 149501,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://palashbarionline.com/#packages",
+  "packages": [
+   {
+    "name": "Starter",
+    "mbps": 30,
+    "bdt": 550,
+    "vat": "unknown"
+   },
+   {
+    "name": "Family",
+    "mbps": 75,
+    "bdt": 999,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gaming Pro",
+    "mbps": 150,
+    "bdt": 1399,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Palashbari",
+   "Horinathpur",
+   "Boro Dorgah",
+   "Betgari"
+  ],
+  "notes": "Business Edge 500 Mbps 2999 skipped"
+ },
+ {
+  "name": "Penta Online",
+  "site": "https://pentaonline.net",
+  "asn": 149985,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://pentaonline.net/packages.php",
+  "packages": [
+   {
+    "name": "Govt.P-5",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Govt.P-10",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Govt.P-20",
+    "mbps": 20,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "PO.P-5",
+    "mbps": 5,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "PO.P-8",
+    "mbps": 8,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "PO.P-16",
+    "mbps": 16,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "PO.P-30",
+    "mbps": 30,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Khulna"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Penta Six Communication",
+  "site": "https://penta-six.com",
+  "asn": 149019,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://penta-six.com/home",
+  "packages": [
+   {
+    "name": "Silver+",
+    "mbps": 20,
+    "bdt": 400,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gold+",
+    "mbps": 40,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Platinum+",
+    "mbps": 60,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Diamond+",
+    "mbps": 70,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Sapphire+",
+    "mbps": 120,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Star+ 150",
+    "mbps": 150,
+    "bdt": 1300,
+    "vat": "unknown"
+   },
+   {
+    "name": "Star+ 180",
+    "mbps": 180,
+    "bdt": 1700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Star+ 200",
+    "mbps": 200,
+    "bdt": 2100,
+    "vat": "unknown"
+   },
+   {
+    "name": "Star+ 300",
+    "mbps": 300,
+    "bdt": 3100,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Manikganj"
+  ],
+  "notes": ""
+ }
+]

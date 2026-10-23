@@ -1,0 +1,2442 @@
+[
+ {
+  "name": "M/s. Optima",
+  "site": "https://www.optimabd.com/",
+  "asn": 140541,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://www.optimabd.com/package",
+  "packages": [
+   {
+    "name": "The Sliver",
+    "mbps": 15,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "The Golden",
+    "mbps": 25,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "The Platinum",
+    "mbps": 30,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "The Titanium",
+    "mbps": 50,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Pallabi",
+   "Extation Pallabi",
+   "Pallabi 12",
+   "Housing 2nd Phase",
+   "Rupnogor",
+   "Milkvita",
+   "Purobi"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "M/S. S A Online",
+  "site": "https://saonlinebd.com",
+  "asn": 137034,
+  "is_home_isp": false,
+  "status": "no-prices",
+  "packages_source": "",
+  "packages": [],
+  "coverage": [],
+  "notes": "HTTP 403 on fetch"
+ },
+ {
+  "name": "M/S. SK Net City",
+  "site": "https://sknetcity.com",
+  "asn": 138981,
+  "is_home_isp": false,
+  "status": "no-prices",
+  "packages_source": "",
+  "packages": [],
+  "coverage": [],
+  "notes": "bot verification page"
+ },
+ {
+  "name": "M/S. Sky Technologies",
+  "site": "https://skytechnologiesbd.com",
+  "asn": 149809,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://skytechnologiesbd.com/#plans",
+  "packages": [
+   {
+    "name": "Regular",
+    "mbps": 15,
+    "bdt": 550,
+    "vat": "unknown"
+   },
+   {
+    "name": "Silver",
+    "mbps": 20,
+    "bdt": 750,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gold",
+    "mbps": 30,
+    "bdt": 950,
+    "vat": "unknown"
+   },
+   {
+    "name": "Diamond",
+    "mbps": 40,
+    "bdt": 1150,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Kodomtoli Thana",
+   "Kadamtoli",
+   "Merajnagar"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "M/s. Unicom Multi System",
+  "site": "https://unicommultisystem.net",
+  "asn": 136941,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://unicommultisystem.net/packages/",
+  "packages": [
+   {
+    "name": "Shared Home 15",
+    "mbps": 15,
+    "bdt": 400,
+    "vat": "unknown"
+   },
+   {
+    "name": "Shared Home 20",
+    "mbps": 20,
+    "bdt": 430,
+    "vat": "unknown"
+   },
+   {
+    "name": "Shared Home 25",
+    "mbps": 25,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Shared Home 30",
+    "mbps": 30,
+    "bdt": 530,
+    "vat": "unknown"
+   },
+   {
+    "name": "Shared Home 40",
+    "mbps": 40,
+    "bdt": 580,
+    "vat": "unknown"
+   },
+   {
+    "name": "Shared Home 50",
+    "mbps": 50,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "Shared Home 70",
+    "mbps": 70,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Shared Home 80",
+    "mbps": 80,
+    "bdt": 850,
+    "vat": "unknown"
+   },
+   {
+    "name": "Shared Home 100",
+    "mbps": 100,
+    "bdt": 1200,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Ishwardi",
+   "Ruppur",
+   "Pabna",
+   "Baghmara",
+   "Rajapur Bazar",
+   "Bera Upazila",
+   "Gurudashpur",
+   "Atghoria Upazila",
+   "Muladuli",
+   "Chatmohor Upazila"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "M/s. Unique Online",
+  "site": "https://uniqueonlinebd.com",
+  "asn": 149451,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://uniqueonlinebd.com/packages",
+  "packages": [
+   {
+    "name": "Durbar",
+    "mbps": 40,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "Durranta",
+    "mbps": 70,
+    "bdt": 735,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gati",
+    "mbps": 100,
+    "bdt": 945,
+    "vat": "unknown"
+   },
+   {
+    "name": "Jhor",
+    "mbps": 120,
+    "bdt": 1155,
+    "vat": "unknown"
+   },
+   {
+    "name": "Agni",
+    "mbps": 170,
+    "bdt": 1575,
+    "vat": "unknown"
+   },
+   {
+    "name": "Bajra",
+    "mbps": 200,
+    "bdt": 2100,
+    "vat": "unknown"
+   },
+   {
+    "name": "Proloy",
+    "mbps": 230,
+    "bdt": 2310,
+    "vat": "unknown"
+   },
+   {
+    "name": "Supernova",
+    "mbps": 260,
+    "bdt": 2626,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Boalia",
+   "Rajshahi"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "M/s. Video Elephant",
+  "site": "https://videoelephantbd.com",
+  "asn": 135071,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://videoelephantbd.com/package",
+  "packages": [
+   {
+    "name": "Package 1",
+    "mbps": 15,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 2",
+    "mbps": 40,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 3",
+    "mbps": 50,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 4",
+    "mbps": 70,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 5",
+    "mbps": 1000,
+    "bdt": 2200,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "New Market",
+   "Dhaka"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Maa Internet Service Provider",
+  "site": "https://maainternet.com/en/",
+  "asn": 140850,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://maainternet.com/en/",
+  "packages": [
+   {
+    "name": "Starter",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Business",
+    "mbps": 7,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium",
+    "mbps": 10,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Dedicated",
+    "mbps": 15,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Mirzapur",
+   "Tangail"
+  ],
+  "notes": "plans labelled business/dedicated; page inconsistent"
+ },
+ {
+  "name": "Mahrin Network",
+  "site": "https://mahrin.net",
+  "asn": 152114,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://mahrin.net/packages.html",
+  "packages": [
+   {
+    "name": "Starter",
+    "mbps": 10,
+    "bdt": 420,
+    "vat": "unknown"
+   },
+   {
+    "name": "Beginner",
+    "mbps": 30,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "Express",
+    "mbps": 50,
+    "bdt": 630,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Gazipur"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Maijdee Supernet",
+  "site": "https://noakhalisupernet.com",
+  "asn": 152723,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://noakhalisupernet.com/#packages",
+  "packages": [
+   {
+    "name": "Economy",
+    "mbps": 10,
+    "bdt": 525,
+    "vat": "excl"
+   },
+   {
+    "name": "Standard",
+    "mbps": 30,
+    "bdt": 600,
+    "vat": "excl"
+   },
+   {
+    "name": "Family",
+    "mbps": 50,
+    "bdt": 800,
+    "vat": "excl"
+   },
+   {
+    "name": "Power User",
+    "mbps": 70,
+    "bdt": 900,
+    "vat": "excl"
+   },
+   {
+    "name": "Streamer",
+    "mbps": 100,
+    "bdt": 1000,
+    "vat": "excl"
+   },
+   {
+    "name": "Gamer Pro",
+    "mbps": 120,
+    "bdt": 1200,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Noakhali",
+   "Begumganj",
+   "Chatkhil",
+   "Subarnachar",
+   "Senbag",
+   "Companyganj",
+   "Hatiya",
+   "Kabirhat",
+   "Sonaimuri",
+   "Maijdee",
+   "Chowmuhani",
+   "Dattapara",
+   "Amishapara",
+   "Oshkhali",
+   "Char Jabbar"
+  ],
+  "notes": "Business 150M/1500 and Corporate 200M/2000 skipped"
+ },
+ {
+  "name": "Maisha Net",
+  "site": "https://maishabd.net",
+  "asn": 18109,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://maishabd.net/packages",
+  "packages": [
+   {
+    "name": "Starter",
+    "mbps": 20,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium Starter",
+    "mbps": 35,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "Economy",
+    "mbps": 50,
+    "bdt": 735,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Manda Online",
+  "site": "https://mandaonline.net.bd",
+  "asn": 154456,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://mandaonline.net.bd/internet-packages/",
+  "packages": [
+   {
+    "name": "Package 1",
+    "mbps": 7,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 2",
+    "mbps": 10,
+    "bdt": 699,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 3",
+    "mbps": 15,
+    "bdt": 1049,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 4",
+    "mbps": 20,
+    "bdt": 1260,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Manda",
+   "Naogaon"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Mandari Online",
+  "site": "https://mandarionline.com",
+  "asn": 140838,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://mandarionline.com",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 400,
+    "vat": "unknown"
+   },
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "12 Mbps",
+    "mbps": 12,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Lakshmipur"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Marium Network",
+  "site": "https://mariumnetwork.com",
+  "asn": 140916,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://mariumnetwork.com",
+  "packages": [
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 650,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 850,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 1260,
+    "vat": "unknown"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 1575,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Fatullah",
+   "Narayanganj"
+  ],
+  "notes": "time-split plans (30/10 Mb) skipped"
+ },
+ {
+  "name": "Mariya Online",
+  "site": "https://mariyaonline.net",
+  "asn": 150695,
+  "is_home_isp": true,
+  "status": "no-prices",
+  "packages_source": "https://mariyaonline.net",
+  "packages": [],
+  "coverage": [
+   "Uttara",
+   "Sector 1",
+   "Sector 3",
+   "Sector 5",
+   "Sector 7",
+   "Sector 9",
+   "Sector 10",
+   "Sector 11",
+   "Sector 12",
+   "Sector 13",
+   "Sector 14"
+  ],
+  "notes": "BDT 500-1500 tiers listed with no speeds; Uttara sectors coverage"
+ },
+ {
+  "name": "Mars Computer Net",
+  "site": "https://marsisp.net",
+  "asn": 147307,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://marsisp.net",
+  "packages": [
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 2800,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka",
+   "PS: Pallabi"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Maruf Online BD",
+  "site": "https://marufonlinebd.net",
+  "asn": 150005,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://marufonlinebd.net",
+  "packages": [
+   {
+    "name": "8 Mbps",
+    "mbps": 8,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "12 Mbps",
+    "mbps": 12,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1800,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Turag",
+   "Dhaka"
+  ],
+  "notes": "speeds are \"up to\""
+ },
+ {
+  "name": "Masud IT",
+  "site": "https://masudit.com",
+  "asn": 140865,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://masudit.com",
+  "packages": [
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "45 Mbps",
+    "mbps": 45,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 2100,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Savar"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Match Net",
+  "site": "https://matchnetbd.com",
+  "asn": 138149,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://matchnetbd.com",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "35 Mbps",
+    "mbps": 35,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 3000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Darus-Salam",
+   "Dhaka",
+   "Dhanmondi",
+   "Kalabagan"
+  ],
+  "notes": "shared ranges; upper speed recorded"
+ },
+ {
+  "name": "MBD Connection",
+  "site": "https://mbdconnection.net",
+  "asn": 152716,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://mbdconnection.net",
+  "packages": [
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 513,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 615,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 720,
+    "vat": "unknown"
+   },
+   {
+    "name": "35 Mbps",
+    "mbps": 35,
+    "bdt": 930,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 1250,
+    "vat": "unknown"
+   },
+   {
+    "name": "45 Mbps",
+    "mbps": 45,
+    "bdt": 1570,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 3000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Khulna",
+   "Moheshpur"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Md Mazaher Hossain",
+  "site": "https://speed2000bd.com",
+  "asn": 138431,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://speed2000bd.com/gallery/",
+  "packages": [
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "35 Mbps",
+    "mbps": 35,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Tejgaon"
+  ],
+  "notes": "Speed Net Communication"
+ },
+ {
+  "name": "Md Mostafizur Rahman",
+  "site": "https://moumitaonline.com",
+  "asn": 152304,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://moumitaonline.com",
+  "packages": [
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1200,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Lakshmipur"
+  ],
+  "notes": "Moumita Online; also sells hosting"
+ },
+ {
+  "name": "Md Obaid Ullah Khan",
+  "site": "https://adelonline.net",
+  "asn": 137810,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://adelonline.net",
+  "packages": [
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1260,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Noakhali"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "MD SHIRAJUL HAIDER T/A Cue Club Technology",
+  "site": "https://cueclub.com.bd",
+  "asn": 135353,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://cueclub.com.bd/packages/",
+  "packages": [
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "45 Mbps",
+    "mbps": 45,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "90 Mbps",
+    "mbps": 90,
+    "bdt": 1050,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Shyamoli",
+   "Mohammadpur"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Md. Abdul Kayum Rashed t/a T-Network",
+  "site": "https://www.triangle.com.bd/",
+  "asn": 135379,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://www.triangle.com.bd/pricing-4/",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "excl"
+   },
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "excl"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 1200,
+    "vat": "excl"
+   },
+   {
+    "name": "Ekush-2",
+    "mbps": 25,
+    "bdt": 1299,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": "Triangle; Ekush-2 25 Mbps 1299 also listed; Ek Desh Ek Rate shown excl VAT"
+ },
+ {
+  "name": "Md. Maniruzzaman Manir t/a Doly IT Corner",
+  "site": "https://dolyitcorner.net",
+  "asn": 134971,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://dolyitcorner.net",
+  "packages": [
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 525,
+    "vat": "incl"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 630,
+    "vat": "incl"
+   },
+   {
+    "name": "35 Mbps",
+    "mbps": 35,
+    "bdt": 735,
+    "vat": "incl"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 840,
+    "vat": "incl"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 945,
+    "vat": "incl"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 1050,
+    "vat": "incl"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1260,
+    "vat": "incl"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1470,
+    "vat": "incl"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": "Home DCP1-8; gamer/corporate skipped"
+ },
+ {
+  "name": "MD. Mokhlesur Rahman",
+  "site": "https://abuzzit.tech",
+  "asn": 137961,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://abuzzit.tech",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 1400,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Badda"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Md. Moniruzzaman (Rocky) trading as Jhenaidah Broadband & Cyber Point",
+  "site": "https://jbcpbd.com",
+  "asn": 136815,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://jbcpbd.com",
+  "packages": [
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 500,
+    "vat": "excl"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 600,
+    "vat": "excl"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 800,
+    "vat": "excl"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 1000,
+    "vat": "excl"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 1200,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Jhenaidah"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Md. Raisul Islam",
+  "site": "https://frcbd.net",
+  "asn": 137515,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://frcbd.net/packages/",
+  "packages": [
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 735,
+    "vat": "unknown"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "120 Mbps",
+    "mbps": 120,
+    "bdt": 1260,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1575,
+    "vat": "unknown"
+   },
+   {
+    "name": "200 Mbps",
+    "mbps": 200,
+    "bdt": 2200,
+    "vat": "unknown"
+   },
+   {
+    "name": "250 Mbps",
+    "mbps": 250,
+    "bdt": 3200,
+    "vat": "unknown"
+   },
+   {
+    "name": "300 Mbps",
+    "mbps": 300,
+    "bdt": 4200,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Sirajganj"
+  ],
+  "notes": "250/300 are shared 1:8 max 10/20 Mbps"
+ },
+ {
+  "name": "Md. Wahid Murad T/A Anik Computer & Networking",
+  "site": "https://aniknetwork.net",
+  "asn": 135130,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://aniknetwork.net",
+  "packages": [
+   {
+    "name": "26 Mbps",
+    "mbps": 26,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "41 Mbps",
+    "mbps": 41,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "61 Mbps",
+    "mbps": 61,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "101 Mbps",
+    "mbps": 101,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "121 Mbps",
+    "mbps": 121,
+    "bdt": 1260,
+    "vat": "unknown"
+   },
+   {
+    "name": "141 Mbps",
+    "mbps": 141,
+    "bdt": 1575,
+    "vat": "unknown"
+   },
+   {
+    "name": "161 Mbps",
+    "mbps": 161,
+    "bdt": 1890,
+    "vat": "unknown"
+   },
+   {
+    "name": "201 Mbps",
+    "mbps": 201,
+    "bdt": 2100,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Mymensingh"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "MEHERPUR BROADBAND",
+  "site": "https://mb7100.net",
+  "asn": 154311,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://mb7100.net",
+  "packages": [
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 500,
+    "vat": "incl"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 525,
+    "vat": "incl"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 600,
+    "vat": "incl"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 700,
+    "vat": "incl"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 750,
+    "vat": "incl"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1000,
+    "vat": "incl"
+   },
+   {
+    "name": "120 Mbps",
+    "mbps": 120,
+    "bdt": 1200,
+    "vat": "incl"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1500,
+    "vat": "incl"
+   },
+   {
+    "name": "200 Mbps",
+    "mbps": 200,
+    "bdt": 2000,
+    "vat": "incl"
+   }
+  ],
+  "coverage": [
+   "Meherpur"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Mercury Trades",
+  "site": "https://mercurytrades.net",
+  "asn": 154058,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://mercurytrades.net",
+  "packages": [
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "excl"
+   },
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 800,
+    "vat": "excl"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 1200,
+    "vat": "excl"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 1500,
+    "vat": "excl"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1800,
+    "vat": "excl"
+   },
+   {
+    "name": "35 Mbps",
+    "mbps": 35,
+    "bdt": 2000,
+    "vat": "excl"
+   },
+   {
+    "name": "12 Mbps",
+    "mbps": 12,
+    "bdt": 880,
+    "vat": "excl"
+   },
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 1000,
+    "vat": "excl"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 1200,
+    "vat": "excl"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 1400,
+    "vat": "excl"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1600,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Mirpur"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Mesh Network",
+  "site": "https://meshnetworkbd.net/index.php/",
+  "asn": 138974,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://meshnetworkbd.net/index.php/packages/",
+  "packages": [
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 500,
+    "vat": "excl"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 550,
+    "vat": "excl"
+   },
+   {
+    "name": "45 Mbps",
+    "mbps": 45,
+    "bdt": 600,
+    "vat": "excl"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 800,
+    "vat": "excl"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1000,
+    "vat": "excl"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1200,
+    "vat": "excl"
+   },
+   {
+    "name": "120 Mbps",
+    "mbps": 120,
+    "bdt": 1500,
+    "vat": "excl"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 2000,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Ashulia",
+   "Savar"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Metaphor Digital Media",
+  "site": "https://metaphornet.net",
+  "asn": 134201,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://metaphornet.net",
+  "packages": [
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "16 Mbps",
+    "mbps": 16,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "18 Mbps",
+    "mbps": 18,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 1400,
+    "vat": "unknown"
+   },
+   {
+    "name": "55 Mbps",
+    "mbps": 55,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 1600,
+    "vat": "unknown"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 1800,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 2400,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Mirpur"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "MH Online",
+  "site": "https://mhonlinebd.com",
+  "asn": 137842,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://mhonlinebd.com",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "excl"
+   },
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "excl"
+   },
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 1000,
+    "vat": "excl"
+   },
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 1200,
+    "vat": "excl"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 1500,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Dhaka",
+   "PS: Gulshan"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Mim Online",
+  "site": "https://www.mimonlinebd.com/",
+  "asn": 135658,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://www.mimonlinebd.com/pricing/",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 700,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Ukhiya",
+   "Raozan",
+   "Chattogram"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Minara Firoz Infotech",
+  "site": "https://mfi.net.bd",
+  "asn": 132352,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://mfi.net.bd/price-table/",
+  "packages": [
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 680,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1575,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 2100,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Keraniganj",
+   "Dhaka"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Mirpur DOHS Digital Network",
+  "site": "https://mirpurdohsdigitalnetwork.com",
+  "asn": 140539,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://mirpurdohsdigitalnetwork.com",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Mirpur DOHS"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Mirpur Net",
+  "site": "https://mirpurnetbd.com",
+  "asn": 139632,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://mirpurnetbd.com/plans.php",
+  "packages": [
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "120 Mbps",
+    "mbps": 120,
+    "bdt": 1400,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Mirpur"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Mirsarai Online",
+  "site": "https://mirsaraionline.net",
+  "asn": 149807,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://mirsaraionline.net",
+  "packages": [
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1300,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1999,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 2999,
+    "vat": "unknown"
+   },
+   {
+    "name": "200 Mbps",
+    "mbps": 200,
+    "bdt": 3999,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Mirsarai",
+   "Chattogram"
+  ],
+  "notes": "last 3 gamer packages with public IP"
+ },
+ {
+  "name": "Mishu Internet",
+  "site": "https://mishuinternet.com.bd",
+  "asn": 150665,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://mishuinternet.com.bd/pages/packages/package.html",
+  "packages": [
+   {
+    "name": "5 Mbps",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "6 Mbps",
+    "mbps": 6,
+    "bdt": 560,
+    "vat": "unknown"
+   },
+   {
+    "name": "7 Mbps",
+    "mbps": 7,
+    "bdt": 620,
+    "vat": "unknown"
+   },
+   {
+    "name": "8 Mbps",
+    "mbps": 8,
+    "bdt": 680,
+    "vat": "unknown"
+   },
+   {
+    "name": "9 Mbps",
+    "mbps": 9,
+    "bdt": 740,
+    "vat": "unknown"
+   },
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "11 Mbps",
+    "mbps": 11,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "12 Mbps",
+    "mbps": 12,
+    "bdt": 880,
+    "vat": "unknown"
+   },
+   {
+    "name": "13 Mbps",
+    "mbps": 13,
+    "bdt": 920,
+    "vat": "unknown"
+   },
+   {
+    "name": "14 Mbps",
+    "mbps": 14,
+    "bdt": 960,
+    "vat": "unknown"
+   },
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "16 Mbps",
+    "mbps": 16,
+    "bdt": 1040,
+    "vat": "unknown"
+   },
+   {
+    "name": "17 Mbps",
+    "mbps": 17,
+    "bdt": 1080,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 1400,
+    "vat": "unknown"
+   },
+   {
+    "name": "26 Mbps",
+    "mbps": 26,
+    "bdt": 1440,
+    "vat": "unknown"
+   },
+   {
+    "name": "27 Mbps",
+    "mbps": 27,
+    "bdt": 1480,
+    "vat": "unknown"
+   },
+   {
+    "name": "28 Mbps",
+    "mbps": 28,
+    "bdt": 1520,
+    "vat": "unknown"
+   },
+   {
+    "name": "29 Mbps",
+    "mbps": 29,
+    "bdt": 1560,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 1600,
+    "vat": "unknown"
+   },
+   {
+    "name": "31 Mbps",
+    "mbps": 31,
+    "bdt": 1640,
+    "vat": "unknown"
+   },
+   {
+    "name": "32 Mbps",
+    "mbps": 32,
+    "bdt": 1680,
+    "vat": "unknown"
+   },
+   {
+    "name": "33 Mbps",
+    "mbps": 33,
+    "bdt": 1720,
+    "vat": "unknown"
+   },
+   {
+    "name": "34 Mbps",
+    "mbps": 34,
+    "bdt": 1760,
+    "vat": "unknown"
+   },
+   {
+    "name": "37 Mbps",
+    "mbps": 37,
+    "bdt": 1880,
+    "vat": "unknown"
+   },
+   {
+    "name": "38 Mbps",
+    "mbps": 38,
+    "bdt": 1920,
+    "vat": "unknown"
+   },
+   {
+    "name": "39 Mbps",
+    "mbps": 39,
+    "bdt": 1960,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "41 Mbps",
+    "mbps": 41,
+    "bdt": 2040,
+    "vat": "unknown"
+   },
+   {
+    "name": "42 Mbps",
+    "mbps": 42,
+    "bdt": 2080,
+    "vat": "unknown"
+   },
+   {
+    "name": "43 Mbps",
+    "mbps": 43,
+    "bdt": 2120,
+    "vat": "unknown"
+   },
+   {
+    "name": "44 Mbps",
+    "mbps": 44,
+    "bdt": 2160,
+    "vat": "unknown"
+   },
+   {
+    "name": "45 Mbps",
+    "mbps": 45,
+    "bdt": 2200,
+    "vat": "unknown"
+   },
+   {
+    "name": "46 Mbps",
+    "mbps": 46,
+    "bdt": 2240,
+    "vat": "unknown"
+   },
+   {
+    "name": "47 Mbps",
+    "mbps": 47,
+    "bdt": 2280,
+    "vat": "unknown"
+   },
+   {
+    "name": "48 Mbps",
+    "mbps": 48,
+    "bdt": 2320,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 2400,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka",
+   "Tejgaon I/A"
+  ],
+  "notes": "1 Mbps steps; only a clean subset of tiers recorded"
+ },
+ {
+  "name": "MKZ Online",
+  "site": "https://mkzonline.net",
+  "asn": 142155,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://mkzonline.net",
+  "packages": [
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "35 Mbps",
+    "mbps": 35,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "200 Mbps",
+    "mbps": 200,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "250 Mbps",
+    "mbps": 250,
+    "bdt": 3000,
+    "vat": "unknown"
+   },
+   {
+    "name": "300 Mbps",
+    "mbps": 300,
+    "bdt": 4000,
+    "vat": "unknown"
+   },
+   {
+    "name": "350 Mbps",
+    "mbps": 350,
+    "bdt": 4500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka",
+   "PS: Tejgaon"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Modern Communication",
+  "site": "https://moderncommunication.net",
+  "asn": 151183,
+  "is_home_isp": false,
+  "status": "not-isp",
+  "packages_source": "https://moderncommunication.net",
+  "packages": [],
+  "coverage": [
+   "Khulna"
+  ],
+  "notes": "page is an Indonesian online gambling spam site"
+ },
+ {
+  "name": "Moghbazar Dot Net",
+  "site": "https://moghbazar.net",
+  "asn": 141745,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://moghbazar.net/plans.php",
+  "packages": [
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 500,
+    "vat": "excl"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 600,
+    "vat": "excl"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 800,
+    "vat": "excl"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 1000,
+    "vat": "excl"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1200,
+    "vat": "excl"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1500,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Moghbazar",
+   "Dhaka"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Mohammad Didarul Kader",
+  "site": "https://didarit.com",
+  "asn": 137492,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://didarit.com",
+  "packages": [
+   {
+    "name": "10 Mbps",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Savar"
+  ],
+  "notes": "15 and 20 Mbps: call for price"
+ },
+ {
+  "name": "Mohammad Ohid Ullah Bhuiyan t/a The Winner IT",
+  "site": "https://winneritbd.com",
+  "asn": 136562,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://winneritbd.com/homePackages.php",
+  "packages": [
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 1575,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 2100,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 3150,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 3675,
+    "vat": "unknown"
+   },
+   {
+    "name": "200 Mbps",
+    "mbps": 200,
+    "bdt": 4200,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "?"
+  ],
+  "notes": "\"start from\" prices"
+ },
+ {
+  "name": "Mohammad Shahajahan",
+  "site": "https://progotiit.com/",
+  "asn": 137252,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://progotiit.com/internet-packages/",
+  "packages": [
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1600,
+    "vat": "unknown"
+   },
+   {
+    "name": "200 Mbps",
+    "mbps": 200,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Narayanganj"
+  ],
+  "notes": ""
+ }
+]

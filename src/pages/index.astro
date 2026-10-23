@@ -1,4 +1,5 @@
 ---
+import { DISTRICTS, PROVIDERS } from '../lib/directory';
 import Base from '../layouts/Base.astro';
 import SpeedTest from '../components/SpeedTest';
 import RankTable from '../components/RankTable.astro';
@@ -6,6 +7,8 @@ import { sql } from '../lib/db';
 import { leaderboard, MIN_DEVICES } from '../lib/stats';
 import { mapData } from '../lib/mapData';
 
+const districtSlugs = DISTRICTS.map(d => d.slug);
+const bySlug = new Map(PROVIDERS.map(i => [i.slug, i]));
 const [isps, [totals], board, map] = await Promise.all([
   sql<{ id: number; name: string; slug: string; aliases: string[] }[]>`select id, name, slug, aliases from isps where approved order by id`,
   sql<{ tests: number; devices: number; isps: number; areas: number }[]>`
@@ -20,12 +23,12 @@ const faq = [
   ['Which ISP is the best in Dhaka?', 'It depends on where you live. The same provider can be excellent in Gulshan and poor in Mirpur, because each area is served by different local lines and resellers. Pick your area on the map or the rankings page to see which providers actually perform well there.'],
   ['What exactly does the test measure?', 'Download speed, upload speed, ping and jitter between your device and Cloudflare’s server in Dhaka. That is the domestic path, which covers the locally cached content most big sites serve. It does not measure speed to servers abroad, so it cannot tell you how overseas games or downloads will perform.'],
   ['Why is my speed lower than the package I pay for?', 'Common causes: you are on 2.4 GHz Wi-Fi or far from the router, other people are using the connection, it is peak time (8 pm to midnight), or your ISP shares its bandwidth among too many customers. Test on a cable to rule out Wi-Fi, then compare your result with others on the same ISP in your area.'],
-  ['Is the test anonymous?', 'Yes. There is no account. We store your results, the area you chose, the name of the network your connection came from, and a hashed (scrambled) IP used only to prevent abuse. If you drop a pin, it is rounded to about 500 metres before saving.'],
-  ['How do you stop ISPs from faking results?', 'Every device counts once per ISP no matter how many tests it runs. Tests made over mobile data or a VPN are detected and excluded. Reviews can only be posted from a device that ran a test on that ISP. Rankings use medians, so a few extreme results cannot move them.'],
+  ['Is the test anonymous?', 'Yes. There is no account. We store your results, the area you chose, the name of the network your connection came from, and a hashed (scrambled) IP used to prevent abuse and suggest providers from anonymous local choices. If you drop a pin, it is rounded to about 500 metres before saving.'],
+  ['How do you stop ISPs from faking results?', 'Every device counts once per ISP no matter how many tests it runs. Phone mobile data and foreign IPs are excluded. Fixed wireless home internet, such as gpfi, is included only when declared as a home-router connection. Reviews can only be posted from a device that ran a test on that ISP. Rankings use medians, so a few extreme results cannot move them.'],
 ];
 const schema = [
   { '@type': 'WebApplication', name: 'WifiRank Speed Test', url: Astro.site?.href, applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any',
-    offers: { '@type': 'Offer', price: 0, priceCurrency: 'BDT' }, areaServed: { '@type': 'City', name: 'Dhaka' } },
+    offers: { '@type': 'Offer', price: 0, priceCurrency: 'BDT' }, areaServed: { '@type': 'Country', name: 'Bangladesh' } },
   { '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
 ];
 const n = (v: number) => v.toLocaleString('en');
@@ -33,7 +36,7 @@ const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
 ---
 <Base schema={schema} jsonAlt="/api/stats" dither={false}>
   <section class="hero">
-    <SpeedTest client:load isps={isps.map(({ id, name, aliases }) => ({ id, name, aliases }))} areas={map.areas}>
+    <SpeedTest client:load providers={isps.map(({ id, name, aliases, slug }) => [id, name, aliases.filter(a => a !== name), (bySlug.get(slug)?.districts ?? []).map(d => districtSlugs.indexOf(d)).join(','), bySlug.get(slug)?.nationwide ? 1 : 0, bySlug.get(slug)?.tech === 'fwa' ? 1 : 0])} districtSlugs={districtSlugs} areas={map.areas}>
       <h1 aria-label="How fast is your internet, really?">
         {headline.map((w, i) => <><span aria-hidden="true" style={`--i:${i}`}>{w}</span>{i === 1 || i === 3 ? <br /> : ' '}</>)}
       </h1>
@@ -59,10 +62,10 @@ const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
     <section class="wrap block">
       <div class="sec-head reveal">
         <h2><span class="hl">Rankings</span></h2>
-        <p>The fastest providers across Dhaka right now, by median download speed over the last 90 days.</p>
+        <p>The fastest providers across Bangladesh right now, by median download speed over the last 90 days.</p>
         <a class="btn" href="/isps">All {board.length} providers</a>
       </div>
-      <div class="reveal"><RankTable rows={top} caption="Fastest internet providers across Dhaka by median download speed" /></div>
+      <div class="reveal"><RankTable rows={top} caption="Fastest internet providers across Bangladesh by median download speed" /></div>
     </section>
   )}
 

@@ -1,20 +1,27 @@
 ---
+import { DISTRICTS, PROVIDERS } from '../lib/directory';
 import Base from '../layouts/Base.astro';
 import DhakaMap from '../components/DhakaMap';
 import { sql } from '../lib/db';
 import { mapData } from '../lib/mapData';
 
 const ispSlug = Astro.url.searchParams.get('isp');
+const districtSlugs = DISTRICTS.map(d => d.slug);
+const districtIndexes = new Map(districtSlugs.map((slug, index) => [slug, index]));
+const bySlug = new Map(PROVIDERS.map(i => [i.slug, i]));
 const [isps, data] = await Promise.all([
   sql<{ slug: string; name: string }[]>`select slug, name from isps where approved order by id`,
   mapData(sql, ispSlug),
 ]);
 const tested = data.areas.filter((a) => a.devices > 0).sort((a, b) => b.devices - a.devices);
 ---
-<Base title="Dhaka internet speed map" bare jsonAlt="/api/map"
-  description="Interactive map of internet speed across Dhaka. See median download speed, upload speed and ping for every neighbourhood, filter by provider, and find the fastest ISP where you live.">
-  <h1 class="sr-only">Dhaka internet speed map</h1>
-  <DhakaMap client:load initial={data} isps={[...isps]} />
+<Base title="Bangladesh internet speed map" bare jsonAlt="/api/map"
+  description="Interactive map of internet speed across Bangladesh. See median download speed, upload speed and ping for every neighbourhood, filter by provider, and find the fastest ISP where you live.">
+  <h1 class="sr-only">Bangladesh internet speed map</h1>
+  <DhakaMap client:load initial={data} providers={isps.map(({ slug, name }) => {
+    const provider = bySlug.get(slug);
+    return [slug, name, (provider?.districts ?? []).map(d => districtIndexes.get(d) ?? -1).join(','), provider?.nationwide ? 1 : 0];
+  })} districtSlugs={districtSlugs} />
   <!-- Same data as text, for search engines, agents and screen readers -->
   <section class="wrap block">
     <div class="sec-head"><h2><span class="hl">Speed by area</span></h2><p>The same data as the map, as a list. {tested.length} of {data.areas.length} areas have tests so far.</p></div>

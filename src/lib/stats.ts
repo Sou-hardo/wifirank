@@ -1,6 +1,7 @@
 // Type-only imports, so scripts/check.ts can run this under plain node.
 // Each device counts once: per-device median first, then median across devices.
 import type { Sql } from 'postgres';
+import districts from '../../data/districts.json' with { type: 'json' };
 
 export const METRICS = ['local_down', 'local_up', 'local_ping', 'local_jitter', 'local_loss'] as const;
 export type Metric = (typeof METRICS)[number];
@@ -13,13 +14,15 @@ const acrossDevices = METRICS.map((m) => `${median(m)}::real as ${m}`).join(', '
 // Below this many distinct devices, stats are greyed out and not ranked.
 export const MIN_DEVICES = 5;
 
-type Filter = { area?: string | null; plan?: string | null; ispId?: number | null; peak?: boolean | null };
+type Filter = { accessType?: 'fixed_line' | 'fixed_wireless' | null; district?: string | null; area?: string | null; plan?: string | null; ispId?: number | null; peak?: boolean | null };
 
 // Peak = 20:00–23:59 Dhaka time, when congestion shows.
 function where(sql: Sql, f: Filter) {
   return sql`
     t.flag is null and t.created_at > now() - interval '90 days'
+    ${f.accessType ? sql`and t.access_type = ${f.accessType}` : sql``}
     ${f.area ? sql`and t.area = ${f.area}` : sql``}
+    ${f.district ? f.district === 'dhaka' ? sql`and (t.area = 'dhaka' or t.area not in ${sql(districts.map(d => d.slug))})` : sql`and t.area = ${f.district}` : sql``}
     ${f.plan ? sql`and t.plan = ${f.plan}` : sql``}
     ${f.ispId ? sql`and t.isp_id = ${f.ispId}` : sql``}
     ${f.peak == null ? sql`` : sql`and (extract(hour from t.created_at at time zone 'Asia/Dhaka') >= 20) = ${f.peak}`}`;
@@ -59,9 +62,9 @@ export async function byArea(sql: Sql, f: Filter) {
 
 // Individual results for the map and "latest results" feed. Coordinates are already ~500 m rounded.
 export async function recent(sql: Sql, f: Filter & { limit: number; located?: boolean }) {
-  return sql<{ id: number; isp: string; slug: string; area: string; lat: number | null; lng: number | null; connection: string;
+  return sql<{ id: number; isp: string; slug: string; area: string; lat: number | null; lng: number | null; connection: string; access_type: string;
     local_down: number | null; local_up: number | null; local_ping: number | null; created_at: Date }[]>`
-    select t.id, i.name as isp, i.slug, t.area, t.lat, t.lng, t.connection, t.local_down, t.local_up, t.local_ping, t.created_at
+    select t.id, i.name as isp, i.slug, t.area, t.lat, t.lng, t.connection, t.access_type, t.local_down, t.local_up, t.local_ping, t.created_at
     from tests t join isps i on i.id = t.isp_id
     where ${where(sql, f)} and i.approved ${f.located ? sql`and t.lat is not null` : sql``}
     order by t.created_at desc limit ${f.limit}`;

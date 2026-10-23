@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import Directory from '../../components/Directory.astro';
+import RankTable from '../../components/RankTable.astro';
+import { DISTRICTS } from '../../lib/directory';
+import { AREAS } from '../../lib/options';
+import { sql } from '../../lib/db';
+import { leaderboard } from '../../lib/stats';
+const district = DISTRICTS.find(d => d.slug === Astro.params.slug);
+if (!district) return new Response(null, { status: 404 });
+const rows = await leaderboard(sql, { district: district.slug });
+---
+<Base title={`Internet providers in ${district.name}`} description={`Find ISPs, published packages and measured internet speeds in ${district.name}, ${district.division}, Bangladesh.`}>
+  <section class="wrap" style="padding-top:clamp(24px,4vw,48px)">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/isps">Providers</a><span>/</span>{district.name}</nav>
+    <h1>Internet providers in {district.name}</h1>
+    <p class="lede">{district.division} division · Bangladesh</p>
+    <Directory district={district.slug} />
+    <h2 style="margin-top:48px">Measured speeds in {district.name}</h2>
+    {rows.length ? <RankTable rows={rows} caption={`Measured speeds in ${district.name}`} /> : <p>No speed tests here yet. <a href="/">Add the first test.</a></p>}
+    {district.slug === 'dhaka' && <details><summary>Dhaka neighbourhoods</summary><nav class="chips">{Object.entries(AREAS).filter(([s]) => !DISTRICTS.some(d => d.slug === s)).map(([s,n]) => <a href={`/area/${s}`}>{n}</a>)}</nav></details>}
+  </section>
+</Base>

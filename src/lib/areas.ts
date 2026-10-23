@@ -1,7 +1,8 @@
+import districts from '../../data/districts.json';
 import coords from '../../data/areas.json';
 import { AREAS } from './options';
 
-export const AREA_COORDS = coords as unknown as Record<string, [number, number]>;
+export const AREA_COORDS = { ...coords, ...Object.fromEntries(districts.map(d => [d.slug, [d.lat, d.lon]])) } as unknown as Record<string, [number, number]>;
 
 // Nearest listed area to a tapped/GPS point. Plain lat/lng distance is fine at city scale.
 export function nearestArea(lat: number, lng: number) {

@@ -1,0 +1,2216 @@
+[
+ {
+  "name": "Desh Communications",
+  "site": "https://deshcommunications.net",
+  "asn": 140612,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://deshcommunications.net/package/home",
+  "packages": [
+   {
+    "name": "Basic",
+    "mbps": 30,
+    "bdt": 525,
+    "vat": "incl"
+   },
+   {
+    "name": "Blaze",
+    "mbps": 40,
+    "bdt": 630,
+    "vat": "incl"
+   },
+   {
+    "name": "Bronze",
+    "mbps": 50,
+    "bdt": 735,
+    "vat": "incl"
+   },
+   {
+    "name": "Comfort",
+    "mbps": 60,
+    "bdt": 840,
+    "vat": "incl"
+   },
+   {
+    "name": "Turbo",
+    "mbps": 100,
+    "bdt": 1050,
+    "vat": "incl"
+   },
+   {
+    "name": "Signature",
+    "mbps": 130,
+    "bdt": 1260,
+    "vat": "incl"
+   },
+   {
+    "name": "Gold",
+    "mbps": 150,
+    "bdt": 1575,
+    "vat": "incl"
+   },
+   {
+    "name": "Platinum",
+    "mbps": 200,
+    "bdt": 2100,
+    "vat": "incl"
+   },
+   {
+    "name": "Diamond",
+    "mbps": 250,
+    "bdt": 3150,
+    "vat": "incl"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": "Gaming 1575 skipped; list may continue past 250"
+ },
+ {
+  "name": "Desh Online",
+  "site": "https://deshonlinebd.net",
+  "asn": 153478,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://deshonlinebd.net",
+  "packages": [
+   {
+    "name": "10Mbps",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "20Mbps",
+    "mbps": 20,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "30Mbps",
+    "mbps": 30,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "40Mbps",
+    "mbps": 40,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "45Mbps",
+    "mbps": 45,
+    "bdt": 900,
+    "vat": "unknown"
+   },
+   {
+    "name": "50Mbps",
+    "mbps": 50,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "60Mbps",
+    "mbps": 60,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "65Mbps",
+    "mbps": 65,
+    "bdt": 1400,
+    "vat": "unknown"
+   },
+   {
+    "name": "70Mbps",
+    "mbps": 70,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "75Mbps",
+    "mbps": 75,
+    "bdt": 1800,
+    "vat": "unknown"
+   },
+   {
+    "name": "80Mbps",
+    "mbps": 80,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "90Mbps",
+    "mbps": 90,
+    "bdt": 2500,
+    "vat": "unknown"
+   },
+   {
+    "name": "100Mbps",
+    "mbps": 100,
+    "bdt": 3000,
+    "vat": "unknown"
+   },
+   {
+    "name": "110Mbps",
+    "mbps": 110,
+    "bdt": 3500,
+    "vat": "unknown"
+   },
+   {
+    "name": "120Mbps",
+    "mbps": 120,
+    "bdt": 4000,
+    "vat": "unknown"
+   },
+   {
+    "name": "130Mbps",
+    "mbps": 130,
+    "bdt": 4500,
+    "vat": "unknown"
+   },
+   {
+    "name": "140Mbps",
+    "mbps": 140,
+    "bdt": 5000,
+    "vat": "unknown"
+   },
+   {
+    "name": "150Mbps",
+    "mbps": 150,
+    "bdt": 5500,
+    "vat": "unknown"
+   },
+   {
+    "name": "160Mbps",
+    "mbps": 160,
+    "bdt": 6000,
+    "vat": "unknown"
+   },
+   {
+    "name": "200Mbps",
+    "mbps": 200,
+    "bdt": 7000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Adabor",
+   "Dhaka",
+   "Mohammadpur",
+   "PS: Badda"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "DeshNet Broadband",
+  "site": "https://deshnetbd.com",
+  "asn": 140711,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://deshnetbd.com",
+  "packages": [
+   {
+    "name": "P1",
+    "mbps": 20,
+    "bdt": 550,
+    "vat": "unknown"
+   },
+   {
+    "name": "HD1",
+    "mbps": 100,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "HD2",
+    "mbps": 120,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "HD3",
+    "mbps": 150,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "HD5 Legend",
+    "mbps": 200,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "HD6 Super",
+    "mbps": 250,
+    "bdt": 2500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Rangpur"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Dhamrai Network",
+  "site": "https://dhamrainetwork.net",
+  "asn": 140843,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://dhamrainetwork.net",
+  "packages": [
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 735,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhamrai",
+   "Savar"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Digi Net",
+  "site": "https://diginet.com.bd",
+  "asn": 139854,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://diginet.com.bd",
+  "packages": [
+   {
+    "name": "Starter",
+    "mbps": 25,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Speedy",
+    "mbps": 30,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Turbo",
+    "mbps": 40,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Flash",
+    "mbps": 50,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Storm",
+    "mbps": 80,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Mega",
+    "mbps": 100,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Ultra",
+    "mbps": 150,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Lightning",
+    "mbps": 200,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Supersonic",
+    "mbps": 250,
+    "bdt": 3000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Galaxy",
+    "mbps": 300,
+    "bdt": 4000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Chattogram",
+   "Dhaka",
+   "Gulshan"
+  ],
+  "notes": "Home/corporate tabs; scraped list may mix some corporate tiers"
+ },
+ {
+  "name": "Digital One Broadband Internet Service",
+  "site": "https://digitalonebd.net",
+  "asn": 139326,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://digitalonebd.net/packages",
+  "packages": [
+   {
+    "name": "Basic",
+    "mbps": 6,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Silver",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gold",
+    "mbps": 12,
+    "bdt": 880,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [],
+  "notes": "VIP 15Mbps 1000 labelled corporate, skipped"
+ },
+ {
+  "name": "DIGITALBD.NET",
+  "site": "https://digitalbdnet.com",
+  "asn": 147175,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://digitalbdnet.com",
+  "packages": [
+   {
+    "name": "Gold",
+    "mbps": 20,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "Platinum",
+    "mbps": 50,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "Diamond",
+    "mbps": 100,
+    "bdt": 1575,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Narayanganj",
+   "Siddhirganj",
+   "Rupganj"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Digonto Communication Network",
+  "site": "https://digontonet.com",
+  "asn": 154352,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://digontonet.com/packages.php",
+  "packages": [
+   {
+    "name": "Starter",
+    "mbps": 15,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "P-2",
+    "mbps": 20,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "P-3",
+    "mbps": 25,
+    "bdt": 735,
+    "vat": "unknown"
+   },
+   {
+    "name": "P-4",
+    "mbps": 30,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "P-5",
+    "mbps": 35,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gold",
+    "mbps": 40,
+    "bdt": 1260,
+    "vat": "unknown"
+   },
+   {
+    "name": "P-6",
+    "mbps": 50,
+    "bdt": 1575,
+    "vat": "unknown"
+   },
+   {
+    "name": "P-7",
+    "mbps": 80,
+    "bdt": 1890,
+    "vat": "unknown"
+   },
+   {
+    "name": "Daimod+",
+    "mbps": 100,
+    "bdt": 2100,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Digraj Internet Service Provider",
+  "site": "https://dispmongla.com",
+  "asn": 150729,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://dispmongla.com",
+  "packages": [
+   {
+    "name": "Starter",
+    "mbps": 7,
+    "bdt": 500,
+    "vat": "excl"
+   },
+   {
+    "name": "Regular",
+    "mbps": 10,
+    "bdt": 700,
+    "vat": "excl"
+   },
+   {
+    "name": "Premium",
+    "mbps": 20,
+    "bdt": 1400,
+    "vat": "excl"
+   },
+   {
+    "name": "Business",
+    "mbps": 30,
+    "bdt": 2000,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Digraj",
+   "Mongla"
+  ],
+  "notes": "Names/speeds mapping from page is approximate; prices \"+VAT\""
+ },
+ {
+  "name": "Discovery Internet",
+  "site": "https://discoverynetbd.com",
+  "asn": 134562,
+  "is_home_isp": true,
+  "status": "no-prices",
+  "packages_source": "https://discoverynetbd.com",
+  "packages": [],
+  "coverage": [
+   "Narsingdi",
+   "Madhabdi"
+  ],
+  "notes": "Home internet offered; only \"from 525 Tk/month\" seen, no package list"
+ },
+ {
+  "name": "DNet",
+  "site": "https://dnet.com.bd",
+  "asn": 134506,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://dnet.com.bd",
+  "packages": [
+   {
+    "name": "Sprout",
+    "mbps": 18,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "Cub",
+    "mbps": 31,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "Turbo Extreme",
+    "mbps": 51,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "Flash Extreme",
+    "mbps": 61,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "Jet Extreme",
+    "mbps": 71,
+    "bdt": 1260,
+    "vat": "unknown"
+   },
+   {
+    "name": "Star",
+    "mbps": 81,
+    "bdt": 1575,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Mymensingh",
+   "Sherpur"
+  ],
+  "notes": "Further tiers behind Load More; gaming tiers skipped"
+ },
+ {
+  "name": "Dour Net",
+  "site": "https://dournet.com",
+  "asn": 152932,
+  "is_home_isp": false,
+  "status": "no-prices",
+  "packages_source": "https://dournet.com/pricing/",
+  "packages": [],
+  "coverage": [
+   "Ashulia",
+   "Savar"
+  ],
+  "notes": "Template site with lorem ipsum, New York USD prices; not a real BD ISP page"
+ },
+ {
+  "name": "E-Max Communication",
+  "site": "https://emaxcommunication.com",
+  "asn": 147032,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://emaxcommunication.com",
+  "packages": [
+   {
+    "name": "Classic 1",
+    "mbps": 15,
+    "bdt": 500,
+    "vat": "excl"
+   },
+   {
+    "name": "Premium 2",
+    "mbps": 20,
+    "bdt": 650,
+    "vat": "excl"
+   },
+   {
+    "name": "Express 3",
+    "mbps": 35,
+    "bdt": 800,
+    "vat": "excl"
+   },
+   {
+    "name": "Power 4",
+    "mbps": 45,
+    "bdt": 1000,
+    "vat": "excl"
+   },
+   {
+    "name": "Ultra 5",
+    "mbps": 55,
+    "bdt": 1200,
+    "vat": "excl"
+   },
+   {
+    "name": "Sky 6",
+    "mbps": 65,
+    "bdt": 1500,
+    "vat": "excl"
+   },
+   {
+    "name": "Silver 7",
+    "mbps": 75,
+    "bdt": 1700,
+    "vat": "excl"
+   },
+   {
+    "name": "Gold 8",
+    "mbps": 85,
+    "bdt": 2000,
+    "vat": "excl"
+   },
+   {
+    "name": "Diamond 9",
+    "mbps": 100,
+    "bdt": 2500,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Jashore"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "E-Village",
+  "site": "https://evillagectg.com",
+  "asn": 138171,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://evillagectg.com",
+  "packages": [
+   {
+    "name": "Basic Plus",
+    "mbps": 30,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Lite",
+    "mbps": 50,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Standard",
+    "mbps": 100,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium",
+    "mbps": 120,
+    "bdt": 1200,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Chattogram"
+  ],
+  "notes": "SME tiers skipped"
+ },
+ {
+  "name": "E.B Solutions Ltd.",
+  "site": "https://fnfbd.net",
+  "asn": 132099,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://fnfbd.net",
+  "packages": [
+   {
+    "name": "Sprinkle",
+    "mbps": 80,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Shower",
+    "mbps": 100,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Monsoon",
+    "mbps": 150,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Thunder",
+    "mbps": 150,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Chattogram",
+   "Panchlaish"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Eirtel Services Ltd.",
+  "site": "https://udayanonlineltd.com",
+  "asn": 136276,
+  "is_home_isp": true,
+  "status": "no-prices",
+  "packages_source": "https://udayanonlineltd.com/packages",
+  "packages": [],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": "Home fiber packages page loads prices dynamically (not in HTML)"
+ },
+ {
+  "name": "Elma Multimedia",
+  "site": "https://elmamultimedia.com",
+  "asn": 149638,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://elmamultimedia.com",
+  "packages": [
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 780,
+    "vat": "unknown"
+   },
+   {
+    "name": "90 Mbps",
+    "mbps": 90,
+    "bdt": 980,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "120 Mbps",
+    "mbps": 120,
+    "bdt": 1150,
+    "vat": "unknown"
+   },
+   {
+    "name": "140 Mbps",
+    "mbps": 140,
+    "bdt": 1360,
+    "vat": "unknown"
+   },
+   {
+    "name": "160 Mbps",
+    "mbps": 160,
+    "bdt": 1575,
+    "vat": "unknown"
+   },
+   {
+    "name": "200 Mbps",
+    "mbps": 200,
+    "bdt": 2200,
+    "vat": "unknown"
+   },
+   {
+    "name": "250 Mbps",
+    "mbps": 250,
+    "bdt": 2800,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Entrain BD",
+  "site": "https://entrainbd.com",
+  "asn": 151987,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "http://entrainbd.com/packages.html",
+  "packages": [
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 650,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "All BD (claimed)"
+  ],
+  "notes": "https fails; http works; brand DB Technologies"
+ },
+ {
+  "name": "Eris",
+  "site": "https://erisbd.net",
+  "asn": 134495,
+  "is_home_isp": false,
+  "status": "dead",
+  "packages_source": "http://erisbd.net",
+  "packages": [],
+  "coverage": [
+   "Khulna"
+  ],
+  "notes": "Domain bound to no website (aaPanel placeholder)"
+ },
+ {
+  "name": "Evan Ahmed Bhuiyan t/a APON IT",
+  "site": "https://aponit.com",
+  "asn": 132438,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://aponit.com",
+  "packages": [
+   {
+    "name": "Home Lite",
+    "mbps": 30,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Home Standard",
+    "mbps": 50,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Home Max",
+    "mbps": 80,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium Lite",
+    "mbps": 100,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium Standard",
+    "mbps": 130,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium Max",
+    "mbps": 150,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka",
+   "Rayer Bazar",
+   "Hazaribagh",
+   "Zigatola",
+   "Tali"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Excell Broadband",
+  "site": "https://excellbd.com",
+  "asn": 151963,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://excellbd.com",
+  "packages": [
+   {
+    "name": "5Mbs",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "15Mbs",
+    "mbps": 15,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "20Mbs",
+    "mbps": 20,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "30Mbs",
+    "mbps": 30,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka",
+   "PS: Rampura"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Extreme Communication",
+  "site": "https://extreme-communication.net",
+  "asn": 150408,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://extreme-communication.net",
+  "packages": [
+   {
+    "name": "Mercury",
+    "mbps": 10,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Mars",
+    "mbps": 15,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Venus",
+    "mbps": 20,
+    "bdt": 1300,
+    "vat": "unknown"
+   },
+   {
+    "name": "Neptune",
+    "mbps": 25,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Saturn",
+    "mbps": 30,
+    "bdt": 1800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Jupiter",
+    "mbps": 40,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Narayanganj"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "F.T Link BD",
+  "site": "https://ftlinkbd.com",
+  "asn": 149860,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://ftlinkbd.com",
+  "packages": [
+   {
+    "name": "20 Mbps",
+    "mbps": 20,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 750,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "60 Mbps",
+    "mbps": 60,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "80 Mbps",
+    "mbps": 80,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Kishoreganj"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Fahin Online",
+  "site": "https://fahinonlinebd.com",
+  "asn": 152929,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://fahinonlinebd.com",
+  "packages": [
+   {
+    "name": "Starter",
+    "mbps": 30,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Regular",
+    "mbps": 40,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Advance",
+    "mbps": 50,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Superstar",
+    "mbps": 80,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium",
+    "mbps": 90,
+    "bdt": 900,
+    "vat": "unknown"
+   },
+   {
+    "name": "Extraordinary",
+    "mbps": 100,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Chandina",
+   "Cumilla"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Faridgonj Broadband",
+  "site": "https://faridgonjbroadband.net",
+  "asn": 150435,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://faridgonjbroadband.net",
+  "packages": [
+   {
+    "name": "Basic",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Starter",
+    "mbps": 15,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Home",
+    "mbps": 20,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Business",
+    "mbps": 25,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Ultimate",
+    "mbps": 30,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Faridgonj",
+   "Chandpur"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Fast Link BD Dotnet",
+  "site": "https://fastlinkbd.net",
+  "asn": 136275,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://fastlinkbd.net",
+  "packages": [
+   {
+    "name": "Starter",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Standard",
+    "mbps": 15,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Advance",
+    "mbps": 20,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gold",
+    "mbps": 30,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Platinum",
+    "mbps": 50,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Diamond",
+    "mbps": 80,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": "SME tiers skipped"
+ },
+ {
+  "name": "Fast Net Rajbari",
+  "site": "https://fastnetrajbari.net",
+  "asn": 142158,
+  "is_home_isp": false,
+  "status": "dead",
+  "packages_source": "https://fastnetrajbari.net",
+  "packages": [],
+  "coverage": [
+   "Rajbari",
+   "Rajbari Sadar"
+  ],
+  "notes": "Domain serves hijacked gambling spam content"
+ },
+ {
+  "name": "Fast Network",
+  "site": "https://fastnetwork.com.bd",
+  "asn": 142058,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "http://fastnetwork.com.bd",
+  "packages": [
+   {
+    "name": "Basic",
+    "mbps": 50,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gold",
+    "mbps": 70,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Diamond",
+    "mbps": 100,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Platinum",
+    "mbps": 120,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": "https fails; page also advertises dark fiber"
+ },
+ {
+  "name": "Faster Communication",
+  "site": "https://fconlinectg.com",
+  "asn": 140668,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://fconlinectg.com",
+  "packages": [
+   {
+    "name": "15 Mbps",
+    "mbps": 15,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "25 Mbps",
+    "mbps": 25,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "70 Mbps",
+    "mbps": 70,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "120 Mbps",
+    "mbps": 120,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "200 Mbps SME",
+    "mbps": 200,
+    "bdt": 1200,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Chattogram"
+  ],
+  "notes": "Package labels vs speeds inconsistent on site; used the Internet: speed"
+ },
+ {
+  "name": "Feni Cyber Link",
+  "site": "https://fenicyberlink.com",
+  "asn": 150302,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://fenicyberlink.com",
+  "packages": [
+   {
+    "name": "Basic",
+    "mbps": 30,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "Standard",
+    "mbps": 50,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium",
+    "mbps": 80,
+    "bdt": 1050,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Feni"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Feni Easy Net / ISP",
+  "site": "https://fenieasy.net",
+  "asn": 138638,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://fenieasy.net",
+  "packages": [
+   {
+    "name": "Velocity",
+    "mbps": 10,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Quantum",
+    "mbps": 20,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Stellar",
+    "mbps": 50,
+    "bdt": 2500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Feni"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Fiber Net",
+  "site": "https://mango.com.bd",
+  "asn": 138157,
+  "is_home_isp": false,
+  "status": "not-isp",
+  "packages_source": "https://mango.com.bd",
+  "packages": [],
+  "coverage": [
+   "Cumilla",
+   "Cumilla Sadar",
+   "Dhaka"
+  ],
+  "notes": "Mango Teleservices: corporate bandwidth/IPLC/data centre, no home packages"
+ },
+ {
+  "name": "FIC Technologies",
+  "site": "https://fictechbd.com",
+  "asn": 151064,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://fictechbd.com",
+  "packages": [
+   {
+    "name": "Package-1",
+    "mbps": 15,
+    "bdt": 500,
+    "vat": "excl"
+   },
+   {
+    "name": "Package-2",
+    "mbps": 20,
+    "bdt": 600,
+    "vat": "excl"
+   },
+   {
+    "name": "Package-3",
+    "mbps": 25,
+    "bdt": 700,
+    "vat": "excl"
+   },
+   {
+    "name": "Package-4",
+    "mbps": 30,
+    "bdt": 800,
+    "vat": "excl"
+   },
+   {
+    "name": "Package-5",
+    "mbps": 40,
+    "bdt": 1000,
+    "vat": "excl"
+   },
+   {
+    "name": "Package-6",
+    "mbps": 50,
+    "bdt": 1200,
+    "vat": "excl"
+   },
+   {
+    "name": "Package-7",
+    "mbps": 70,
+    "bdt": 1500,
+    "vat": "excl"
+   },
+   {
+    "name": "Package-8",
+    "mbps": 100,
+    "bdt": 2000,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Bangshal",
+   "Dhaka"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "FL Online",
+  "site": "https://flonlinebd.com",
+  "asn": 150799,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://flonlinebd.com",
+  "packages": [
+   {
+    "name": "Starter",
+    "mbps": 60,
+    "bdt": 600,
+    "vat": "excl"
+   },
+   {
+    "name": "Silver",
+    "mbps": 80,
+    "bdt": 700,
+    "vat": "excl"
+   },
+   {
+    "name": "Gold",
+    "mbps": 100,
+    "bdt": 800,
+    "vat": "excl"
+   },
+   {
+    "name": "Platinum",
+    "mbps": 150,
+    "bdt": 1000,
+    "vat": "excl"
+   },
+   {
+    "name": "Ultimate",
+    "mbps": 200,
+    "bdt": 1200,
+    "vat": "excl"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Flashnet Enterprise",
+  "site": "https://flashnetbd.org/",
+  "asn": 137067,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://flashnetbd.org/packages.php",
+  "packages": [
+   {
+    "name": "Student",
+    "mbps": 25,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Student Plus",
+    "mbps": 50,
+    "bdt": 650,
+    "vat": "unknown"
+   },
+   {
+    "name": "Family",
+    "mbps": 70,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Family Plus",
+    "mbps": 80,
+    "bdt": 850,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gamer",
+    "mbps": 90,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gamer Pro",
+    "mbps": 100,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "Freelancer",
+    "mbps": 120,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Professional",
+    "mbps": 150,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Gold",
+    "mbps": 180,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Flynet BD Dot Com",
+  "site": "https://flynetbddotcom.net",
+  "asn": 154872,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://flynetbddotcom.net",
+  "packages": [
+   {
+    "name": "Package 1",
+    "mbps": 25,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 2",
+    "mbps": 30,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 3",
+    "mbps": 40,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 4",
+    "mbps": 50,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 5",
+    "mbps": 60,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 6",
+    "mbps": 80,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 7",
+    "mbps": 100,
+    "bdt": 1800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Package 8",
+    "mbps": 120,
+    "bdt": 2000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka",
+   "Uttara (West)"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Flynet Networking System",
+  "site": "https://flynet.com.bd",
+  "asn": 152446,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://flynet.com.bd",
+  "packages": [
+   {
+    "name": "Easy Pack-1",
+    "mbps": 25,
+    "bdt": 530,
+    "vat": "unknown"
+   },
+   {
+    "name": "Easy Pack-2",
+    "mbps": 40,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "Easy Pack-3",
+    "mbps": 50,
+    "bdt": 740,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Mymensingh"
+  ],
+  "notes": "Public IP +200"
+ },
+ {
+  "name": "FnF Network",
+  "site": "https://fnfnetwork.net",
+  "asn": 138487,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://fnfnetwork.net",
+  "packages": [
+   {
+    "name": "Pack-30",
+    "mbps": 30,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Pack-40",
+    "mbps": 40,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Pack-50",
+    "mbps": 50,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Pack-60",
+    "mbps": 60,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Pack-70",
+    "mbps": 70,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Pack-80",
+    "mbps": 80,
+    "bdt": 1200,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Bhuapur",
+   "Gopalpur",
+   "Kalihati",
+   "Tangail"
+  ],
+  "notes": "Pack-90+ truncated in capture"
+ },
+ {
+  "name": "Foxpro Technology",
+  "site": "https://foxpro.com.bd",
+  "asn": 142015,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://foxpro.com.bd/package.php",
+  "packages": [
+   {
+    "name": "Simple",
+    "mbps": 35,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Surfer Plus",
+    "mbps": 80,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Cheetah Prime",
+    "mbps": 100,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka",
+   "Paltan"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Friend's Broadband Network",
+  "site": "https://fbn.com.bd",
+  "asn": 140054,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://fbn.com.bd/package",
+  "packages": [
+   {
+    "name": "Basic",
+    "mbps": 50,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Standard",
+    "mbps": 60,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium",
+    "mbps": 70,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Basic",
+    "mbps": 100,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Standard",
+    "mbps": 120,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium",
+    "mbps": 150,
+    "bdt": 1500,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dinajpur"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Friends Communication Enterprise",
+  "site": "https://fcnetwork24.com",
+  "asn": 137871,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://fcnetwork24.com",
+  "packages": [
+   {
+    "name": "FCOM-1",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "FCOM-2",
+    "mbps": 8,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "FCOM-3",
+    "mbps": 12,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "FCOM-4",
+    "mbps": 20,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "FCOM-5",
+    "mbps": 25,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "FCOM-6",
+    "mbps": 30,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "FCOM-7",
+    "mbps": 40,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Doyel Plus",
+    "mbps": 10,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Hawk Plus",
+    "mbps": 20,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Mymensingh"
+  ],
+  "notes": "OTC 3000 Taka"
+ },
+ {
+  "name": "Friends Digital Fiber Network(FDFN ISP)",
+  "site": "https://fdfn.net",
+  "asn": 149822,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://fdfn.net/packages",
+  "packages": [
+   {
+    "name": "Gold+",
+    "mbps": 60,
+    "bdt": 1050,
+    "vat": "incl"
+   },
+   {
+    "name": "Family",
+    "mbps": 70,
+    "bdt": 1260,
+    "vat": "incl"
+   },
+   {
+    "name": "Diamond+",
+    "mbps": 80,
+    "bdt": 1575,
+    "vat": "incl"
+   },
+   {
+    "name": "Ultra",
+    "mbps": 100,
+    "bdt": 2100,
+    "vat": "incl"
+   }
+  ],
+  "coverage": [
+   "Gazipur",
+   "Mirjapur",
+   "Rajendrapur Bazar",
+   "Dhaladia"
+  ],
+  "notes": "Entry tier from 525 mentioned but not listed"
+ },
+ {
+  "name": "Friends Wifi Network",
+  "site": "https://friendswifinetwork.xyz",
+  "asn": 154983,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://friendswifinetwork.xyz",
+  "packages": [
+   {
+    "name": "Starter",
+    "mbps": 10,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Smart",
+    "mbps": 15,
+    "bdt": 600,
+    "vat": "unknown"
+   },
+   {
+    "name": "Premium",
+    "mbps": 25,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Ultra",
+    "mbps": 40,
+    "bdt": 1000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Natore",
+   "Dighapatia Bazar"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Friendz Networks",
+  "site": "https://friendznetworks.com",
+  "asn": 153047,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://friendznetworks.com",
+  "packages": [
+   {
+    "name": "Blue",
+    "mbps": 5,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Green",
+    "mbps": 10,
+    "bdt": 720,
+    "vat": "unknown"
+   },
+   {
+    "name": "Orange",
+    "mbps": 20,
+    "bdt": 1020,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Dhaka",
+   "PS: Vatara"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "Furious Internet",
+  "site": "https://furiousnet.net",
+  "asn": 150429,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://furiousnet.net",
+  "packages": [
+   {
+    "name": "Starter",
+    "mbps": 25,
+    "bdt": 500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Home Small",
+    "mbps": 35,
+    "bdt": 700,
+    "vat": "unknown"
+   },
+   {
+    "name": "Home Medium",
+    "mbps": 45,
+    "bdt": 800,
+    "vat": "unknown"
+   },
+   {
+    "name": "Home Pro",
+    "mbps": 65,
+    "bdt": 1000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Business",
+    "mbps": 90,
+    "bdt": 1200,
+    "vat": "unknown"
+   },
+   {
+    "name": "Business Pro",
+    "mbps": 120,
+    "bdt": 1500,
+    "vat": "unknown"
+   },
+   {
+    "name": "Super",
+    "mbps": 150,
+    "bdt": 2000,
+    "vat": "unknown"
+   },
+   {
+    "name": "Ultra",
+    "mbps": 200,
+    "bdt": 3000,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Mohammadpur",
+   "Dhaka"
+  ],
+  "notes": "Name/price pairing inferred from layout"
+ },
+ {
+  "name": "Future Net Solution",
+  "site": "https://futurenet-bd.com",
+  "asn": 132381,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://futurenet-bd.com",
+  "packages": [
+   {
+    "name": "30 Mbps",
+    "mbps": 30,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "40 Mbps",
+    "mbps": 40,
+    "bdt": 630,
+    "vat": "unknown"
+   },
+   {
+    "name": "50 Mbps",
+    "mbps": 50,
+    "bdt": 735,
+    "vat": "unknown"
+   },
+   {
+    "name": "75 Mbps",
+    "mbps": 75,
+    "bdt": 840,
+    "vat": "unknown"
+   },
+   {
+    "name": "100 Mbps",
+    "mbps": 100,
+    "bdt": 1050,
+    "vat": "unknown"
+   },
+   {
+    "name": "125 Mbps",
+    "mbps": 125,
+    "bdt": 1260,
+    "vat": "unknown"
+   },
+   {
+    "name": "150 Mbps",
+    "mbps": 150,
+    "bdt": 1575,
+    "vat": "unknown"
+   },
+   {
+    "name": "175 Mbps",
+    "mbps": 175,
+    "bdt": 1890,
+    "vat": "unknown"
+   },
+   {
+    "name": "200 Mbps",
+    "mbps": 200,
+    "bdt": 2100,
+    "vat": "unknown"
+   },
+   {
+    "name": "250 Mbps",
+    "mbps": 250,
+    "bdt": 2675,
+    "vat": "unknown"
+   },
+   {
+    "name": "300 Mbps",
+    "mbps": 300,
+    "bdt": 3150,
+    "vat": "unknown"
+   }
+  ],
+  "coverage": [
+   "Uttara",
+   "Turag",
+   "Dakshinkhan",
+   "Ashkona",
+   "Nikunja",
+   "Khilkhet",
+   "Diabari",
+   "Uttarkhan",
+   "Baridhara DOHS",
+   "Gulshan",
+   "Banani",
+   "Tongi",
+   "Gazipur",
+   "Panthapath",
+   "Dhanmondi",
+   "Banasree",
+   "Rampura",
+   "Tejgaon"
+  ],
+  "notes": ""
+ },
+ {
+  "name": "FZ Online",
+  "site": "https://fzonline.com.bd",
+  "asn": 141765,
+  "is_home_isp": true,
+  "status": "ok",
+  "packages_source": "https://fzonline.com.bd",
+  "packages": [
+   {
+    "name": "FZ Lite",
+    "mbps": 16,
+    "bdt": 525,
+    "vat": "unknown"
+   },
+   {
+    "name": "FZ Turbo",
+    "mbps": 40,
+    "bdt": 735,
+    "vat": "unknown"
+   },
+   {
+    "name": "FZ Ultra",
+    "mbps": 60,
+    "bdt": 1050,
+    "vat": "excl"
+   },
+   {
+    "name": "FZ Max",
+    "mbps": 80,
+    "bdt": 1575,
+    "vat": "excl"
+   },
+   {
+    "name": "FZ Xtreme",
+    "mbps": 100,
+    "bdt": 2100,
+    "vat": "incl"
+   }
+  ],
+  "coverage": [
+   "Jamalpur"
+  ],
+  "notes": "Ultra/Max stated 5% VAT excluded, Xtreme included; Lite/Turbo unstated"
+ }
+]
