@@ -4830,6 +4830,640 @@
       }
     ]
   },
+  "Prisma Digital Network": {
+    "source": "https://bdix.app/isp/prisma-digital-network-ltd",
+    "packages": [
+      {
+        "name": "Package 1",
+        "mbps": 5,
+        "bdt": 500,
+        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
+      },
+      {
+        "name": "Package 2",
+        "mbps": 10,
+        "bdt": 800,
+        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
+      },
+      {
+        "name": "Package 3",
+        "mbps": 20,
+        "bdt": 1200,
+        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
+      },
+      {
+        "name": "Package 4",
+        "mbps": 25,
+        "bdt": 1500,
+        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
+      },
+      {
+        "name": "Package 5",
+        "mbps": 30,
+        "bdt": 2000,
+        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
+      },
+      {
+        "name": "Package 6",
+        "mbps": 40,
+        "bdt": 2500,
+        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
+      },
+      {
+        "name": "Package 7",
+        "mbps": 45,
+        "bdt": 3000,
+        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
+      },
+      {
+        "name": "Package 8",
+        "mbps": 50,
+        "bdt": 3500,
+        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
+      },
+      {
+        "name": "Package 9",
+        "mbps": 65,
+        "bdt": 4000,
+        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
+      },
+      {
+        "name": "Package 10",
+        "mbps": 85,
+        "bdt": 4500,
+        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
+      },
+      {
+        "name": "Package 11",
+        "mbps": 100,
+        "bdt": 5000,
+        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
+      }
+    ]
+  },
+  "Daffodil Online": {
+    "source": "https://bdix.app/isp/daffodil-online-ltd",
+    "packages": [
+      {
+        "name": "Govt 10Mbps",
+        "mbps": 10,
+        "bdt": 500,
+        "source": "https://bdix.app/isp/daffodil-online-ltd"
+      },
+      {
+        "name": "Govt 15Mbps",
+        "mbps": 15,
+        "bdt": 800,
+        "source": "https://bdix.app/isp/daffodil-online-ltd"
+      },
+      {
+        "name": "Govt 25Mbps",
+        "mbps": 25,
+        "bdt": 1200,
+        "source": "https://bdix.app/isp/daffodil-online-ltd"
+      }
+    ]
+  },
+  "ADN Telecom": {
+    "source": "https://bdix.app/isp/adn-telecom-ltd",
+    "packages": [
+      {
+        "name": "25 Mbps",
+        "mbps": 25,
+        "bdt": 500,
+        "source": "https://bdix.app/isp/adn-telecom-ltd"
+      },
+      {
+        "name": "28 Mbps",
+        "mbps": 28,
+        "bdt": 620,
+        "source": "https://bdix.app/isp/adn-telecom-ltd"
+      },
+      {
+        "name": "30 Mbps",
+        "mbps": 30,
+        "bdt": 651,
+        "source": "https://bdix.app/isp/adn-telecom-ltd"
+      },
+      {
+        "name": "32 Mbps",
+        "mbps": 32,
+        "bdt": 700,
+        "source": "https://bdix.app/isp/adn-telecom-ltd"
+      },
+      {
+        "name": "35 Mbps",
+        "mbps": 35,
+        "bdt": 800,
+        "source": "https://bdix.app/isp/adn-telecom-ltd"
+      },
+      {
+        "name": "40 Mbps",
+        "mbps": 40,
+        "bdt": 840,
+        "source": "https://bdix.app/isp/adn-telecom-ltd"
+      },
+      {
+        "name": "45 Mbps",
+        "mbps": 45,
+        "bdt": 900,
+        "source": "https://bdix.app/isp/adn-telecom-ltd"
+      },
+      {
+        "name": "50 Mbps",
+        "mbps": 50,
+        "bdt": 1000,
+        "source": "https://bdix.app/isp/adn-telecom-ltd"
+      },
+      {
+        "name": "60 Mbps",
+        "mbps": 60,
+        "bdt": 1200,
+        "source": "https://bdix.app/isp/adn-telecom-ltd"
+      },
+      {
+        "name": "70 Mbps",
+        "mbps": 70,
+        "bdt": 1500,
+        "source": "https://bdix.app/isp/adn-telecom-ltd"
+      },
+      {
+        "name": "80 Mbps",
+        "mbps": 80,
+        "bdt": 1750,
+        "source": "https://bdix.app/isp/adn-telecom-ltd"
+      },
+      {
+        "name": "85 Mbps",
+        "mbps": 85,
+        "bdt": 2000,
+        "source": "https://bdix.app/isp/adn-telecom-ltd"
+      }
+    ]
+  },
+  "Stargate": {
+    "source": "https://bdix.app/isp/stargate",
+    "packages": [
+      {
+        "name": "Smart",
+        "mbps": 2,
+        "bdt": 1000,
+        "source": "https://bdix.app/isp/stargate"
+      },
+      {
+        "name": "Essential",
+        "mbps": 3,
+        "bdt": 1800,
+        "source": "https://bdix.app/isp/stargate"
+      },
+      {
+        "name": "Ultimate",
+        "mbps": 4,
+        "bdt": 2300,
+        "source": "https://bdix.app/isp/stargate"
+      },
+      {
+        "name": "Preferred",
+        "mbps": 5,
+        "bdt": 2800,
+        "source": "https://bdix.app/isp/stargate"
+      }
+    ]
+  },
+  "Skyview Online": {
+    "source": "http://skyviewonline.com",
+    "confidence": "recorded",
+    "researchNote": "audit.md",
+    "note": "Source host from curated provider snapshot.",
+    "packages": [
+      {
+        "name": "Turbo",
+        "mbps": 35,
+        "bdt": 500,
+        "source": "http://skyviewonline.com",
+        "vat": "incl"
+      },
+      {
+        "name": "Boost",
+        "mbps": 45,
+        "bdt": 600,
+        "source": "http://skyviewonline.com",
+        "vat": "incl"
+      },
+      {
+        "name": "Ultra",
+        "mbps": 55,
+        "bdt": 700,
+        "source": "http://skyviewonline.com",
+        "vat": "incl"
+      },
+      {
+        "name": "Xpress",
+        "mbps": 80,
+        "bdt": 800,
+        "source": "http://skyviewonline.com",
+        "vat": "incl"
+      },
+      {
+        "name": "Prime",
+        "mbps": 120,
+        "bdt": 1000,
+        "source": "http://skyviewonline.com",
+        "vat": "incl"
+      },
+      {
+        "name": "Mega",
+        "mbps": 140,
+        "bdt": 1200,
+        "source": "http://skyviewonline.com",
+        "vat": "incl"
+      },
+      {
+        "name": "Super",
+        "mbps": 170,
+        "bdt": 1500,
+        "source": "http://skyviewonline.com",
+        "vat": "incl"
+      },
+      {
+        "name": "Hyper",
+        "mbps": 220,
+        "bdt": 2000,
+        "source": "http://skyviewonline.com",
+        "vat": "incl"
+      }
+    ]
+  },
+  "Xenial Broadband": {
+    "source": "https://bdix.app/isp/xenial-broadband",
+    "packages": [
+      {
+        "name": "Lite",
+        "mbps": 60,
+        "bdt": 800,
+        "source": "https://bdix.app/isp/xenial-broadband"
+      },
+      {
+        "name": "Basic",
+        "mbps": 100,
+        "bdt": 1000,
+        "source": "https://bdix.app/isp/xenial-broadband"
+      },
+      {
+        "name": "Premium",
+        "mbps": 125,
+        "bdt": 1200,
+        "source": "https://bdix.app/isp/xenial-broadband"
+      },
+      {
+        "name": "Ultimate",
+        "mbps": 150,
+        "bdt": 1500,
+        "source": "https://bdix.app/isp/xenial-broadband"
+      },
+      {
+        "name": "Silver",
+        "mbps": 200,
+        "bdt": 2000,
+        "source": "https://bdix.app/isp/xenial-broadband"
+      },
+      {
+        "name": "Gold",
+        "mbps": 250,
+        "bdt": 2500,
+        "source": "https://bdix.app/isp/xenial-broadband"
+      }
+    ]
+  },
+  "Intrepid Broadband": {
+    "source": "https://www.amberit.com.bd/home-internet",
+    "packages": [
+      {
+        "name": "20 Mbps",
+        "mbps": 20,
+        "bdt": 500,
+        "vat": "excl",
+        "source": "https://www.amberit.com.bd/home-internet"
+      },
+      {
+        "name": "30 Mbps",
+        "mbps": 30,
+        "bdt": 650,
+        "vat": "excl",
+        "source": "https://www.amberit.com.bd/home-internet"
+      },
+      {
+        "name": "50 Mbps",
+        "mbps": 50,
+        "bdt": 800,
+        "vat": "excl",
+        "source": "https://www.amberit.com.bd/home-internet"
+      },
+      {
+        "name": "100 Mbps",
+        "mbps": 100,
+        "bdt": 1000,
+        "vat": "excl",
+        "source": "https://www.amberit.com.bd/home-internet"
+      },
+      {
+        "name": "125 Mbps",
+        "mbps": 125,
+        "bdt": 1200,
+        "vat": "excl",
+        "source": "https://www.amberit.com.bd/home-internet"
+      },
+      {
+        "name": "150 Mbps",
+        "mbps": 150,
+        "bdt": 1500,
+        "vat": "excl",
+        "source": "https://www.amberit.com.bd/home-internet"
+      },
+      {
+        "name": "200 Mbps",
+        "mbps": 200,
+        "bdt": 2000,
+        "vat": "excl",
+        "source": "https://www.amberit.com.bd/home-internet"
+      },
+      {
+        "name": "250 Mbps",
+        "mbps": 250,
+        "bdt": 2500,
+        "vat": "excl",
+        "source": "https://www.amberit.com.bd/home-internet"
+      }
+    ]
+  },
+  "City Online": {
+    "source": "https://bdix.app/isp/city-online-ltd",
+    "packages": [
+      {
+        "name": "LITE",
+        "mbps": 15,
+        "bdt": 500,
+        "source": "https://bdix.app/isp/city-online-ltd"
+      },
+      {
+        "name": "STARTER",
+        "mbps": 20,
+        "bdt": 600,
+        "source": "https://bdix.app/isp/city-online-ltd"
+      },
+      {
+        "name": "STANDARD",
+        "mbps": 25,
+        "bdt": 700,
+        "source": "https://bdix.app/isp/city-online-ltd"
+      }
+    ]
+  },
+  "Beacon Link": {
+    "source": "https://beaconlink.net",
+    "packages": [
+      {
+        "name": "Basic",
+        "mbps": 15,
+        "bdt": 525,
+        "vat": "unknown",
+        "source": "https://beaconlink.net"
+      },
+      {
+        "name": "Value",
+        "mbps": 20,
+        "bdt": 630,
+        "vat": "unknown",
+        "source": "https://beaconlink.net"
+      },
+      {
+        "name": "Standard",
+        "mbps": 30,
+        "bdt": 840,
+        "vat": "unknown",
+        "source": "https://beaconlink.net"
+      },
+      {
+        "name": "Turbo",
+        "mbps": 70,
+        "bdt": 1050,
+        "vat": "unknown",
+        "source": "https://beaconlink.net"
+      },
+      {
+        "name": "Power",
+        "mbps": 90,
+        "bdt": 1260,
+        "vat": "unknown",
+        "source": "https://beaconlink.net"
+      }
+    ]
+  },
+  "Media Online": {
+    "source": "https://bdix.app/isp/media-online",
+    "packages": [
+      {
+        "name": "Home 30",
+        "mbps": 30,
+        "bdt": 500,
+        "source": "https://bdix.app/isp/media-online"
+      },
+      {
+        "name": "Home 40",
+        "mbps": 40,
+        "bdt": 800,
+        "source": "https://bdix.app/isp/media-online"
+      },
+      {
+        "name": "Home 50",
+        "mbps": 50,
+        "bdt": 1000,
+        "source": "https://bdix.app/isp/media-online"
+      }
+    ]
+  },
+  "Sun Online": {
+    "source": "https://bdix.app/isp/sun-online",
+    "packages": [
+      {
+        "name": "Package-1",
+        "mbps": 30,
+        "bdt": 525,
+        "source": "https://bdix.app/isp/sun-online"
+      },
+      {
+        "name": "Package-2",
+        "mbps": 50,
+        "bdt": 630,
+        "source": "https://bdix.app/isp/sun-online"
+      },
+      {
+        "name": "Package-3",
+        "mbps": 80,
+        "bdt": 840,
+        "source": "https://bdix.app/isp/sun-online"
+      },
+      {
+        "name": "Package-4",
+        "mbps": 100,
+        "bdt": 1050,
+        "source": "https://bdix.app/isp/sun-online"
+      },
+      {
+        "name": "Package-5",
+        "mbps": 150,
+        "bdt": 1575,
+        "source": "https://bdix.app/isp/sun-online"
+      },
+      {
+        "name": "Package-6",
+        "mbps": 200,
+        "bdt": 2100,
+        "source": "https://bdix.app/isp/sun-online"
+      },
+      {
+        "name": "Starter",
+        "mbps": 30,
+        "bdt": 8500,
+        "source": "https://bdix.app/isp/sun-online"
+      },
+      {
+        "name": "Grower",
+        "mbps": 50,
+        "bdt": 12500,
+        "source": "https://bdix.app/isp/sun-online"
+      },
+      {
+        "name": "Rewarder",
+        "mbps": 80,
+        "bdt": 19000,
+        "source": "https://bdix.app/isp/sun-online"
+      }
+    ]
+  },
+  "Velocity Networks": {
+    "source": "https://broadband360.com.bd",
+    "confidence": "recorded",
+    "researchNote": "nationwide.md",
+    "packages": [
+      {
+        "name": "60 Mbps",
+        "mbps": 60,
+        "bdt": 1111,
+        "source": "https://broadband360.com.bd",
+        "vat": "unknown"
+      },
+      {
+        "name": "110 Mbps",
+        "mbps": 110,
+        "bdt": 1999,
+        "source": "https://broadband360.com.bd",
+        "vat": "unknown"
+      },
+      {
+        "name": "150 Mbps",
+        "mbps": 150,
+        "bdt": 3333,
+        "source": "https://broadband360.com.bd",
+        "vat": "unknown"
+      },
+      {
+        "name": "200 Mbps",
+        "mbps": 200,
+        "bdt": 4222,
+        "source": "https://broadband360.com.bd",
+        "vat": "unknown"
+      }
+    ]
+  },
+  "Bengal Broadband": {
+    "source": "https://bdix.app/isp/bengal-broadband-limited",
+    "packages": [
+      {
+        "name": "Package 1",
+        "mbps": 5,
+        "bdt": 500,
+        "source": "https://bdix.app/isp/bengal-broadband-limited"
+      },
+      {
+        "name": "Package 2",
+        "mbps": 10,
+        "bdt": 800,
+        "source": "https://bdix.app/isp/bengal-broadband-limited"
+      },
+      {
+        "name": "Package 3",
+        "mbps": 20,
+        "bdt": 1200,
+        "source": "https://bdix.app/isp/bengal-broadband-limited"
+      },
+      {
+        "name": "Package 4",
+        "mbps": 25,
+        "bdt": 1500,
+        "source": "https://bdix.app/isp/bengal-broadband-limited"
+      }
+    ]
+  },
+  "The Matrix Technology": {
+    "source": "https://bdix.app/isp/the-matrix-technology",
+    "packages": [
+      {
+        "name": "Silver",
+        "mbps": 20,
+        "bdt": 525,
+        "source": "https://bdix.app/isp/the-matrix-technology"
+      },
+      {
+        "name": "Silver Plus",
+        "mbps": 30,
+        "bdt": 680,
+        "source": "https://bdix.app/isp/the-matrix-technology"
+      },
+      {
+        "name": "Gold",
+        "mbps": 50,
+        "bdt": 890,
+        "source": "https://bdix.app/isp/the-matrix-technology"
+      },
+      {
+        "name": "Gold Plus",
+        "mbps": 70,
+        "bdt": 1050,
+        "source": "https://bdix.app/isp/the-matrix-technology"
+      },
+      {
+        "name": "Platinum",
+        "mbps": 100,
+        "bdt": 1295,
+        "source": "https://bdix.app/isp/the-matrix-technology"
+      },
+      {
+        "name": "Platinum Plus",
+        "mbps": 150,
+        "bdt": 1575,
+        "source": "https://bdix.app/isp/the-matrix-technology"
+      },
+      {
+        "name": "Diamond",
+        "mbps": 200,
+        "bdt": 2205,
+        "source": "https://bdix.app/isp/the-matrix-technology"
+      },
+      {
+        "name": "Diamond Plus",
+        "mbps": 250,
+        "bdt": 3150,
+        "source": "https://bdix.app/isp/the-matrix-technology"
+      },
+      {
+        "name": "Pink Diamond",
+        "mbps": 300,
+        "bdt": 4200,
+        "source": "https://bdix.app/isp/the-matrix-technology"
+      }
+    ]
+  },
   "3R Communications": {
     "source": "https://3rcommunications.com/internet-packages",
     "packages": [
@@ -5465,133 +6099,25 @@
       }
     ]
   },
-  "ADN Telecom": {
-    "source": "https://bdix.app/isp/adn-telecom-ltd",
+  "Advance Telecom": {
+    "source": "https://advancetelbd.com",
+    "confidence": "recorded",
+    "researchNote": "north.md",
+    "note": "Source URL from committed master snapshot.",
     "packages": [
       {
-        "name": "25 Mbps",
-        "mbps": 25,
-        "bdt": 500,
-        "source": "https://bdix.app/isp/adn-telecom-ltd"
-      },
-      {
-        "name": "28 Mbps",
-        "mbps": 28,
-        "bdt": 620,
-        "source": "https://bdix.app/isp/adn-telecom-ltd"
-      },
-      {
-        "name": "30 Mbps",
-        "mbps": 30,
-        "bdt": 651,
-        "source": "https://bdix.app/isp/adn-telecom-ltd"
-      },
-      {
-        "name": "32 Mbps",
-        "mbps": 32,
-        "bdt": 700,
-        "source": "https://bdix.app/isp/adn-telecom-ltd"
-      },
-      {
-        "name": "35 Mbps",
-        "mbps": 35,
-        "bdt": 800,
-        "source": "https://bdix.app/isp/adn-telecom-ltd"
-      },
-      {
-        "name": "40 Mbps",
-        "mbps": 40,
-        "bdt": 840,
-        "source": "https://bdix.app/isp/adn-telecom-ltd"
-      },
-      {
-        "name": "45 Mbps",
-        "mbps": 45,
-        "bdt": 900,
-        "source": "https://bdix.app/isp/adn-telecom-ltd"
+        "name": "20 Mbps",
+        "mbps": 20,
+        "bdt": 525,
+        "source": "https://advancetelbd.com",
+        "vat": "incl"
       },
       {
         "name": "50 Mbps",
         "mbps": 50,
-        "bdt": 1000,
-        "source": "https://bdix.app/isp/adn-telecom-ltd"
-      },
-      {
-        "name": "60 Mbps",
-        "mbps": 60,
-        "bdt": 1200,
-        "source": "https://bdix.app/isp/adn-telecom-ltd"
-      },
-      {
-        "name": "70 Mbps",
-        "mbps": 70,
-        "bdt": 1500,
-        "source": "https://bdix.app/isp/adn-telecom-ltd"
-      },
-      {
-        "name": "80 Mbps",
-        "mbps": 80,
-        "bdt": 1750,
-        "source": "https://bdix.app/isp/adn-telecom-ltd"
-      },
-      {
-        "name": "85 Mbps",
-        "mbps": 85,
-        "bdt": 2000,
-        "source": "https://bdix.app/isp/adn-telecom-ltd"
-      }
-    ]
-  },
-  "Advance Telecom": {
-    "source": "https://bdix.app/isp/advance-telecom",
-    "packages": [
-      {
-        "name": "Ek Desh, Ek Rate 1",
-        "mbps": 20,
-        "bdt": 525,
-        "source": "https://bdix.app/isp/advance-telecom"
-      },
-      {
-        "name": "Ek Desh, Ek Rate 2",
-        "mbps": 50,
         "bdt": 840,
-        "source": "https://bdix.app/isp/advance-telecom"
-      },
-      {
-        "name": "Ek Desh, Ek Rate 3",
-        "mbps": 85,
-        "bdt": 1260,
-        "source": "https://bdix.app/isp/advance-telecom"
-      },
-      {
-        "name": "Mango",
-        "mbps": 30,
-        "bdt": 650,
-        "source": "https://bdix.app/isp/advance-telecom"
-      },
-      {
-        "name": "Padma",
-        "mbps": 70,
-        "bdt": 1050,
-        "source": "https://bdix.app/isp/advance-telecom"
-      },
-      {
-        "name": "Freelancer",
-        "mbps": 100,
-        "bdt": 1500,
-        "source": "https://bdix.app/isp/advance-telecom"
-      },
-      {
-        "name": "Gold",
-        "mbps": 120,
-        "bdt": 2000,
-        "source": "https://bdix.app/isp/advance-telecom"
-      },
-      {
-        "name": "Diamond",
-        "mbps": 150,
-        "bdt": 2500,
-        "source": "https://bdix.app/isp/advance-telecom"
+        "source": "https://advancetelbd.com",
+        "vat": "incl"
       }
     ]
   },
@@ -6452,6 +6978,48 @@
         "bdt": 4200,
         "vat": "unknown",
         "source": "https://arknetworkbd.net/packages/"
+      }
+    ]
+  },
+  "Arrow Net": {
+    "source": "https://arrownetsylhet.com",
+    "confidence": "recorded",
+    "researchNote": "sylhet-khulna.md",
+    "packages": [
+      {
+        "name": "Lite",
+        "mbps": 50,
+        "bdt": 690,
+        "source": "https://arrownetsylhet.com",
+        "vat": "unknown"
+      },
+      {
+        "name": "Economy",
+        "mbps": 80,
+        "bdt": 850,
+        "source": "https://arrownetsylhet.com",
+        "vat": "unknown"
+      },
+      {
+        "name": "Basic",
+        "mbps": 120,
+        "bdt": 1000,
+        "source": "https://arrownetsylhet.com",
+        "vat": "unknown"
+      },
+      {
+        "name": "Standard",
+        "mbps": 140,
+        "bdt": 1200,
+        "source": "https://arrownetsylhet.com",
+        "vat": "unknown"
+      },
+      {
+        "name": "Pro",
+        "mbps": 160,
+        "bdt": 1400,
+        "source": "https://arrownetsylhet.com",
+        "vat": "unknown"
       }
     ]
   },
@@ -7416,46 +7984,6 @@
       }
     ]
   },
-  "Beacon Link": {
-    "source": "https://beaconlink.net",
-    "packages": [
-      {
-        "name": "Basic",
-        "mbps": 15,
-        "bdt": 525,
-        "vat": "unknown",
-        "source": "https://beaconlink.net"
-      },
-      {
-        "name": "Value",
-        "mbps": 20,
-        "bdt": 630,
-        "vat": "unknown",
-        "source": "https://beaconlink.net"
-      },
-      {
-        "name": "Standard",
-        "mbps": 30,
-        "bdt": 840,
-        "vat": "unknown",
-        "source": "https://beaconlink.net"
-      },
-      {
-        "name": "Turbo",
-        "mbps": 70,
-        "bdt": 1050,
-        "vat": "unknown",
-        "source": "https://beaconlink.net"
-      },
-      {
-        "name": "Power",
-        "mbps": 90,
-        "bdt": 1260,
-        "vat": "unknown",
-        "source": "https://beaconlink.net"
-      }
-    ]
-  },
   "Belal IT": {
     "source": "https://bdix.app/isp/belal-it",
     "packages": [
@@ -7594,35 +8122,6 @@
         "bdt": 1680,
         "vat": "unknown",
         "source": "https://benapole.net/Pricing"
-      }
-    ]
-  },
-  "Bengal Broadband": {
-    "source": "https://bdix.app/isp/bengal-broadband-limited",
-    "packages": [
-      {
-        "name": "Package 1",
-        "mbps": 5,
-        "bdt": 500,
-        "source": "https://bdix.app/isp/bengal-broadband-limited"
-      },
-      {
-        "name": "Package 2",
-        "mbps": 10,
-        "bdt": 800,
-        "source": "https://bdix.app/isp/bengal-broadband-limited"
-      },
-      {
-        "name": "Package 3",
-        "mbps": 20,
-        "bdt": 1200,
-        "source": "https://bdix.app/isp/bengal-broadband-limited"
-      },
-      {
-        "name": "Package 4",
-        "mbps": 25,
-        "bdt": 1500,
-        "source": "https://bdix.app/isp/bengal-broadband-limited"
       }
     ]
   },
@@ -7906,36 +8405,68 @@
       }
     ]
   },
-  "Bograinfo.com": {
-    "source": "https://bograinfo.com/plans",
+  "Bogra Broadband": {
+    "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+    "confidence": "low",
+    "researchNote": "north.md",
+    "note": "Only explicit endpoints transcribed; intermediate tiers absent. Original ISP URL was not recorded; source links the committed research note, not an official tariff.",
     "packages": [
       {
-        "name": "Basic Plan",
-        "mbps": 30,
-        "bdt": 525,
-        "vat": "unknown",
-        "source": "https://bograinfo.com/plans"
+        "name": "10 Mbps",
+        "mbps": 10,
+        "bdt": 500,
+        "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+        "vat": "unknown"
       },
       {
-        "name": "Standard Plan",
-        "mbps": 35,
-        "bdt": 600,
-        "vat": "unknown",
-        "source": "https://bograinfo.com/plans"
-      },
-      {
-        "name": "High Speed Plan",
+        "name": "50 Mbps",
         "mbps": 50,
-        "bdt": 800,
-        "vat": "unknown",
-        "source": "https://bograinfo.com/plans"
+        "bdt": 1200,
+        "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+        "vat": "unknown"
       },
       {
-        "name": "Super Fast Plan",
-        "mbps": 65,
+        "name": "Business",
+        "mbps": 100,
+        "bdt": 2000,
+        "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+        "vat": "unknown"
+      }
+    ]
+  },
+  "Bograinfo.com": {
+    "source": "https://bograinfo.com",
+    "confidence": "low",
+    "researchNote": "north.md",
+    "note": "Conflicting pages: hand notes differ from extracted /plans speeds. Hand notes take precedence; source host from master snapshot.",
+    "packages": [
+      {
+        "name": "15 Mbps",
+        "mbps": 15,
+        "bdt": 525,
+        "source": "https://bograinfo.com",
+        "vat": "unknown"
+      },
+      {
+        "name": "20 Mbps",
+        "mbps": 20,
+        "bdt": 600,
+        "source": "https://bograinfo.com",
+        "vat": "unknown"
+      },
+      {
+        "name": "30 Mbps",
+        "mbps": 30,
+        "bdt": 800,
+        "source": "https://bograinfo.com",
+        "vat": "unknown"
+      },
+      {
+        "name": "40 Mbps",
+        "mbps": 40,
         "bdt": 1200,
-        "vat": "unknown",
-        "source": "https://bograinfo.com/plans"
+        "source": "https://bograinfo.com",
+        "vat": "unknown"
       }
     ]
   },
@@ -8555,107 +9086,44 @@
     ]
   },
   "Chittagong Telecom Services": {
-    "source": "https://ctgtel.net",
+    "source": "https://ctgtel.net/pricing",
+    "confidence": "recorded",
+    "researchNote": "city-chattogram.md",
     "packages": [
       {
         "name": "Basic",
         "mbps": 35,
         "bdt": 700,
-        "vat": "unknown",
-        "source": "https://ctgtel.net"
+        "source": "https://ctgtel.net/pricing",
+        "vat": "unknown"
       },
       {
         "name": "Standard",
         "mbps": 50,
         "bdt": 800,
-        "vat": "unknown",
-        "source": "https://ctgtel.net"
+        "source": "https://ctgtel.net/pricing",
+        "vat": "unknown"
       },
       {
         "name": "Premium",
         "mbps": 100,
         "bdt": 1000,
-        "vat": "unknown",
-        "source": "https://ctgtel.net"
+        "source": "https://ctgtel.net/pricing",
+        "vat": "unknown"
       },
       {
         "name": "Ultra",
         "mbps": 130,
         "bdt": 1200,
-        "vat": "unknown",
-        "source": "https://ctgtel.net"
+        "source": "https://ctgtel.net/pricing",
+        "vat": "unknown"
       },
       {
         "name": "Mega",
         "mbps": 150,
         "bdt": 1500,
-        "vat": "unknown",
-        "source": "https://ctgtel.net"
-      },
-      {
-        "name": "Residential",
-        "mbps": 15,
-        "bdt": 700,
-        "vat": "unknown",
-        "source": "https://ctgtel.net"
-      },
-      {
-        "name": "Residential",
-        "mbps": 20,
-        "bdt": 800,
-        "vat": "unknown",
-        "source": "https://ctgtel.net"
-      },
-      {
-        "name": "Residential",
-        "mbps": 25,
-        "bdt": 900,
-        "vat": "unknown",
-        "source": "https://ctgtel.net"
-      },
-      {
-        "name": "Residential",
-        "mbps": 30,
-        "bdt": 1000,
-        "vat": "unknown",
-        "source": "https://ctgtel.net"
-      },
-      {
-        "name": "Residential",
-        "mbps": 35,
-        "bdt": 1200,
-        "vat": "unknown",
-        "source": "https://ctgtel.net"
-      },
-      {
-        "name": "Residential",
-        "mbps": 40,
-        "bdt": 1500,
-        "vat": "unknown",
-        "source": "https://ctgtel.net"
-      }
-    ]
-  },
-  "City Online": {
-    "source": "https://bdix.app/isp/city-online-ltd",
-    "packages": [
-      {
-        "name": "LITE",
-        "mbps": 15,
-        "bdt": 500,
-        "source": "https://bdix.app/isp/city-online-ltd"
-      },
-      {
-        "name": "STARTER",
-        "mbps": 20,
-        "bdt": 600,
-        "source": "https://bdix.app/isp/city-online-ltd"
-      },
-      {
-        "name": "STANDARD",
-        "mbps": 25,
-        "bdt": 700,
-        "source": "https://bdix.app/isp/city-online-ltd"
+        "source": "https://ctgtel.net/pricing",
+        "vat": "unknown"
       }
     ]
   },
@@ -8839,34 +9307,36 @@
   },
   "cloudone": {
     "source": "https://cloudone.com.bd/packages",
+    "confidence": "recorded",
+    "researchNote": "city-chattogram.md",
     "packages": [
       {
-        "name": "30 Mbps",
+        "name": "Entry",
         "mbps": 30,
         "bdt": 700,
-        "vat": "unknown",
-        "source": "https://cloudone.com.bd/packages"
+        "source": "https://cloudone.com.bd/packages",
+        "vat": "unknown"
       },
       {
-        "name": "50 Mbps",
+        "name": "Standard",
         "mbps": 50,
         "bdt": 800,
-        "vat": "unknown",
-        "source": "https://cloudone.com.bd/packages"
+        "source": "https://cloudone.com.bd/packages",
+        "vat": "unknown"
       },
       {
-        "name": "100 Mbps",
+        "name": "Plus",
         "mbps": 100,
         "bdt": 1000,
-        "vat": "unknown",
-        "source": "https://cloudone.com.bd/packages"
+        "source": "https://cloudone.com.bd/packages",
+        "vat": "unknown"
       },
       {
-        "name": "200 Mbps",
+        "name": "Premium",
         "mbps": 200,
         "bdt": 1500,
-        "vat": "unknown",
-        "source": "https://cloudone.com.bd/packages"
+        "source": "https://cloudone.com.bd/packages",
+        "vat": "unknown"
       }
     ]
   },
@@ -9052,6 +9522,49 @@
       }
     ]
   },
+  "Comilla Online": {
+    "source": "https://bdhub.com",
+    "confidence": "low",
+    "researchNote": "north.md",
+    "note": "Source URL from master snapshot; notes give conflicting ASNs 133443/132598, so no ASN override.",
+    "packages": [
+      {
+        "name": "5 Mbps",
+        "mbps": 5,
+        "bdt": 500,
+        "source": "https://bdhub.com",
+        "vat": "unknown"
+      },
+      {
+        "name": "7 Mbps",
+        "mbps": 7,
+        "bdt": 600,
+        "source": "https://bdhub.com",
+        "vat": "unknown"
+      },
+      {
+        "name": "10 Mbps",
+        "mbps": 10,
+        "bdt": 800,
+        "source": "https://bdhub.com",
+        "vat": "unknown"
+      },
+      {
+        "name": "20 Mbps",
+        "mbps": 20,
+        "bdt": 1200,
+        "source": "https://bdhub.com",
+        "vat": "unknown"
+      },
+      {
+        "name": "25 Mbps",
+        "mbps": 25,
+        "bdt": 1550,
+        "source": "https://bdhub.com",
+        "vat": "unknown"
+      }
+    ]
+  },
   "Communication One": {
     "source": "https://communicationone.net/packages/",
     "packages": [
@@ -9147,49 +9660,24 @@
     ]
   },
   "Contrivance Technology": {
-    "source": "https://contrivancebd.com/home-internet.html",
+    "source": "https://contrivancebd.com",
+    "confidence": "recorded",
+    "researchNote": "city-rangpur-barishal.md",
+    "note": "8 Mbps has no real IP; 15 Mbps has real IP. VAT unknown.",
     "packages": [
       {
-        "name": "Basic",
+        "name": "8 Mbps",
         "mbps": 8,
         "bdt": 500,
-        "vat": "unknown",
-        "source": "https://contrivancebd.com/home-internet.html"
+        "source": "https://contrivancebd.com",
+        "vat": "unknown"
       },
       {
-        "name": "Praymari",
-        "mbps": 10,
-        "bdt": 700,
-        "vat": "unknown",
-        "source": "https://contrivancebd.com/home-internet.html"
-      },
-      {
-        "name": "Dominent",
+        "name": "15 Mbps",
         "mbps": 15,
         "bdt": 900,
-        "vat": "unknown",
-        "source": "https://contrivancebd.com/home-internet.html"
-      },
-      {
-        "name": "Confidence",
-        "mbps": 20,
-        "bdt": 1000,
-        "vat": "unknown",
-        "source": "https://contrivancebd.com/home-internet.html"
-      },
-      {
-        "name": "Positive",
-        "mbps": 25,
-        "bdt": 1200,
-        "vat": "unknown",
-        "source": "https://contrivancebd.com/home-internet.html"
-      },
-      {
-        "name": "Advance",
-        "mbps": 30,
-        "bdt": 1500,
-        "vat": "unknown",
-        "source": "https://contrivancebd.com/home-internet.html"
+        "source": "https://contrivancebd.com",
+        "vat": "unknown"
       }
     ]
   },
@@ -9478,29 +9966,6 @@
         "bdt": 2000,
         "vat": "unknown",
         "source": "https://dsmartit.net"
-      }
-    ]
-  },
-  "Daffodil Online": {
-    "source": "https://bdix.app/isp/daffodil-online-ltd",
-    "packages": [
-      {
-        "name": "Govt 10Mbps",
-        "mbps": 10,
-        "bdt": 500,
-        "source": "https://bdix.app/isp/daffodil-online-ltd"
-      },
-      {
-        "name": "Govt 15Mbps",
-        "mbps": 15,
-        "bdt": 800,
-        "source": "https://bdix.app/isp/daffodil-online-ltd"
-      },
-      {
-        "name": "Govt 25Mbps",
-        "mbps": 25,
-        "bdt": 1200,
-        "source": "https://bdix.app/isp/daffodil-online-ltd"
       }
     ]
   },
@@ -10040,32 +10505,6 @@
       }
     ]
   },
-  "Digital One Broadband Internet Service": {
-    "source": "https://digitalonebd.net/packages",
-    "packages": [
-      {
-        "name": "Basic",
-        "mbps": 6,
-        "bdt": 500,
-        "vat": "unknown",
-        "source": "https://digitalonebd.net/packages"
-      },
-      {
-        "name": "Silver",
-        "mbps": 10,
-        "bdt": 800,
-        "vat": "unknown",
-        "source": "https://digitalonebd.net/packages"
-      },
-      {
-        "name": "Gold",
-        "mbps": 12,
-        "bdt": 880,
-        "vat": "unknown",
-        "source": "https://digitalonebd.net/packages"
-      }
-    ]
-  },
   "Digital BD. Net": {
     "source": "https://digitalbdnet.com",
     "packages": [
@@ -10089,6 +10528,32 @@
         "bdt": 1575,
         "vat": "unknown",
         "source": "https://digitalbdnet.com"
+      }
+    ]
+  },
+  "Digital One Broadband Internet Service": {
+    "source": "https://digitalonebd.net/packages",
+    "packages": [
+      {
+        "name": "Basic",
+        "mbps": 6,
+        "bdt": 500,
+        "vat": "unknown",
+        "source": "https://digitalonebd.net/packages"
+      },
+      {
+        "name": "Silver",
+        "mbps": 10,
+        "bdt": 800,
+        "vat": "unknown",
+        "source": "https://digitalonebd.net/packages"
+      },
+      {
+        "name": "Gold",
+        "mbps": 12,
+        "bdt": 880,
+        "vat": "unknown",
+        "source": "https://digitalonebd.net/packages"
       }
     ]
   },
@@ -10428,34 +10893,36 @@
   },
   "E-Village": {
     "source": "https://evillagectg.com",
+    "confidence": "recorded",
+    "researchNote": "city-chattogram.md",
     "packages": [
       {
-        "name": "Basic Plus",
+        "name": "BasicPlus",
         "mbps": 30,
         "bdt": 600,
-        "vat": "unknown",
-        "source": "https://evillagectg.com"
+        "source": "https://evillagectg.com",
+        "vat": "unknown"
       },
       {
         "name": "Lite",
         "mbps": 50,
         "bdt": 800,
-        "vat": "unknown",
-        "source": "https://evillagectg.com"
+        "source": "https://evillagectg.com",
+        "vat": "unknown"
       },
       {
         "name": "Standard",
         "mbps": 100,
         "bdt": 1000,
-        "vat": "unknown",
-        "source": "https://evillagectg.com"
+        "source": "https://evillagectg.com",
+        "vat": "unknown"
       },
       {
         "name": "Premium",
         "mbps": 120,
         "bdt": 1200,
-        "vat": "unknown",
-        "source": "https://evillagectg.com"
+        "source": "https://evillagectg.com",
+        "vat": "unknown"
       }
     ]
   },
@@ -12949,6 +13416,56 @@
       }
     ]
   },
+  "Habiganj Net Communications": {
+    "source": "https://habiganj.net",
+    "confidence": "recorded",
+    "researchNote": "city-sylhet.md",
+    "note": "Prices effective 1 April 2026.",
+    "packages": [
+      {
+        "name": "Starter",
+        "mbps": 20,
+        "bdt": 520,
+        "source": "https://habiganj.net",
+        "vat": "unknown"
+      },
+      {
+        "name": "Bronze",
+        "mbps": 40,
+        "bdt": 820,
+        "source": "https://habiganj.net",
+        "vat": "unknown"
+      },
+      {
+        "name": "Silver",
+        "mbps": 50,
+        "bdt": 1020,
+        "source": "https://habiganj.net",
+        "vat": "unknown"
+      },
+      {
+        "name": "Gold",
+        "mbps": 60,
+        "bdt": 1220,
+        "source": "https://habiganj.net",
+        "vat": "unknown"
+      },
+      {
+        "name": "Platinum",
+        "mbps": 80,
+        "bdt": 1520,
+        "source": "https://habiganj.net",
+        "vat": "unknown"
+      },
+      {
+        "name": "Diamond",
+        "mbps": 100,
+        "bdt": 2220,
+        "source": "https://habiganj.net",
+        "vat": "unknown"
+      }
+    ]
+  },
   "Hello IT": {
     "source": "https://helloitbd.com",
     "packages": [
@@ -13979,67 +14496,6 @@
         "bdt": 1350,
         "vat": "unknown",
         "source": "https://internetcarrier.com.bd"
-      }
-    ]
-  },
-  "Intrepid Broadband": {
-    "source": "https://www.amberit.com.bd/home-internet",
-    "packages": [
-      {
-        "name": "20 Mbps",
-        "mbps": 20,
-        "bdt": 500,
-        "vat": "excl",
-        "source": "https://www.amberit.com.bd/home-internet"
-      },
-      {
-        "name": "30 Mbps",
-        "mbps": 30,
-        "bdt": 650,
-        "vat": "excl",
-        "source": "https://www.amberit.com.bd/home-internet"
-      },
-      {
-        "name": "50 Mbps",
-        "mbps": 50,
-        "bdt": 800,
-        "vat": "excl",
-        "source": "https://www.amberit.com.bd/home-internet"
-      },
-      {
-        "name": "100 Mbps",
-        "mbps": 100,
-        "bdt": 1000,
-        "vat": "excl",
-        "source": "https://www.amberit.com.bd/home-internet"
-      },
-      {
-        "name": "125 Mbps",
-        "mbps": 125,
-        "bdt": 1200,
-        "vat": "excl",
-        "source": "https://www.amberit.com.bd/home-internet"
-      },
-      {
-        "name": "150 Mbps",
-        "mbps": 150,
-        "bdt": 1500,
-        "vat": "excl",
-        "source": "https://www.amberit.com.bd/home-internet"
-      },
-      {
-        "name": "200 Mbps",
-        "mbps": 200,
-        "bdt": 2000,
-        "vat": "excl",
-        "source": "https://www.amberit.com.bd/home-internet"
-      },
-      {
-        "name": "250 Mbps",
-        "mbps": 250,
-        "bdt": 2500,
-        "vat": "excl",
-        "source": "https://www.amberit.com.bd/home-internet"
       }
     ]
   },
@@ -15579,28 +16035,30 @@
     ]
   },
   "Help Line": {
-    "source": "https://www.helpline.com.bd/content/www/en/homepage.html",
+    "source": "https://helpline.com.bd",
+    "confidence": "recorded",
+    "researchNote": "north.md",
     "packages": [
       {
         "name": "Unlimited A",
         "mbps": 10,
         "bdt": 500,
-        "vat": "excl",
-        "source": "https://www.helpline.com.bd/content/www/en/homepage.html"
+        "source": "https://helpline.com.bd",
+        "vat": "excl"
       },
       {
         "name": "Unlimited B",
         "mbps": 40,
         "bdt": 800,
-        "vat": "excl",
-        "source": "https://www.helpline.com.bd/content/www/en/homepage.html"
+        "source": "https://helpline.com.bd",
+        "vat": "excl"
       },
       {
         "name": "Unlimited C",
         "mbps": 70,
         "bdt": 1200,
-        "vat": "excl",
-        "source": "https://www.helpline.com.bd/content/www/en/homepage.html"
+        "source": "https://helpline.com.bd",
+        "vat": "excl"
       }
     ]
   },
@@ -17467,29 +17925,6 @@
       }
     ]
   },
-  "Media Online": {
-    "source": "https://bdix.app/isp/media-online",
-    "packages": [
-      {
-        "name": "Home 30",
-        "mbps": 30,
-        "bdt": 500,
-        "source": "https://bdix.app/isp/media-online"
-      },
-      {
-        "name": "Home 40",
-        "mbps": 40,
-        "bdt": 800,
-        "source": "https://bdix.app/isp/media-online"
-      },
-      {
-        "name": "Home 50",
-        "mbps": 50,
-        "bdt": 1000,
-        "source": "https://bdix.app/isp/media-online"
-      }
-    ]
-  },
   "Meghna Online": {
     "source": "https://bdix.app/isp/meghna-online",
     "packages": [
@@ -18846,6 +19281,48 @@
       }
     ]
   },
+  "MUX Technologies": {
+    "source": "https://muxtechnologies.net",
+    "confidence": "recorded",
+    "researchNote": "city-chattogram.md",
+    "packages": [
+      {
+        "name": "Basic",
+        "mbps": 50,
+        "bdt": 800,
+        "source": "https://muxtechnologies.net",
+        "vat": "unknown"
+      },
+      {
+        "name": "Advance",
+        "mbps": 100,
+        "bdt": 1000,
+        "source": "https://muxtechnologies.net",
+        "vat": "unknown"
+      },
+      {
+        "name": "Paragon",
+        "mbps": 120,
+        "bdt": 1200,
+        "source": "https://muxtechnologies.net",
+        "vat": "unknown"
+      },
+      {
+        "name": "Storm",
+        "mbps": 150,
+        "bdt": 1500,
+        "source": "https://muxtechnologies.net",
+        "vat": "unknown"
+      },
+      {
+        "name": "Ultimate",
+        "mbps": 200,
+        "bdt": 2000,
+        "source": "https://muxtechnologies.net",
+        "vat": "unknown"
+      }
+    ]
+  },
   "My Net": {
     "source": "https://www.mynetonline.net/Services/Broadband-Internet/",
     "packages": [
@@ -19195,35 +19672,37 @@
     ]
   },
   "Neef It Sylhet": {
-    "source": "https://neefitsylhet.com/packages",
+    "source": "https://neefitsylhet.com",
+    "confidence": "recorded",
+    "researchNote": "sylhet-khulna.md",
     "packages": [
       {
         "name": "Starter",
         "mbps": 60,
         "bdt": 700,
-        "vat": "unknown",
-        "source": "https://neefitsylhet.com/packages"
+        "source": "https://neefitsylhet.com",
+        "vat": "unknown"
       },
       {
         "name": "Standard",
         "mbps": 130,
         "bdt": 1000,
-        "vat": "unknown",
-        "source": "https://neefitsylhet.com/packages"
+        "source": "https://neefitsylhet.com",
+        "vat": "unknown"
       },
       {
         "name": "Premium",
         "mbps": 150,
         "bdt": 1250,
-        "vat": "unknown",
-        "source": "https://neefitsylhet.com/packages"
+        "source": "https://neefitsylhet.com",
+        "vat": "unknown"
       },
       {
         "name": "Ultra",
         "mbps": 200,
         "bdt": 1500,
-        "vat": "unknown",
-        "source": "https://neefitsylhet.com/packages"
+        "source": "https://neefitsylhet.com",
+        "vat": "unknown"
       }
     ]
   },
@@ -20587,110 +21066,116 @@
     ]
   },
   "Pabna Online": {
-    "source": "https://pabnaonline.net/#pricing",
+    "source": "https://pabnaonline.net",
+    "confidence": "recorded",
+    "researchNote": "north.md",
+    "note": "Source URL from master snapshot. Older secondary-source range in city notes omitted.",
     "packages": [
       {
-        "name": "Package 1",
+        "name": "15 Mbps",
         "mbps": 15,
         "bdt": 500,
-        "vat": "unknown",
-        "source": "https://pabnaonline.net/#pricing"
+        "source": "https://pabnaonline.net",
+        "vat": "unknown"
       },
       {
-        "name": "Package 2",
+        "name": "25 Mbps",
         "mbps": 25,
         "bdt": 800,
-        "vat": "unknown",
-        "source": "https://pabnaonline.net/#pricing"
+        "source": "https://pabnaonline.net",
+        "vat": "unknown"
       },
       {
-        "name": "Package 3",
+        "name": "40 Mbps",
         "mbps": 40,
         "bdt": 1000,
-        "vat": "unknown",
-        "source": "https://pabnaonline.net/#pricing"
+        "source": "https://pabnaonline.net",
+        "vat": "unknown"
       },
       {
-        "name": "Package 4",
+        "name": "50 Mbps",
         "mbps": 50,
         "bdt": 1200,
-        "vat": "unknown",
-        "source": "https://pabnaonline.net/#pricing"
+        "source": "https://pabnaonline.net",
+        "vat": "unknown"
       },
       {
-        "name": "Package 5",
+        "name": "60 Mbps",
         "mbps": 60,
         "bdt": 1500,
-        "vat": "unknown",
-        "source": "https://pabnaonline.net/#pricing"
+        "source": "https://pabnaonline.net",
+        "vat": "unknown"
       },
       {
-        "name": "Package 6",
+        "name": "80 Mbps",
         "mbps": 80,
         "bdt": 2000,
-        "vat": "unknown",
-        "source": "https://pabnaonline.net/#pricing"
+        "source": "https://pabnaonline.net",
+        "vat": "unknown"
       }
     ]
   },
   "Padma Online": {
-    "source": "https://padmaonline-bd.com/#packages",
+    "source": "https://padmaonline-bd.com/",
+    "confidence": "recorded",
+    "researchNote": "north.md",
+    "note": "Source URL from committed master snapshot; note questions ASN, so no ASN override.",
     "packages": [
       {
-        "name": "Starter Basic",
+        "name": "25 Mbps",
         "mbps": 25,
         "bdt": 525,
-        "vat": "unknown",
-        "source": "https://padmaonline-bd.com/#packages"
+        "source": "https://padmaonline-bd.com/",
+        "vat": "unknown"
       },
       {
-        "name": "Smart Daily",
+        "name": "30 Mbps",
         "mbps": 30,
         "bdt": 630,
-        "vat": "unknown",
-        "source": "https://padmaonline-bd.com/#packages"
+        "source": "https://padmaonline-bd.com/",
+        "vat": "unknown"
       },
       {
-        "name": "Value Streamer",
+        "name": "40 Mbps",
         "mbps": 40,
         "bdt": 700,
-        "vat": "unknown",
-        "source": "https://padmaonline-bd.com/#packages"
+        "source": "https://padmaonline-bd.com/",
+        "vat": "unknown"
       },
       {
-        "name": "Entertainment",
+        "name": "50 Mbps",
         "mbps": 50,
         "bdt": 840,
-        "vat": "unknown",
-        "source": "https://padmaonline-bd.com/#packages"
+        "source": "https://padmaonline-bd.com/",
+        "vat": "unknown"
       },
       {
-        "name": "Power Family",
+        "name": "70 Mbps",
         "mbps": 70,
         "bdt": 1050,
-        "vat": "unknown",
-        "source": "https://padmaonline-bd.com/#packages"
+        "source": "https://padmaonline-bd.com/",
+        "vat": "unknown"
       },
       {
-        "name": "Pro Game",
+        "name": "80 Mbps",
         "mbps": 80,
         "bdt": 1350,
-        "vat": "unknown",
-        "source": "https://padmaonline-bd.com/#packages"
+        "source": "https://padmaonline-bd.com/",
+        "vat": "unknown"
       },
       {
-        "name": "Office Zoom Pro",
+        "name": "120 Mbps",
         "mbps": 120,
         "bdt": 1575,
-        "vat": "unknown",
-        "source": "https://padmaonline-bd.com/#packages"
+        "source": "https://padmaonline-bd.com/",
+        "vat": "unknown"
       },
       {
-        "name": "Boss Unlimited",
+        "name": "200 Mbps",
         "mbps": 200,
         "bdt": 2625,
-        "vat": "unknown",
-        "source": "https://padmaonline-bd.com/#packages"
+        "source": "https://padmaonline-bd.com/",
+        "vat": "unknown"
       }
     ]
   },
@@ -20990,6 +21475,83 @@
       }
     ]
   },
+  "Plus Net BD": {
+    "source": "https://plus.net.bd/pricing",
+    "confidence": "recorded",
+    "researchNote": "city-chattogram.md",
+    "packages": [
+      {
+        "name": "CTG Lite",
+        "mbps": 50,
+        "bdt": 800,
+        "source": "https://plus.net.bd/pricing",
+        "vat": "unknown"
+      },
+      {
+        "name": "CTG Basic",
+        "mbps": 100,
+        "bdt": 1000,
+        "source": "https://plus.net.bd/pricing",
+        "vat": "unknown"
+      },
+      {
+        "name": "CTG Standard",
+        "mbps": 120,
+        "bdt": 1200,
+        "source": "https://plus.net.bd/pricing",
+        "vat": "unknown"
+      },
+      {
+        "name": "CTG Pro",
+        "mbps": 150,
+        "bdt": 1500,
+        "source": "https://plus.net.bd/pricing",
+        "vat": "unknown"
+      },
+      {
+        "name": "CTG Premium",
+        "mbps": 200,
+        "bdt": 2000,
+        "source": "https://plus.net.bd/pricing",
+        "vat": "unknown"
+      },
+      {
+        "name": "Cumilla Starter",
+        "mbps": 30,
+        "bdt": 600,
+        "source": "https://plus.net.bd/pricing",
+        "vat": "unknown"
+      },
+      {
+        "name": "Cumilla Lite",
+        "mbps": 50,
+        "bdt": 800,
+        "source": "https://plus.net.bd/pricing",
+        "vat": "unknown"
+      },
+      {
+        "name": "Cumilla Basic",
+        "mbps": 80,
+        "bdt": 1000,
+        "source": "https://plus.net.bd/pricing",
+        "vat": "unknown"
+      },
+      {
+        "name": "Cumilla Standard",
+        "mbps": 100,
+        "bdt": 1200,
+        "source": "https://plus.net.bd/pricing",
+        "vat": "unknown"
+      },
+      {
+        "name": "Cumilla Pro",
+        "mbps": 120,
+        "bdt": 1500,
+        "source": "https://plus.net.bd/pricing",
+        "vat": "unknown"
+      }
+    ]
+  },
   "Pori Hoque Cyber": {
     "source": "https://porihoquecyber.com",
     "packages": [
@@ -21112,77 +21674,6 @@
         "bdt": 1100,
         "vat": "unknown",
         "source": "https://prefixnet.net/pricing"
-      }
-    ]
-  },
-  "Prisma Digital Network": {
-    "source": "https://bdix.app/isp/prisma-digital-network-ltd",
-    "packages": [
-      {
-        "name": "Package 1",
-        "mbps": 5,
-        "bdt": 500,
-        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
-      },
-      {
-        "name": "Package 2",
-        "mbps": 10,
-        "bdt": 800,
-        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
-      },
-      {
-        "name": "Package 3",
-        "mbps": 20,
-        "bdt": 1200,
-        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
-      },
-      {
-        "name": "Package 4",
-        "mbps": 25,
-        "bdt": 1500,
-        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
-      },
-      {
-        "name": "Package 5",
-        "mbps": 30,
-        "bdt": 2000,
-        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
-      },
-      {
-        "name": "Package 6",
-        "mbps": 40,
-        "bdt": 2500,
-        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
-      },
-      {
-        "name": "Package 7",
-        "mbps": 45,
-        "bdt": 3000,
-        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
-      },
-      {
-        "name": "Package 8",
-        "mbps": 50,
-        "bdt": 3500,
-        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
-      },
-      {
-        "name": "Package 9",
-        "mbps": 65,
-        "bdt": 4000,
-        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
-      },
-      {
-        "name": "Package 10",
-        "mbps": 85,
-        "bdt": 4500,
-        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
-      },
-      {
-        "name": "Package 11",
-        "mbps": 100,
-        "bdt": 5000,
-        "source": "https://bdix.app/isp/prisma-digital-network-ltd"
       }
     ]
   },
@@ -22313,79 +22804,24 @@
     ]
   },
   "Salt Sync": {
-    "source": "https://bdix.app/isp/saltsync",
+    "source": "https://saltsync.com",
+    "confidence": "low",
+    "researchNote": "sylhet-khulna.md",
+    "note": "Notes question Khulna coverage; confirmed separately in city notes. Unpriced tiers and contradictory 300 Mbps tier omitted.",
     "packages": [
       {
-        "name": "Pack-2",
-        "mbps": 30,
+        "name": "60 Mbps",
+        "mbps": 60,
         "bdt": 630,
-        "source": "https://bdix.app/isp/saltsync"
+        "source": "https://saltsync.com",
+        "vat": "unknown"
       },
       {
-        "name": "Pack-3",
-        "mbps": 40,
-        "bdt": 735,
-        "source": "https://bdix.app/isp/saltsync"
-      },
-      {
-        "name": "Pack-4",
-        "mbps": 50,
+        "name": "100 Mbps",
+        "mbps": 100,
         "bdt": 840,
-        "source": "https://bdix.app/isp/saltsync"
-      },
-      {
-        "name": "Pack-5",
-        "mbps": 100,
-        "bdt": 1050,
-        "source": "https://bdix.app/isp/saltsync"
-      },
-      {
-        "name": "Pack-6",
-        "mbps": 130,
-        "bdt": 1260,
-        "source": "https://bdix.app/isp/saltsync"
-      },
-      {
-        "name": "Pack-7",
-        "mbps": 150,
-        "bdt": 1575,
-        "source": "https://bdix.app/isp/saltsync"
-      },
-      {
-        "name": "Pack-8",
-        "mbps": 200,
-        "bdt": 2100,
-        "source": "https://bdix.app/isp/saltsync"
-      },
-      {
-        "name": "Pack-9",
-        "mbps": 300,
-        "bdt": 3150,
-        "source": "https://bdix.app/isp/saltsync"
-      },
-      {
-        "name": "Pack-10",
-        "mbps": 400,
-        "bdt": 4200,
-        "source": "https://bdix.app/isp/saltsync"
-      },
-      {
-        "name": "SME-Pack-1",
-        "mbps": 50,
-        "bdt": 3150,
-        "source": "https://bdix.app/isp/saltsync"
-      },
-      {
-        "name": "SME-Pack-3",
-        "mbps": 100,
-        "bdt": 5250,
-        "source": "https://bdix.app/isp/saltsync"
-      },
-      {
-        "name": "SME-Pack-4",
-        "mbps": 180,
-        "bdt": 7875,
-        "source": "https://bdix.app/isp/saltsync"
+        "source": "https://saltsync.com",
+        "vat": "unknown"
       }
     ]
   },
@@ -22432,41 +22868,44 @@
   },
   "Sarker Net": {
     "source": "https://sarkernet.com/package",
+    "confidence": "recorded",
+    "researchNote": "city-khulna-rajshahi.md",
+    "note": "VAT unclear in hand-research notes.",
     "packages": [
       {
-        "name": "20 Mbps",
+        "name": "Economy",
         "mbps": 20,
         "bdt": 600,
-        "vat": "excl",
-        "source": "https://sarkernet.com/package"
+        "source": "https://sarkernet.com/package",
+        "vat": "unknown"
       },
       {
-        "name": "32 Mbps",
+        "name": "Starter",
         "mbps": 32,
         "bdt": 700,
-        "vat": "excl",
-        "source": "https://sarkernet.com/package"
+        "source": "https://sarkernet.com/package",
+        "vat": "unknown"
       },
       {
-        "name": "42 Mbps",
+        "name": "Deluxe",
         "mbps": 42,
         "bdt": 800,
-        "vat": "excl",
-        "source": "https://sarkernet.com/package"
+        "source": "https://sarkernet.com/package",
+        "vat": "unknown"
       },
       {
-        "name": "50 Mbps",
+        "name": "Super",
         "mbps": 50,
         "bdt": 1000,
-        "vat": "excl",
-        "source": "https://sarkernet.com/package"
+        "source": "https://sarkernet.com/package",
+        "vat": "unknown"
       },
       {
-        "name": "70 Mbps",
+        "name": "Gamer",
         "mbps": 70,
         "bdt": 1500,
-        "vat": "excl",
-        "source": "https://sarkernet.com/package"
+        "source": "https://sarkernet.com/package",
+        "vat": "unknown"
       }
     ]
   },
@@ -23281,35 +23720,6 @@
       }
     ]
   },
-  "Sky Net": {
-    "source": "https://bdix.app/isp/skynet",
-    "packages": [
-      {
-        "name": "30 Mbps",
-        "mbps": 30,
-        "bdt": 550,
-        "source": "https://bdix.app/isp/skynet"
-      },
-      {
-        "name": "50 Mbps",
-        "mbps": 50,
-        "bdt": 750,
-        "source": "https://bdix.app/isp/skynet"
-      },
-      {
-        "name": "70 Mbps",
-        "mbps": 70,
-        "bdt": 900,
-        "source": "https://bdix.app/isp/skynet"
-      },
-      {
-        "name": "100 Mbps",
-        "mbps": 100,
-        "bdt": 1450,
-        "source": "https://bdix.app/isp/skynet"
-      }
-    ]
-  },
   "Skylark Network": {
     "source": "https://skylarkbd.net/",
     "packages": [
@@ -23337,43 +23747,51 @@
     ]
   },
   "Skynet Broadband Service": {
-    "source": "https://bdix.app/isp/skynet-broadband-service",
+    "source": "https://skynet.com.bd/pricing",
+    "confidence": "recorded",
+    "researchNote": "city-sylhet.md",
     "packages": [
       {
         "name": "Starter",
         "mbps": 20,
         "bdt": 500,
-        "source": "https://bdix.app/isp/skynet-broadband-service"
+        "source": "https://skynet.com.bd/pricing",
+        "vat": "unknown"
       },
       {
         "name": "Marshmello",
         "mbps": 30,
         "bdt": 600,
-        "source": "https://bdix.app/isp/skynet-broadband-service"
+        "source": "https://skynet.com.bd/pricing",
+        "vat": "unknown"
       },
       {
-        "name": "Friend Buzz",
+        "name": "FriendBuzz",
         "mbps": 40,
         "bdt": 700,
-        "source": "https://bdix.app/isp/skynet-broadband-service"
+        "source": "https://skynet.com.bd/pricing",
+        "vat": "unknown"
       },
       {
         "name": "Standard",
         "mbps": 60,
         "bdt": 800,
-        "source": "https://bdix.app/isp/skynet-broadband-service"
+        "source": "https://skynet.com.bd/pricing",
+        "vat": "unknown"
       },
       {
         "name": "Premium",
         "mbps": 80,
         "bdt": 900,
-        "source": "https://bdix.app/isp/skynet-broadband-service"
+        "source": "https://skynet.com.bd/pricing",
+        "vat": "unknown"
       },
       {
         "name": "Infinity",
         "mbps": 100,
         "bdt": 1000,
-        "source": "https://bdix.app/isp/skynet-broadband-service"
+        "source": "https://skynet.com.bd/pricing",
+        "vat": "unknown"
       }
     ]
   },
@@ -23454,59 +23872,6 @@
         "bdt": 1575,
         "vat": "unknown",
         "source": "https://skynetonlinebd.net/"
-      }
-    ]
-  },
-  "Skyview Online": {
-    "source": "https://bdix.app/isp/skyview-online",
-    "packages": [
-      {
-        "name": "Turbo",
-        "mbps": 35,
-        "bdt": 500,
-        "source": "https://bdix.app/isp/skyview-online"
-      },
-      {
-        "name": "Boost",
-        "mbps": 45,
-        "bdt": 600,
-        "source": "https://bdix.app/isp/skyview-online"
-      },
-      {
-        "name": "Ultra",
-        "mbps": 55,
-        "bdt": 700,
-        "source": "https://bdix.app/isp/skyview-online"
-      },
-      {
-        "name": "Xpress",
-        "mbps": 80,
-        "bdt": 800,
-        "source": "https://bdix.app/isp/skyview-online"
-      },
-      {
-        "name": "Prime",
-        "mbps": 120,
-        "bdt": 1000,
-        "source": "https://bdix.app/isp/skyview-online"
-      },
-      {
-        "name": "Mega",
-        "mbps": 140,
-        "bdt": 1200,
-        "source": "https://bdix.app/isp/skyview-online"
-      },
-      {
-        "name": "Super",
-        "mbps": 170,
-        "bdt": 1500,
-        "source": "https://bdix.app/isp/skyview-online"
-      },
-      {
-        "name": "Hyper",
-        "mbps": 220,
-        "bdt": 2000,
-        "source": "https://bdix.app/isp/skyview-online"
       }
     ]
   },
@@ -24035,6 +24400,28 @@
       }
     ]
   },
+  "Spider Mesh": {
+    "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+    "confidence": "low",
+    "researchNote": "north.md",
+    "note": "VAT additional. Original ISP URL was not recorded; source links the committed research note, not an official tariff.",
+    "packages": [
+      {
+        "name": "15 Mbps",
+        "mbps": 15,
+        "bdt": 500,
+        "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+        "vat": "excl"
+      },
+      {
+        "name": "20 Mbps",
+        "mbps": 20,
+        "bdt": 525,
+        "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+        "vat": "excl"
+      }
+    ]
+  },
   "Sprint Networks": {
     "source": "https://sprintnetbd.com/",
     "packages": [
@@ -24331,35 +24718,6 @@
       }
     ]
   },
-  "Stargate": {
-    "source": "https://bdix.app/isp/stargate",
-    "packages": [
-      {
-        "name": "Smart",
-        "mbps": 2,
-        "bdt": 1000,
-        "source": "https://bdix.app/isp/stargate"
-      },
-      {
-        "name": "Essential",
-        "mbps": 3,
-        "bdt": 1800,
-        "source": "https://bdix.app/isp/stargate"
-      },
-      {
-        "name": "Ultimate",
-        "mbps": 4,
-        "bdt": 2300,
-        "source": "https://bdix.app/isp/stargate"
-      },
-      {
-        "name": "Preferred",
-        "mbps": 5,
-        "bdt": 2800,
-        "source": "https://bdix.app/isp/stargate"
-      }
-    ]
-  },
   "Streaming Internet Trade(S.I.T)": {
     "source": "https://sit.net.bd/",
     "packages": [
@@ -24454,65 +24812,6 @@
       }
     ]
   },
-  "Sun Online": {
-    "source": "https://bdix.app/isp/sun-online",
-    "packages": [
-      {
-        "name": "Package-1",
-        "mbps": 30,
-        "bdt": 525,
-        "source": "https://bdix.app/isp/sun-online"
-      },
-      {
-        "name": "Package-2",
-        "mbps": 50,
-        "bdt": 630,
-        "source": "https://bdix.app/isp/sun-online"
-      },
-      {
-        "name": "Package-3",
-        "mbps": 80,
-        "bdt": 840,
-        "source": "https://bdix.app/isp/sun-online"
-      },
-      {
-        "name": "Package-4",
-        "mbps": 100,
-        "bdt": 1050,
-        "source": "https://bdix.app/isp/sun-online"
-      },
-      {
-        "name": "Package-5",
-        "mbps": 150,
-        "bdt": 1575,
-        "source": "https://bdix.app/isp/sun-online"
-      },
-      {
-        "name": "Package-6",
-        "mbps": 200,
-        "bdt": 2100,
-        "source": "https://bdix.app/isp/sun-online"
-      },
-      {
-        "name": "Starter",
-        "mbps": 30,
-        "bdt": 8500,
-        "source": "https://bdix.app/isp/sun-online"
-      },
-      {
-        "name": "Grower",
-        "mbps": 50,
-        "bdt": 12500,
-        "source": "https://bdix.app/isp/sun-online"
-      },
-      {
-        "name": "Rewarder",
-        "mbps": 80,
-        "bdt": 19000,
-        "source": "https://bdix.app/isp/sun-online"
-      }
-    ]
-  },
   "Sunlit Network": {
     "source": "https://bdix.app/isp/sunlit-network",
     "packages": [
@@ -24575,43 +24874,52 @@
     ]
   },
   "Swapno Network": {
-    "source": "https://bdix.app/isp/swapno-network-ltd",
+    "source": "https://swapnonetwork.net",
+    "confidence": "recorded",
+    "researchNote": "city-sylhet.md",
+    "note": "5 Mbps tier has 1:8 contention.",
     "packages": [
       {
         "name": "5 Mbps",
         "mbps": 5,
         "bdt": 500,
-        "source": "https://bdix.app/isp/swapno-network-ltd"
+        "source": "https://swapnonetwork.net",
+        "vat": "unknown"
       },
       {
         "name": "12 Mbps",
         "mbps": 12,
         "bdt": 599,
-        "source": "https://bdix.app/isp/swapno-network-ltd"
+        "source": "https://swapnonetwork.net",
+        "vat": "unknown"
       },
       {
         "name": "30 Mbps",
         "mbps": 30,
         "bdt": 999,
-        "source": "https://bdix.app/isp/swapno-network-ltd"
+        "source": "https://swapnonetwork.net",
+        "vat": "unknown"
       },
       {
         "name": "45 Mbps",
         "mbps": 45,
         "bdt": 1299,
-        "source": "https://bdix.app/isp/swapno-network-ltd"
+        "source": "https://swapnonetwork.net",
+        "vat": "unknown"
       },
       {
         "name": "55 Mbps",
         "mbps": 55,
         "bdt": 1599,
-        "source": "https://bdix.app/isp/swapno-network-ltd"
+        "source": "https://swapnonetwork.net",
+        "vat": "unknown"
       },
       {
         "name": "62 Mbps",
         "mbps": 62,
         "bdt": 1999,
-        "source": "https://bdix.app/isp/swapno-network-ltd"
+        "source": "https://swapnonetwork.net",
+        "vat": "unknown"
       }
     ]
   },
@@ -25084,65 +25392,6 @@
       }
     ]
   },
-  "The Matrix Technology": {
-    "source": "https://bdix.app/isp/the-matrix-technology",
-    "packages": [
-      {
-        "name": "Silver",
-        "mbps": 20,
-        "bdt": 525,
-        "source": "https://bdix.app/isp/the-matrix-technology"
-      },
-      {
-        "name": "Silver Plus",
-        "mbps": 30,
-        "bdt": 680,
-        "source": "https://bdix.app/isp/the-matrix-technology"
-      },
-      {
-        "name": "Gold",
-        "mbps": 50,
-        "bdt": 890,
-        "source": "https://bdix.app/isp/the-matrix-technology"
-      },
-      {
-        "name": "Gold Plus",
-        "mbps": 70,
-        "bdt": 1050,
-        "source": "https://bdix.app/isp/the-matrix-technology"
-      },
-      {
-        "name": "Platinum",
-        "mbps": 100,
-        "bdt": 1295,
-        "source": "https://bdix.app/isp/the-matrix-technology"
-      },
-      {
-        "name": "Platinum Plus",
-        "mbps": 150,
-        "bdt": 1575,
-        "source": "https://bdix.app/isp/the-matrix-technology"
-      },
-      {
-        "name": "Diamond",
-        "mbps": 200,
-        "bdt": 2205,
-        "source": "https://bdix.app/isp/the-matrix-technology"
-      },
-      {
-        "name": "Diamond Plus",
-        "mbps": 250,
-        "bdt": 3150,
-        "source": "https://bdix.app/isp/the-matrix-technology"
-      },
-      {
-        "name": "Pink Diamond",
-        "mbps": 300,
-        "bdt": 4200,
-        "source": "https://bdix.app/isp/the-matrix-technology"
-      }
-    ]
-  },
   "The Net": {
     "source": "https://thenet.com.bd",
     "packages": [
@@ -25530,6 +25779,48 @@
         "bdt": 840,
         "vat": "unknown",
         "source": "https://touchcombd.com/pricing"
+      }
+    ]
+  },
+  "Touch Online": {
+    "source": "https://touchonline.net.bd/our-packages",
+    "confidence": "recorded",
+    "researchNote": "city-chattogram.md",
+    "packages": [
+      {
+        "name": "DIGANTA",
+        "mbps": 25,
+        "bdt": 525,
+        "source": "https://touchonline.net.bd/our-packages",
+        "vat": "unknown"
+      },
+      {
+        "name": "DIGANTA+",
+        "mbps": 30,
+        "bdt": 630,
+        "source": "https://touchonline.net.bd/our-packages",
+        "vat": "unknown"
+      },
+      {
+        "name": "DURANTA",
+        "mbps": 35,
+        "bdt": 735,
+        "source": "https://touchonline.net.bd/our-packages",
+        "vat": "unknown"
+      },
+      {
+        "name": "DURANTA+",
+        "mbps": 40,
+        "bdt": 840,
+        "source": "https://touchonline.net.bd/our-packages",
+        "vat": "unknown"
+      },
+      {
+        "name": "AFURANTO",
+        "mbps": 75,
+        "bdt": 1050,
+        "source": "https://touchonline.net.bd/our-packages",
+        "vat": "unknown"
       }
     ]
   },
@@ -26302,6 +26593,28 @@
       }
     ]
   },
+  "World Touch Cyber Cafe": {
+    "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+    "confidence": "low",
+    "researchNote": "north.md",
+    "note": "Two different speeds at the same recorded price; retained as written. Original ISP URL was not recorded; source links the committed research note, not an official tariff.",
+    "packages": [
+      {
+        "name": "45 Mbps",
+        "mbps": 45,
+        "bdt": 840,
+        "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+        "vat": "unknown"
+      },
+      {
+        "name": "25 Mbps",
+        "mbps": 25,
+        "bdt": 840,
+        "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md",
+        "vat": "unknown"
+      }
+    ]
+  },
   "Xen Net": {
     "source": "https://xennet.com.bd",
     "packages": [
@@ -26339,47 +26652,6 @@
         "bdt": 1600,
         "vat": "unknown",
         "source": "https://xennet.com.bd"
-      }
-    ]
-  },
-  "Xenial Broadband": {
-    "source": "https://bdix.app/isp/xenial-broadband",
-    "packages": [
-      {
-        "name": "Lite",
-        "mbps": 60,
-        "bdt": 800,
-        "source": "https://bdix.app/isp/xenial-broadband"
-      },
-      {
-        "name": "Basic",
-        "mbps": 100,
-        "bdt": 1000,
-        "source": "https://bdix.app/isp/xenial-broadband"
-      },
-      {
-        "name": "Premium",
-        "mbps": 125,
-        "bdt": 1200,
-        "source": "https://bdix.app/isp/xenial-broadband"
-      },
-      {
-        "name": "Ultimate",
-        "mbps": 150,
-        "bdt": 1500,
-        "source": "https://bdix.app/isp/xenial-broadband"
-      },
-      {
-        "name": "Silver",
-        "mbps": 200,
-        "bdt": 2000,
-        "source": "https://bdix.app/isp/xenial-broadband"
-      },
-      {
-        "name": "Gold",
-        "mbps": 250,
-        "bdt": 2500,
-        "source": "https://bdix.app/isp/xenial-broadband"
       }
     ]
   },

@@ -1245,7 +1245,8 @@
     "sources": [
       "apnic",
       "bdix.app",
-      "wifirank"
+      "wifirank",
+      "http://skyviewonline.com"
     ],
     "nationwide": true,
     "addresses": [
@@ -1253,6 +1254,9 @@
     ],
     "renewalDates": [],
     "possiblyLapsed": false,
+    "notes": [
+      "Source host from curated provider snapshot."
+    ],
     "slug": "skyview-online"
   },
   {
@@ -3014,7 +3018,8 @@
     "districts": [],
     "licence": "Unspecified",
     "sources": [
-      "wifirank"
+      "wifirank",
+      "https://broadband360.com.bd"
     ],
     "nationwide": false,
     "addresses": [],
@@ -5569,7 +5574,8 @@
     "sources": [
       "apnic",
       "bdix.app",
-      "btrc-pdf-2024-12"
+      "btrc-pdf-2024-12",
+      "https://advancetelbd.com"
     ],
     "source": "https://bdix.app/isp/advance-telecom",
     "nationwide": false,
@@ -5581,6 +5587,9 @@
       "18-Dec-2026"
     ],
     "possiblyLapsed": false,
+    "notes": [
+      "Source URL from committed master snapshot."
+    ],
     "slug": "advance-telecom"
   },
   {
@@ -8563,8 +8572,10 @@
   },
   {
     "name": "Arrow Net",
-    "aliases": [],
-    "website": null,
+    "aliases": [
+      "ArrowNet"
+    ],
+    "website": "https://arrownetsylhet.com",
     "asn": 139604,
     "districts": [
       "sylhet"
@@ -8573,7 +8584,8 @@
     "sources": [
       "apnic",
       "bdix.app",
-      "btrc-pdf-2024-12"
+      "btrc-pdf-2024-12",
+      "https://arrownetsylhet.com"
     ],
     "source": "https://bdix.app/isp/arrow-net",
     "nationwide": false,
@@ -11892,7 +11904,8 @@
     ],
     "licence": "Upazila/Thana",
     "sources": [
-      "btrc-pdf-2024-12"
+      "btrc-pdf-2024-12",
+      "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md"
     ],
     "source": "https://btrc.gov.bd",
     "nationwide": false,
@@ -11903,6 +11916,10 @@
       "8-Mar-2027"
     ],
     "possiblyLapsed": false,
+    "notes": [
+      "Only explicit endpoints transcribed; intermediate tiers absent. Original ISP URL was not recorded; source links the committed research note, not an official tariff.",
+      "Low-confidence hand research; verify with the provider."
+    ],
     "slug": "bogra-broadband"
   },
   {
@@ -11917,13 +11934,18 @@
     "licence": "Upazila/Thana",
     "sources": [
       "apnic",
-      "bdix.app"
+      "bdix.app",
+      "https://bograinfo.com"
     ],
     "source": "https://bdix.app",
     "nationwide": false,
     "addresses": [],
     "renewalDates": [],
     "possiblyLapsed": false,
+    "notes": [
+      "Conflicting pages: hand notes differ from extracted /plans speeds. Hand notes take precedence; source host from master snapshot.",
+      "Low-confidence hand research; verify with the provider."
+    ],
     "slug": "bograinfo-com"
   },
   {
@@ -13650,7 +13672,8 @@
   {
     "name": "Chittagong Telecom Services",
     "aliases": [
-      "Chittagong Telecom Services Ltd."
+      "Chittagong Telecom Services Ltd.",
+      "CTGTEL"
     ],
     "website": "https://ctgtel.net",
     "asn": 58912,
@@ -13660,7 +13683,8 @@
     "licence": "Divisional",
     "sources": [
       "apnic",
-      "bdix.app"
+      "bdix.app",
+      "https://ctgtel.net/pricing"
     ],
     "source": "https://bdix.app",
     "nationwide": false,
@@ -14299,7 +14323,8 @@
     ],
     "licence": "Unspecified",
     "sources": [
-      "apnic"
+      "apnic",
+      "https://cloudone.com.bd/packages"
     ],
     "source": "https://btrc.gov.bd",
     "nationwide": false,
@@ -14531,17 +14556,25 @@
     "aliases": [],
     "website": "https://bdhub.com",
     "asn": 132598,
-    "districts": [],
+    "districts": [
+      "comilla",
+      "rangpur"
+    ],
     "licence": "Nationwide",
     "sources": [
       "apnic",
-      "bdix.app"
+      "bdix.app",
+      "https://bdhub.com"
     ],
     "source": "https://bdix.app",
     "nationwide": true,
     "addresses": [],
     "renewalDates": [],
     "possiblyLapsed": false,
+    "notes": [
+      "Source URL from master snapshot; notes give conflicting ASNs 133443/132598, so no ASN override.",
+      "Low-confidence hand research; verify with the provider."
+    ],
     "slug": "comilla-online"
   },
   {
@@ -14785,13 +14818,17 @@
     "licence": "Upazila/Thana",
     "sources": [
       "apnic",
-      "bdix.app"
+      "bdix.app",
+      "https://contrivancebd.com"
     ],
     "source": "https://bdix.app",
     "nationwide": false,
     "addresses": [],
     "renewalDates": [],
     "possiblyLapsed": false,
+    "notes": [
+      "8 Mbps has no real IP; 15 Mbps has real IP. VAT unknown."
+    ],
     "slug": "contrivance-technology"
   },
   {
@@ -18692,7 +18729,8 @@
     "sources": [
       "apnic",
       "bdix.app",
-      "btrc-pdf-2024-12"
+      "btrc-pdf-2024-12",
+      "https://evillagectg.com"
     ],
     "source": "https://bdix.app",
     "nationwide": false,
@@ -24922,8 +24960,10 @@
   },
   {
     "name": "Habiganj Net Communications",
-    "aliases": [],
-    "website": null,
+    "aliases": [
+      "HNC Broadband"
+    ],
+    "website": "https://habiganj.net",
     "asn": 141443,
     "districts": [
       "habiganj"
@@ -24931,13 +24971,17 @@
     "licence": "Divisional",
     "sources": [
       "apnic",
-      "bdix.app"
+      "bdix.app",
+      "https://habiganj.net"
     ],
     "source": "https://bdix.app",
     "nationwide": false,
     "addresses": [],
     "renewalDates": [],
     "possiblyLapsed": false,
+    "notes": [
+      "Prices effective 1 April 2026."
+    ],
     "slug": "habiganj-net-communications"
   },
   {
@@ -33654,7 +33698,8 @@
     "sources": [
       "apnic",
       "bdix.app",
-      "btrc-pdf-2024-12"
+      "btrc-pdf-2024-12",
+      "https://helpline.com.bd"
     ],
     "source": "https://bdix.app/isp/help-line",
     "nationwide": false,
@@ -41334,12 +41379,15 @@
   {
     "name": "MUX Technologies",
     "aliases": [],
-    "website": null,
+    "website": "https://muxtechnologies.net",
     "asn": null,
-    "districts": [],
+    "districts": [
+      "chattogram"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
-      "bdix.app"
+      "bdix.app",
+      "https://muxtechnologies.net"
     ],
     "source": "https://bdix.app",
     "nationwide": false,
@@ -42666,7 +42714,8 @@
     ],
     "licence": "Unspecified",
     "sources": [
-      "apnic"
+      "apnic",
+      "https://neefitsylhet.com"
     ],
     "source": "https://btrc.gov.bd",
     "nationwide": false,
@@ -46452,7 +46501,8 @@
     "licence": "Upazila/Thana",
     "sources": [
       "apnic",
-      "btrc-pdf-2024-12"
+      "btrc-pdf-2024-12",
+      "https://pabnaonline.net"
     ],
     "source": "https://btrc.gov.bd",
     "nationwide": false,
@@ -46465,6 +46515,9 @@
       "3-Mar-2027"
     ],
     "possiblyLapsed": false,
+    "notes": [
+      "Source URL from master snapshot. Older secondary-source range in city notes omitted."
+    ],
     "slug": "pabna-online"
   },
   {
@@ -46602,13 +46655,17 @@
     "licence": "District",
     "sources": [
       "apnic",
-      "bdix.app"
+      "bdix.app",
+      "https://padmaonline-bd.com/"
     ],
     "source": "https://bdix.app",
     "nationwide": false,
     "addresses": [],
     "renewalDates": [],
     "possiblyLapsed": false,
+    "notes": [
+      "Source URL from committed master snapshot; note questions ASN, so no ASN override."
+    ],
     "slug": "padma-online"
   },
   {
@@ -47358,13 +47415,15 @@
     "asn": 137526,
     "districts": [
       "chattogram",
+      "comilla",
       "dhaka"
     ],
     "licence": "Divisional, Upazila/Thana",
     "sources": [
       "apnic",
       "bdix.app",
-      "btrc-pdf-2024-12"
+      "btrc-pdf-2024-12",
+      "https://plus.net.bd/pricing"
     ],
     "source": "https://bdix.app",
     "nationwide": false,
@@ -53254,7 +53313,8 @@
     "sources": [
       "apnic",
       "bdix.app",
-      "btrc-pdf-2024-12"
+      "btrc-pdf-2024-12",
+      "https://saltsync.com"
     ],
     "source": "https://bdix.app/isp/saltsync",
     "nationwide": true,
@@ -53266,6 +53326,10 @@
       "30-Jan-2023"
     ],
     "possiblyLapsed": false,
+    "notes": [
+      "Notes question Khulna coverage; confirmed separately in city notes. Unpriced tiers and contradictory 300 Mbps tier omitted.",
+      "Low-confidence hand research; verify with the provider."
+    ],
     "slug": "salt-sync"
   },
   {
@@ -53630,7 +53694,8 @@
     "sources": [
       "apnic",
       "bdix.app",
-      "btrc-pdf-2024-12"
+      "btrc-pdf-2024-12",
+      "https://sarkernet.com/package"
     ],
     "source": "https://bdix.app",
     "nationwide": false,
@@ -53639,7 +53704,8 @@
       "Kathaltala Bazar, Saydabad, Sirajganj."
     ],
     "notes": [
-      "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none"
+      "fetched via curl (WebFetch rate-limited); package names are speed labels where site gave none",
+      "VAT unclear in hand-research notes."
     ],
     "renewalDates": [
       "11-Sep-2024",
@@ -56626,35 +56692,49 @@
   },
   {
     "name": "Sky Net",
-    "aliases": [
-      "Sky Net BD",
-      "Skynet"
-    ],
+    "aliases": [],
     "website": null,
     "asn": null,
     "districts": [
-      "dhaka",
-      "khulna",
-      "noakhali"
+      "dhaka"
     ],
-    "licence": "Divisional, Upazila/Thana",
+    "licence": "Upazila/Thana",
     "sources": [
-      "bdix.app",
       "btrc-pdf-2024-12"
     ],
-    "source": "https://bdix.app/isp/skynet",
+    "source": "https://btrc.gov.bd",
     "nationwide": false,
     "addresses": [
-      "45, Darus Salam Darus-Salam Mirpur, Dhaka-1216",
-      "Fulbarigate, Beside BK School, Dighalia, Khulna",
-      "Level-5, Morshed Alam Complex, Chowmuhani, Noakhali."
+      "45, Darus Salam Darus-Salam Mirpur, Dhaka-1216"
     ],
     "renewalDates": [
-      "21-Dec-2026",
       "25-Jan-2022"
     ],
-    "possiblyLapsed": false,
+    "possiblyLapsed": true,
     "slug": "sky-net"
+  },
+  {
+    "name": "Sky Net BD",
+    "aliases": [],
+    "website": null,
+    "asn": null,
+    "districts": [
+      "khulna"
+    ],
+    "licence": "Upazila/Thana",
+    "sources": [
+      "btrc-pdf-2024-12"
+    ],
+    "source": "https://btrc.gov.bd",
+    "nationwide": false,
+    "addresses": [
+      "Fulbarigate, Beside BK School, Dighalia, Khulna"
+    ],
+    "renewalDates": [
+      "21-Dec-2026"
+    ],
+    "possiblyLapsed": false,
+    "slug": "sky-net-bd"
   },
   {
     "name": "Sky Net Broadband Network",
@@ -56875,7 +56955,8 @@
     "sources": [
       "apnic",
       "bdix.app",
-      "btrc-pdf-2024-12"
+      "btrc-pdf-2024-12",
+      "https://skynet.com.bd/pricing"
     ],
     "source": "https://bdix.app/isp/skynet-broadband-service",
     "nationwide": false,
@@ -56904,7 +56985,7 @@
       "bdix.app",
       "btrc-pdf-2024-12"
     ],
-    "source": "https://bdix.app/isp/skynet-chowmuhani",
+    "source": "https://bdix.app/isp/skynet",
     "nationwide": false,
     "addresses": [
       "Morshed Alam Complex, 5th Floor, West Side, Nurul Haque Road, Choumuhani, Noakhali Date",
@@ -58741,7 +58822,8 @@
     "licence": "Upazila/Thana",
     "sources": [
       "bdix.app",
-      "btrc-pdf-2024-12"
+      "btrc-pdf-2024-12",
+      "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md"
     ],
     "source": "https://bdix.app",
     "nationwide": false,
@@ -58752,6 +58834,10 @@
       "14-Nov-2023"
     ],
     "possiblyLapsed": false,
+    "notes": [
+      "VAT additional. Original ISP URL was not recorded; source links the committed research note, not an official tariff.",
+      "Low-confidence hand research; verify with the provider."
+    ],
     "slug": "spider-mesh"
   },
   {
@@ -60423,13 +60509,15 @@
     "website": "https://swapnonetwork.net",
     "asn": 131242,
     "districts": [
+      "sunamganj",
       "sylhet"
     ],
     "licence": "Divisional, Nationwide",
     "sources": [
       "apnic",
       "bdix.app",
-      "btrc-pdf-2024-12"
+      "btrc-pdf-2024-12",
+      "https://swapnonetwork.net"
     ],
     "source": "https://bdix.app/isp/swapno-network-ltd",
     "nationwide": true,
@@ -60441,6 +60529,9 @@
       "21-Jan-2023"
     ],
     "possiblyLapsed": false,
+    "notes": [
+      "5 Mbps tier has 1:8 contention."
+    ],
     "slug": "swapno-network"
   },
   {
@@ -62805,7 +62896,7 @@
   {
     "name": "Touch Online",
     "aliases": [],
-    "website": null,
+    "website": "https://touchonline.net.bd/our-packages",
     "asn": 139283,
     "districts": [
       "chattogram"
@@ -62813,7 +62904,8 @@
     "licence": "District",
     "sources": [
       "apnic",
-      "bdix.app"
+      "bdix.app",
+      "https://touchonline.net.bd/our-packages"
     ],
     "source": "https://bdix.app/isp/touch-online",
     "nationwide": false,
@@ -65642,16 +65734,23 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "bogura"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
-      "bdix.app"
+      "bdix.app",
+      "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/north.md"
     ],
     "source": "https://bdix.app",
     "nationwide": false,
     "addresses": [],
     "renewalDates": [],
     "possiblyLapsed": false,
+    "notes": [
+      "Two different speeds at the same recorded price; retained as written. Original ISP URL was not recorded; source links the committed research note, not an official tariff.",
+      "Low-confidence hand research; verify with the provider."
+    ],
     "slug": "world-touch-cyber-cafe"
   },
   {
@@ -66581,5 +66680,48 @@
     ],
     "possiblyLapsed": false,
     "slug": "zs-enterprise"
+  },
+  {
+    "name": "CDC Internet",
+    "aliases": [],
+    "website": "https://cdclbd.net",
+    "asn": null,
+    "districts": [],
+    "licence": "Unspecified",
+    "sources": [
+      "https://cdclbd.net"
+    ],
+    "source": "https://cdclbd.net",
+    "nationwide": true,
+    "possiblyLapsed": false,
+    "notes": [
+      "Nationwide fiber provider. Only site title read; earlier-search price fragments not promoted.",
+      "Low-confidence hand research; verify with the provider."
+    ],
+    "slug": "cdc-internet"
+  },
+  {
+    "name": "Qubee",
+    "aliases": [],
+    "website": null,
+    "asn": null,
+    "districts": [
+      "natore",
+      "pabna",
+      "rajshahi",
+      "sirajganj"
+    ],
+    "licence": "Unspecified",
+    "sources": [
+      "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/city-khulna-rajshahi.md"
+    ],
+    "source": "https://github.com/Sou-hardo/wifirank/blob/feat/nationwide-isp-data/data/sources/city-khulna-rajshahi.md",
+    "nationwide": false,
+    "possiblyLapsed": false,
+    "notes": [
+      "Directory coverage claim only; original directory URL not recorded. No prices or current operating-status claim.",
+      "Low-confidence hand research; verify with the provider."
+    ],
+    "slug": "qubee"
   }
 ]

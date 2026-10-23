@@ -1,4 +1,4 @@
-// Rebuild from committed research snapshots. Curated names, fields and packages win.
+// Rebuild from committed snapshots: curated > hand-research > extracted > bdix.
 import { readFileSync, writeFileSync } from 'node:fs';
 const read = (f: string): any => JSON.parse(readFileSync(`data/sources/${f}.json`, 'utf8'));
 const write = (f: string, data: unknown) => writeFileSync(`data/${f}.json`, JSON.stringify(data, null, 2) + '\n');
@@ -29,6 +29,19 @@ const extracted = Array.from({ length: 10 }, (_, i) => read(`extracted-${i}`)).f
 const details = read('bdix-detail');
 const curated = read('curated-isps');
 const packages = read('curated-packages');
+const curatedPackageNames = Object.keys(packages);
+const hand = read('hand-research');
+const [header, ...licences] = csvRows(readFileSync('data/sources/btrc-licensees.csv', 'utf8'));
+// The master merged unrelated Sky Net licensees. Reconstruct the two official rows;
+// the BDIX Skynet address instead matches Skynet Chowmuhani in Noakhali.
+const master = read('master').flatMap((m: any) => {
+  if (m.name === 'Sky Net') return licences.filter(row => ['Sky Net', 'Sky Net BD'].includes(row[header.indexOf('name')])).map(row => {
+    const get = (key: string) => row[header.indexOf(key)];
+    return { ...m, name: get('name'), aliases: [get('name')], categories: [get('cat')], locations: [get('district')],
+      addresses: [get('address')], renewal: [get('renewal')], sources: ['btrc-pdf-2024-12'], bdix_slug: '' };
+  });
+  return m.name === 'Skynet Chowmuhani' ? [{ ...m, bdix_slug: 'skynet' }] : [m];
+});
 // Brand alias documented in the supplied nationwide research notes.
 const velocity = curated.find((i: any) => i.name === 'Velocity Networks');
 if (velocity) velocity.aliases = [...new Set([...velocity.aliases, 'Broadband360'])];
@@ -36,7 +49,7 @@ const isps: any[] = curated.map((i: any) => ({ ...i, districts: [], licence: 'Un
 const index = new Map<string, any>();
 for (const i of isps) for (const n of [i.name, ...(i.aliases ?? [])]) index.set(norm(n), i);
 const used = new Set(isps.map(i => slug(i.name)));
-for (const m of read('master')) {
+for (const m of master) {
   const scrape = extracted.find((e: any) => e.name === m.name);
   if (scrape?.status === 'not-isp' && !m.existing) continue;
   let i = [m.name, ...m.aliases].map(n => index.get(norm(n))).find(Boolean);
@@ -52,7 +65,7 @@ for (const m of read('master')) {
   i.source ??= m.sources.includes('bdix.app') ? `https://bdix.app${m.bdix_slug ? `/isp/${m.bdix_slug}` : ''}` : 'https://btrc.gov.bd';
   i.licence = [...new Set([...(i.licence === 'Unspecified' ? [] : i.licence.split(', ')), ...m.categories])].join(', ') || 'Unspecified';
   i.nationwide ||= m.categories.includes('Nationwide');
-  const detail = details[m.bdix_slug] ?? Object.values(details).find((d: any) => norm(d.name ?? '') === norm(m.name)) as any;
+  const detail = ['Sky Net', 'Sky Net BD'].includes(m.name) ? undefined : details[m.bdix_slug] ?? Object.values(details).find((d: any) => norm(d.name ?? '') === norm(m.name)) as any;
   i.addresses = [...new Set([...(i.addresses ?? []), ...m.addresses, ...(detail?.address?.streetAddress ? [detail.address.streetAddress] : [])])];
   i.districts = [...new Set([...i.districts, ...locate([...m.locations.filter((s: string) => !/division/i.test(s)), ...i.addresses, ...(scrape?.coverage ?? []), detail?.areaServed ?? ''])])].sort();
   if (scrape?.notes) i.notes = [...new Set([...(i.notes ?? []), scrape.notes])];
@@ -60,9 +73,40 @@ for (const m of read('master')) {
   const dates = i.renewalDates.filter((s: string) => /^\d{1,2}-[A-Za-z]{3}-\d{4}$/.test(s)).map((s: string) => Date.parse(s));
   // Fixed research reference date makes this build deterministic; this is not live licence verification.
   i.possiblyLapsed = i.sources.every((s: string) => s === 'btrc-pdf-2024-12') && dates.length > 0 && Math.max(...dates) < Date.parse('2026-10-24');
+}
+// Hand notes may introduce a provider absent from the licence/APNIC master.
+for (const h of hand.entries) {
+  if (h.publishPackages === false) continue;
+  let i = index.get(norm(h.name));
+  if (!i) {
+    i = { name: h.name, aliases: [], website: /^https?:\/\/(?!github\.com)/.test(h.source) ? h.source : null,
+      asn: h.asn ?? null, districts: [], licence: 'Unspecified', sources: [] };
+    isps.push(i);
+  }
+  for (const n of [h.name, ...(h.aliases ?? [])]) index.set(norm(n), i);
+  i.aliases = [...new Set([...i.aliases, h.name, ...(h.aliases ?? [])])].filter(n => n !== i.name);
+  i.website ||= /^https?:\/\/(?!github\.com)/.test(h.source) ? h.source : null;
+  i.asn ??= h.asn ?? null;
+  i.source ??= h.source;
+  i.sources = [...new Set([...(i.sources ?? []), h.source])];
+  i.districts = [...new Set([...i.districts, ...(h.districts ?? [])])].sort();
+  i.nationwide ||= h.nationwide === true;
+  i.possiblyLapsed = false;
+  if (h.note) i.notes = [...new Set([...(i.notes ?? []), h.note])];
+  if (h.confidence === 'low') i.notes = [...new Set([...(i.notes ?? []), 'Low-confidence hand research; verify with the provider.'])];
+  if (!packages[i.name] && h.packages.length) packages[i.name] = {
+    source: h.source, confidence: h.confidence, researchNote: h.researchNote, ...(h.note && { note: h.note }), packages: h.packages,
+  };
+}
+// Fill remaining providers only after curated and hand-researched packages.
+for (const kind of ['extracted', 'bdix']) for (const m of master) {
+  const i = index.get(norm(m.name));
+  if (!i) continue;
+  const scrape = extracted.find((e: any) => e.name === m.name);
+  const detail = ['Sky Net', 'Sky Net BD'].includes(m.name) ? undefined : details[m.bdix_slug] ?? Object.values(details).find((d: any) => norm(d.name ?? '') === norm(m.name)) as any;
   if (!packages[i.name]) {
-    const p = scrape?.packages?.length ? scrape : detail;
-    const source = scrape && p === scrape ? scrape.packages_source || scrape.site : detail?.url;
+    const p = kind === 'extracted' ? (scrape?.status === 'not-isp' ? undefined : scrape) : detail;
+    const source = kind === 'extracted' ? scrape?.packages_source || scrape?.site : detail?.url;
     const valid = (p?.packages ?? []).filter((p: any) => Number.isFinite(p.mbps) && p.mbps > 0 && Number.isFinite(p.bdt) && p.bdt > 0);
     if (source && valid.length) packages[i.name] = { source, packages: valid.map((p: any) => ({ name: p.name || `${p.mbps} Mbps`, mbps: p.mbps, bdt: p.bdt, ...(p.vat && { vat: p.vat }), source })) };
   }
@@ -80,7 +124,6 @@ function csvRows(text: string) {
   if (value || row.length) { row.push(value.replace(/\r$/, '')); rows.push(row); }
   return rows;
 }
-const [header, ...licences] = csvRows(readFileSync('data/sources/btrc-licensees.csv', 'utf8'));
 for (const row of licences) {
   const get = (k: string) => row[header.indexOf(k)] ?? '';
   const i = index.get(norm(get('name')));
@@ -91,5 +134,6 @@ for (const row of licences) {
 for (const i of isps) { i.slug = slug(i.name); if (!i.sources.length && i.source) i.sources = [i.source]; }
 // Keep package-level provenance even for the preserved hand-curated packages.
 for (const p of Object.values(packages) as any[]) for (const row of p.packages) row.source ??= p.source;
-write('isps', isps); write('isp-packages', packages); write('districts', districts.sort((a, b) => a.name.localeCompare(b.name)));
+const orderedPackages = Object.fromEntries([...new Set([...curatedPackageNames, ...isps.map(i => i.name)])].filter(name => packages[name]).map(name => [name, packages[name]]));
+write('isps', isps); write('isp-packages', orderedPackages); write('districts', districts.sort((a, b) => a.name.localeCompare(b.name)));
 console.log(JSON.stringify({ isps: isps.length, withPackages: isps.filter(i => packages[i.name]?.packages.length).length, packages: Object.values(packages).reduce((n: number, p: any) => n + p.packages.length, 0), districts: districts.length, districtsCovered: new Set(isps.flatMap(i => i.districts)).size }));
