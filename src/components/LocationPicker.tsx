@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { AREA_COORDS, nearestArea } from '../lib/areas';
-import { AREAS } from '../lib/options';
+import { AREAS, DISTRICT_NAMES } from '../lib/options';
 
 type Pick = { lat: number; lng: number; area: string };
 type Props = { open: boolean; initial: Pick | null; area: string; onClose: () => void; onPick: (p: Pick) => void };
@@ -35,7 +35,7 @@ export default function LocationPicker({ open, initial, area, onClose, onPick }:
     import('./mapCore').then(({ createMap, maplibregl }) => {
       if (cancelled || !el.current) return;
       const start = initial ? [initial.lng, initial.lat] : AREA_COORDS[area] ? [AREA_COORDS[area][1], AREA_COORDS[area][0]] : null;
-      const map = createMap(el.current, start ? { center: start as [number, number], zoom: 14 } : {});
+      const map = createMap(el.current, start ? { center: start as [number, number], zoom: area in DISTRICT_NAMES ? 10 : 14 } : {});
       mapRef.current = map;
       const dot = document.createElement('div');
       dot.className = 'pin';
@@ -66,7 +66,7 @@ export default function LocationPicker({ open, initial, area, onClose, onPick }:
     );
   };
 
-  const far = pick && nearestArea(pick.lat, pick.lng).km > 4;
+  const far = pick && nearestArea(pick.lat, pick.lng).km > (pick.area in DISTRICT_NAMES ? 80 : 4);
 
   return (
     <dialog ref={dialog} className="picker" onClose={onClose} onClick={(e) => e.target === dialog.current && onClose()} aria-labelledby="picker-title">
@@ -74,7 +74,7 @@ export default function LocationPicker({ open, initial, area, onClose, onPick }:
         <header>
           <div>
             <h2 id="picker-title">Where are you testing from?</h2>
-            <p className="muted">Tap your neighbourhood. Drag the pin to adjust. We round it to about 500&nbsp;m.</p>
+            <p className="muted">Tap your district or Dhaka neighbourhood. Drag the pin to adjust. We round it to about 500&nbsp;m.</p>
           </div>
           <button type="button" className="btn btn-ghost btn-sm" onClick={onClose} aria-label="Close">✕</button>
         </header>
@@ -90,7 +90,7 @@ export default function LocationPicker({ open, initial, area, onClose, onPick }:
           <div aria-live="polite">
             {pick ? (
               <>
-                <span className="muted">Nearest area</span>
+                <span className="muted">Nearest listed location</span>
                 <strong>{AREAS[pick.area]}</strong>
                 {far && <small className="muted">You’re outside our listed areas. We’ll use the closest one.</small>}
               </>

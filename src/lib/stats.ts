@@ -1,6 +1,7 @@
 // Type-only imports, so scripts/check.ts can run this under plain node.
 // Each device counts once: per-device median first, then median across devices.
 import type { Sql } from 'postgres';
+import districts from '../../data/districts.json' with { type: 'json' };
 
 export const METRICS = ['local_down', 'local_up', 'local_ping', 'local_jitter', 'local_loss'] as const;
 export type Metric = (typeof METRICS)[number];
@@ -13,13 +14,14 @@ const acrossDevices = METRICS.map((m) => `${median(m)}::real as ${m}`).join(', '
 // Below this many distinct devices, stats are greyed out and not ranked.
 export const MIN_DEVICES = 5;
 
-type Filter = { area?: string | null; plan?: string | null; ispId?: number | null; peak?: boolean | null };
+type Filter = { district?: string | null; area?: string | null; plan?: string | null; ispId?: number | null; peak?: boolean | null };
 
 // Peak = 20:00–23:59 Dhaka time, when congestion shows.
 function where(sql: Sql, f: Filter) {
   return sql`
     t.flag is null and t.created_at > now() - interval '90 days'
     ${f.area ? sql`and t.area = ${f.area}` : sql``}
+    ${f.district ? f.district === 'dhaka' ? sql`and (t.area = 'dhaka' or t.area not in ${sql(districts.map(d => d.slug))})` : sql`and t.area = ${f.district}` : sql``}
     ${f.plan ? sql`and t.plan = ${f.plan}` : sql``}
     ${f.ispId ? sql`and t.isp_id = ${f.ispId}` : sql``}
     ${f.peak == null ? sql`` : sql`and (extract(hour from t.created_at at time zone 'Asia/Dhaka') >= 20) = ${f.peak}`}`;

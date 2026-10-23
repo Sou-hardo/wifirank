@@ -3,11 +3,12 @@ import Base from '../../layouts/Base.astro';
 import RankTable from '../../components/RankTable.astro';
 import { sql } from '../../lib/db';
 import { leaderboard, recent, MIN_DEVICES } from '../../lib/stats';
-import { AREAS } from '../../lib/options';
+import { DISTRICT_NAMES, AREAS } from '../../lib/options';
 import { AREA_COORDS } from '../../lib/areas';
 import { fmt } from '../../lib/format';
 
 const slug = Astro.params.slug ?? '';
+if (slug in DISTRICT_NAMES) return Astro.redirect(`/district/${slug}`, 301);
 const name = AREAS[slug];
 if (!name) return new Response(null, { status: 404 });
 const [rows, latest] = await Promise.all([leaderboard(sql, { area: slug }), recent(sql, { area: slug, limit: 10 })]);

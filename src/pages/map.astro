@@ -1,4 +1,5 @@
 ---
+import { PROVIDERS } from '../lib/directory';
 import Base from '../layouts/Base.astro';
 import DhakaMap from '../components/DhakaMap';
 import { sql } from '../lib/db';
@@ -11,10 +12,10 @@ const [isps, data] = await Promise.all([
 ]);
 const tested = data.areas.filter((a) => a.devices > 0).sort((a, b) => b.devices - a.devices);
 ---
-<Base title="Dhaka internet speed map" bare jsonAlt="/api/map"
-  description="Interactive map of internet speed across Dhaka. See median download speed, upload speed and ping for every neighbourhood, filter by provider, and find the fastest ISP where you live.">
-  <h1 class="sr-only">Dhaka internet speed map</h1>
-  <DhakaMap client:load initial={data} isps={[...isps]} />
+<Base title="Bangladesh internet speed map" bare jsonAlt="/api/map"
+  description="Interactive map of internet speed across Bangladesh. See median download speed, upload speed and ping for every neighbourhood, filter by provider, and find the fastest ISP where you live.">
+  <h1 class="sr-only">Bangladesh internet speed map</h1>
+  <DhakaMap client:load initial={data} isps={isps.map(i => ({ ...i, districts: PROVIDERS.find(p => p.slug === i.slug)?.districts ?? [], nationwide: PROVIDERS.find(p => p.slug === i.slug)?.nationwide ?? false }))} />
   <!-- Same data as text, for search engines, agents and screen readers -->
   <section class="wrap block">
     <div class="sec-head"><h2><span class="hl">Speed by area</span></h2><p>The same data as the map, as a list. {tested.length} of {data.areas.length} areas have tests so far.</p></div>

@@ -1,4 +1,5 @@
 ---
+import { PROVIDERS } from '../lib/directory';
 import Base from '../layouts/Base.astro';
 import SpeedTest from '../components/SpeedTest';
 import RankTable from '../components/RankTable.astro';
@@ -33,7 +34,7 @@ const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
 ---
 <Base schema={schema} jsonAlt="/api/stats" dither={false}>
   <section class="hero">
-    <SpeedTest client:load isps={isps.map(({ id, name, aliases }) => ({ id, name, aliases }))} areas={map.areas}>
+    <SpeedTest client:load isps={isps.map(({ id, name, aliases, slug }) => ({ id, name, aliases, districts: PROVIDERS.find(i => i.slug === slug)?.districts ?? [], nationwide: PROVIDERS.find(i => i.slug === slug)?.nationwide ?? false }))} areas={map.areas}>
       <h1 aria-label="How fast is your internet, really?">
         {headline.map((w, i) => <><span aria-hidden="true" style={`--i:${i}`}>{w}</span>{i === 1 || i === 3 ? <br /> : ' '}</>)}
       </h1>

@@ -1,3 +1,4 @@
+import districts from '../../data/districts.json';
 // Shared between client form, API validation and pages.
 
 export const CONNECTIONS = {
@@ -35,5 +36,8 @@ export const slugify = (s: string) =>
   s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 export const AREAS: Record<string, string> = Object.fromEntries(
-  AREA_NAMES.sort((a, b) => a.localeCompare(b, 'en', { numeric: true })).map((n) => [slugify(n), n]),
+  [...AREA_NAMES, ...districts.map(d => d.name)].sort((a, b) => a.localeCompare(b, 'en', { numeric: true })).map((n) => [slugify(n), n]),
 );
+
+export const DISTRICT_NAMES = Object.fromEntries(districts.map(d => [d.slug, d.name]));
+export const locationHref = (slug: string) => slug in DISTRICT_NAMES ? `/district/${slug}` : `/area/${slug}`;

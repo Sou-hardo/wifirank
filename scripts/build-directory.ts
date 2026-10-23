@@ -29,6 +29,9 @@ const extracted = Array.from({ length: 10 }, (_, i) => read(`extracted-${i}`)).f
 const details = read('bdix-detail');
 const curated = read('curated-isps');
 const packages = read('curated-packages');
+// Brand alias documented in the supplied nationwide research notes.
+const velocity = curated.find((i: any) => i.name === 'Velocity Networks');
+if (velocity) velocity.aliases = [...new Set([...velocity.aliases, 'Broadband360'])];
 const isps: any[] = curated.map((i: any) => ({ ...i, districts: [], licence: 'Unspecified', sources: [] }));
 const index = new Map<string, any>();
 for (const i of isps) for (const n of [i.name, ...(i.aliases ?? [])]) index.set(norm(n), i);
@@ -61,8 +64,29 @@ for (const m of read('master')) {
     const p = scrape?.packages?.length ? scrape : detail;
     const source = scrape && p === scrape ? scrape.packages_source || scrape.site : detail?.url;
     const valid = (p?.packages ?? []).filter((p: any) => Number.isFinite(p.mbps) && p.mbps > 0 && Number.isFinite(p.bdt) && p.bdt > 0);
-    if (source && valid.length) packages[i.name] = { source, packages: valid.map((p: any) => ({ name: p.name, mbps: p.mbps, bdt: p.bdt, ...(p.vat && { vat: p.vat }), source })) };
+    if (source && valid.length) packages[i.name] = { source, packages: valid.map((p: any) => ({ name: p.name || `${p.mbps} Mbps`, mbps: p.mbps, bdt: p.bdt, ...(p.vat && { vat: p.vat }), source })) };
   }
+}
+// The official CSV has resolved district columns missing from some master locations.
+function csvRows(text: string) {
+  const rows: string[][] = []; let row: string[] = [], value = '', quoted = false;
+  for (let n = 0; n < text.length; n++) {
+    const c = text[n];
+    if (c === '"') { if (quoted && text[n + 1] === '"') { value += '"'; n++; } else quoted = !quoted; }
+    else if (c === ',' && !quoted) { row.push(value); value = ''; }
+    else if (c === '\n' && !quoted) { row.push(value.replace(/\r$/, '')); rows.push(row); row = []; value = ''; }
+    else value += c;
+  }
+  if (value || row.length) { row.push(value.replace(/\r$/, '')); rows.push(row); }
+  return rows;
+}
+const [header, ...licences] = csvRows(readFileSync('data/sources/btrc-licensees.csv', 'utf8'));
+for (const row of licences) {
+  const get = (k: string) => row[header.indexOf(k)] ?? '';
+  const i = index.get(norm(get('name')));
+  if (!i) continue;
+  const district = districtOf(get('district'));
+  if (district) i.districts = [...new Set([...i.districts, district])].sort();
 }
 for (const i of isps) { i.slug = slug(i.name); if (!i.sources.length && i.source) i.sources = [i.source]; }
 // Keep package-level provenance even for the preserved hand-curated packages.

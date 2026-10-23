@@ -1676,7 +1676,9 @@
     "website": "https://syntaxit.com.bd",
     "asn": 139802,
     "source": "https://www.peeringdb.com/asn/139802",
-    "districts": [],
+    "districts": [
+      "dhaka"
+    ],
     "licence": "Divisional",
     "sources": [
       "bdix.app",
@@ -3003,7 +3005,8 @@
   {
     "name": "Velocity Networks",
     "aliases": [
-      "Velocity Networks Limited"
+      "Velocity Networks Limited",
+      "Broadband360"
     ],
     "website": "https://www.velocitynetworksbd.com",
     "asn": 134734,
@@ -3219,7 +3222,8 @@
     "source": "https://ispab.org/members?q=Peoples%20Intigrated%20Aliance",
     "districts": [
       "dhaka",
-      "kurigram"
+      "kurigram",
+      "rangpur"
     ],
     "licence": "Divisional",
     "sources": [
@@ -3774,7 +3778,8 @@
     "website": "https://3linknetworks.com",
     "asn": 136597,
     "districts": [
-      "jashore"
+      "jashore",
+      "khulna"
     ],
     "licence": "Divisional, Nationwide",
     "sources": [
@@ -4847,7 +4852,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "chandpur"
+      "chandpur",
+      "chattogram"
     ],
     "licence": "Divisional",
     "sources": [
@@ -6174,6 +6180,7 @@
     "website": null,
     "asn": 139029,
     "districts": [
+      "dhaka",
       "faridpur",
       "pabna"
     ],
@@ -10091,6 +10098,7 @@
     "asn": null,
     "districts": [
       "barisal",
+      "coxsbazar",
       "naogaon",
       "patuakhali"
     ],
@@ -10770,7 +10778,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "dinajpur"
+      "dinajpur",
+      "rangpur"
     ],
     "licence": "Divisional",
     "sources": [
@@ -10988,6 +10997,7 @@
     "website": null,
     "asn": 9451,
     "districts": [
+      "dhaka",
       "kishoreganj"
     ],
     "licence": "Divisional",
@@ -11253,6 +11263,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "khulna",
       "meherpur"
     ],
     "licence": "Divisional",
@@ -11432,7 +11443,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "dhaka"
+    ],
     "licence": "Divisional",
     "sources": [
       "btrc-pdf-2024-12"
@@ -11627,6 +11640,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "dhaka",
       "gopalganj"
     ],
     "licence": "Divisional, Nationwide",
@@ -11698,7 +11712,9 @@
     "aliases": [],
     "website": null,
     "asn": 137432,
-    "districts": [],
+    "districts": [
+      "dhaka"
+    ],
     "licence": "Divisional, Nationwide",
     "sources": [
       "apnic",
@@ -11974,7 +11990,8 @@
     "website": "https://bolsys.net",
     "asn": 137579,
     "districts": [
-      "bogura"
+      "bogura",
+      "rajshahi"
     ],
     "licence": "Divisional",
     "sources": [
@@ -12474,6 +12491,7 @@
     "website": null,
     "asn": 139780,
     "districts": [
+      "dhaka",
       "tangail"
     ],
     "licence": "Divisional",
@@ -13114,7 +13132,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "dhaka"
+    ],
     "licence": "Divisional",
     "sources": [
       "btrc-pdf-2024-12"
@@ -13314,7 +13334,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "chandpur"
+      "chandpur",
+      "chattogram"
     ],
     "licence": "Divisional",
     "sources": [
@@ -14320,6 +14341,7 @@
     "asn": 140077,
     "districts": [
       "chuadanga",
+      "khulna",
       "meherpur"
     ],
     "licence": "Divisional, Nationwide",
@@ -14837,6 +14859,7 @@
     "website": null,
     "asn": 140712,
     "districts": [
+      "chattogram",
       "coxsbazar"
     ],
     "licence": "Divisional",
@@ -15387,6 +15410,7 @@
     "website": "https://cybersolutionsbd.com",
     "asn": 136176,
     "districts": [
+      "dhaka",
       "tangail"
     ],
     "licence": "Divisional, Nationwide",
@@ -17083,6 +17107,7 @@
     "asn": 136434,
     "districts": [
       "dhaka",
+      "khulna",
       "kushtia"
     ],
     "licence": "Divisional, Upazila/Thana",
@@ -17722,7 +17747,9 @@
     "website": "https://dnsbd.com",
     "asn": 134479,
     "districts": [
-      "bagerhat"
+      "bagerhat",
+      "dhaka",
+      "khulna"
     ],
     "licence": "Divisional",
     "sources": [
@@ -18709,7 +18736,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "bogura"
+      "bogura",
+      "rajshahi"
     ],
     "licence": "Divisional",
     "sources": [
@@ -19374,6 +19402,7 @@
     "website": "https://www.etherlinkbd.com/",
     "asn": 138325,
     "districts": [
+      "dhaka",
       "gazipur"
     ],
     "licence": "Divisional",
@@ -20172,6 +20201,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "dhaka",
       "gazipur"
     ],
     "licence": "Divisional",
@@ -20717,7 +20747,8 @@
     "asn": 149473,
     "districts": [
       "dhaka",
-      "jashore"
+      "jashore",
+      "khulna"
     ],
     "licence": "Divisional",
     "sources": [
@@ -20921,6 +20952,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "chattogram",
       "feni"
     ],
     "licence": "Divisional, Nationwide",
@@ -21751,6 +21783,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "rajshahi",
       "sirajganj"
     ],
     "licence": "Divisional",
@@ -22876,7 +22909,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "gaibandha"
+      "gaibandha",
+      "rangpur"
     ],
     "licence": "Divisional",
     "sources": [
@@ -24868,7 +24902,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "habiganj"
+      "habiganj",
+      "sylhet"
     ],
     "licence": "Divisional",
     "sources": [
@@ -25061,6 +25096,8 @@
     "website": null,
     "asn": null,
     "districts": [
+      "rajshahi",
+      "rangpur",
       "thakurgaon"
     ],
     "licence": "Divisional",
@@ -25251,7 +25288,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "chattogram"
+    ],
     "licence": "Divisional",
     "sources": [
       "bdix.app",
@@ -26041,6 +26080,8 @@
     "website": "https://hmcommunicationbd.com",
     "asn": 133770,
     "districts": [
+      "dhaka",
+      "khulna",
       "satkhira"
     ],
     "licence": "Divisional",
@@ -26624,6 +26665,7 @@
     "website": "https://ilinkinternetservice.com",
     "asn": 137935,
     "districts": [
+      "dhaka",
       "munshiganj"
     ],
     "licence": "Divisional",
@@ -27163,7 +27205,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "pabna"
+      "pabna",
+      "rajshahi"
     ],
     "licence": "Divisional",
     "sources": [
@@ -28182,6 +28225,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "chattogram",
       "noakhali"
     ],
     "licence": "Divisional",
@@ -29753,7 +29797,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "jhenaidah"
+      "jhenaidah",
+      "khulna"
     ],
     "licence": "Divisional",
     "sources": [
@@ -29833,7 +29878,9 @@
     "website": null,
     "asn": 139053,
     "districts": [
-      "kishoreganj"
+      "dhaka",
+      "kishoreganj",
+      "sylhet"
     ],
     "licence": "Divisional",
     "sources": [
@@ -30358,6 +30405,7 @@
     "website": null,
     "asn": 141386,
     "districts": [
+      "dhaka",
       "shariatpur"
     ],
     "licence": "Divisional",
@@ -33132,6 +33180,7 @@
     "website": null,
     "asn": 140241,
     "districts": [
+      "dhaka",
       "madaripur"
     ],
     "licence": "Divisional",
@@ -33379,6 +33428,7 @@
     "website": null,
     "asn": 140037,
     "districts": [
+      "dhaka",
       "rajbari"
     ],
     "licence": "Divisional",
@@ -33569,6 +33619,7 @@
     "website": null,
     "asn": 137553,
     "districts": [
+      "dhaka",
       "shariatpur"
     ],
     "licence": "Divisional",
@@ -33786,6 +33837,7 @@
     "asn": null,
     "districts": [
       "dhaka",
+      "rajshahi",
       "rangpur"
     ],
     "licence": "Divisional",
@@ -35085,6 +35137,7 @@
     "website": null,
     "asn": 140917,
     "districts": [
+      "dhaka",
       "shariatpur"
     ],
     "licence": "Divisional",
@@ -35135,7 +35188,9 @@
     ],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "dhaka"
+    ],
     "licence": "Divisional",
     "sources": [
       "btrc-pdf-2024-12"
@@ -35917,6 +35972,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "dhaka",
       "mymensingh"
     ],
     "licence": "Divisional",
@@ -37206,7 +37262,8 @@
     "website": "https://unicommultisystem.net",
     "asn": 136941,
     "districts": [
-      "pabna"
+      "pabna",
+      "rajshahi"
     ],
     "licence": "Divisional",
     "sources": [
@@ -37418,7 +37475,9 @@
     "asn": null,
     "districts": [
       "chattogram",
-      "jhenaidah"
+      "dhaka",
+      "jhenaidah",
+      "khulna"
     ],
     "licence": "Divisional",
     "sources": [
@@ -37444,6 +37503,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "dhaka",
       "tangail"
     ],
     "licence": "Divisional",
@@ -37942,6 +38002,7 @@
     "website": "https://noakhalisupernet.com",
     "asn": 152723,
     "districts": [
+      "chattogram",
       "noakhali"
     ],
     "licence": "Divisional",
@@ -39287,7 +39348,8 @@
     "website": null,
     "asn": 147050,
     "districts": [
-      "brahmanbaria"
+      "brahmanbaria",
+      "chattogram"
     ],
     "licence": "Divisional, Nationwide",
     "sources": [
@@ -40525,6 +40587,7 @@
     "website": "https://mollasoft.net",
     "asn": 152306,
     "districts": [
+      "rajshahi",
       "sirajganj"
     ],
     "licence": "Divisional",
@@ -41184,6 +41247,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "rajshahi",
       "sirajganj"
     ],
     "licence": "Divisional",
@@ -41526,6 +41590,7 @@
     "website": "https://nthreecommunication.net",
     "asn": 154705,
     "districts": [
+      "rajshahi",
       "sirajganj"
     ],
     "licence": "Divisional",
@@ -42566,8 +42631,10 @@
     "website": "https://neefit.net",
     "asn": 139008,
     "districts": [
+      "dhaka",
       "kishoreganj",
-      "mymensingh"
+      "mymensingh",
+      "sylhet"
     ],
     "licence": "Divisional",
     "sources": [
@@ -43526,6 +43593,7 @@
     "website": null,
     "asn": 134702,
     "districts": [
+      "dhaka",
       "narsingdi"
     ],
     "licence": "Divisional, Nationwide",
@@ -45213,6 +45281,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "chattogram",
       "noakhali"
     ],
     "licence": "Divisional, Nationwide",
@@ -46329,7 +46398,8 @@
     "website": null,
     "asn": 140930,
     "districts": [
-      "pabna"
+      "pabna",
+      "rajshahi"
     ],
     "licence": "Divisional",
     "sources": [
@@ -46708,7 +46778,8 @@
     "website": "https://patriot-bd.com",
     "asn": 149445,
     "districts": [
-      "naogaon"
+      "naogaon",
+      "rajshahi"
     ],
     "licence": "Divisional, Nationwide",
     "sources": [
@@ -49377,6 +49448,7 @@
     "website": "https://ramdiaonline.com.bd",
     "asn": 141412,
     "districts": [
+      "dhaka",
       "gopalganj",
       "khulna"
     ],
@@ -51049,7 +51121,8 @@
     "website": "https://rcnbd.net",
     "asn": 137213,
     "districts": [
-      "jashore"
+      "jashore",
+      "khulna"
     ],
     "licence": "Divisional",
     "sources": [
@@ -51338,6 +51411,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "dhaka",
       "faridpur"
     ],
     "licence": "Divisional",
@@ -51524,6 +51598,7 @@
     "website": null,
     "asn": 137033,
     "districts": [
+      "chattogram",
       "lakshmipur"
     ],
     "licence": "Divisional",
@@ -51730,6 +51805,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "dhaka",
       "tangail"
     ],
     "licence": "Divisional",
@@ -51799,7 +51875,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "dinajpur"
+      "dinajpur",
+      "rangpur"
     ],
     "licence": "Divisional",
     "sources": [
@@ -52266,6 +52343,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "chapainawabganj",
       "dinajpur"
     ],
     "licence": "Upazila/Thana",
@@ -52979,6 +53057,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "chapainawabganj",
       "dhaka",
       "dinajpur"
     ],
@@ -53492,7 +53571,8 @@
     "website": "https://sarkercommunication.com",
     "asn": 142615,
     "districts": [
-      "brahmanbaria"
+      "brahmanbaria",
+      "chattogram"
     ],
     "licence": "Divisional",
     "sources": [
@@ -54156,6 +54236,7 @@
     "website": "https://searchitbd.net",
     "asn": 141398,
     "districts": [
+      "dhaka",
       "mymensingh",
       "sylhet"
     ],
@@ -56087,6 +56168,7 @@
     "website": "https://sixtyfournetworks.com",
     "asn": 139667,
     "districts": [
+      "dhaka",
       "narayanganj"
     ],
     "licence": "Divisional",
@@ -56653,7 +56735,8 @@
     "website": null,
     "asn": 137568,
     "districts": [
-      "chattogram"
+      "chattogram",
+      "sylhet"
     ],
     "licence": "Divisional",
     "sources": [
@@ -56812,6 +56895,7 @@
     "website": "https://skynetchowmuhani.com",
     "asn": 137449,
     "districts": [
+      "chattogram",
       "noakhali"
     ],
     "licence": "Divisional",
@@ -56842,7 +56926,9 @@
     ],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "dhaka"
+    ],
     "licence": "Divisional",
     "sources": [
       "bdix.app",
@@ -58067,6 +58153,7 @@
     "website": "http://sparkonlinebd.com",
     "asn": 135882,
     "districts": [
+      "dhaka",
       "faridpur",
       "pabna"
     ],
@@ -58949,7 +59036,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "jhenaidah"
+      "jhenaidah",
+      "khulna"
     ],
     "licence": "Divisional",
     "sources": [
@@ -59217,7 +59305,9 @@
     "aliases": [],
     "website": "https://starcommunicationbd.com",
     "asn": 139841,
-    "districts": [],
+    "districts": [
+      "chattogram"
+    ],
     "licence": "Divisional",
     "sources": [
       "apnic",
@@ -59313,7 +59403,8 @@
     "website": "https://staritisp.com",
     "asn": 147006,
     "districts": [
-      "chandpur"
+      "chandpur",
+      "chattogram"
     ],
     "licence": "Divisional",
     "sources": [
@@ -59774,7 +59865,8 @@
     "website": "https://sunlitnetwork.com",
     "asn": 134480,
     "districts": [
-      "jashore"
+      "jashore",
+      "khulna"
     ],
     "licence": "Divisional",
     "sources": [
@@ -61799,7 +61891,9 @@
     "aliases": [],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "chattogram"
+    ],
     "licence": "Upazila/Thana",
     "sources": [
       "btrc-pdf-2024-12"
@@ -62608,6 +62702,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "dhaka",
       "madaripur"
     ],
     "licence": "Divisional",
@@ -62936,6 +63031,7 @@
     "website": null,
     "asn": null,
     "districts": [
+      "chattogram",
       "noakhali"
     ],
     "licence": "Divisional",
@@ -64261,7 +64357,8 @@
     "website": "https://varendraisp.com",
     "asn": 151391,
     "districts": [
-      "bogura"
+      "bogura",
+      "rajshahi"
     ],
     "licence": "Divisional",
     "sources": [
@@ -64419,7 +64516,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "bogura"
+      "bogura",
+      "rajshahi"
     ],
     "licence": "Divisional",
     "sources": [
@@ -65832,6 +65930,7 @@
     "website": "https://yournetcommunications.net",
     "asn": 154462,
     "districts": [
+      "dhaka",
       "jamalpur",
       "mymensingh"
     ],
@@ -65973,7 +66072,8 @@
     "website": null,
     "asn": null,
     "districts": [
-      "brahmanbaria"
+      "brahmanbaria",
+      "chattogram"
     ],
     "licence": "Divisional",
     "sources": [
@@ -65999,7 +66099,8 @@
     "website": "https://zcafe.com.bd",
     "asn": 153556,
     "districts": [
-      "joypurhat"
+      "joypurhat",
+      "rajshahi"
     ],
     "licence": "Divisional",
     "sources": [
@@ -66462,7 +66563,9 @@
     ],
     "website": null,
     "asn": null,
-    "districts": [],
+    "districts": [
+      "dhaka"
+    ],
     "licence": "Divisional",
     "sources": [
       "bdix.app",

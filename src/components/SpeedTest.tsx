@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useState, type KeyboardEvent, type ReactNode } from 'react';
 import SpeedTestEngine from '@cloudflare/speedtest';
-import { AREAS } from '../lib/options';
+import { AREAS, DISTRICT_NAMES, locationHref } from '../lib/options';
 import PACKAGES from '../../data/isp-packages.json';
 import Combobox, { type Option } from './Combobox';
 import Gauge from './Gauge';
@@ -14,7 +14,7 @@ import { sustainedMbps } from '../lib/sustained';
 type Pkg = { name: string | null; mbps: number; bdt: number };
 // Typical Dhaka monthly bills, offered when we have no package list for the provider.
 const BILLS = [400, 500, 600, 800, 1000, 1200, 1500, 1800, 2000, 2500, 3000];
-type Isp = { id: number; name: string; aliases: string[] };
+type Isp = { id: number; name: string; aliases: string[]; districts: string[]; nationwide: boolean };
 type Metrics = { down: number | null; up: number | null; ping: number | null; jitter: number | null; loss?: number | null };
 type Stage = 'latency' | 'download' | 'upload' | 'packetLoss';
 type Pin = { lat: number; lng: number; area: string };
@@ -142,7 +142,7 @@ async function shareImage(isp: string, area: string, m: Metrics | null) {
   g.fillStyle = INK; g.font = sans(600, 44); g.fillText('WifiRank', 176, 128);
 
   g.font = sans(500, 82); g.fillText(isp, 70, 300, 940);
-  g.fillStyle = '#4a4c57'; g.font = sans(400, 38); g.fillText(`${area}, Dhaka`, 70, 362, 940);
+  g.fillStyle = '#4a4c57'; g.font = sans(400, 38); g.fillText(`${area}, Bangladesh`, 70, 362, 940);
 
   // result card: ink outline with a hard shadow
   const y = 430, h = 440;
@@ -286,6 +286,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
   const [phase, setPhase] = useState<'setup' | 'running' | 'saving' | 'done'>('setup');
   const [isp, setIsp] = useState<{ id?: number; name: string }>({ name: '' });
   const [area, setArea] = useState('');
+  const [district, setDistrict] = useState('');
   const [pin, setPin] = useState<Pin | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [locating, setLocating] = useState(false);
@@ -316,7 +317,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
     }).catch(() => {});
   }, []);
 
-  const ispOptions = useMemo<Option[]>(() => isps.map((i) => ({ value: String(i.id), label: i.name, terms: i.aliases })), [isps]);
+  const ispOptions = useMemo<Option[]>(() => isps.filter(i => !district || i.nationwide || i.districts.includes(district)).map((i) => ({ value: String(i.id), label: i.name, terms: i.aliases, hint: i.nationwide ? 'Nationwide licence' : i.districts.map(d => DISTRICT_NAMES[d]).join(', ') })), [isps, district]);
   const missing = !isp.name.trim() ? 'isp' : !connection ? 'connection' : null;
 
   // Focus the sheet itself, not a field: focusing the provider search would pop the phone keyboard straight away.
@@ -399,6 +400,8 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
               {phase === 'setup' ? (
                 <form className="setup" onSubmit={(e) => { e.preventDefault(); start(); }} noValidate>
                   <div className="field">
+                    <span className="label" id="l-district">Filter providers by district</span>
+                    <select className="input" aria-labelledby="l-district" value={district} onChange={e => setDistrict(e.target.value)} style={{ marginBottom: 14 }}><option value="">All Bangladesh</option>{Object.entries(DISTRICT_NAMES).map(([s,n]) => <option key={s} value={s}>{n}</option>)}</select>
                     <span className="label" id="l-isp">Internet provider</span>
                     <Combobox id="f-isp" aria-labelledby="l-isp" options={ispOptions} value={isp.id ? String(isp.id) : ''} text={isp.name}
                       placeholder="Search, e.g. Link3, Carnival, DOT"
@@ -457,7 +460,7 @@ export default function SpeedTest({ isps, areas, children }: { isps: Isp[]; area
                         <button type="button" className="btn btn-sm" onClick={() => shareImage(isp.name, areaName, local)}>
                           <Icon d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13" /> Share
                         </button>
-                        <a className="btn btn-sm" href={`/area/${area}`}>Compare ISPs</a>
+                        <a className="btn btn-sm" href={locationHref(area)}>Compare ISPs</a>
                         <button type="button" className="btn btn-sm btn-ghost" onClick={() => { setPhase('setup'); setStage(null); }}>Test again</button>
                       </div>
                     </div>

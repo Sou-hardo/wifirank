@@ -69,3 +69,11 @@ update reviews set hidden = true where device_id = '...' and isp_id = ...;
 | `src/components/` | `SpeedTest` (test flow), `DhakaMap` (explorer), `LocationPicker`, `Gauge`, `Combobox` |
 | `src/lib/stats.ts` | All aggregation SQL |
 | `data/` | Seed ISPs and area coordinates |
+
+### National ISP directory
+
+Run `npm run data:build` to rebuild `data/isps.json`, `data/isp-packages.json` and `data/districts.json` from the committed `data/sources/` research snapshots. Update `curated-isps.json` and `curated-packages.json` for manual corrections; curated records and prices take precedence. Run `node scripts/check-directory.ts` to validate preservation, identifiers, districts and package provenance.
+
+Run `npm run db:migrate` against the target database after updating the directory, so all providers become selectable in speed tests. The migration preserves ISP IDs and historical tests. Directory profiles work from the committed data even before reseeding.
+
+District associations combine licence locations, resolved BTRC CSV districts, addresses and published coverage. Unresolved locations stay unknown. Nationwide is licence scope, not a promise of service at any address. Historical renewal dates are marked possibly lapsed only when the sole source is the December 2024 BTRC list; status is evaluated at the fixed research date in the build script. Entries marked `not-isp` by site research are excluded unless already curated. Scraper notes remain on profiles, and bdix.app packages retain their attribution. No live network access is needed to rebuild.

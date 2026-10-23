@@ -1,4 +1,5 @@
 ---
+import { PROVIDERS, PACKAGES, DISTRICTS } from '../../lib/directory';
 import Base from '../../layouts/Base.astro';
 import RankTable from '../../components/RankTable.astro';
 import { sql } from '../../lib/db';
@@ -6,15 +7,18 @@ import { byArea, summary, recent, MIN_DEVICES, type Row } from '../../lib/stats'
 import { AREAS } from '../../lib/options';
 import { fmt } from '../../lib/format';
 
-const [isp] = await sql<{ id: number; name: string; slug: string; website: string | null; aliases: string[] }[]>`
+const [stored] = await sql<{ id: number; name: string; slug: string; website: string | null; aliases: string[] }[]>`
   select id, name, slug, website, aliases from isps where slug = ${Astro.params.slug ?? ''} and approved`;
+const record = PROVIDERS.find(i => i.slug === Astro.params.slug);
+const isp = stored ?? (record ? { ...record, id: 0, website: record.website ?? null } : null);
+const published = record ? PACKAGES[record.name] : null;
 if (!isp) return new Response(null, { status: 404 });
 const [all, peak, offPeak, areas, reviews, latest] = await Promise.all([
   summary(sql, { ispId: isp.id }),
   summary(sql, { ispId: isp.id, peak: true }),
   summary(sql, { ispId: isp.id, peak: false }),
   byArea(sql, { ispId: isp.id }),
-  sql<{ stars: number; comment: string | null; updated_at: Date }[]>`
+  sql<{ stars: number; comment: string | null; updated_at: Date; name: string }[]>`
     select name, stars, comment, updated_at from reviews where isp_id = ${isp.id} and not hidden order by (comment is not null) desc, updated_at desc limit 30`,
   recent(sql, { ispId: isp.id, limit: 8 }),
 ]);
@@ -27,15 +31,15 @@ const schema: object[] = [
     { '@type': 'ListItem', position: 1, name: 'Rankings', item: new URL('/isps', Astro.site).href },
     { '@type': 'ListItem', position: 2, name: isp.name, item: url }] },
   { '@type': 'Organization', '@id': `${url}#isp`, name: isp.name, alternateName: isp.aliases, ...(isp.website && { sameAs: isp.website }),
-    areaServed: { '@type': 'City', name: 'Dhaka' },
+    areaServed: { '@type': 'City', name: 'Bangladesh' },
     ...(all?.rating != null && all.reviews >= 3 && { aggregateRating: { '@type': 'AggregateRating', ratingValue: all.rating.toFixed(1), reviewCount: all.reviews, bestRating: 5, worstRating: 1 } }) },
 ];
 const desc = all
-  ? `${isp.name} speed test results in Dhaka: ${fmt(all.local_down)} Mbps median download, ${fmt(all.local_up)} Mbps upload, from ${all.devices} users. Peak-hour performance, speed by area and reviews.`
-  : `${isp.name} in Dhaka: no speed tests yet. Run one to add the first result.`;
+  ? `${isp.name} speed test results in Bangladesh: ${fmt(all.local_down)} Mbps median download, ${fmt(all.local_up)} Mbps upload, from ${all.devices} users. Peak-hour performance, speed by area and reviews.`
+  : `${isp.name} in Bangladesh: no speed tests yet. Run one to add the first result.`;
 const periods: [string, string, Row | null][] = [['All day', 'Every test', all], ['Peak', '8 pm – midnight', peak], ['Off-peak', 'Rest of the day', offPeak]];
 ---
-<Base title={`${isp.name} speed test & reviews in Dhaka`} description={desc} schema={schema} noindex={!all}
+<Base title={`${isp.name} speed test & reviews in Bangladesh`} description={desc} schema={schema} noindex={false}
   ogImage={`/og/isp/${isp.slug}.png`} jsonAlt={`/api/map?isp=${isp.slug}`}>
   <section class="wrap" style="padding-top:clamp(24px,4vw,48px)">
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/isps">Rankings</a><span aria-hidden="true">/</span>{isp.name}</nav>
@@ -51,6 +55,16 @@ const periods: [string, string, Row | null][] = [['All day', 'Every test', all],
       <div class="row-between"><a class="btn" href={`/map?isp=${isp.slug}`}>See on map</a><a class="btn btn-primary" href="/">Test your {isp.name}</a></div>
     </div>
 
+    {record && <section class="block" style="padding-bottom:0">
+      <h2>Provider information</h2>
+      <p>{record.licence} licence{record.possiblyLapsed && ' · Possibly lapsed: the historical BTRC renewal date has passed; current status is unverified.'}</p>
+      <p>{record.nationwide ? 'Nationwide licence scope. Confirm local availability with the provider.' : 'Listed districts:'} {record.districts.map(s => <a href={`/district/${s}`} style="margin-right:12px">{DISTRICTS.find(d => d.slug === s)?.name}</a>)}</p>
+      {record.addresses?.map(address => <p class="text-2">{address}</p>)}
+      <h2 style="margin-top:28px">Published packages</h2>
+      {published?.packages.length ? <div class="table-wrap"><table><thead><tr><th>Package</th><th>Mbps</th><th>Monthly BDT</th><th>Source</th></tr></thead><tbody>{published.packages.map(p => <tr><th scope="row">{p.name ?? `${p.mbps} Mbps`}</th><td class="num">{p.mbps}</td><td class="num">৳{p.bdt}{p.vat && <small> · VAT {p.vat}</small>}</td><td><a href={p.source ?? published.source} rel="nofollow noopener" target="_blank">{new URL(p.source ?? published.source).hostname}</a></td></tr>)}</tbody></table></div> : <p>No published packages. Contact the provider for current pricing.</p>}
+      {!!record.notes?.length && <details><summary>Research notes and pricing caveats</summary>{record.notes?.map(n => <p class="text-2">{n}</p>)}</details>}
+      <p class="small muted">Directory sources: {(record.sources ?? []).join(', ')}. Licence listings reflect historical research and do not confirm current operating status.{record.source && <> <a href={record.source}>Source</a></>}</p>
+    </section>}
     {!all ? (
       <div class="card" style="margin-top:28px"><h3>Nobody has tested {isp.name} yet</h3><p class="text-2" style="margin:0">If you use it, <a href="/">run a 40-second test</a> and you’ll be the first result here.</p></div>
     ) : (
@@ -84,7 +98,7 @@ const periods: [string, string, Row | null][] = [['All day', 'Every test', all],
 
         <section class="block" style="padding-bottom:0">
           <div class="sec-head"><h2><span class="hl">{isp.name} by area</span></h2><p>The same provider can perform very differently a few kilometres apart.</p></div>
-          <div><RankTable rows={areaRows} ranked={false} firstCol="Area" href={(s) => `/area/${s}`} caption={`${isp.name} median speed by area in Dhaka`} /></div>
+          <div><RankTable rows={areaRows} ranked={false} firstCol="Area" href={(s) => `/area/${s}`} caption={`${isp.name} median speed by area in Bangladesh`} /></div>
         </section>
 
         <section class="block" style="padding-bottom:0">

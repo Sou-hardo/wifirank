@@ -48,6 +48,12 @@ try {
   assert.equal((await recent(sql, { limit: 5 })).length, 5);
   assert.equal((await recent(sql, { limit: 50, area: 'banani' })).length, 1); // flagged one excluded
 
+  // District aggregation includes legacy Dhaka neighbourhoods without mixing other districts.
+  await t(A, 2, 70, { area: 'bogura' });
+  await t(B, 2, 80, { area: 'dhaka' });
+  assert.equal((await leaderboard(sql, { district: 'bogura' }))[0].devices, 1);
+  assert.equal((await leaderboard(sql, { district: 'dhaka' })).find(r => r.slug === 'beta')?.devices, 2);
+
   // Bayesian rating pulls a lone 5★ toward the site mean.
   await sql`insert into reviews (device_id, isp_id, stars) values (${A}, 1, 1), (${B}, 1, 1), (${C}, 2, 5)`;
   const beta = (await leaderboard(sql, {})).find((r) => r.slug === 'beta')!;
