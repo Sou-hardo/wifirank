@@ -9,7 +9,7 @@ import { leaderboard, summary, MIN_DEVICES } from '../../lib/stats';
 import { AREAS } from '../../lib/options';
 import { fmt } from '../../lib/format';
 
-// Social share cards: /og/home.png, /og/isp/<slug>.png, /og/area/<slug>.png
+// Social share cards: /og/isp/<slug>.png, /og/area/<slug>.png (the default card is the static /og-home.jpg)
 const font = (uri: string) => Buffer.from(uri.slice(uri.indexOf(',') + 1), 'base64');
 const fonts = [
   { name: 'Space Grotesk', data: font(f400), weight: 400 as const, style: 'normal' as const },
@@ -47,12 +47,7 @@ export const GET: APIRoute = async ({ params }) => {
   const [kind, slug] = (params.path ?? '').split('/');
   let tree: Node | null = null;
 
-  if (kind === 'home') {
-    const [t] = await sql<{ tests: number; isps: number; areas: number }[]>`
-      select count(*)::int as tests, count(distinct isp_id)::int as isps, count(distinct area)::int as areas from tests where flag is null`;
-    tree = card('Dhaka · crowdsourced', 'How fast is your internet, really?', 'Compare ISPs in your area by real speed tests.', [
-      stat('Speed tests', t.tests.toLocaleString('en'), ''), stat('Providers', String(t.isps), ''), stat('Areas', String(t.areas), '')]);
-  } else if (kind === 'isp' && slug) {
+  if (kind === 'isp' && slug) {
     const [isp] = await sql<{ id: number; name: string }[]>`select id, name from isps where slug = ${slug} and approved`;
     const s = isp && (await summary(sql, { ispId: isp.id }));
     if (isp) tree = card('Speed test results', isp.name, s ? `Measured by ${s.devices} users in Dhaka · last 90 days` : 'No tests yet. Be the first.', [

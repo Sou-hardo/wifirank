@@ -5,7 +5,7 @@ import Logo from '../components/Logo.astro';
 interface Props {
   title?: string;
   description?: string;
-  ogImage?: string; // path under /og/
+  ogImage?: string; // share image path
   schema?: object[]; // JSON-LD nodes, merged into one @graph
   noindex?: boolean;
   jsonAlt?: string; // machine-readable version of this page's data, for agents
@@ -16,7 +16,7 @@ const SITE = 'WifiRank';
 const {
   title,
   description = 'Real ISP speeds across Dhaka, measured by the people who use them. Compare download and upload speed, ping and reviews for every area before you choose an internet provider.',
-  ogImage = '/og/home.png',
+  ogImage = '/og-home.jpg',
   schema = [],
   noindex = false,
   jsonAlt,
