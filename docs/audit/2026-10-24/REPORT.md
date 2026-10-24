@@ -5,6 +5,8 @@ Judged against the product goal: **smooth interactions with minimal inputs, no d
 
 ## Summary
 
+Tracked in GitHub issues **#11–#45**, with tracking issue **#46**.
+
 | Severity | Count | Meaning |
 |---|---|---|
 | P0 | 0 | Blocks a core task for most users |
@@ -43,7 +45,7 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 
 ## P1
 
-### P1-1 · Starting a test on a phone takes 4–5 taps, and GO doesn't go
+### P1-1 · Starting a test on a phone takes 4–5 taps, and GO doesn't go (#11)
 - **Where:** `/`, mobile (iOS Safari, Android Chrome, 390 preview).
 - **Steps:**
   1. Tap the lime GO. It only opens the bottom sheet.
@@ -55,7 +57,7 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 - **Evidence:** [ios-home-initial](screenshots/ios-home-initial.png), [ios-sheet-open](screenshots/ios-sheet-open.png), [ios-location-permission-prompt](screenshots/ios-location-permission-prompt.png), [home-mobile390-preview-sheet-3-taps](screenshots/home-mobile390-preview-sheet-3-taps.png), video [test-ios-full-flow-share-sheet](videos/test-ios-full-flow-share-sheet.mp4)
 - **Mockup:** [01-start-flow](mockups/01-start-flow.html). **Recommend C, "ask only what's missing; the answer starts":** GO + 1 tap, with no guessed connection.
 
-### P1-2 · The setup card is verbose, shifts layout, and its district filter creates duplicate providers
+### P1-2 · The setup card is verbose, shifts layout, and its district filter creates duplicate providers (#12)
 - **Where:** `/`, all form factors.
 - **The card stacks:**
   - "Filter providers by district" select.
@@ -71,14 +73,14 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 - **Evidence:** [home-desktop1440-before-detection](screenshots/home-desktop1440-before-detection.png) → [home-desktop1440-after-detection-layout-shift](screenshots/home-desktop1440-after-detection-layout-shift.png), [ios-sheet-open](screenshots/ios-sheet-open.png), video [home-desktop-load-detection-layout-shift-combobox](videos/home-desktop-load-detection-layout-shift-combobox.mp4)
 - **Mockup:** [02-provider-detection](mockups/02-provider-detection.html). **Recommend A, "detected chip, quiet Change":** four elements become one line, and the district becomes a ranking hint.
 
-### P1-3 · gpfi tests silently don't count unless a hidden checkbox is ticked
+### P1-3 · gpfi tests silently don't count unless a hidden checkbox is ticked (#13)
 - **Where:** `/`, after choosing gpfi (`fixedWireless` provider).
 - **Steps:** pick gpfi. An **unchecked** "5G/4G home router (e.g. gpfi)" checkbox appears under the connection tiles.
 - **Effect:** if it's left unchecked, the server classifies the test as `mobile_data` and the result "won't count toward gpfi" (`classifyAccess` in `src/lib/detection.ts`). gpfi is a home-router product, so the safe default is inverted, and the explanation only appears after the 40 s test.
 - **Evidence:** [home-desktop-gpfi-checkbox-unchecked-map-ignores-district](screenshots/home-desktop-gpfi-checkbox-unchecked-map-ignores-district.png)
 - **Mockup:** [03-connection-fwa](mockups/03-connection-fwa.html). **Recommend A:** a preselected "5G router" tile for FWA providers.
 
-### P1-4 · The result needle sweeps backwards, and most of the result sits below the fold
+### P1-4 · The result needle sweeps backwards, and most of the result sits below the fold (#14)
 - **Where:** `/`, done state, all form factors.
 - **The needle:**
   - At the end, `Gauge` eases from the last live upload value to the download value (102 → 42 over about 2 s).
@@ -91,14 +93,14 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 - **Evidence:** [test-desktop-done-gauge-easing-shows-67-vs-pin-42](screenshots/test-desktop-done-gauge-easing-shows-67-vs-pin-42.png), [test-desktop-done-results-below-fold](screenshots/test-desktop-done-results-below-fold.png), [ios-test-done](screenshots/ios-test-done.png), video [test-desktop1440-full-flow-gauge-backsweep-card-covers-edge](videos/test-desktop1440-full-flow-gauge-backsweep-card-covers-edge.mp4)
 - **Mockup:** [04-result-reveal](mockups/04-result-reveal.html). **Recommend A:** the dial holds the result, with satellites for upload and ping.
 
-### P1-5 · "Compare ISPs" then Back throws away the result and any half-written review
+### P1-5 · "Compare ISPs" then Back throws away the result and any half-written review (#15)
 - **Where:** `/` done state → "Compare ISPs" → browser Back.
 - **Steps:** rate 4 stars (not submitted), click Compare ISPs, then press Back. You land on the setup phase: the result is gone and the review is lost, with no warning.
 - **Why it hurts:** comparing is the obvious next step, and it costs the contribution the site wants most (a rating with a price).
 - **Evidence:** [review-desktop-stars-taka-glyph-fallback](screenshots/review-desktop-stars-taka-glyph-fallback.png), [area-view-transition-midframe](screenshots/area-view-transition-midframe.png), video [review-desktop-compare-then-back-loses-result](videos/review-desktop-compare-then-back-loses-result.mp4)
 - **Mockup:** [05-review](mockups/05-review.html). **Recommend B, "tap a star = posted":** nothing is left unsaved. Also persist the last result in `sessionStorage` so Back restores the done state.
 
-### P1-6 · District pages bury local providers under 192 nationwide licences
+### P1-6 · District pages bury local providers under 192 nationwide licences (#16)
 - **Where:** `/district/bandarban` (and every district).
 - **Symptom:** the page says "193 providers · Page 1 of 4", but the first 192 are nationwide licences in id order. Bandarban's only local ISP is not on page 1. Jhalakathi is the same.
 - **Why:**
@@ -109,7 +111,7 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 - **Evidence:** [district-bandarban-nationwide-flood-breadcrumb-oversized-search](screenshots/district-bandarban-nationwide-flood-breadcrumb-oversized-search.png)
 - **Mockup:** [07-district-directory](mockups/07-district-directory.html). **Recommend A:** local first, nationwide folded.
 
-### P1-7 · ISP pages lead with licence boilerplate; the measured speed is below it
+### P1-7 · ISP pages lead with licence boilerplate; the measured speed is below it (#17)
 - **Where:** `/isp/link3`, `/isp/net-express-online`, every tested ISP.
 - **What comes first:**
   - "Provider information": "Nationwide licence", then "Nationwide licence scope. Confirm local availability…".
@@ -123,7 +125,7 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 - **Evidence:** [isp-link3-stats-buried-plural-bugs](screenshots/isp-link3-stats-buried-plural-bugs.png)
 - **Mockup:** [09-isp-page](mockups/09-isp-page.html). **Recommend A**, measured first with the directory folded, plus C as the shared untested state for the ~2,900 untested pages.
 
-### P1-8 · No fallback when the map can't render (WebGL-less devices)
+### P1-8 · No fallback when the map can't render (WebGL-less devices) (#18)
 - **Where:** `/` and the location picker. Reproduced on the Android 16 emulator in Chrome.
 - **The hero map never draws:** the page is just blank, and `TestMap` has no error state (unlike `DhakaMap`).
 - **With location denied, the picker is a blank panel:**
@@ -135,7 +137,7 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 - **Evidence:** [android-home-initial](screenshots/android-home-initial.png), [android-picker-blank-map-no-fallback](screenshots/android-picker-blank-map-no-fallback.png), [android-picker-blind-tap-works](screenshots/android-picker-blind-tap-works.png), [android-test-done](screenshots/android-test-done.png), video [test-android-no-webgl-blank-map-picker-blind-tap](videos/test-android-no-webgl-blank-map-picker-blind-tap.mp4)
 - **Mockup:** [06-location-fallback](mockups/06-location-fallback.html). **Recommend A:** area chips work without a map. Also render the dither backdrop when the hero map fails.
 
-### P1-9 · On phones, tapping a map bubble updates a panel you can't see
+### P1-9 · On phones, tapping a map bubble updates a panel you can't see (#19)
 - **Where:** `/map`, mobile (iOS Safari, 390 preview).
 - **Symptom:**
   - The metric switch, district, provider, legend and area detail all stack below a fixed-height map.
@@ -144,7 +146,7 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 - **Evidence:** [ios-map](screenshots/ios-map.png), [ios-map-tap-bubble-no-visible-detail](screenshots/ios-map-tap-bubble-no-visible-detail.png), [map-mobile390-preview-panel-below-map](screenshots/map-mobile390-preview-panel-below-map.png), video [map-ios-tap-bubble-detail-offscreen](videos/map-ios-tap-bubble-detail-offscreen.mp4)
 - **Mockup:** [10-map-mobile](mockups/10-map-mobile.html). **Recommend A:** a peek sheet over the map.
 
-### P1-10 · Directory data: duplicates, junk names and mis-scoped flagship providers
+### P1-10 · Directory data: duplicates, junk names and mis-scoped flagship providers (#20)
 - **Where:** `data/isps.json` (2,927 rows; the DB has 2,928 approved), surfaced in the combobox, `/isps`, the sitemap and OG images.
 - **Mis-scoped flagship providers:**
   - **Starlink** is "Star Link", listed for Dhaka only, with licence "Satellite, Upazila/Thana". It is invisible from every other district's filter (see P1-2), and its address includes "SpaceX Operations, Hawthorne, California".
@@ -174,13 +176,13 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 
 ## P2
 
-### P2-1 · The running card covers the "Cloudflare · Dhaka" end of the packet arc, and the advice is verbose
+### P2-1 · The running card covers the "Cloudflare · Dhaka" end of the packet arc, and the advice is verbose (#21)
 - **Where:** `/` running state, desktop 1440.
 - **Symptom:** the left card ("WHILE YOU WAIT · Keep this tab open, and pause downloads…") overlaps the edge marker label ("…OFLARE · DHAKA"). Finished ping disappears once download starts.
 - **Evidence:** [test-desktop-ping-card-covers-edge-marker](screenshots/test-desktop-ping-card-covers-edge-marker.png), [test-desktop-download-stage](screenshots/test-desktop-download-stage.png)
 - **Mockup:** [13-running-card](mockups/13-running-card.html). **Recommend B:** live readouts that fill in by stage.
 
-### P2-2 · Location denied: the picker opens without saying why, then needs tap + confirm
+### P2-2 · Location denied: the picker opens without saying why, then needs tap + confirm (#22)
 - **Where:** `/`, desktop (preview denies geolocation) and Android.
 - **Symptom:**
   - "Where are you testing from? Tap your district or Dhaka neighbourhood…" appears, but there are no district targets on the map.
@@ -189,7 +191,7 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 - **Evidence:** [picker-desktop-geo-denied-no-explanation-backdrop-ghosting](screenshots/picker-desktop-geo-denied-no-explanation-backdrop-ghosting.png), [picker-desktop-pin-placed](screenshots/picker-desktop-pin-placed.png)
 - **Mockup:** [06-location-fallback](mockups/06-location-fallback.html). **Recommend A.**
 
-### P2-3 · Directory search needs a submit and a full reload, pagination is Previous/Next over 59 pages, and phone tables scroll sideways
+### P2-3 · Directory search needs a submit and a full reload, pagination is Previous/Next over 59 pages, and phone tables scroll sideways (#23)
 - **Where:** `/isps`, `/district/*`, desktop and mobile.
 - **Symptom:**
   - Typing then Enter reloads the page and scrolls you back to the top.
@@ -199,7 +201,7 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 - **Evidence:** [isps-desktop-directory-first-redundant-columns](screenshots/isps-desktop-directory-first-redundant-columns.png), [isps-mobile390-preview-table-clipped-fade-rows](screenshots/isps-mobile390-preview-table-clipped-fade-rows.png), video [isps-district-isp-map-desktop-walkthrough](videos/isps-district-isp-map-desktop-walkthrough.mp4)
 - **Mockup:** [08-directory-search](mockups/08-directory-search.html). **Recommend A:** instant filter, with card rows on phones.
 
-### P2-4 · Share: silent download on desktop, no link anywhere, and the wrong host on the image
+### P2-4 · Share: silent download on desktop, no link anywhere, and the wrong host on the image (#24)
 - **Where:** `/` done state.
 - **Symptom:**
   - Desktop "Share" downloads `wifirank-result.png` with no feedback.
@@ -208,13 +210,13 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 - **Evidence:** [share-desktop-downloaded-result](screenshots/share-desktop-downloaded-result.png), [ios-share-sheet](screenshots/ios-share-sheet.png)
 - **Mockup:** [11-share](mockups/11-share.html). **Recommend A:** a share popover with a live preview, and `navigator.share({ files, url })`.
 
-### P2-5 · The hero headline fights the map's place labels
+### P2-5 · The hero headline fights the map's place labels (#25)
 - **Where:** `/`, desktop 1440 and 1024, mobile.
 - **Symptom:** Bengali and English labels (Khagan, Banagram, Savar, Pallabi…) run through the Doto headline and lede.
 - **Evidence:** [home-laptop1024-map-labels-behind-headline](screenshots/home-laptop1024-map-labels-behind-headline.png), [home-desktop-ready-to-go](screenshots/home-desktop-ready-to-go.png)
 - **Mockup:** [12-hero-legibility](mockups/12-hero-legibility.html). **Recommend B:** a dither mask.
 
-### P2-6 · The map's district select fights the camera and never resets
+### P2-6 · The map's district select fights the camera and never resets (#26)
 - **Where:** `/map`, desktop.
 - **Symptom:**
   - Choosing Sylhet calls `flyTo(zoom 9)`, but the selection effect immediately flies to `zoom ≥ 13`, so you land inside the city.
@@ -227,12 +229,12 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 - **Mockup:** [10-map-mobile](mockups/10-map-mobile.html) (panel pattern).
 - **Recommendation:** respect the district zoom, reset on "All", link to `/district/<slug>`, cluster hollow dots below zoom 9, and hide the area label where the basemap already names it.
 
-### P2-7 · The skip link is never visible
+### P2-7 · The skip link is never visible (#27)
 - **Where:** all pages, keyboard.
 - **Symptom:** "Skip to content" uses `.sr-only` with no `:focus` override, so it stays clipped to 1 px when focused. Also, MapLibre's "Toggle attribution" sits in the tab order before the form.
 - **Fix:** `.sr-only:focus { clip:auto; width:auto; height:auto; … }`, styled as a lime chip.
 
-### P2-8 · Stale Dhaka-only copy on a nationwide product
+### P2-8 · Stale Dhaka-only copy on a nationwide product (#28)
 - `/isps` meta description: "${n} **Dhaka ISPs** ranked…".
 - `/methodology` meta description: "how WifiRank tests internet speed **in Dhaka**".
 - `/map` canvas `aria-label`: "Map **of Dhaka**…".
@@ -240,28 +242,28 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 - Home FAQ #1 is Dhaka-specific.
 - Gauge comment: "Dhaka plans span…".
 
-### P2-9 · Pluralisation and empty states in generated copy
+### P2-9 · Pluralisation and empty states in generated copy (#29)
 - ISP header: "(1 reviews) · 1 testers · 1 tests".
 - OG: "1 users".
 - The untested OG card shows "▪▪▪▪▪" with a misaligned floating "Mbps".
 - Area page with one tester shows rank "1" on a dimmed row and a "Latest tests" table that repeats the ranking table.
 - **Evidence:** [og-isp-link3](screenshots/og-isp-link3.png), [og-isp-long-name-hilsa](screenshots/og-isp-long-name-hilsa.png), [area-banani-duplicate-latest-table](screenshots/area-banani-duplicate-latest-table.png)
 
-### P2-10 · Mobile Safari: the step pills sit under the floating toolbar
+### P2-10 · Mobile Safari: the step pills sit under the floating toolbar (#30)
 - **Where:** iOS 27 Safari, running state.
 - **Symptom:** the PING / DOWNLOAD / UPLOAD pills land right on Safari's bottom bar, and the hero isn't `svh`-aware (the stats band peeks under the URL bar on load).
 - **Evidence:** [ios-test-running](screenshots/ios-test-running.png), [ios-home-initial](screenshots/ios-home-initial.png)
 
-### P2-11 · The empty home below the hero
+### P2-11 · The empty home below the hero (#31)
 - **Where:** `/`.
 - **Symptom:** with 3 tests and no provider over `MIN_DEVICES`, the Rankings section disappears entirely, and the stats band shows "3 / 3 / 3" in huge dot-matrix type. The new 2,928-provider directory, the strongest content today, isn't linked from the home body at all.
 - **Recommendation:** while data is thin, swap the band for "2,928 providers · 64 districts · find yours" with a district chip row.
 
-### P2-12 · Performance: the home page hydrates the whole directory
+### P2-12 · Performance: the home page hydrates the whole directory (#32)
 - **Symptom:** the home island's props carry every provider tuple (341 KB decoded HTML), and `/api/whoami` takes about 2.2 s before detection can render.
 - **Recommendation:** ship detected and nearby providers first and lazy-load the full list on combobox focus (the review already lazy-loads `isp-packages.json`). Cache `whoami` per IP for the session.
 
-### P2-13 · The combobox list is noisy
+### P2-13 · The combobox list is noisy (#33)
 - **Symptom:**
   - Every row repeats "Nationwide licence".
   - The first row (Link3) is pre-highlighted on focus, so Enter picks it without typing.
@@ -269,7 +271,7 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 - **Evidence:** [home-desktop-combobox-open-map-tiles-missing](screenshots/home-desktop-combobox-open-map-tiles-missing.png)
 - **Mockup:** [02](mockups/02-provider-detection.html) A/B.
 
-### P2-14 · Review form length
+### P2-14 · Review form length (#34)
 - **Symptom:** 9–10 package chips (NET Express) plus "Not listed?" input plus Submit plus a privacy line push the actions below the fold on every form factor.
 - **Evidence:** [ios-done-scrolled](screenshots/ios-done-scrolled.png), [ios-done-actions](screenshots/ios-done-actions.png)
 - **Mockup:** [05-review](mockups/05-review.html). **Recommend B.**
@@ -278,17 +280,17 @@ No P0: every core task completed on every form factor. The P1s cluster around th
 
 ## P3
 
-1. **District names:** "Coxsbazar" (should be "Cox's Bazar"), "Barisal", "Comilla" next to "Chattogram" and "Bogura"; the Bandarban division renders as "Chattagram division".
-2. **Taka glyph:** "৳" isn't in Space Grotesk and falls back to a system face (reads like "b525") in chips and tables. [review-desktop-stars-taka-glyph-fallback](screenshots/review-desktop-stars-taka-glyph-fallback.png)
-3. **Map label overlap:** the selected-area label sits on top of the basemap's own label (also noted in P2-6).
-4. **Hero map tiles:** transient blank tile chunks during the first re-frame. [home-desktop-combobox-open-map-tiles-missing](screenshots/home-desktop-combobox-open-map-tiles-missing.png)
-5. **Picker backdrop ghosting:** the dialog backdrop showed a mirrored ghost of the page in the T3 preview renderer. Likely a capture artifact of `backdrop-filter: blur`; verify in desktop Chrome. [picker-desktop-geo-denied-no-explanation-backdrop-ghosting](screenshots/picker-desktop-geo-denied-no-explanation-backdrop-ghosting.png)
-6. **Sitemap:** it lists all 2,927 ISP pages, including the junk-name records (thin, near-duplicate pages).
-7. **District search button:** on `/district/*` it stretches full width (`auto-fit` grid with one field).
-8. **Breadcrumbs:** root label "Providers" on district pages vs "Rankings" on ISP and area pages, plus the missing separator spacing.
-9. **Home CTA:** "Run the speed test" (`href="#main"`) scrolls to the top but doesn't open the mobile sheet or focus anything.
-10. **Map hint copy:** "Darker = faster. Bigger circle = more testers. Hollow dot = no tests yet." is always shown; a one-time hint or legend tooltip is enough.
-11. **Rankings filter:** the `/isps` "Area" select mixes 98 neighbourhoods and 64 districts in one 162-item list.
+1. **District names:** "Coxsbazar" (should be "Cox's Bazar"), "Barisal", "Comilla" next to "Chattogram" and "Bogura"; the Bandarban division renders as "Chattagram division". (#35)
+2. **Taka glyph:** "৳" isn't in Space Grotesk and falls back to a system face (reads like "b525") in chips and tables. [review-desktop-stars-taka-glyph-fallback](screenshots/review-desktop-stars-taka-glyph-fallback.png) (#36)
+3. **Map label overlap:** the selected-area label sits on top of the basemap's own label (also noted in P2-6). (#37)
+4. **Hero map tiles:** transient blank tile chunks during the first re-frame. [home-desktop-combobox-open-map-tiles-missing](screenshots/home-desktop-combobox-open-map-tiles-missing.png) (#38)
+5. **Picker backdrop ghosting:** the dialog backdrop showed a mirrored ghost of the page in the T3 preview renderer. Likely a capture artifact of `backdrop-filter: blur`; verify in desktop Chrome. [picker-desktop-geo-denied-no-explanation-backdrop-ghosting](screenshots/picker-desktop-geo-denied-no-explanation-backdrop-ghosting.png) (#39)
+6. **Sitemap:** it lists all 2,927 ISP pages, including the junk-name records (thin, near-duplicate pages). (#40)
+7. **District search button:** on `/district/*` it stretches full width (`auto-fit` grid with one field). (#41)
+8. **Breadcrumbs:** root label "Providers" on district pages vs "Rankings" on ISP and area pages, plus the missing separator spacing. (#42)
+9. **Home CTA:** "Run the speed test" (`href="#main"`) scrolls to the top but doesn't open the mobile sheet or focus anything. (#43)
+10. **Map hint copy:** "Darker = faster. Bigger circle = more testers. Hollow dot = no tests yet." is always shown; a one-time hint or legend tooltip is enough. (#44)
+11. **Rankings filter:** the `/isps` "Area" select mixes 98 neighbourhoods and 64 districts in one 162-item list. (#45)
 
 ## What works well (keep)
 
