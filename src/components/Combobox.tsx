@@ -39,7 +39,7 @@ export default function Combobox({ options, preferredValue, value, text: control
     const matches = [...starts, ...has];
     const preferred = empty ? matches.find((o) => o.value === preferredValue) : undefined;
     const groups = [...new Set(options.map((o) => o.group))];
-    const ordered = groups.flatMap((group) => matches.filter((o) => o.group === group && o !== preferred).slice(0, groups.length > 1 ? 20 : 40));
+    const ordered = groups.flatMap((group) => matches.filter((o) => o.group === group && o !== preferred).slice(0, 40));
     return preferred ? [{ ...preferred, group: preferred.group ? 'Detected' : undefined }, ...ordered] : ordered;
   }, [q, options, preferredValue, selected, text]);
 
