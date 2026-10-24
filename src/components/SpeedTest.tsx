@@ -223,7 +223,7 @@ function NameReveal({ name }: { name: string }) {
   );
 }
 
-function Review({ testId, ispId, ispName, value, onChange, onPending }: { testId: number; ispId: number; ispName: string; value: ReviewState; onChange: (v: ReviewState) => void; onPending: (pending: Promise<void>) => void }) {
+function Review({ testId, ispId, ispName, down, value, onChange, onPending }: { testId: number; ispId: number; ispName: string; down: number | null; value: ReviewState; onChange: (v: ReviewState) => void; onPending: (pending: Promise<void>) => void }) {
   const { stars, price, comment, posted, alias } = value;
   const setPrice = (price: string) => onChange({ ...value, price });
   // The package list covers ~3,000 providers (hundreds of KB), so load it only when the review form opens.
@@ -235,9 +235,20 @@ function Review({ testId, ispId, ispName, value, onChange, onPending }: { testId
   }, [ispName]);
   const taka = (n: number) => `৳${n.toLocaleString('en-IN')}`;
   const chips = pkgs.length
-    ? pkgs.map((p) => ({ key: `${p.mbps}-${p.bdt}`, bdt: p.bdt, label: `${p.mbps} Mbps · ${taka(p.bdt)}` }))
-    : BILLS.map((b) => ({ key: String(b), bdt: b, label: taka(b) }));
+    ? pkgs.map((p) => ({ key: `${p.mbps}-${p.bdt}`, bdt: p.bdt, mbps: p.mbps, label: `${p.mbps} Mbps · ${taka(p.bdt)}` }))
+    : BILLS.map((b) => ({ key: String(b), bdt: b, mbps: 0, label: taka(b) }));
   const listed = chips.some((c) => String(c.bdt) === price);
+  // Offer the three packages nearest the measured speed (by ratio, so 40 vs 50 Mbps counts like 400 vs 500);
+  // the rest sit behind "Other". Without a package list or a speed, fall back to the most common bills.
+  const gap = (mbps: number) => Math.abs(Math.log(Math.max(mbps, 1) / down!));
+  const near = pkgs.length && down
+    ? [...chips].sort((a, b) => gap(a.mbps) - gap(b.mbps)).slice(0, 3)
+    : pkgs.length ? chips.slice(0, 3) : chips.filter((c) => [500, 800, 1000].includes(c.bdt));
+  const rest = chips.filter((c) => !near.includes(c));
+  const picked = rest.find((c) => String(c.bdt) === price);
+  const shown = (picked ? [...near, picked] : near).sort((a, b) => chips.indexOf(a) - chips.indexOf(b));
+  const [open, setOther] = useState(false);
+  const other = open || (!!price && !listed);
   const [hover, setHover] = useState(0);
   const [state, setState] = useState('idle');
   const busy = useRef(false);
@@ -303,15 +314,27 @@ function Review({ testId, ispId, ispName, value, onChange, onPending }: { testId
         <div className="field">
           <span className="label" id="l-bill">{pkgs.length ? 'Your package' : 'Monthly bill'}</span>
           <div className="chips">
-            {chips.map((c) => (
+            {shown.map((c) => (
               <label key={c.key}>
                 <input type="radio" name="price" checked={price === String(c.bdt)} onChange={() => setPrice(String(c.bdt))} onClick={() => price === String(c.bdt) && setPrice('')} />
                 <span>{c.label}</span>
               </label>
             ))}
+            <label>
+              <input type="checkbox" checked={other} onChange={() => { if (other && !listed) setPrice(''); setOther(!other); }} aria-expanded={other} />
+              <span>Other…</span>
+            </label>
           </div>
-          <input className="input" type="number" inputMode="numeric" min={100} max={100000} aria-labelledby="l-bill"
-            placeholder={pkgs.length ? 'Not listed? Monthly bill in ৳' : 'Other amount in ৳'} value={listed ? '' : price} onChange={(e) => setPrice(e.target.value)} />
+          {other && <>
+            {rest.length > 0 && (
+              <select className="input" aria-label={pkgs.length ? 'Other packages' : 'Other bills'} value={picked ? price : ''} onChange={(e) => setPrice(e.target.value)}>
+                <option value="">{pkgs.length ? 'More packages…' : 'More amounts…'}</option>
+                {rest.map((c) => <option key={c.key} value={String(c.bdt)}>{c.label}</option>)}
+              </select>
+            )}
+            <input className="input" type="number" inputMode="numeric" min={100} max={100000} aria-labelledby="l-bill"
+              placeholder={pkgs.length ? 'Not listed? Monthly bill in ৳' : 'Other amount in ৳'} value={listed ? '' : price} onChange={(e) => setPrice(e.target.value)} />
+          </>}
         </div>
         <button className="btn review-submit" disabled={!(stars || price) || state === 'sending'}>{state === 'sending' ? 'Saving…' : 'Save details'}</button>
       </fieldset>
@@ -585,7 +608,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                       )}
                       {/* The review sits here, beside the result, so nobody has to scroll to find it. */}
                       {saved && !saved.flag && (
-                        <Review onPending={waitForReview} value={review} onChange={updateReview} testId={saved.id} ispId={saved.ispId} ispName={isps.find((i) => i.id === saved.ispId)?.name ?? isp.name} />
+                        <Review onPending={waitForReview} down={local?.down ?? null} value={review} onChange={updateReview} testId={saved.id} ispId={saved.ispId} ispName={isps.find((i) => i.id === saved.ispId)?.name ?? isp.name} />
                       )}
                       <div className="done-links">
                         <button type="button" className="btn btn-sm" onClick={() => shareImage(isp.name, areaName, local)}>
