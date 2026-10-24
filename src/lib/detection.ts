@@ -7,8 +7,10 @@ export type Detection = {
   flag: string | null;
   suggested: (Provider & { reason: string }) | null;
 };
+// Prefills the best guess (crowd suggestion, else the ASN's ISP); the start sheet shows it with a "change" link.
 export function providerChoice(current: { id?: number; name: string }, net: Detection, touched = false) {
-  return touched || current.name.trim() || net.upstream || net.flag || net.suggested || !net.isp ? current : net.isp;
+  const guess = net.suggested ?? net.isp;
+  return touched || current.name.trim() || net.flag || !guess ? current : { id: guess.id, name: guess.name };
 }
 export const qualifies = (ips: number, total: number) => ips >= CROWD.minIps && total > 0 && ips / total >= CROWD.minShare;
 
