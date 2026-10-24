@@ -36,7 +36,7 @@ const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
 ---
 <Base schema={schema} jsonAlt="/api/stats" dither={false}>
   <section class="hero">
-    <SpeedTest client:load providers={isps.map(({ id, name, aliases, slug }) => [id, name, aliases.filter(a => a !== name), (bySlug.get(slug)?.districts ?? []).map(d => districtSlugs.indexOf(d)).join(','), bySlug.get(slug)?.nationwide ? 1 : 0, bySlug.get(slug)?.tech === 'fwa' ? 1 : 0])} districtSlugs={districtSlugs} areas={map.areas}>
+    <SpeedTest client:load providers={isps.map(({ id, name, aliases, slug }) => [id, name, aliases.filter(a => a !== name), (bySlug.get(slug)?.districts ?? []).map(d => districtSlugs.indexOf(d)).join(','), bySlug.get(slug)?.nationwide ? 1 : 0, bySlug.get(slug)?.tech === 'fwa' ? 1 : 0, slug])} districtSlugs={districtSlugs} areas={map.areas}>
       <h1 aria-label="How fast is your internet, really?">
         {headline.map((w, i) => <><span aria-hidden="true" style={`--i:${i}`}>{w}</span>{i === 1 || i === 3 ? <br /> : ' '}</>)}
       </h1>

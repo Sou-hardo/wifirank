@@ -13,7 +13,7 @@ const record = PROVIDERS.find(i => i.slug === Astro.params.slug);
 const isp = stored ?? (record ? { ...record, id: 0, website: record.website ?? null } : null);
 const published = record ? PACKAGES[record.name] : null;
 if (!isp) return new Response(null, { status: 404 });
-const [all, peak, offPeak, areas, reviews, latest] = await Promise.all([
+const [all, peak, offPeak, areas, reviews, latest] = stored ? await Promise.all([
   summary(sql, { ispId: isp.id }),
   summary(sql, { ispId: isp.id, peak: true }),
   summary(sql, { ispId: isp.id, peak: false }),
@@ -21,9 +21,13 @@ const [all, peak, offPeak, areas, reviews, latest] = await Promise.all([
   sql<{ stars: number; comment: string | null; updated_at: Date; name: string }[]>`
     select name, stars, comment, updated_at from reviews where isp_id = ${isp.id} and not hidden order by (comment is not null) desc, updated_at desc limit 30`,
   recent(sql, { ispId: isp.id, limit: 8 }),
-]);
+]) : [null, null, null, [], [], []];
+const packages = [...(published?.packages ?? [])].sort((a, b) => a.mbps - b.mbps || a.bdt - b.bdt);
+const packageSources = [...new Set(published ? [published.source, ...packages.flatMap(p => p.source ? [p.source] : [])] : [])];
+const testHref = `/?isp=${isp.slug}`;
+const count = (n: number, noun: string) => `${n} ${noun}${n === 1 ? '' : 's'}`;
 const areaRows = areas.map((a) => ({ ...a, name: AREAS[a.area] ?? a.area, slug: a.area }));
-const drop = peak?.local_down && offPeak?.local_down ? Math.round((1 - peak.local_down / offPeak.local_down) * 100) : null;
+const drop = peak?.local_down != null && offPeak?.local_down != null && offPeak.local_down > 0 ? Math.round((1 - peak.local_down / offPeak.local_down) * 100) : null;
 const day = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'Asia/Dhaka' });
 const url = new URL(`/isp/${isp.slug}`, Astro.site).href;
 const schema: object[] = [
@@ -47,37 +51,50 @@ const periods: [string, string, Row | null][] = [['All day', 'Every test', all],
       <div>
         <h1 style="margin-bottom:10px">{isp.name}</h1>
         <p class="text-2" style="margin:0">
-          {all?.rating != null && <><span class="stars-static" aria-hidden="true">★</span> <strong class="num">{all.rating.toFixed(1)}</strong> <span class="muted">({all.reviews} reviews)</span> · </>}
-          {all ? <>{all.devices} testers · {all.tests} tests in 90 days</> : 'No tests yet'}
+          {all?.rating != null && <><span class="stars-static" aria-hidden="true">★</span> <strong class="num">{all.rating.toFixed(1)}</strong> <span class="muted">({count(all.reviews, 'review')})</span> · </>}
+          {all ? <>{count(all.devices, 'tester')} · {count(all.tests, 'test')} in 90 days</> : 'No tests yet'}
           {isp.website && <> · <a href={isp.website} rel="nofollow noopener" target="_blank">{new URL(isp.website).hostname.replace('www.', '')}</a></>}
         </p>
       </div>
-      <div class="row-between"><a class="btn" href={`/map?isp=${isp.slug}`}>See on map</a><a class="btn btn-primary" href="/">Test your {isp.name}</a></div>
     </div>
 
-    {record && <section class="block" style="padding-bottom:0">
-      <h2>Provider information</h2>
-      <p>{record.licence} licence{record.possiblyLapsed && ' · Possibly lapsed: the historical BTRC renewal date has passed; current status is unverified.'}</p>
-      <p>{record.nationwide ? 'Nationwide licence scope. Confirm local availability with the provider.' : 'Listed districts:'} {record.districts.map(s => <a href={`/district/${s}`} style="margin-right:12px">{DISTRICTS.find(d => d.slug === s)?.name}</a>)}</p>
-      {record.addresses?.map(address => <p class="text-2">{address}</p>)}
-      <h2 style="margin-top:28px">Published packages</h2>
-      {published?.packages.length ? <div class="table-wrap"><table><thead><tr><th>Package</th><th>Mbps</th><th>Monthly BDT</th><th>Source</th></tr></thead><tbody>{published.packages.map(p => <tr><th scope="row">{p.name ?? `${p.mbps} Mbps`}</th><td class="num">{p.mbps}</td><td class="num">৳{p.bdt}{p.vat && <small> · VAT {p.vat}</small>}</td><td><a href={p.source ?? published.source} rel="nofollow noopener" target="_blank">{new URL(p.source ?? published.source).hostname}</a></td></tr>)}</tbody></table></div> : <p>No published packages. Contact the provider for current pricing.</p>}
-      {!!record.notes?.length && <details><summary>Research notes and pricing caveats</summary>{record.notes?.map(n => <p class="text-2">{n}</p>)}</details>}
-      <p class="small muted">Directory sources: {(record.sources ?? []).join(', ')}. Licence listings reflect historical research and do not confirm current operating status.{record.source && <> <a href={record.source}>Source</a></>}</p>
+    {all ? <dl class="stat-row" style="margin-top:28px">
+      <div class="stat"><dt>Download</dt><dd><span data-count>{fmt(all.local_down)}</span><small>Mbps</small></dd></div>
+      <div class="stat"><dt>Upload</dt><dd><span data-count>{fmt(all.local_up)}</span><small>Mbps</small></dd></div>
+      <div class="stat"><dt>Ping</dt><dd><span data-count>{fmt(all.local_ping)}</span><small>ms</small></dd></div>
+      {drop != null && <div class="stat"><dt>Peak drop</dt><dd>{drop}<small>%</small></dd></div>}
+      <div class="stat"><dt>Jitter</dt><dd><span data-count>{fmt(all.local_jitter)}</span><small>ms</small></dd></div>
+      {all.local_loss != null && <div class="stat"><dt>Packet loss</dt><dd>{(all.local_loss * 100).toFixed(1)}<small>%</small></dd></div>}
+    </dl> : <div class="isp-empty">
+      <div class="empty-dial" aria-hidden="true"><dither-art mode="flow" cell="6" /><span class="dot">– –</span></div>
+      <div><h2>Nobody has tested {isp.name} yet</h2><p class="text-2" style="margin:0">One 40-second test starts the comparison for everyone on this provider.</p></div>
+    </div>}
+
+    <div class="row-between" style="justify-content:flex-start;margin:22px 0 28px">
+      <a class="btn btn-primary" href={testHref}>{all ? `Test your ${isp.name}` : `Be the first: test ${isp.name}`}</a>
+      {all && <a class="btn" href={`/map?isp=${isp.slug}`}>See on map</a>}
+    </div>
+
+    {record && <section aria-label="Published packages">
+      <h2>Published packages</h2>
+      {packages.length ? <div class="chips">
+        {packages.slice(0, 4).map(p => <span>{p.mbps} Mbps · ৳{p.bdt.toLocaleString('en-IN')}{p.vat && <small> · VAT {p.vat}</small>}</span>)}
+        {packages.length > 4 && <a href="#provider-info"><span>+{packages.length - 4} packages below</span></a>}
+      </div> : <p class="text-2">No published packages. Contact the provider for current pricing.</p>}
+      <details id="provider-info" style="margin-top:20px">
+        <summary>Provider information, packages and sources</summary>
+        <p>{record.licence} licence{record.possiblyLapsed && ' · Possibly lapsed: the historical BTRC renewal date has passed; current status is unverified.'}</p>
+        <p>{record.nationwide ? 'Nationwide licence scope. Confirm local availability with the provider.' : 'Listed districts:'} {record.districts.map(s => <a href={`/district/${s}`} style="margin-right:12px">{DISTRICTS.find(d => d.slug === s)?.name}</a>)}</p>
+        {record.addresses?.map(address => <p class="text-2">{address}</p>)}
+        {packages.length > 4 && <div class="chips" aria-label="All published packages">{packages.map(p => <span>{p.mbps} Mbps · ৳{p.bdt.toLocaleString('en-IN')}{p.vat && <small> · VAT {p.vat}</small>}</span>)}</div>}
+        {record.notes?.map(n => <p class="text-2">{n}</p>)}
+        <p class="small muted">Licence listings reflect historical research and do not confirm current operating status.{record.source && <> <a href={record.source} rel="nofollow noopener" target="_blank">Directory source</a>.</>}</p>
+        {packageSources.length > 0 && <p class="small">Package sources: {packageSources.map(source => <a href={source} rel="nofollow noopener" target="_blank" style="margin-right:12px">{new URL(source).hostname.replace('www.', '')}</a>)}</p>}
+      </details>
     </section>}
-    {!all ? (
-      <div class="card" style="margin-top:28px"><h3>Nobody has tested {isp.name} yet</h3><p class="text-2" style="margin:0">If you use it, <a href="/">run a 40-second test</a> and you’ll be the first result here.</p></div>
-    ) : (
+    {all && (
       <>
         {all.devices < MIN_DEVICES && <p class="notice" style="margin-top:24px"><span>Only {all.devices} {all.devices === 1 ? 'person has' : 'people have'} tested {isp.name} so far. Treat these numbers as an early signal, not a verdict.</span></p>}
-        <dl class="stat-row" style="margin-top:28px">
-          <div class="stat"><dt>Download</dt><dd><span data-count>{fmt(all.local_down)}</span><small>Mbps</small></dd></div>
-          <div class="stat"><dt>Upload</dt><dd><span data-count>{fmt(all.local_up)}</span><small>Mbps</small></dd></div>
-          <div class="stat"><dt>Ping</dt><dd><span data-count>{fmt(all.local_ping)}</span><small>ms</small></dd></div>
-          <div class="stat"><dt>Jitter</dt><dd><span data-count>{fmt(all.local_jitter)}</span><small>ms</small></dd></div>
-          {all.local_loss != null && <div class="stat"><dt>Packet loss</dt><dd>{(all.local_loss * 100).toFixed(1)}<small>%</small></dd></div>}
-        </dl>
-
         <section class="block" style="padding-bottom:0">
           <div class="sec-head"><h2><span class="hl">Peak vs off-peak</span></h2><p>
             {drop == null ? 'Not enough evening tests yet to compare.'
@@ -90,7 +107,7 @@ const periods: [string, string, Row | null][] = [['All day', 'Every test', all],
               <div class={`card pop ${['', 'dark', 'lime'][i]}`}>
                 <div class="row-between"><h3 style="margin:0">{label}</h3><span class="small" style="opacity:.7">{sub}</span></div>
                 <p class="dot" style="font-size:3.6rem;line-height:1;margin:22px 0 10px;color:inherit">{fmt(r?.local_down)}<small style="font:500 .9rem var(--font);margin-left:8px;text-transform:none;opacity:.7">Mbps down</small></p>
-                <p class="small" style="margin:0">Upload {fmt(r?.local_up)} Mbps · ping {fmt(r?.local_ping)} ms · {r?.devices ?? 0} testers</p>
+                <p class="small" style="margin:0">Upload {fmt(r?.local_up)} Mbps · ping {fmt(r?.local_ping)} ms · {count(r?.devices ?? 0, 'tester')}</p>
               </div>
             ))}
           </div>
@@ -133,3 +150,21 @@ const periods: [string, string, Row | null][] = [['All day', 'Every test', all],
     )}
   </section>
 </Base>
+
+<style>
+  .isp-empty { display: flex; align-items: center; gap: 24px; margin-top: 28px; }
+  .empty-dial { position: relative; flex: 0 0 150px; height: 150px; border: 1px solid var(--ink); border-radius: 50%; overflow: hidden; display: grid; place-items: center; background: var(--surface); }
+  .empty-dial dither-art { position: absolute; inset: 0; opacity: .5; }
+  .empty-dial span { position: relative; background: var(--surface); padding: 0 8px; font-size: 2rem; }
+  @media (max-width: 600px) {
+    .isp-empty { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .empty-dial { flex-basis: auto; width: 120px; height: 120px; }
+  }
+</style>
+<script>
+  const revealPackages = () => {
+    if (location.hash === '#provider-info') document.querySelector<HTMLDetailsElement>('#provider-info')?.setAttribute('open', '');
+  };
+  revealPackages();
+  window.addEventListener('hashchange', revealPackages);
+</script>

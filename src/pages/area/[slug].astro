@@ -47,7 +47,7 @@ const desc = best
         : <>Nobody has tested from {name} yet.</>}
     </p>
     <div class="row-between" style="justify-content:flex-start;margin:22px 0 28px">
-      <a class="btn btn-primary" href="/">Test from {name}</a><a class="btn" href="/map">Open the map</a>
+      <a class="btn btn-primary" href={`/?area=${slug}`}>Test from {name}</a><a class="btn" href="/map">Open the map</a>
     </div>
 
     {rows.length === 0
