@@ -1,9 +1,15 @@
 ---
-import { PROVIDERS, DISTRICTS, PACKAGES, serves } from '../lib/directory';
-const { district = '' } = Astro.props;
+import { PROVIDERS, DISTRICTS, PACKAGES, serves, type Provider } from '../lib/directory';
+import ProviderTable from './ProviderTable.astro';
+const { district = '', tested = [] } = Astro.props as { district?: string; tested?: string[] };
 const q = (Astro.url.searchParams.get('q') ?? '').trim().slice(0, 100);
 const selected = district || Astro.url.searchParams.get('district') || '';
 const filtered = PROVIDERS.filter(i => (!selected || serves(i, selected)) && (!q || [i.name, ...i.aliases].some(n => n.toLowerCase().includes(q.toLowerCase()))));
+// Evidence first: tested in this district, then published packages, then the rest (sort is stable).
+const evidence = (i: Provider) => tested.includes(i.slug) ? 0 : PACKAGES[i.name]?.packages.length ? 1 : 2;
+const byEvidence = (a: Provider, b: Provider) => evidence(a) - evidence(b);
+const local = selected ? filtered.filter(i => i.districts.includes(selected)).sort(byEvidence) : [];
+const nationwide = selected ? filtered.filter(i => !i.districts.includes(selected)).sort(byEvidence) : [];
 const pages = Math.max(1, Math.ceil(filtered.length / 50));
 const page = Math.min(pages, Math.max(1, Number.parseInt(Astro.url.searchParams.get('page') ?? '1') || 1));
 const pageUrl = (p: number) => { const u = new URL(Astro.url); u.searchParams.set('page', String(p)); return u.pathname + u.search; };
@@ -11,30 +17,40 @@ const pageUrl = (p: number) => { const u = new URL(Astro.url); u.searchParams.se
 <section class="block" style="padding-top:28px;padding-bottom:0">
   <h2>Find an internet provider</h2>
   <p class="text-2">Licence locations and published coverage. A nationwide licence does not guarantee a connection at your address; confirm with the provider.</p>
-  <form class="directory-filters">
+  <form class:list={['directory-filters', { single: !!district }]}>
     <label class="field"><span class="label">Search providers</span><input class="input" type="search" name="q" value={q} placeholder="Name or alias" /></label>
     {!district && <label class="field"><span class="label">District</span><select class="input" name="district"><option value="">All Bangladesh</option>{DISTRICTS.map(d => <option value={d.slug} selected={d.slug === selected}>{d.name}</option>)}</select></label>}
     <button class="btn btn-primary">Search</button>
   </form>
-  <p role="status">{filtered.length.toLocaleString('en')} {filtered.length === 1 ? 'provider' : 'providers'} · Page {page} of {pages}</p>
-  {filtered.length ? <div class="table-wrap"><table>
-    <caption class="sr-only">Internet provider directory</caption>
-    <thead><tr><th scope="col">Provider</th><th scope="col">Licence category</th><th scope="col">Districts / scope</th><th scope="col">Packages</th></tr></thead>
-    <tbody>{filtered.slice((page - 1) * 50, page * 50).map(i => <tr>
-      <th scope="row"><a href={`/isp/${i.slug}`}>{i.name}</a>{i.possiblyLapsed && <small class="muted"> · Possibly lapsed</small>}</th>
-      <td>{i.licence}</td><td>{i.nationwide ? 'Nationwide licence' : i.districts.length ? i.districts.map(s => DISTRICTS.find(d => d.slug === s)?.name).join(', ') : 'Location not confirmed'}</td>
-      <td>{PACKAGES[i.name]?.packages.length ? `${PACKAGES[i.name].packages.length} published packages` : 'No published packages'}</td>
-    </tr>)}</tbody>
-  </table></div> : <p>No providers match. Try another name or district.</p>}
-  <nav class="row-between" aria-label="Directory pages" style="margin-top:20px">
-    {page > 1 ? <a class="btn" href={pageUrl(page - 1)}>Previous</a> : <span />}
-    {page < pages && <a class="btn" href={pageUrl(page + 1)}>Next</a>}
-  </nav>
+  {selected ? <>
+    <p role="status">{local.length.toLocaleString('en')} local {local.length === 1 ? 'provider' : 'providers'}</p>
+    {local.length ? <ul class="local-grid">{local.map(i => <li class="card local-card">
+      <a href={`/isp/${i.slug}`}><strong>{i.name}</strong></a>
+      <small class="text-2">{tested.includes(i.slug) && 'Tested here · '}{PACKAGES[i.name]?.packages.length ? `${PACKAGES[i.name].packages.length} published packages` : 'No published packages'}{i.possiblyLapsed && ' · Possibly lapsed'}</small>
+      <small class="muted">{i.licence}</small>
+    </li>)}</ul> : <p class="text-2">No locally licensed providers {q ? 'match' : 'listed'}. A nationwide licence below may still serve your address.</p>}
+    <slot name="measured" />
+    {nationwide.length > 0 && <details class="nationwide">
+      <summary>+ {nationwide.length.toLocaleString('en')} nationwide {nationwide.length === 1 ? 'licence' : 'licences'} · may not reach your address</summary>
+      <ProviderTable list={nationwide} />
+    </details>}
+  </> : <>
+    <p role="status">{filtered.length.toLocaleString('en')} {filtered.length === 1 ? 'provider' : 'providers'} · Page {page} of {pages}</p>
+    {filtered.length ? <ProviderTable list={filtered.slice((page - 1) * 50, page * 50)} /> : <p>No providers match. Try another name or district.</p>}
+    <nav class="row-between" aria-label="Directory pages" style="margin-top:20px">
+      {page > 1 ? <a class="btn" href={pageUrl(page - 1)}>Previous</a> : <span />}
+      {page < pages && <a class="btn" href={pageUrl(page + 1)}>Next</a>}
+    </nav>
+  </>}
   {!district && <details style="margin-top:24px"><summary>Browse all 64 districts</summary><nav class="chips" aria-label="Districts">{DISTRICTS.map(d => <a href={`/district/${d.slug}`}>{d.name}</a>)}</nav></details>}
 </section>
 <style>
 .directory-filters { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); align-items:end; gap:14px; margin-top:24px; }
+.directory-filters.single { grid-template-columns:minmax(0,1fr) auto; }
 .directory-filters button { min-height:48px; }
-table { min-width:680px; }
-td, th { overflow-wrap:break-word; }
+.local-grid { list-style:none; padding:0; margin:12px 0 0; display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; }
+.local-card { display:flex; flex-direction:column; gap:6px; padding:18px 20px; }
+.directory-filters + [role=status] { margin-top:18px; }
+.nationwide { margin-top:32px; }
+.nationwide summary { cursor:pointer; font-weight:600; }
 </style>

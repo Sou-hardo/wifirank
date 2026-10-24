@@ -1,0 +1,18 @@
+---
+import { PACKAGES, DISTRICTS, type Provider } from '../lib/directory';
+const { list } = Astro.props as { list: Provider[] };
+const coverage = (i: Provider) => i.nationwide ? i.licence : [i.licence, i.districts.length ? i.districts.map(s => DISTRICTS.find(d => d.slug === s)?.name).join(', ') : 'Location not confirmed'].join(' · ');
+---
+<div class="table-wrap"><table>
+  <caption class="sr-only">Internet provider directory</caption>
+  <thead><tr><th scope="col">Provider</th><th scope="col">Licence / coverage</th><th scope="col">Packages</th></tr></thead>
+  <tbody>{list.map(i => <tr>
+    <th scope="row"><a href={`/isp/${i.slug}`}>{i.name}</a>{i.possiblyLapsed && <small class="muted"> · Possibly lapsed</small>}</th>
+    <td>{coverage(i)}</td>
+    <td>{PACKAGES[i.name]?.packages.length ? `${PACKAGES[i.name].packages.length} published packages` : 'No published packages'}</td>
+  </tr>)}</tbody>
+</table></div>
+<style>
+table { min-width:560px; }
+td, th { overflow-wrap:break-word; }
+</style>
