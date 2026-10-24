@@ -18,6 +18,13 @@ assert.deepEqual(providerChoice({ name: 'My reseller' }, detected), { name: 'My 
 assert.deepEqual(providerChoice({ name: '' }, detected, true), { name: '' }); // user cleared text
 assert.deepEqual(providerChoice({ name: '' }, { ...detected, suggested: { id: 2, name: 'Beta', reason: 'crowd' } }), { id: 2, name: 'Beta' });
 assert.deepEqual(providerChoice({ name: '' }, { ...detected, flag: 'mobile_data' }), { name: '' });
+// A provider restored from an earlier test only survives on the same network.
+const link3 = { id: 9, name: 'Link3' };
+assert.deepEqual(providerChoice(link3, { ...detected, asOrg: 'Inspire' }, false, 'Link3 Technologies'), detected.isp);
+assert.deepEqual(providerChoice(link3, { ...detected, asOrg: 'Inspire', isp: null }, false, 'Link3 Technologies'), { name: '' });
+assert.deepEqual(providerChoice(link3, { ...detected, asOrg: 'Link3 Technologies' }, false, 'Link3 Technologies'), link3);
+assert.deepEqual(providerChoice(link3, { ...detected, asOrg: 'Inspire', flag: 'foreign_ip' }, false, 'Link3 Technologies'), link3);
+assert.deepEqual(providerChoice(link3, { ...detected, asOrg: 'Inspire' }, true, 'Link3 Technologies'), link3);
 assert.equal(qualifies(2, 2), false);
 assert.equal(qualifies(3, 6), true);
 assert.equal(qualifies(3, 7), false);
