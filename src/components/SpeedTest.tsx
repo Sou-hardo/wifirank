@@ -546,6 +546,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
               </Gauge>
             ) : (
               <>
+                {phase === 'running' && quickResult?.flag === 'mobile_data' && <span className="net-chip" role="status"><span className="dot" aria-hidden="true" />Testing on mobile data</span>}
                 <Gauge value={phase === 'running' ? gaugeValue : local?.down ?? null} active={phase === 'running'}
                   label={phase === 'running' ? gaugeLabel : 'Download'}
                   unit={phase === 'running' && (stage === 'latency' || !stage) ? 'ms' : 'Mbps'}>
