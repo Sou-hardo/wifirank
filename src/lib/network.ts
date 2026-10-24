@@ -4,8 +4,8 @@ import { IP_SALT, IPINFO_TOKEN } from 'astro:env/server';
 export const hashIp = (ip: string) => createHash('sha256').update(IP_SALT + ip).digest('hex').slice(0, 32);
 
 // Results from these are stored but excluded from ISP stats.
-// Name-based match; add ASN list if operators rebrand
-const MOBILE = /grameenphone|robi|axiata|airtel|banglalink|teletalk/i;
+// Name-based match; add ASN list if operators rebrand (Robi still registers some blocks as TM International)
+const MOBILE = /grameenphone|robi|axiata|tm international|airtel|banglalink|teletalk/i;
 
 // Loopback and LAN addresses, which is all the dev server ever sees.
 const LOCAL = /^(::1$|(::ffff:)?(127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.))/;
