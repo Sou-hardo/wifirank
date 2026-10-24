@@ -309,6 +309,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
   const [error, setError] = useState('');
   const [tried, setTried] = useState(false);
   const choiceTouched = useRef(false);
+  const savedNet = useRef<string | null | undefined>(undefined); // network of the restored provider, until detection has run
   const [editIsp, setEditIsp] = useState(false);
   const [net, setNet] = useState<Net | null>(null);
 
@@ -317,7 +318,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
   useLayoutEffect(() => {
     try {
       const last = JSON.parse(localStorage.getItem('wr_last') ?? 'null');
-      if (last) setIsp(last.isp ?? { name: '' });
+      if (last?.isp?.name) { setIsp(last.isp); savedNet.current = last.asOrg ?? null; }
       if (last?.conn && CONN.some(c => c.value === last.conn) && Date.now() - last.at < 864e5) setConnection(last.conn);
     } catch {}
   }, []);
@@ -329,7 +330,9 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
       if (!live || !n) return;
       setNet(n);
       if (!district && n.district) setDistrict(n.district);
-      setIsp((cur) => providerChoice(cur, n, choiceTouched.current));
+      const from = savedNet.current;
+      savedNet.current = undefined;
+      setIsp((cur) => providerChoice(cur, n, choiceTouched.current, from));
     }).catch(() => {});
     return () => { live = false; };
   }, [district]);
@@ -359,7 +362,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
 
   const run = async (p: Pin, conn = connection) => {
     setPin(p); setArea(p.area); setDistrict(districtForArea(p.area) ?? ''); setEditIsp(false);
-    localStorage.setItem('wr_last', JSON.stringify({ isp, conn, at: Date.now() }));
+    localStorage.setItem('wr_last', JSON.stringify({ isp, conn, at: Date.now(), asOrg: net?.asOrg ?? null }));
     setError(''); setLocal(null); setSaved(null); setLive(null); setStage(null);
     setPhase('running');
 

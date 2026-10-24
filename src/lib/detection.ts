@@ -8,9 +8,14 @@ export type Detection = {
   suggested: (Provider & { reason: string }) | null;
 };
 // Prefills the best guess (crowd suggestion, else the ASN's ISP); the start sheet shows it with a "change" link.
-export function providerChoice(current: { id?: number; name: string }, net: Detection, touched = false) {
+// `savedNet` is set when `current` was restored from an earlier test: the network (AS org) that test ran on.
+// A restored provider only survives on that same network, or when detection can't be trusted (mobile data, VPN).
+export function providerChoice(current: { id?: number; name: string }, net: Detection & { asOrg?: string | null }, touched = false, savedNet?: string | null) {
   const guess = net.suggested ?? net.isp;
-  return touched || current.name.trim() || net.flag || !guess ? current : { id: guess.id, name: guess.name };
+  const pick = guess ? { id: guess.id, name: guess.name } : { name: '' };
+  if (touched || net.flag) return current;
+  if (savedNet !== undefined) return savedNet === (net.asOrg ?? null) ? current : pick;
+  return current.name.trim() || !guess ? current : pick;
 }
 export const qualifies = (ips: number, total: number) => ips >= CROWD.minIps && total > 0 && ips / total >= CROWD.minShare;
 
