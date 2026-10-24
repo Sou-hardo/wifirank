@@ -119,3 +119,6 @@ For local browser checks only, `/?devAsn=23688` simulates Link3 (upstream) and
 same fixture and an optional district slug. The ASN override is compiled out in
 production. Without it, loopback development requests look up the machine's own
 public IP through ipinfo.
+
+`/?devFlag=mobile_data` and `/?devFlag=foreign_ip` force the client-only quick-test
+flow in development; the mobile fixture also exposes the FWA escape hatch.

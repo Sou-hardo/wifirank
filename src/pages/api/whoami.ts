@@ -11,6 +11,8 @@ export const GET: APIRoute = async ({ clientAddress, url }) => {
   // Explicit dev fixtures only; production never accepts client-supplied detection.
   const fixture = import.meta.env.DEV ? Number(url.searchParams.get('devAsn')) : 0;
   if (fixture > 0) { net.asn = fixture; net.flag = null; net.as_org = `Development AS${fixture}`; }
+  const flag = import.meta.env.DEV ? url.searchParams.get('devFlag') : null;
+  if (flag === 'mobile_data' || flag === 'foreign_ip') { net.flag = flag; net.as_org = 'Development network'; }
   const matches = net.asn ? await sql`select id, name from isps where asn = ${net.asn} and approved order by id limit 2` : [];
   const isp = matches[0] ?? null;
   const upstream = matches.length > 1 || (net.asn != null && upstreams.includes(net.asn));

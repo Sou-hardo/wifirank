@@ -313,6 +313,10 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
   const [editIsp, setEditIsp] = useState(false);
   const [net, setNet] = useState<Net | null>(null);
   const [detecting, setDetecting] = useState(true);
+  const [homeRouter, setHomeRouter] = useState(false);
+  const [quickResult, setQuickResult] = useState<Net | null>(null);
+  const quick = phase === 'setup' ? !!net?.flag && !(net.flag === 'mobile_data' && homeRouter) : !!quickResult;
+  const fullFlow = () => { setHomeRouter(true); setQuickResult(null); setPhase('setup'); setStage(null); setEditIsp(true); setSheet(true); };
   const detected = !!isp.id && (isp.id === net?.isp?.id || isp.id === net?.suggested?.id);
   const changeIsp = () => { setEditIsp(true); setTimeout(() => document.getElementById('f-isp')?.focus()); };
 
@@ -348,6 +352,8 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
 
   // A connection tile is the answer that starts the test, so it passes its value straight in.
   const start = async (conn = connection) => {
+    if (detecting) return;
+    if (quick) return run(null, conn);
     const missing = !isp.name.trim() ? 'isp' : !conn ? 'connection' : null;
     if (missing) {
       // Phones get the question in a bottom sheet; desktop already shows it beside the dial.
@@ -363,9 +369,14 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
     else setPickerOpen(true); // location denied or unavailable: let them drop a pin instead
   };
 
-  const run = async (p: Pin, conn = connection) => {
-    setPin(p); setArea(p.area); setDistrict(districtForArea(p.area) ?? ''); setEditIsp(false);
-    localStorage.setItem('wr_last', JSON.stringify({ isp, conn, at: Date.now(), asOrg: net?.asOrg ?? null }));
+  const run = async (p: Pin | null, conn = connection) => {
+    // No pin means a client-only quick test; never remember or submit it.
+    setQuickResult(p ? null : net);
+    if (p) {
+      setPin(p); setArea(p.area); setDistrict(districtForArea(p.area) ?? ''); setEditIsp(false);
+      localStorage.setItem('wr_last', JSON.stringify({ isp, conn, at: Date.now(), asOrg: net?.asOrg ?? null }));
+    }
+    setSheet(false);
     setError(''); setLocal(null); setSaved(null); setLive(null); setStage(null);
     setPhase('running');
 
@@ -376,6 +387,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
     let i = await runEngine({ measurements: m, ...(creds && { turnServerUser: creds.username, turnServerPass: creds.credential }) }, progress);
     if (!creds) i = { ...i, loss: null };
     setLocal(i);
+    if (!p) { setPhase('done'); return; }
 
     setPhase('saving');
     // Plan may have been filled in while the test ran, so read it now.
@@ -410,7 +422,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
   const areaName = AREAS[area] ?? '';
   // A comparison with "others" only means something once there are a few of them.
   const peer = saved?.peer && saved.peer.devices >= 3 ? saved.peer : null;
-  const spot = pin ? [pin.lng, pin.lat] as [number, number] : AREA_COORDS[area] ? [AREA_COORDS[area][1], AREA_COORDS[area][0]] as [number, number] : null;
+  const spot = !quick && pin ? [pin.lng, pin.lat] as [number, number] : !quick && AREA_COORDS[area] ? [AREA_COORDS[area][1], AREA_COORDS[area][0]] as [number, number] : null;
 
   return (
     <div className={`tester is-${phase}`}>
@@ -423,7 +435,18 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
             {sheet && <button type="button" className="sheet-scrim" aria-label="Close" onClick={() => setSheet(false)} />}
             <div className={`tester-side ${sheet ? 'open' : ''}`} data-over
               {...(sheet && { role: 'dialog', 'aria-modal': true, tabIndex: -1, 'aria-label': 'Test details', onKeyDown: (e: KeyboardEvent) => e.key === 'Escape' && setSheet(false) })}>
-              {phase === 'setup' ? (
+              {quick ? (
+                <div className="extras">
+                  <div className="extras-head"><h2>Quick test</h2></div>
+                  <p className="muted small">{phase === 'running'
+                    ? 'Keep this tab open, and pause downloads and streaming for the most accurate result.'
+                    : 'Your speed, shown only to you. This result isn’t saved or counted toward any provider.'}</p>
+                  {(phase === 'setup' ? net : quickResult)?.flag === 'mobile_data' && (phase === 'setup' || phase === 'done') && (
+                    <button type="button" className="link-btn muted" onClick={fullFlow}>This is my home router (FWA) →</button>
+                  )}
+                  {phase === 'done' && <button type="button" className="btn btn-sm btn-ghost" onClick={() => { setPhase('setup'); setStage(null); }}>Test again</button>}
+                </div>
+              ) : phase === 'setup' ? (
                 <form className="setup" onSubmit={(e) => { e.preventDefault(); start(); }} noValidate>
                   {!editIsp ? (
                     <div className="provider-summary">
@@ -452,7 +475,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                     <div className="seg" id="f-connection" tabIndex={-1}>
                       {CONN.map((c) => (
                         <label key={c.value}>
-                          <input type="radio" name="conn" value={c.value} checked={connection === c.value} disabled={locating}
+                          <input type="radio" name="conn" value={c.value} checked={connection === c.value} disabled={locating || detecting}
                             onChange={() => { setConnection(c.value); start(c.value); }} onClick={() => connection === c.value && start(c.value)} />
                           <span><Icon d={c.icon} />{c.label}</span>
                         </label>
@@ -514,11 +537,12 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
             {phase === 'running' && <dither-art class="stream" mode="stream" cell="8" dir={stage === 'upload' ? 'up' : stage === 'download' || stage === 'packetLoss' ? 'down' : 'idle'} aria-hidden="true" />}
             {phase === 'setup' ? (
               <Gauge value={null}>
-                <button type="button" className="go ready magnetic" onClick={() => start()} disabled={locating} aria-describedby={missing ? 'go-hint' : undefined}>
+                <button type="button" className="go ready magnetic" onClick={() => start()} disabled={locating || detecting} aria-describedby="go-hint">
                   <span>GO</span>
                 </button>
-                {!missing && <button type="button" className="go-pills m-only" onClick={() => setSheet(true)}>{isp.name} · {CONN.find(c => c.value === connection)?.label} · change</button>}
-                <span id="go-hint" className="go-hint">{missing ? <><span className="d-only">{missing === 'isp' ? 'Choose your provider first' : 'Pick your connection first'}</span><span className="m-only">Takes about 40 seconds</span></> : locating ? 'Finding your location…' : 'Takes about 40 seconds'}</span>
+                {quick && net?.flag === 'mobile_data' && <button type="button" className="go-pills m-only" onClick={fullFlow}>This is my home router (FWA) →</button>}
+                {!quick && !missing && <button type="button" className="go-pills m-only" onClick={() => setSheet(true)}>{isp.name} · {CONN.find(c => c.value === connection)?.label} · change</button>}
+                <span id="go-hint" className="go-hint">{detecting ? 'Detecting your network…' : !quick && missing ? <><span className="d-only">{missing === 'isp' ? 'Choose your provider first' : 'Pick your connection first'}</span><span className="m-only">Takes about 40 seconds</span></> : locating ? 'Finding your location…' : 'Takes about 40 seconds'}</span>
               </Gauge>
             ) : (
               <>
@@ -540,6 +564,13 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
 
       {(phase === 'done' || phase === 'saving') && (
         <div className="results wrap">
+          {quickResult && (
+            <div className="notice rise" role="status">
+              <span>{quickResult.flag === 'mobile_data'
+                ? <>Mobile data{quickResult.asOrg && <> ({quickResult.asOrg})</>} — shown to you only, not counted toward any provider.</>
+                : <>Looks like a VPN or connection outside Bangladesh — shown to you only, not counted.</>}</span>
+            </div>
+          )}
           {saved?.flag && (
             <div className="notice rise" role="status">
               <Icon d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" />
@@ -555,7 +586,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                 That’s normal: many neighbourhood providers rent their line from a bigger ISP. Your result counts toward {isp.name}.</span>
             </div>
           )}
-          <ResultPanel title="Your result" sub={saved?.accessType === 'fixed_wireless' ? 'Fixed wireless · Cloudflare’s server in Dhaka' : 'Measured against Cloudflare’s server in Dhaka'} m={local} peer={peer?.local_down} />
+          <ResultPanel title="Your result" sub={quickResult?.flag === 'foreign_ip' ? 'Measured against Cloudflare’s server' : saved?.accessType === 'fixed_wireless' ? 'Fixed wireless · Cloudflare’s server in Dhaka' : 'Measured against Cloudflare’s server in Dhaka'} m={local} peer={peer?.local_down} />
         </div>
       )}
 
