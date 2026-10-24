@@ -382,6 +382,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
       } else remember(null);
     } catch { remember(null); }
   }, []);
+  const testAgain = () => { remember(null); finished.current = null; setPhase('setup'); setStage(null); }; // starting over drops the saved run
   const updateReview = (value: ReviewState) => {
     setReview(value);
     if (finished.current) {
@@ -512,7 +513,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                   {(phase === 'setup' ? net : quickResult)?.flag === 'mobile_data' && (phase === 'setup' || phase === 'done') && (
                     <button type="button" className="link-btn muted" onClick={fullFlow}>This is my home router (FWA) →</button>
                   )}
-                  {phase === 'done' && <button type="button" className="btn btn-sm btn-ghost" disabled={reviewBusy} onClick={() => { setPhase('setup'); setStage(null); }}>Test again</button>}
+                  {phase === 'done' && <button type="button" className="btn btn-sm btn-ghost" disabled={reviewBusy} onClick={testAgain}>Test again</button>}
                 </div>
               ) : phase === 'setup' ? (
                 <form className="setup" onSubmit={(e) => { e.preventDefault(); start(); }} noValidate>
@@ -596,7 +597,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                           const href = e.currentTarget.href;
                           void pendingReview.current.then(() => window.location.assign(href));
                         }}>Compare ISPs</a>
-                        <button type="button" className="btn btn-sm btn-ghost" disabled={reviewBusy} onClick={() => { setPhase('setup'); setStage(null); }}>Test again</button>
+                        <button type="button" className="btn btn-sm btn-ghost" disabled={reviewBusy} onClick={testAgain}>Test again</button>
                       </div>
                     </div>
                   )}
