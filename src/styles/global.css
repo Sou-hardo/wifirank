@@ -440,6 +440,8 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 .review-submit:hover { background: var(--ink); color: #fff; }
 .review-submit:active { transform: translateY(4px); box-shadow: none; }
 .review-submit:disabled { background: var(--surface-3); box-shadow: none; opacity: .6; }
+.rating-toast { position: fixed; z-index: 100; bottom: 24px; right: 24px; max-width: calc(100vw - 48px); display: flex; align-items: center; gap: 24px; padding: 16px 22px; background: var(--ink); color: #fff; border-radius: 12px; box-shadow: 0 6px 20px #0003; }
+.rating-toast .link-btn { color: var(--accent); }
 .review-note { text-align: center; }
 /* Name reveal: a die tumbles in from the left, then the pseudonym lands */
 .alias { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }

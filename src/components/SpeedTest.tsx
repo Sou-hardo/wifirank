@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useState, useRef, type KeyboardEvent, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import SpeedTestEngine from '@cloudflare/speedtest';
 import { AREAS, DISTRICT_NAMES, locationHref, districtForArea } from '../lib/options';
 import Combobox, { type Option } from './Combobox';
@@ -21,6 +22,19 @@ type Pin = { lat: number; lng: number; area: string };
 type Net = Detection & { asOrg: string | null; district?: string | null };
 type Saved = { id: number; ispId: number; flag: string | null; asOrg: string | null; accessType: string;
   peer: { devices: number; local_down: number | null } | null };
+
+type ReviewState = { stars: number; price: string; comment: string; posted: boolean; alias: string | null };
+const emptyReview = (): ReviewState => ({ stars: 0, price: '', comment: '', posted: false, alias: null });
+const SESSION_KEY = 'wr_finished';
+type Finished = { at: number; local: Metrics; saved: Saved | null; isp: { id?: number; name: string }; area: string;
+  district: string; connection: string; pin: Pin | null; fixedWireless: boolean; net: Net | null; quickResult: Net | null;
+  error: string; review: ReviewState };
+const remember = (result: Finished | null) => {
+  try {
+    if (result) sessionStorage.setItem(SESSION_KEY, JSON.stringify(result));
+    else sessionStorage.removeItem(SESSION_KEY);
+  } catch {} // A blocked or full store must not interrupt a test or review.
+};
 
 const MEASUREMENTS = [
   { type: 'latency', numPackets: 1 },
@@ -209,9 +223,9 @@ function NameReveal({ name }: { name: string }) {
   );
 }
 
-function Review({ testId, ispId, ispName }: { testId: number; ispId: number; ispName: string }) {
-  const [stars, setStars] = useState(0);
-  const [price, setPrice] = useState('');
+function Review({ testId, ispId, ispName, value, onChange, onPending }: { testId: number; ispId: number; ispName: string; value: ReviewState; onChange: (v: ReviewState) => void; onPending: (pending: Promise<void>) => void }) {
+  const { stars, price, comment, posted, alias } = value;
+  const setPrice = (price: string) => onChange({ ...value, price });
   // The package list covers ~3,000 providers (hundreds of KB), so load it only when the review form opens.
   const [pkgs, setPkgs] = useState<Pkg[]>([]);
   useEffect(() => {
@@ -225,64 +239,84 @@ function Review({ testId, ispId, ispName }: { testId: number; ispId: number; isp
     : BILLS.map((b) => ({ key: String(b), bdt: b, label: taka(b) }));
   const listed = chips.some((c) => String(c.bdt) === price);
   const [hover, setHover] = useState(0);
-  const [comment, setComment] = useState('');
-  const [state, setState] = useState<'idle' | 'sending' | 'done' | string>('idle');
-  const [alias, setAlias] = useState<string | null>(null);
+  const [state, setState] = useState('idle');
+  const busy = useRef(false);
+  const [undo, setUndo] = useState<{ stars: number; comment: string; alias: string | null } | null>(null);
+  useEffect(() => {
+    if (!undo) return;
+    const id = setTimeout(() => setUndo(null), 10000);
+    return () => clearTimeout(id);
+  }, [undo]);
   const words = ['', 'Terrible', 'Poor', 'Okay', 'Good', 'Excellent'];
-  const submit = async (e: { preventDefault(): void }) => {
-    e.preventDefault();
+  const submit = async (next = value, rating = false) => {
+    if (busy.current) return;
+    busy.current = true;
     setState('sending');
     const res = await fetch('/api/reviews', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ deviceId: deviceId(), testId, ispId, stars: stars || null, comment, price: price ? Number(price) : null }),
+      body: JSON.stringify({ deviceId: deviceId(), testId, ispId, stars: next.stars || null, comment: next.comment, price: rating ? null : next.price ? Number(next.price) : null }),
     }).catch(() => null);
     const body = await res?.json().catch(() => null);
     if (res?.ok) {
-      const r = (e as any).target?.getBoundingClientRect?.();
-      if (r) burst(r.left + r.width / 2, r.top + 40, 40);
-      setAlias(body?.name ?? null); // only a star rating is published under a name
+      onChange({ ...next, posted: next.stars > 0, alias: body?.name ?? alias });
+      if (rating) setUndo({ stars: body.previous?.stars ?? 0, comment: body.previous?.comment ?? '', alias: body.previous?.name ?? null });
     }
+    busy.current = false;
     setState(res?.ok ? 'done' : body?.error ?? 'Couldn’t send. Try again.');
   };
-  if (state === 'done') return (
-    <div className="review-done rise">
-      {alias && <NameReveal name={alias} />}
-      <strong>Thanks, that helps others compare.</strong> <span className="muted">Run another test any time to update it.</span>
-    </div>
-  );
+  const revert = async () => {
+    if (!undo || busy.current) return;
+    busy.current = true;
+    setState('sending');
+    const res = await fetch('/api/reviews', {
+      method: undo.stars ? 'POST' : 'DELETE', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ deviceId: deviceId(), testId, ispId, stars: undo.stars, comment: undo.comment }),
+    }).catch(() => null);
+    if (res?.ok) {
+      onChange({ ...value, stars: undo.stars, comment: undo.comment, posted: undo.stars > 0, alias: undo.alias });
+      setUndo(null);
+    }
+    busy.current = false;
+    setState(res?.ok ? 'idle' : 'Couldn’t undo. Try again.');
+  };
   return (
-    <form className="review rise" onSubmit={submit} style={{ ['--i' as any]: 2 }}>
+    <form className="review rise" onSubmit={(e) => { e.preventDefault(); onPending(submit()); }} style={{ ['--i' as any]: 2 }}>
       <h3>Rate {ispName} <span className="muted">Optional</span></h3>
       <div className="star-input" role="radiogroup" aria-label="Rating" onMouseLeave={() => setHover(0)}>
         {[1, 2, 3, 4, 5].map((n) => (
           <button type="button" key={n} role="radio" aria-checked={stars === n} aria-label={`${n} star${n > 1 ? 's' : ''}: ${words[n]}`}
-            className={n <= (hover || stars) ? 'on' : ''} onMouseEnter={() => setHover(n)} onClick={() => setStars(n)}>
+            className={n <= (hover || stars) ? 'on' : ''} onMouseEnter={() => setHover(n)} disabled={state === 'sending'} onClick={() => onPending(submit({ ...value, stars: n }, true))}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" /></svg>
           </button>
         ))}
         <span className="star-word" aria-hidden="true">{words[hover || stars]}</span>
       </div>
-      {/* The comment box only appears once they've rated, so the card stays short enough to see whole. */}
-      {stars > 0 && (
-        <textarea className="input" maxLength={1000} rows={2} value={comment} onChange={(e) => setComment(e.target.value)}
-          placeholder="Outages? Support response? Worth the price? (optional)" aria-label="Comment" />
-      )}
-      <div className="field">
-        <span className="label" id="l-bill">{pkgs.length ? 'Your package' : 'Monthly bill'}</span>
-        <div className="chips">
-          {chips.map((c) => (
-            <label key={c.key}>
-              <input type="radio" name="price" checked={price === String(c.bdt)} onChange={() => setPrice(String(c.bdt))} onClick={() => price === String(c.bdt) && setPrice('')} />
-              <span>{c.label}</span>
-            </label>
-          ))}
+      {posted && <p className="saved" role="status">Rating posted. Thanks for helping others compare.</p>}
+      {undo && createPortal(<div className="rating-toast" role="status"><span>Rating posted.</span><button type="button" className="link-btn" disabled={state === 'sending'} onClick={() => onPending(revert())}>Undo</button></div>, document.body)}
+      {alias && <NameReveal key={alias} name={alias} />}
+      <fieldset disabled={state === 'sending'} style={{ border: 0, padding: 0, margin: 0, display: 'contents' }}>
+        {/* The comment box only appears once they've rated, so the card stays short enough to see whole. */}
+        {stars > 0 && (
+          <textarea className="input" maxLength={1000} rows={2} value={comment} onChange={(e) => onChange({ ...value, comment: e.target.value })}
+            placeholder="Outages? Support response? Worth the price? (optional)" aria-label="Comment" />
+        )}
+        <div className="field">
+          <span className="label" id="l-bill">{pkgs.length ? 'Your package' : 'Monthly bill'}</span>
+          <div className="chips">
+            {chips.map((c) => (
+              <label key={c.key}>
+                <input type="radio" name="price" checked={price === String(c.bdt)} onChange={() => setPrice(String(c.bdt))} onClick={() => price === String(c.bdt) && setPrice('')} />
+                <span>{c.label}</span>
+              </label>
+            ))}
+          </div>
+          <input className="input" type="number" inputMode="numeric" min={100} max={100000} aria-labelledby="l-bill"
+            placeholder={pkgs.length ? 'Not listed? Monthly bill in ৳' : 'Other amount in ৳'} value={listed ? '' : price} onChange={(e) => setPrice(e.target.value)} />
         </div>
-        <input className="input" type="number" inputMode="numeric" min={100} max={100000} aria-labelledby="l-bill"
-          placeholder={pkgs.length ? 'Not listed? Monthly bill in ৳' : 'Other amount in ৳'} value={listed ? '' : price} onChange={(e) => setPrice(e.target.value)} />
-      </div>
-      <button className="btn review-submit" disabled={!(stars || price) || state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Submit review'}</button>
+        <button className="btn review-submit" disabled={!(stars || price) || state === 'sending'}>{state === 'sending' ? 'Saving…' : 'Save details'}</button>
+      </fieldset>
       <small className="muted review-note">Anonymous. No personal details.</small>
-      {state !== 'idle' && state !== 'sending' && <p className="error" role="alert">{state}</p>}
+      {state !== 'idle' && state !== 'sending' && state !== 'done' && <p className="error" role="alert">{state}</p>}
     </form>
   );
 }
@@ -308,6 +342,15 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
   const [saved, setSaved] = useState<Saved | null>(null);
   const [error, setError] = useState('');
   const [tried, setTried] = useState(false);
+  const [review, setReview] = useState<ReviewState>(emptyReview);
+  const finished = useRef<Finished | null>(null);
+  const pendingReview = useRef<Promise<void> | null>(null);
+  const [reviewBusy, setReviewBusy] = useState(false);
+  const waitForReview = (pending: Promise<void>) => {
+    pendingReview.current = pending;
+    setReviewBusy(true);
+    void pending.finally(() => { if (pendingReview.current === pending) { pendingReview.current = null; setReviewBusy(false); } });
+  };
   const choiceTouched = useRef(false);
   const savedNet = useRef<string | null | undefined>(undefined); // network of the restored provider, until detection has run
   const [editIsp, setEditIsp] = useState(false);
@@ -328,7 +371,24 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
       if (last?.isp?.name) { setIsp(last.isp); savedNet.current = last.asOrg ?? null; }
       if (last?.conn && CONN.some(c => c.value === last.conn) && Date.now() - last.at < 864e5) setConnection(last.conn);
     } catch {}
+    try {
+      const last: Finished = JSON.parse(sessionStorage.getItem(SESSION_KEY) ?? 'null');
+      if (last && Number.isFinite(last.at) && Date.now() >= last.at && Date.now() - last.at < 30 * 60 * 1000 && last.local && last.isp && typeof last.area === 'string') {
+        finished.current = last;
+        choiceTouched.current = true; // network detection must not replace the completed run's ISP
+        setLocal(last.local); setSaved(last.saved); setIsp(last.isp); setArea(last.area); setDistrict(last.district);
+        setConnection(last.connection); setPin(last.pin); setFixedWireless(last.fixedWireless); setNet(last.net);
+        setQuickResult(last.quickResult); setError(last.error); setReview(last.review ?? emptyReview()); setPhase('done');
+      } else remember(null);
+    } catch { remember(null); }
   }, []);
+  const updateReview = (value: ReviewState) => {
+    setReview(value);
+    if (finished.current) {
+      finished.current = { ...finished.current, review: value };
+      remember(finished.current);
+    }
+  };
   useEffect(() => {
     let live = true;
     const params = new URLSearchParams(import.meta.env.DEV ? window.location.search : '');
@@ -370,7 +430,14 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
   };
 
   const run = async (p: Pin | null, conn = connection) => {
-    // No pin means a client-only quick test; never remember or submit it.
+    remember(null); finished.current = null; setReview(emptyReview());
+    const finish = (local: Metrics, saved: Saved | null, error = '') => {
+      finished.current = { at: Date.now(), local, saved, isp, area: p?.area ?? area, district: p ? districtForArea(p.area) ?? '' : district,
+        connection: conn, pin: p, fixedWireless, net, quickResult: p ? null : net, error, review: emptyReview() };
+      remember(finished.current);
+      setPhase('done');
+    };
+    // No pin means a client-only quick test; never submit it.
     setQuickResult(p ? null : net);
     if (p) {
       setPin(p); setArea(p.area); setDistrict(districtForArea(p.area) ?? ''); setEditIsp(false);
@@ -387,7 +454,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
     let i = await runEngine({ measurements: m, ...(creds && { turnServerUser: creds.username, turnServerPass: creds.credential }) }, progress);
     if (!creds) i = { ...i, loss: null };
     setLocal(i);
-    if (!p) { setPhase('done'); return; }
+    if (!p) { finish(i, null); return; }
 
     setPhase('saving');
     // Plan may have been filled in while the test ran, so read it now.
@@ -400,8 +467,9 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
     }).catch(() => null);
     const body = await res?.json().catch(() => null);
     if (!res?.ok) {
-      setError(body?.error ?? 'Couldn’t save your result. Check your connection and try again.');
-      setPhase('done');
+      const message = body?.error ?? 'Couldn’t save your result. Check your connection and try again.';
+      setError(message);
+      finish(i, null, message);
       return;
     }
     setSaved(body);
@@ -410,7 +478,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
       if (r) burst(r.left + r.width / 2, r.top + r.height / 2);
       navigator.vibrate?.(30);
     }
-    setPhase('done');
+    finish(i, body);
   };
 
   const gaugeValue = phase === 'running'
@@ -444,7 +512,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                   {(phase === 'setup' ? net : quickResult)?.flag === 'mobile_data' && (phase === 'setup' || phase === 'done') && (
                     <button type="button" className="link-btn muted" onClick={fullFlow}>This is my home router (FWA) →</button>
                   )}
-                  {phase === 'done' && <button type="button" className="btn btn-sm btn-ghost" onClick={() => { setPhase('setup'); setStage(null); }}>Test again</button>}
+                  {phase === 'done' && <button type="button" className="btn btn-sm btn-ghost" disabled={reviewBusy} onClick={() => { setPhase('setup'); setStage(null); }}>Test again</button>}
                 </div>
               ) : phase === 'setup' ? (
                 <form className="setup" onSubmit={(e) => { e.preventDefault(); start(); }} noValidate>
@@ -516,14 +584,19 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                       )}
                       {/* The review sits here, beside the result, so nobody has to scroll to find it. */}
                       {saved && !saved.flag && (
-                        <Review testId={saved.id} ispId={saved.ispId} ispName={isps.find((i) => i.id === saved.ispId)?.name ?? isp.name} />
+                        <Review onPending={waitForReview} value={review} onChange={updateReview} testId={saved.id} ispId={saved.ispId} ispName={isps.find((i) => i.id === saved.ispId)?.name ?? isp.name} />
                       )}
                       <div className="done-links">
                         <button type="button" className="btn btn-sm" onClick={() => shareImage(isp.name, areaName, local)}>
                           <Icon d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13" /> Share
                         </button>
-                        <a className="btn btn-sm" href={locationHref(area)}>Compare ISPs</a>
-                        <button type="button" className="btn btn-sm btn-ghost" onClick={() => { setPhase('setup'); setStage(null); }}>Test again</button>
+                        <a className="btn btn-sm" href={locationHref(area)} onClick={(e) => {
+                          if (!pendingReview.current) return;
+                          e.preventDefault();
+                          const href = e.currentTarget.href;
+                          void pendingReview.current.then(() => window.location.assign(href));
+                        }}>Compare ISPs</a>
+                        <button type="button" className="btn btn-sm btn-ghost" disabled={reviewBusy} onClick={() => { setPhase('setup'); setStage(null); }}>Test again</button>
                       </div>
                     </div>
                   )}
