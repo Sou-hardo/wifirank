@@ -13,10 +13,11 @@ import { sustainedMbps } from '../src/lib/sustained.ts';
 
 const detected = { isp: { id: 1, name: 'Alpha' }, upstream: false, flag: null, suggested: null };
 assert.deepEqual(providerChoice({ name: '' }, detected), detected.isp);
-assert.deepEqual(providerChoice({ name: '' }, { ...detected, upstream: true }), { name: '' });
+assert.deepEqual(providerChoice({ name: '' }, { ...detected, upstream: true }), detected.isp);
 assert.deepEqual(providerChoice({ name: 'My reseller' }, detected), { name: 'My reseller' });
 assert.deepEqual(providerChoice({ name: '' }, detected, true), { name: '' }); // user cleared text
-assert.deepEqual(providerChoice({ name: '' }, { ...detected, suggested: { id: 2, name: 'Beta', reason: 'crowd' } }), { name: '' });
+assert.deepEqual(providerChoice({ name: '' }, { ...detected, suggested: { id: 2, name: 'Beta', reason: 'crowd' } }), { id: 2, name: 'Beta' });
+assert.deepEqual(providerChoice({ name: '' }, { ...detected, flag: 'mobile_data' }), { name: '' });
 assert.equal(qualifies(2, 2), false);
 assert.equal(qualifies(3, 6), true);
 assert.equal(qualifies(3, 7), false);

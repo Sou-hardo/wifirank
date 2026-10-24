@@ -309,15 +309,16 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
   const [error, setError] = useState('');
   const [tried, setTried] = useState(false);
   const choiceTouched = useRef(false);
-  const districtTouched = useRef(false);
+  const [editIsp, setEditIsp] = useState(false);
   const [net, setNet] = useState<Net | null>(null);
 
-  // Restore the last provider for repeat testers. The connection is asked fresh every time: it changes between tests.
+  // Restore the last provider for repeat testers, and the connection if it was used in the last 24 h on this device.
   // Layout effect: applied in the same paint as hydration.
   useLayoutEffect(() => {
     try {
       const last = JSON.parse(localStorage.getItem('wr_last') ?? 'null');
       if (last) setIsp(last.isp ?? { name: '' });
+      if (last?.conn && CONN.some(c => c.value === last.conn) && Date.now() - last.at < 864e5) setConnection(last.conn);
     } catch {}
   }, []);
   useEffect(() => {
@@ -327,35 +328,38 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
     fetch(`/api/whoami?${params}`).then((r) => (r.ok ? r.json() : null)).then((n: Net | null) => {
       if (!live || !n) return;
       setNet(n);
-      if (!districtTouched.current && !district && n.district) setDistrict(n.district);
+      if (!district && n.district) setDistrict(n.district);
       setIsp((cur) => providerChoice(cur, n, choiceTouched.current));
     }).catch(() => {});
     return () => { live = false; };
   }, [district]);
 
-  const ispOptions = useMemo<Option[]>(() => isps.filter(i => !district || i.fixedWireless || i.nationwide || i.districts.includes(district)).map((i) => ({ value: String(i.id), label: i.name, terms: i.aliases, hint: i.fixedWireless ? 'Fixed wireless · check address availability' : i.nationwide ? 'Nationwide licence' : i.districts.map(d => DISTRICT_NAMES[d]).join(', ') })), [isps, district]);
+  const ispOptions = useMemo<Option[]>(() => isps.map((i) => ({ value: String(i.id), label: i.name, terms: i.aliases, hint: i.fixedWireless ? 'Fixed wireless · check address availability' : i.nationwide ? 'Nationwide licence' : i.districts.map(d => DISTRICT_NAMES[d]).join(', ') })), [isps]);
   const missing = !isp.name.trim() ? 'isp' : !connection ? 'connection' : null;
 
   // Focus the sheet itself, not a field: focusing the provider search would pop the phone keyboard straight away.
   useEffect(() => { if (sheet) document.querySelector<HTMLElement>('.tester-side.open')?.focus(); }, [sheet]);
 
-  const start = async () => {
-    setTried(true);
+  // A connection tile is the answer that starts the test, so it passes its value straight in.
+  const start = async (conn = connection) => {
+    const missing = !isp.name.trim() ? 'isp' : !conn ? 'connection' : null;
     if (missing) {
-      document.getElementById(`f-${missing}`)?.focus();
+      // Phones get the question in a bottom sheet; desktop already shows it beside the dial.
+      if (matchMedia('(max-width: 820px)').matches) setSheet(true);
+      else { setTried(true); document.getElementById(`f-${missing}`)?.focus(); }
       return;
     }
     setSheet(false);
     setLocating(true);
     const p = await locate();
     setLocating(false);
-    if (p) run(p);
+    if (p) run(p, conn);
     else setPickerOpen(true); // location denied or unavailable: let them drop a pin instead
   };
 
-  const run = async (p: Pin) => {
-    setPin(p); setArea(p.area); setDistrict(districtForArea(p.area) ?? '');
-    localStorage.setItem('wr_last', JSON.stringify({ isp }));
+  const run = async (p: Pin, conn = connection) => {
+    setPin(p); setArea(p.area); setDistrict(districtForArea(p.area) ?? ''); setEditIsp(false);
+    localStorage.setItem('wr_last', JSON.stringify({ isp, conn, at: Date.now() }));
     setError(''); setLocal(null); setSaved(null); setLive(null); setStage(null);
     setPhase('running');
 
@@ -372,7 +376,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
     const res = await fetch('/api/tests', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        deviceId: deviceId(), ...(isp.id ? { ispId: isp.id } : { ispName: isp.name }), area: p.area, connection, fixedWireless,
+        deviceId: deviceId(), ...(isp.id ? { ispId: isp.id } : { ispName: isp.name }), area: p.area, connection: conn, fixedWireless,
         lat: p.lat, lng: p.lng, local: i,
       }),
     }).catch(() => null);
@@ -415,14 +419,19 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
               {...(sheet && { role: 'dialog', 'aria-modal': true, tabIndex: -1, 'aria-label': 'Test details', onKeyDown: (e: KeyboardEvent) => e.key === 'Escape' && setSheet(false) })}>
               {phase === 'setup' ? (
                 <form className="setup" onSubmit={(e) => { e.preventDefault(); start(); }} noValidate>
+                  {isp.name.trim() && !editIsp ? (
+                    <p className="testing-line">
+                      Testing <strong>{isp.name}</strong>{DISTRICT_NAMES[district] && <> · {DISTRICT_NAMES[district]}</>}
+                      {' · '}<button type="button" className="link-btn" onClick={() => { setEditIsp(true); setTimeout(() => document.getElementById('f-isp')?.focus()); }}>change</button>
+                    </p>
+                  ) : (
                   <div className="field">
-                    <span className="label" id="l-district">Filter providers by district</span>
-                    <select className="input" aria-labelledby="l-district" value={district} onChange={e => { districtTouched.current = true; setDistrict(e.target.value); }} style={{ marginBottom: 14 }}><option value="">All Bangladesh</option>{Object.entries(DISTRICT_NAMES).map(([s,n]) => <option key={s} value={s}>{n}</option>)}</select>
                     <span className="label" id="l-isp">Internet provider</span>
                     <Combobox id="f-isp" aria-labelledby="l-isp" options={ispOptions} value={isp.id ? String(isp.id) : ''} text={isp.name}
                       placeholder="Search, e.g. Link3, Carnival, DOT"
                       allowCustom={(t) => `Add “${t}”`}
-                      onSelect={(o, t) => { choiceTouched.current = true; setFixedWireless(false); setIsp(o ? { id: Number(o.value), name: o.label } : { name: t }); }} />
+                      onSelect={(o, t) => { choiceTouched.current = true; setFixedWireless(false); setIsp(o ? { id: Number(o.value), name: o.label } : { name: t }); if (o) setEditIsp(false); }} />
+                    {editIsp && isp.name.trim() && <button type="button" className="btn btn-sm" style={{ justifySelf: 'start', marginTop: 8 }} onClick={() => setEditIsp(false)}>Done</button>}
                     {net?.suggested && !isp.name.trim() && (
                       <div className="provider-suggestion" role="status">
                         <p><strong>{net.suggested.name}</strong> may be your provider. {net.suggested.reason}.</p>
@@ -442,28 +451,32 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                       {isp.id && isp.id === net?.isp?.id && <small className="muted">Detected from your connection. Use a local provider? Pick it instead.</small>}
                     </div>
                   </div>
+                  )}
 
+                  {isp.name.trim() && (
                   <fieldset className="field" style={{ border: 0, padding: 0, margin: 0 }}>
                     <legend className="label">This device is on{!connection && <span className="pick">Please select ↓</span>}</legend>
                     <div className="seg" id="f-connection" tabIndex={-1}>
                       {CONN.map((c) => (
                         <label key={c.value}>
-                          <input type="radio" name="conn" value={c.value} checked={connection === c.value} onChange={() => setConnection(c.value)} />
+                          <input type="radio" name="conn" value={c.value} checked={connection === c.value} disabled={locating}
+                            onChange={() => { setConnection(c.value); start(c.value); }} onClick={() => connection === c.value && start(c.value)} />
                           <span><Icon d={c.icon} />{c.label}</span>
                         </label>
                       ))}
                     </div>
-                    {providerFwa && (
+                    {providerFwa && !editIsp && (
                       <label className="fwa-choice">
                         <input type="checkbox" checked={fixedWireless} onChange={e => setFixedWireless(e.target.checked)} />
                         <span>5G/4G home router (e.g. gpfi)<small className="muted">Check this only for the home router, not phone data or a hotspot.</small></span>
                       </label>
                     )}
                     {tried && missing === 'connection' && <small className="error">How is this device connected?</small>}
+                    <small className="muted">{locating ? 'Finding your location…' : 'Tap your connection to start.'}</small>
                   </fieldset>
+                  )}
 
                   {error && <p className="error" role="alert">{error}</p>}
-                  <button className="btn btn-primary go-mobile" disabled={locating}>{locating ? 'Finding your location…' : 'Start test'}</button>
                 </form>
               ) : (
                 <div className="extras">
@@ -509,10 +522,11 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
             {phase === 'running' && <dither-art class="stream" mode="stream" cell="8" dir={stage === 'upload' ? 'up' : stage === 'download' || stage === 'packetLoss' ? 'down' : 'idle'} aria-hidden="true" />}
             {phase === 'setup' ? (
               <Gauge value={null}>
-                <button type="button" className={`go ${missing ? '' : 'ready magnetic'}`} onClick={() => (matchMedia('(max-width: 820px)').matches ? setSheet(true) : start())} disabled={locating} aria-describedby={missing ? 'go-hint' : undefined}>
+                <button type="button" className="go ready magnetic" onClick={() => start()} disabled={locating} aria-describedby={missing ? 'go-hint' : undefined}>
                   <span>GO</span>
                 </button>
-                <span id="go-hint" className="go-hint">{missing ? <><span className="d-only">Fill in the left first</span><span className="m-only">Takes about 40 seconds</span></> : locating ? 'Finding your location…' : 'Takes about 40 seconds'}</span>
+                {!missing && <button type="button" className="go-pills m-only" onClick={() => setSheet(true)}>{isp.name} · {CONN.find(c => c.value === connection)?.label} · change</button>}
+                <span id="go-hint" className="go-hint">{missing ? <><span className="d-only">{missing === 'isp' ? 'Choose your provider first' : 'Pick your connection first'}</span><span className="m-only">Takes about 40 seconds</span></> : locating ? 'Finding your location…' : 'Takes about 40 seconds'}</span>
               </Gauge>
             ) : (
               <>
