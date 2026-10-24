@@ -312,6 +312,9 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
   const savedNet = useRef<string | null | undefined>(undefined); // network of the restored provider, until detection has run
   const [editIsp, setEditIsp] = useState(false);
   const [net, setNet] = useState<Net | null>(null);
+  const [detecting, setDetecting] = useState(true);
+  const detected = !!isp.id && (isp.id === net?.isp?.id || isp.id === net?.suggested?.id);
+  const changeIsp = () => { setEditIsp(true); setTimeout(() => document.getElementById('f-isp')?.focus()); };
 
   // Restore the last provider for repeat testers, and the connection if it was used in the last 24 h on this device.
   // Layout effect: applied in the same paint as hydration.
@@ -333,11 +336,11 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
       const from = savedNet.current;
       savedNet.current = undefined;
       setIsp((cur) => providerChoice(cur, n, choiceTouched.current, from));
-    }).catch(() => {});
+    }).catch(() => {}).finally(() => { if (live) setDetecting(false); });
     return () => { live = false; };
   }, [district]);
 
-  const ispOptions = useMemo<Option[]>(() => isps.map((i) => ({ value: String(i.id), label: i.name, terms: i.aliases, hint: i.fixedWireless ? 'Fixed wireless · check address availability' : i.nationwide ? 'Nationwide licence' : i.districts.map(d => DISTRICT_NAMES[d]).join(', ') })), [isps]);
+  const ispOptions = useMemo<Option[]>(() => isps.map((i) => ({ value: String(i.id), label: i.name, terms: i.aliases, group: district ? i.districts.includes(district) || i.nationwide || i.fixedWireless ? `Near you · ${DISTRICT_NAMES[district]}` : 'Elsewhere' : undefined, hint: i.fixedWireless ? 'Fixed wireless · check address availability' : i.nationwide ? 'Nationwide licence' : i.districts.map(d => DISTRICT_NAMES[d]).join(', ') })).sort((a, b) => Number(b.group?.startsWith('Near you')) - Number(a.group?.startsWith('Near you'))), [isps, district]);
   const missing = !isp.name.trim() ? 'isp' : !connection ? 'connection' : null;
 
   // Focus the sheet itself, not a field: focusing the provider search would pop the phone keyboard straight away.
@@ -349,7 +352,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
     if (missing) {
       // Phones get the question in a bottom sheet; desktop already shows it beside the dial.
       if (matchMedia('(max-width: 820px)').matches) setSheet(true);
-      else { setTried(true); document.getElementById(`f-${missing}`)?.focus(); }
+      else { setTried(true); if (missing === 'isp') changeIsp(); else document.getElementById(`f-${missing}`)?.focus(); }
       return;
     }
     setSheet(false);
@@ -422,41 +425,28 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
               {...(sheet && { role: 'dialog', 'aria-modal': true, tabIndex: -1, 'aria-label': 'Test details', onKeyDown: (e: KeyboardEvent) => e.key === 'Escape' && setSheet(false) })}>
               {phase === 'setup' ? (
                 <form className="setup" onSubmit={(e) => { e.preventDefault(); start(); }} noValidate>
-                  {isp.name.trim() && !editIsp ? (
-                    <p className="testing-line">
-                      Testing <strong>{isp.name}</strong>{DISTRICT_NAMES[district] && <> · {DISTRICT_NAMES[district]}</>}
-                      {' · '}<button type="button" className="link-btn" onClick={() => { setEditIsp(true); setTimeout(() => document.getElementById('f-isp')?.focus()); }}>change</button>
-                    </p>
+                  {!editIsp ? (
+                    <div className="provider-summary">
+                      <div className="provider-row">
+                        {isp.name.trim() ? <span className="provider-chip"><strong title={isp.name}>{isp.name}</strong>{detected && <span> · detected</span>}</span> : <span className="muted provider-placeholder">{detecting ? 'Detecting your provider…' : 'Choose your provider'}</span>}
+                        <button type="button" className="link-btn muted" onClick={changeIsp}>Change</button>
+                        <small className="muted provider-district" title={DISTRICT_NAMES[district]}>{DISTRICT_NAMES[district]}</small>
+                      </div>
+                      {net?.upstream && detected && <small className="provider-upstream muted">Pay a local ISP on this line? <button type="button" className="link-btn" onClick={changeIsp}>Change</button></small>}
+                    </div>
                   ) : (
                   <div className="field">
                     <span className="label" id="l-isp">Internet provider</span>
-                    <Combobox id="f-isp" aria-labelledby="l-isp" options={ispOptions} value={isp.id ? String(isp.id) : ''} text={isp.name}
+                    <Combobox id="f-isp" aria-labelledby="l-isp" options={ispOptions} preferredValue={String(net?.suggested?.id ?? net?.isp?.id ?? '')} value={isp.id ? String(isp.id) : ''} text={isp.name}
                       placeholder="Search, e.g. Link3, Carnival, DOT"
                       allowCustom={(t) => `Add “${t}”`}
                       onSelect={(o, t) => { choiceTouched.current = true; setFixedWireless(false); setIsp(o ? { id: Number(o.value), name: o.label } : { name: t }); if (o) setEditIsp(false); }} />
                     {editIsp && isp.name.trim() && <button type="button" className="btn btn-sm" style={{ justifySelf: 'start', marginTop: 8 }} onClick={() => setEditIsp(false)}>Done</button>}
-                    {net?.suggested && !isp.name.trim() && (
-                      <div className="provider-suggestion" role="status">
-                        <p><strong>{net.suggested.name}</strong> may be your provider. {net.suggested.reason}.</p>
-                        <button type="button" className="btn btn-sm" onClick={() => { setFixedWireless(false); setIsp(net.suggested!); }}>Use {net.suggested.name}</button>
-                      </div>
-                    )}
-                    {net?.upstream && net.isp && !isp.name.trim() && (
-                      <div className="provider-suggestion" role="status">
-                        <p>Detected <strong>{net.isp.name}</strong>’s network. On a local ISP? Choose it above.</p>
-                        <button type="button" className="btn btn-sm" onClick={() => { setFixedWireless(false); setIsp(net.isp!); }}>Use {net.isp.name}</button>
-                      </div>
-                    )}
-                    {/* Detection hints stay beside the provider search. */}
-                    <div className="field-note">
-                      {tried && missing === 'isp' && <small className="error">Choose or type your provider.</small>}
-                      {!isp.id && isp.name.trim().length > 1 && <small className="muted">New provider: it’ll appear on the site after a quick check.</small>}
-                      {isp.id && isp.id === net?.isp?.id && <small className="muted">Detected from your connection. Use a local provider? Pick it instead.</small>}
-                    </div>
+                    {tried && missing === 'isp' && <small className="error">Choose or type your provider.</small>}
+                    {!isp.id && isp.name.trim().length > 1 && <small className="muted">New provider: it’ll appear on the site after a quick check.</small>}
                   </div>
                   )}
 
-                  {isp.name.trim() && (
                   <fieldset className="field" style={{ border: 0, padding: 0, margin: 0 }}>
                     <legend className="label">This device is on{!connection && <span className="pick">Please select ↓</span>}</legend>
                     <div className="seg" id="f-connection" tabIndex={-1}>
@@ -477,7 +467,6 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                     {tried && missing === 'connection' && <small className="error">How is this device connected?</small>}
                     <small className="muted">{locating ? 'Finding your location…' : 'Tap your connection to start.'}</small>
                   </fieldset>
-                  )}
 
                   {error && <p className="error" role="alert">{error}</p>}
                 </form>
