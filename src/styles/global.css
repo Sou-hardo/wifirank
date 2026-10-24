@@ -380,6 +380,10 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 .tester-stage.done .g-value { animation: land .7s var(--ease-spring); }
 .tester-stage.done .g-knob { animation: land .7s var(--ease-spring); transform-origin: center; transform-box: fill-box; }
 @keyframes land { 0% { scale: .8; } 55% { scale: 1.12; } }
+.net-chip { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px; padding: 6px 14px; border-radius: 999px; background: var(--accent); color: var(--ink); box-shadow: 0 0 0 1px var(--ink), 0 3px 0 var(--ink); font: 600 .74rem var(--mono); letter-spacing: .1em; text-transform: uppercase; animation: rise .4s var(--ease-out) both; }
+.net-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); animation: net-pulse 1.2s ease-in-out infinite; }
+@keyframes net-pulse { 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) { .net-chip, .net-chip .dot { animation: none; } }
 .tier { display: inline-block; margin-top: 8px; padding: 5px 13px; border-radius: 999px; background: var(--accent); color: var(--ink); box-shadow: 0 0 0 1px var(--ink), 0 3px 0 var(--ink); font: 500 .7rem var(--mono); letter-spacing: .1em; text-transform: uppercase; animation: rise .5s var(--ease-out) .25s both; }
 .thanks { margin: 0; color: var(--text-2); font-size: .95rem; max-width: 34ch; }
 
