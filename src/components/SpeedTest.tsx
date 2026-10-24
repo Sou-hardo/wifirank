@@ -15,7 +15,7 @@ import { providerChoice, type Detection } from '../lib/detection';
 type Pkg = { name: string | null; mbps: number; bdt: number };
 // Typical Dhaka monthly bills, offered when we have no package list for the provider.
 const BILLS = [400, 500, 600, 800, 1000, 1200, 1500, 1800, 2000, 2500, 3000];
-type Isp = { id: number; name: string; aliases: string[]; districts: string[]; nationwide: boolean; fixedWireless: boolean };
+type Isp = { slug: string; id: number; name: string; aliases: string[]; districts: string[]; nationwide: boolean; fixedWireless: boolean };
 type Metrics = { down: number | null; up: number | null; ping: number | null; jitter: number | null; loss?: number | null };
 type Stage = 'latency' | 'download' | 'upload' | 'packetLoss';
 type Pin = { lat: number; lng: number; area: string };
@@ -346,8 +346,8 @@ function Review({ testId, ispId, ispName, down, value, onChange, onPending }: { 
 
 // ── Main flow ───────────────────────────────────────────
 // Tuples avoid repeating property names and long district slugs in Astro's HTML props.
-export default function SpeedTest({ providers, districtSlugs, areas, children }: { providers: [number, string, string[], string, number, number][]; districtSlugs: string[]; areas: MapArea[]; children?: ReactNode }) {
-  const isps = useMemo<Isp[]>(() => providers.map(([id, name, aliases, districts, nationwide, fwa]) => ({ id, name, aliases, districts: districts ? districts.split(',').map(d => districtSlugs[Number(d)]) : [], nationwide: !!nationwide, fixedWireless: !!fwa })), [providers, districtSlugs]);
+export default function SpeedTest({ providers, districtSlugs, areas, children }: { providers: [number, string, string[], string, number, number, string][]; districtSlugs: string[]; areas: MapArea[]; children?: ReactNode }) {
+  const isps = useMemo<Isp[]>(() => providers.map(([id, name, aliases, districts, nationwide, fwa, slug]) => ({ id, name, slug, aliases, districts: districts ? districts.split(',').map(d => districtSlugs[Number(d)]) : [], nationwide: !!nationwide, fixedWireless: !!fwa })), [providers, districtSlugs]);
   const [phase, setPhase] = useState<'setup' | 'running' | 'saving' | 'done'>('setup');
   const [isp, setIsp] = useState<{ id?: number; name: string }>({ name: '' });
   const [area, setArea] = useState('');
@@ -394,6 +394,12 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
       if (last?.isp?.name) { setIsp(last.isp); savedNet.current = last.asOrg ?? null; }
       if (last?.conn && CONN.some(c => c.value === last.conn) && Date.now() - last.at < 864e5) setConnection(last.conn);
     } catch {}
+    const params = new URLSearchParams(window.location.search);
+    const provider = isps.find(i => i.slug === params.get('isp'));
+    const requestedArea = params.get('area') ?? '';
+    if (provider) { setIsp({ id: provider.id, name: provider.name }); choiceTouched.current = true; }
+    if (Object.hasOwn(AREAS, requestedArea)) { setArea(requestedArea); setDistrict(districtForArea(requestedArea) ?? ''); }
+    if (provider || Object.hasOwn(AREAS, requestedArea)) return;
     try {
       const last: Finished = JSON.parse(sessionStorage.getItem(SESSION_KEY) ?? 'null');
       if (last && Number.isFinite(last.at) && Date.now() >= last.at && Date.now() - last.at < 30 * 60 * 1000 && last.local && last.isp && typeof last.area === 'string') {
@@ -545,7 +551,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                       <div className="provider-row">
                         {isp.name.trim() ? <span className="provider-chip"><strong title={isp.name}>{isp.name}</strong>{detected && <span> · detected</span>}</span> : <span className="muted provider-placeholder">{detecting ? 'Detecting your provider…' : 'Choose your provider'}</span>}
                         <button type="button" className="link-btn muted" onClick={changeIsp}>Change</button>
-                        <small className="muted provider-district" title={DISTRICT_NAMES[district]}>{DISTRICT_NAMES[district]}</small>
+                        <small className="muted provider-district" title={DISTRICT_NAMES[district]}>{AREAS[area] ?? DISTRICT_NAMES[district]}</small>
                       </div>
                       {net?.upstream && detected && <small className="provider-upstream muted">Pay a local ISP on this line? <button type="button" className="link-btn" onClick={changeIsp}>Change</button></small>}
                     </div>
