@@ -9,6 +9,7 @@ import { leaderboard, byArea, summary, recent } from '../src/lib/stats.ts';
 import { providerChoice, qualifies, classifyAccess } from '../src/lib/detection.ts';
 import { crowdSuggestion } from '../src/lib/crowd.ts';
 import { districtForArea } from '../src/lib/options.ts';
+import { postReview, deleteReview } from '../src/lib/reviews.ts';
 import { sustainedMbps } from '../src/lib/sustained.ts';
 
 const detected = { isp: { id: 1, name: 'Alpha' }, upstream: false, flag: null, suggested: null };
@@ -87,6 +88,27 @@ try {
   await sql`insert into reviews (device_id, isp_id, stars) values (${A}, 1, 1), (${B}, 1, 1), (${C}, 2, 5)`;
   const beta = (await leaderboard(sql, {})).find((r) => r.slug === 'beta')!;
   assert.ok(beta.rating! < 5 && beta.rating! > 2.33);
+  // One-tap ratings, optional details, and Undo use the same review rather than duplicating it.
+  const [test] = await sql`select id from tests where device_id = ${A} and isp_id = 1 limit 1`;
+  const request = (body: object) => new Request('http://localhost/api/reviews', { method: 'POST', body: JSON.stringify({ deviceId: A, testId: test.id, ispId: 1, ...body }) });
+  const rated = await postReview(sql, request({ stars: 4 }));
+  const rating = await rated.json();
+  assert.equal(rated.status, 200);
+  assert.equal(rating.previous.stars, 1);
+  const details = await postReview(sql, request({ stars: 4, price: 800, comment: 'Reliable' }));
+  assert.equal((await details.json()).name, rating.name);
+  assert.equal((await sql`select count(*)::int as n from reviews where device_id = ${A} and isp_id = 1`)[0].n, 1);
+  assert.equal(Number((await sql`select price from tests where id = ${test.id}`)[0].price), 800);
+  assert.equal((await postReview(sql, request({ stars: rating.previous.stars, comment: rating.previous.comment }))).status, 200);
+  assert.equal((await sql`select stars from reviews where device_id = ${A} and isp_id = 1`)[0].stars, 1);
+  assert.equal((await deleteReview(sql, request({ deviceId: B }))).status, 200);
+  assert.equal((await sql`select stars from reviews where device_id = ${A} and isp_id = 1`)[0].stars, 1); // another device cannot delete A's rating
+  await deleteReview(sql, request({}));
+  assert.equal((await sql`select * from reviews where device_id = ${A} and isp_id = 1`).length, 0);
+  assert.equal((await postReview(sql, request({ stars: 5 }))).status, 200); // rate again after Undo
+  assert.equal((await postReview(sql, request({ stars: 0 }))).status, 400);
+  assert.equal((await deleteReview(sql, request({ deviceId: 'invalid' }))).status, 400);
+  assert.equal((await postReview(sql, request({ deviceId: '00000000-0000-0000-0000-00000000000d', stars: 4 }))).status, 403);
   // Actual indexed crowd query: one latest vote per hash, 180-day window,
   // district isolation, and exclusion of all flagged rows.
   const vote = async (hash: string, isp = 1, opts: { flag?: string; fwa?: boolean; days?: number; district?: string } = {}) => sql`
