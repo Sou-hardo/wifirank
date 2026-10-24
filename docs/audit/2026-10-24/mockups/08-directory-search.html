@@ -1,0 +1,95 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>08. Searching 2,928 providers · WifiRank audit mockups</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@900&family=Geist+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap');
+:root{--bg:#f3f3f1;--surface:#fff;--surface-2:#f8f8f6;--surface-3:#e9e9e5;--ink:#191a23;--text-2:#4a4c57;--muted:#6c6e79;--line:rgb(25 26 35/.12);--line-strong:rgb(25 26 35/.28);--accent:#b9ff66;--accent-soft:#f1ffdc;
+--s1:#7fb41b;--s2:#5f9413;--s3:#44740f;--s4:#2d540c;--s5:#183608;--font:'Space Grotesk',system-ui,sans-serif;--mono:'Geist Mono',ui-monospace,monospace;--dot:'Doto','Geist Mono',monospace;--r-sm:14px;--r:24px;--r-lg:40px;--hard:0 5px 0 var(--ink)}
+*{box-sizing:border-box}
+html,body{margin:0;background:transparent}
+body{font:400 15px/1.5 var(--font);color:var(--ink);padding:8px 0 24px}
+.page{max-width:1560px;margin:0 auto}
+h1{font-size:28px;letter-spacing:-.04em;font-weight:500;margin:0 0 6px}
+h2{font-size:20px;letter-spacing:-.03em;font-weight:500;margin:0}
+h3{font-size:16px;font-weight:500;margin:0 0 6px;letter-spacing:-.02em}
+p{margin:0 0 8px}
+.problem{color:var(--text-2);max-width:110ch;margin-bottom:18px}
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:start}
+.opt{background:var(--surface-2);border:1px solid var(--line);border-radius:28px;padding:18px;display:grid;gap:14px}
+.opt.rec{border:1.5px solid var(--ink);box-shadow:var(--hard);background:#fff}
+.opt-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tag{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--ink);color:#fff}
+.rec .tag.r{background:var(--accent);color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.why{font-size:13px;color:var(--text-2);margin:0}
+.verdict{margin-top:20px;padding:16px 20px;border-radius:20px;background:var(--accent);border:1px solid var(--ink);box-shadow:var(--hard);font-size:15px}
+.frames{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;justify-content:center}
+.phone{width:300px;height:600px;border:1.5px solid var(--ink);border-radius:38px;overflow:hidden;position:relative;background:var(--bg);box-shadow:0 6px 0 var(--ink);flex:none}
+.phone.short{height:520px}
+.desk{width:100%;border:1.5px solid var(--ink);border-radius:18px;overflow:hidden;position:relative;background:var(--bg);box-shadow:0 5px 0 var(--ink)}
+.bar{height:34px;display:flex;align-items:center;gap:8px;padding:0 14px;border-bottom:1px solid var(--line);background:rgb(243 243 241/.9);font-size:12px;font-weight:600;position:relative;z-index:3}
+.bar .logo{width:18px;height:18px;border-radius:6px;background:var(--ink);display:grid;place-items:center}
+.bar .logo::after{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.bar nav{margin-left:auto;display:flex;gap:10px;font-weight:400;color:var(--text-2);font-size:11px;align-items:center}
+.bar nav b{background:var(--ink);color:#fff;border-radius:7px;padding:3px 8px;font-weight:500}
+.map{position:absolute;inset:0;background:
+ radial-gradient(circle at 70% 40%,rgb(25 26 35/.06) 0 18%,transparent 19%),
+ radial-gradient(ellipse at 20% 80%,#d9dcd8 0 9%,transparent 10%),
+ linear-gradient(115deg,transparent 48%,#fff 48% 50%,transparent 50%),
+ linear-gradient(20deg,transparent 30%,#fff 30% 31.2%,transparent 31.2%),
+ linear-gradient(70deg,transparent 62%,#fff 62% 63%,transparent 63%),
+ repeating-linear-gradient(0deg,transparent 0 52px,rgb(255 255 255/.6) 52px 53.5px),
+ repeating-linear-gradient(90deg,transparent 0 61px,rgb(255 255 255/.6) 61px 62.5px),#ebebe7}
+.map::after{content:'';position:absolute;inset:0;background:radial-gradient(rgb(25 26 35/.18) 1px,transparent 1.4px) 0 0/9px 9px;mask-image:radial-gradient(70% 60% at 85% 10%,#000,transparent 70%);-webkit-mask-image:radial-gradient(70% 60% at 85% 10%,#000,transparent 70%)}
+.dither{background:radial-gradient(rgb(25 26 35/.22) 1.1px,transparent 1.5px) 0 0/8px 8px}
+.bub{position:absolute;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px rgb(25 26 35/.2)}
+.hollow{position:absolute;width:7px;height:7px;border-radius:50%;border:1.5px solid #8b8d98}
+.dot{font-family:var(--dot);font-weight:900;letter-spacing:.01em;text-transform:uppercase;font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono)}
+.muted{color:var(--muted)}.t2{color:var(--text-2)}.small{font-size:12px}.xs{font-size:11px}
+.card{background:#fff;border:1px solid var(--ink);border-radius:26px;box-shadow:var(--hard);padding:16px}
+.soft{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;font:500 13px/1 var(--font);padding:11px 15px;border-radius:12px;border:1px solid var(--ink);background:#fff;color:var(--ink);white-space:nowrap}
+.btn.p{background:var(--ink);color:#fff}.btn.l{background:var(--accent)}.btn.g{border-color:transparent;background:transparent}
+.btn.sm{padding:7px 10px;font-size:12px;border-radius:9px}
+.btn.wide{width:100%;padding:14px}
+.input{width:100%;font:400 13px var(--font);background:#fff;border:1px solid var(--line-strong);border-radius:12px;padding:11px 12px;color:var(--ink);display:flex;align-items:center;gap:8px;min-height:40px}
+.input.focus{border-color:var(--ink);box-shadow:0 0 0 3px var(--accent)}
+.label{font-size:12px;font-weight:500;margin:0 0 6px;display:flex;gap:8px;align-items:center}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:3px;padding:3px;background:#fff;border:1px solid var(--line-strong);border-radius:12px}
+.seg>span{display:grid;place-items:center;gap:2px;padding:8px 2px;border-radius:9px;font-size:11px;font-weight:500;color:var(--text-2);text-align:center}
+.seg>span.on{background:var(--ink);color:#fff}
+.seg svg{width:15px;height:15px}
+.seg em,.soft em{font-style:normal}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;background:#fff;border:1px solid var(--line-strong);font-size:12px;white-space:nowrap}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip.lime{background:var(--accent);border-color:var(--ink)}
+.pick{padding:3px 8px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 1px var(--ink),0 2px 0 var(--ink);font:500 9px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.list{border:1px solid var(--ink);border-radius:16px;background:#fff;box-shadow:var(--hard);padding:5px}
+.list div{padding:8px 10px;border-radius:10px;display:flex;justify-content:space-between;gap:8px;font-size:13px}
+.list div small{color:var(--muted);font-size:11px}
+.list div.on{background:var(--accent)}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;background:var(--surface-3);border-radius:18px;padding:5px}
+.stat{background:#fff;border-radius:14px;padding:10px 10px 8px}
+.stat b{display:block;font:900 26px/1 var(--dot)}
+.stat b small{font:500 10px var(--font);color:var(--muted);margin-left:3px}
+.stat span{font-size:10px;color:var(--muted)}
+.hl{background:var(--accent);padding:0 .25em;border-radius:6px}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:28px 28px 0 0;border-top:1.5px solid var(--ink);padding:10px 16px 18px;z-index:4}
+.grab{width:38px;height:4px;border-radius:2px;background:var(--line-strong);margin:0 auto 10px}
+.scrim{position:absolute;inset:0;background:rgb(25 26 35/.35);z-index:3}
+.toast{position:relative;background:var(--ink);color:#fff;border-radius:12px;padding:9px 12px;font-size:12px;display:flex;gap:10px;align-items:center;white-space:nowrap;z-index:6;box-shadow:0 4px 0 var(--accent)}
+.toast u{color:var(--accent);text-decoration:none;font-weight:500}
+.row{display:flex;gap:8px;align-items:center}.between{justify-content:space-between}
+.stack{display:grid;gap:10px}
+.anno{font:500 11px var(--mono);color:var(--ink);background:#fff6d8;border:1px dashed #b58a00;border-radius:8px;padding:4px 7px;display:inline-block}
+.pin{position:absolute;width:18px;height:18px;border-radius:50% 50% 50% 0;rotate:-45deg;background:var(--s3);border:2px solid #fff;box-shadow:0 0 0 1.5px var(--ink)}
+.stars{display:flex;gap:4px;font-size:22px;line-height:1}
+.stars i{font-style:normal;color:#d4d4cf}.stars i.on{color:var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{font:500 9px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);border-bottom-color:var(--ink)}
+.tbl{border:1px solid var(--ink);border-radius:16px;overflow:hidden;background:#fff;box-shadow:var(--hard)}
+</style></head><body><div class="page">
+<p class="mono xs muted" style="letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Mockup 08 · WifiRank UX audit 2026-10-24</p>
+<h1>Searching 2,928 providers</h1><p class="problem">/isps search and district only apply after pressing “Search” (a full page reload that lands back at the top). Pagination is Previous/Next across 59 pages. On phones the 4-column table is clipped and scrolls sideways, and rows fade in one by one, so a fast scroll shows blank rows.</p>
+<div class="opts"><section class="opt rec"><div class="opt-head"><span class="tag">Option A</span><span class="tag r">Recommended</span><h2>Instant filter + card rows on phones</h2></div><div class="frames"><div class="phone short"><div class="bar"><span class="logo"></span><nav><span>Map</span><span>Rankings</span><b>Test</b></nav></div><div style="padding:14px" class="stack"><div class="input focus"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.3-4.3"/></svg><span>link</span><span class="xs muted" style="margin-left:auto">152</span></div><div class="chips"><span class="chip on">All</span><span class="chip">Dhaka</span><span class="chip">Has packages</span><span class="chip">Tested</span></div><div class="soft" style="padding:10px 12px"><b style="font-weight:500"><span class="hl">Link</span>3</b><p class="xs muted" style="margin:0">Nationwide · 10 packages from ৳525</p></div><div class="soft" style="padding:10px 12px"><b style="font-weight:500">X-<span class="hl">Link</span></b><p class="xs muted" style="margin:0">Nationwide · 13 packages</p></div><div class="soft" style="padding:10px 12px"><b style="font-weight:500">Beacon <span class="hl">Link</span></b><p class="xs muted" style="margin:0">Dhaka · 5 packages</p></div><div class="soft" style="padding:10px 12px"><b style="font-weight:500">Net 3 <span class="hl">Link</span></b><p class="xs muted" style="margin:0">Dhaka · 7 packages</p></div></div></div></div><p class="why">Results filter as you type (client-side over the directory JSON, or fetch with ?q); the count updates live and the URL stays shareable. Phone rows become two-line cards with no horizontal scroll.</p></section><section class="opt "><div class="opt-head"><span class="tag">Option B</span><h2>Command palette</h2></div><div class="frames"><div class="desk" style="height:300px"><div class="bar"><span class="logo"></span>WifiRank<nav><span>Map</span><span>Rankings</span><span>How it works</span><b>Run a test</b></nav></div><div class="scrim" style="top:34px"></div><div style="position:absolute;top:60px;left:50%;translate:-50% 0;width:70%;z-index:5"><div class="card stack" style="padding:12px"><div class="input focus"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.3-4.3"/></svg><span>sylh</span><kbd class="xs mono muted" style="margin-left:auto">esc</kbd></div><div class="list" style="box-shadow:none;border:0"><p class="xs muted" style="margin:2px 8px">DISTRICT</p><div class="on">Sylhet <small>130 providers</small></div><p class="xs muted" style="margin:4px 8px">PROVIDERS</p><div>Sylhet Online <small>Sylhet</small></div><div>SylhetNet <small>Sylhet</small></div></div></div></div></div></div><p class="why">A “/” shortcut and a search button in the header open one palette over providers, districts and areas. Powerful on desktop, but hidden for most phone users.</p></section><section class="opt "><div class="opt-head"><span class="tag">Option C</span><h2>A–Z rail + district chips</h2></div><div class="frames"><div class="phone short"><div class="bar"><span class="logo"></span><nav><span>Map</span><span>Rankings</span><b>Test</b></nav></div><div style="padding:14px;display:grid;grid-template-columns:1fr 18px;gap:8px"><div class="stack"><div class="chips"><span class="chip on">Dhaka</span><span class="chip">Chattogram</span><span class="chip">Sylhet</span><span class="chip">+61</span></div><p class="mono xs muted" style="margin:0">L</p><div class="soft" style="padding:8px 10px">Link3</div><div class="soft" style="padding:8px 10px">Link Park BD</div><div class="soft" style="padding:8px 10px">Linkup</div><div class="soft" style="padding:8px 10px">LiveNet</div></div><div class="mono xs" style="display:grid;gap:3px;text-align:center"><span >A</span><span >B</span><span >C</span><span >D</span><span >E</span><span >F</span><span >G</span><span >H</span><span >I</span><span >J</span><span >K</span><span style="background:var(--accent);border-radius:4px">L</span><span >M</span><span >N</span><span >O</span><span >P</span><span >Q</span><span >R</span><span >S</span></div></div></div></div><p class="why">A letter rail and a district chip row for browsing without typing. Good for exploring, slow for finding one known name.</p></section></div>
+<div class="verdict"><strong>Recommendation:</strong> <b>A: instant filter, with card rows on phones.</b> No reloads, no lost scroll position, no sideways tables, and filter chips do the job of the district select.</div><p class="xs muted" style="margin-top:14px">Frames are static mockups in the site’s tokens (Space Grotesk, Doto, Geist Mono, ink #191a23, lime #b9ff66, hard 5px shadows, dither dots). Where live data was thin, names and numbers are illustrative.</p></div></body></html>
