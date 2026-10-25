@@ -3,11 +3,12 @@ import { AREA_COORDS, nearestArea } from '../lib/areas';
 import { AREAS, DISTRICT_NAMES } from '../lib/options';
 
 type Pick = { lat: number; lng: number; area: string };
-type Props = { open: boolean; initial: Pick | null; area: string; onClose: () => void; onPick: (p: Pick) => void };
+// `optional` is the area the test already counts for; set, the picker is a skippable extra shown while the test runs.
+type Props = { open: boolean; initial: Pick | null; area: string; onClose: () => void; onPick: (p: Pick) => void; inline?: boolean; optional?: string };
 
 // Native <dialog> with a tap-to-pin map. The nearest listed area is filled in for the user;
 // the pin itself is what we store (rounded to ~500 m on the server).
-export default function LocationPicker({ open, initial, area, onClose, onPick }: Props) {
+export default function LocationPicker({ open, initial, area, onClose, onPick, inline = false, optional }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
   const el = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
@@ -17,7 +18,8 @@ export default function LocationPicker({ open, initial, area, onClose, onPick }:
   const [geo, setGeo] = useState('');
 
   useEffect(() => {
-    const d = dialog.current!;
+    const d = dialog.current;
+    if (!d) return;
     if (open && !d.open) d.showModal();
     if (!open && d.open) d.close();
   }, [open]);
@@ -68,39 +70,51 @@ export default function LocationPicker({ open, initial, area, onClose, onPick }:
 
   const far = pick && nearestArea(pick.lat, pick.lng).km > (pick.area in DISTRICT_NAMES ? 80 : 4);
 
-  return (
-    <dialog ref={dialog} className="picker" onClose={onClose} onClick={(e) => e.target === dialog.current && onClose()} aria-labelledby="picker-title">
-      <div className="picker-inner">
-        <header>
-          <div>
-            <h2 id="picker-title">Where are you testing from?</h2>
-            <p className="muted">Tap your district or Dhaka neighbourhood. Drag the pin to adjust. We round it to about 500&nbsp;m.</p>
-          </div>
-          <button type="button" className="btn btn-ghost btn-sm" onClick={onClose} aria-label="Close">✕</button>
-        </header>
-        <div className="picker-map" ref={el}>
-          {status === 'loading' && <div className="map-msg">Loading map…</div>}
-          {status === 'error' && <div className="map-msg">The map couldn’t load. Allow location access and try again.</div>}
-          <button type="button" className="btn btn-sm locate" onClick={locate}>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg>
-            Use my location
-          </button>
+  const hl = <span className="hl-500">about 500&nbsp;m</span>;
+  const inner = (
+    <div className="picker-inner">
+      <header>
+        <div>
+          {optional && <span className="opt-tag"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Optional</span>}
+          <h2 id="picker-title">{optional ? 'Pin your spot for a sharper map' : 'Where are you testing from?'}</h2>
+          <p className="muted">{optional
+            ? <>Tap the map or drag the pin. We round it to {hl}. Skip it and your test counts for {optional}.</>
+            : <>Tap your district or Dhaka neighbourhood. Drag the pin to adjust. We round it to {hl}.</>}</p>
         </div>
-        <footer>
-          <div aria-live="polite">
-            {pick ? (
-              <>
-                <span className="muted">Nearest listed location</span>
-                <strong>{AREAS[pick.area]}</strong>
-                {far && <small className="muted">You’re outside our listed areas. We’ll use the closest one.</small>}
-              </>
-            ) : (
-              <span className="muted">{geo || 'No pin yet: tap the map.'}</span>
-            )}
-          </div>
-          <button type="button" className="btn btn-primary" disabled={!pick} onClick={() => pick && onPick(pick)}>Use this location</button>
-        </footer>
+        {!inline && <button type="button" className="btn btn-ghost btn-sm" onClick={onClose} aria-label={optional ? 'Skip' : 'Close'}>✕</button>}
+      </header>
+      <div className="picker-map" ref={el}>
+        {status === 'loading' && <div className="map-msg">Loading map…</div>}
+        {status === 'error' && <div className="map-msg">The map couldn’t load. Allow location access and try again.</div>}
+        <button type="button" className="btn btn-sm locate" onClick={locate}>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg>
+          Use my location
+        </button>
       </div>
+      <footer>
+        <div aria-live="polite">
+          {pick ? (
+            <>
+              <span className="muted">Nearest listed location</span>
+              <strong>{AREAS[pick.area]}</strong>
+              {far && <small className="muted">You’re outside our listed areas. We’ll use the closest one.</small>}
+            </>
+          ) : (
+            <span className="muted">{geo || 'No pin yet: tap the map.'}</span>
+          )}
+        </div>
+        <div className="picker-actions">
+          {optional && <button type="button" className="link-btn muted" onClick={onClose}>Skip</button>}
+          <button type="button" className="btn btn-primary" disabled={!pick} onClick={() => pick && onPick(pick)}>{optional ? 'Use this pin' : 'Use this location'}</button>
+        </div>
+      </footer>
+    </div>
+  );
+
+  if (inline) return <section className="picker picker-inline" aria-labelledby="picker-title">{inner}</section>;
+  return (
+    <dialog ref={dialog} className={`picker ${optional ? 'picker-optional' : ''}`} onClose={onClose} onClick={(e) => e.target === dialog.current && onClose()} aria-labelledby="picker-title">
+      {inner}
     </dialog>
   );
 }
