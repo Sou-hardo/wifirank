@@ -84,7 +84,7 @@ function runEngine(config: object, onProgress: (m: Metrics, stage: Stage) => voi
   });
 }
 
-// Resolves to null when denied, unavailable or too slow; the caller falls back to the map picker.
+// Resolves to null when denied, unavailable or too slow; the caller then offers an optional map pin.
 const locate = () => new Promise<Pin | null>((ok) => {
   if (!navigator.geolocation) return ok(null);
   navigator.geolocation.getCurrentPosition(
@@ -353,8 +353,8 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
   const [area, setArea] = useState('');
   const [district, setDistrict] = useState('');
   const [pin, setPin] = useState<Pin | null>(null);
-  const [pickerOpen, setPickerOpen] = useState(false);
-  const [locating, setLocating] = useState(false);
+  // Set while the optional pin is on offer: resolves the test's location with a pin, or null to use the district.
+  const [askPin, setAskPin] = useState<{ resolve: (p: Pin | null) => void; sheet: boolean } | null>(null);
   const [sheet, setSheet] = useState(false); // phones: GO opens the setup form as a bottom sheet
   const [fixedWireless, setFixedWireless] = useState(false);
   const providerFwa = isps.some(i => i.id === isp.id && i.fixedWireless);
@@ -443,35 +443,41 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
   // A connection tile is the answer that starts the test, so it passes its value straight in.
   const start = async (conn = connection) => {
     if (detecting) return;
-    if (quick) return run(null, conn);
+    if (quick) return run(conn, false);
     const missing = !isp.name.trim() ? 'isp' : !conn ? 'connection' : null;
     if (missing) {
-      // Phones get the question in a bottom sheet; desktop already shows it beside the dial.
-      if (matchMedia('(max-width: 820px)').matches) setSheet(true);
+      // The questions live in a popup: a bottom sheet on phones, a centred modal on desktop.
+      if (!sheet) setSheet(true);
       else { setTried(true); if (missing === 'isp') changeIsp(); else document.getElementById(`f-${missing}`)?.focus(); }
       return;
     }
-    setSheet(false);
-    setLocating(true);
-    const p = await locate();
-    setLocating(false);
-    if (p) run(p, conn);
-    else setPickerOpen(true); // location denied or unavailable: let them drop a pin instead
+    run(conn, true);
   };
+  // Desktop shows only GO, so GO always opens the chooser there; phones skip it when everything is already known.
+  const go = () => (!detecting && !quick && matchMedia('(min-width: 821px)').matches ? setSheet(true) : start());
 
-  const run = async (p: Pin | null, conn = connection) => {
+  // Quick tests (full = false) stay on the device and are never submitted.
+  const run = async (conn: string, full: boolean) => {
     remember(null); finished.current = null; setReview(emptyReview());
-    const finish = (local: Metrics, saved: Saved | null, error = '') => {
-      finished.current = { at: Date.now(), local, saved, isp, area: p?.area ?? area, district: p ? districtForArea(p.area) ?? '' : district,
-        connection: conn, pin: p, fixedWireless, net, quickResult: p ? null : net, error, review: emptyReview() };
+    const fallback = area || district; // the area from the URL, else the district from the IP lookup
+    const finish = (local: Metrics, saved: Saved | null, p: Pin | null, error = '') => {
+      finished.current = { at: Date.now(), local, saved, isp, area: p?.area ?? fallback, district: p ? districtForArea(p.area) ?? '' : district,
+        connection: conn, pin: p, fixedWireless, net, quickResult: full ? null : net, error, review: emptyReview() };
       remember(finished.current);
       setPhase('done');
     };
-    // No pin means a client-only quick test; never submit it.
-    setQuickResult(p ? null : net);
-    if (p) {
-      setPin(p); setArea(p.area); setDistrict(districtForArea(p.area) ?? ''); setEditIsp(false);
+    setQuickResult(full ? null : net);
+    // The location never holds up the test: the browser's position if allowed, otherwise an optional pin while it runs.
+    let located: Promise<Pin | null> = Promise.resolve(null);
+    if (full) {
+      setEditIsp(false);
       localStorage.setItem('wr_last', JSON.stringify({ isp, conn, at: Date.now(), asOrg: net?.asOrg ?? null }));
+      located = locate().then((p) => p ?? new Promise<Pin | null>((resolve) =>
+        setAskPin({ resolve, sheet: matchMedia('(max-width: 820px)').matches })));
+      void located.then((p) => {
+        setAskPin(null);
+        if (p) { setPin(p); setArea(p.area); setDistrict(districtForArea(p.area) ?? ''); }
+      });
     }
     setSheet(false);
     setError(''); setLocal(null); setSaved(null); setLive(null); setStage(null);
@@ -484,22 +490,25 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
     let i = await runEngine({ measurements: m, ...(creds && { turnServerUser: creds.username, turnServerPass: creds.credential }) }, progress);
     if (!creds) i = { ...i, loss: null };
     setLocal(i);
-    if (!p) { finish(i, null); return; }
+    if (!full) { finish(i, null, null); return; }
 
     setPhase('saving');
+    const p = await located;
+    const saveArea = p?.area ?? fallback;
+    if (!saveArea) { finish(i, null, null, 'We couldn’t tell where you are, so this result wasn’t saved. Pin your spot next time to add it to the map.'); return; }
     // Plan may have been filled in while the test ran, so read it now.
     const res = await fetch('/api/tests', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        deviceId: deviceId(), ...(isp.id ? { ispId: isp.id } : { ispName: isp.name }), area: p.area, connection: conn, fixedWireless,
-        lat: p.lat, lng: p.lng, local: i,
+        deviceId: deviceId(), ...(isp.id ? { ispId: isp.id } : { ispName: isp.name }), area: saveArea, connection: conn, fixedWireless,
+        lat: p?.lat, lng: p?.lng, local: i,
       }),
     }).catch(() => null);
     const body = await res?.json().catch(() => null);
     if (!res?.ok) {
       const message = body?.error ?? 'Couldn’t save your result. Check your connection and try again.';
       setError(message);
-      finish(i, null, message);
+      finish(i, null, p, message);
       return;
     }
     setSaved(body);
@@ -508,7 +517,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
       if (r) burst(r.left + r.width / 2, r.top + r.height / 2);
       navigator.vibrate?.(30);
     }
-    finish(i, body);
+    finish(i, body, p);
   };
 
   const gaugeValue = phase === 'running'
@@ -517,7 +526,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
   const gaugeLabel = phase === 'running'
     ? stage === 'upload' ? 'Upload' : stage === 'latency' || !stage ? 'Ping' : 'Download'
     : '';
-  const areaName = AREAS[area] ?? '';
+  const areaName = AREAS[area] ?? DISTRICT_NAMES[district] ?? '';
   // A comparison with "others" only means something once there are a few of them.
   const peer = saved?.peer && saved.peer.devices >= 3 ? saved.peer : null;
   const spot = !quick && pin ? [pin.lng, pin.lat] as [number, number] : !quick && AREA_COORDS[area] ? [AREA_COORDS[area][1], AREA_COORDS[area][0]] as [number, number] : null;
@@ -531,7 +540,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
           <div className="tester-col">
             {phase === 'setup' && children && <div className="tester-intro">{children}</div>}
             {sheet && <button type="button" className="sheet-scrim" aria-label="Close" onClick={() => setSheet(false)} />}
-            <div className={`tester-side ${sheet ? 'open' : ''}`} data-over
+            <div className={`tester-side ${sheet ? 'open' : ''} ${quick ? '' : 'chooser'}`} data-over
               {...(sheet && { role: 'dialog', 'aria-modal': true, tabIndex: -1, 'aria-label': 'Test details', onKeyDown: (e: KeyboardEvent) => e.key === 'Escape' && setSheet(false) })}>
               {quick ? (
                 <div className="extras">
@@ -546,6 +555,13 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                 </div>
               ) : phase === 'setup' ? (
                 <form className="setup" onSubmit={(e) => { e.preventDefault(); start(); }} noValidate>
+                  {sheet && (
+                    <div className="chooser-head d-only">
+                      <h2>Before we start</h2>
+                      <p className="muted">Confirm your provider and pick how this device is connected.</p>
+                      <button type="button" className="btn btn-ghost btn-sm" onClick={() => setSheet(false)} aria-label="Close">✕</button>
+                    </div>
+                  )}
                   {!editIsp ? (
                     <div className="provider-summary">
                       <div className="provider-row">
@@ -573,7 +589,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                     <div className="seg" id="f-connection" tabIndex={-1}>
                       {CONN.map((c) => (
                         <label key={c.value}>
-                          <input type="radio" name="conn" value={c.value} checked={connection === c.value} disabled={locating || detecting}
+                          <input type="radio" name="conn" value={c.value} checked={connection === c.value} disabled={detecting}
                             onChange={() => { setConnection(c.value); start(c.value); }} onClick={() => connection === c.value && start(c.value)} />
                           <span><Icon d={c.icon} />{c.label}</span>
                         </label>
@@ -586,7 +602,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                       </label>
                     )}
                     {tried && missing === 'connection' && <small className="error">How is this device connected?</small>}
-                    <small className="muted">{locating ? 'Finding your location…' : 'Tap your connection to start.'}</small>
+                    <small className="muted">Tap your connection to start.</small>
                   </fieldset>
 
                   {error && <p className="error" role="alert">{error}</p>}
@@ -601,6 +617,8 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                     <>
                       <p className="eyebrow">While you wait</p>
                       <p className="muted small">Keep this tab open, and pause downloads and streaming on your network for the most accurate result.</p>
+                      {askPin && !askPin.sheet && <LocationPicker open inline optional={areaName} initial={pin} area={area || district}
+                        onClose={() => askPin.resolve(null)} onPick={askPin.resolve} />}
                     </>
                   ) : (
                     <div className="done-actions rise">
@@ -640,12 +658,12 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
             {phase === 'running' && <dither-art class="stream" mode="stream" cell="8" dir={stage === 'upload' ? 'up' : stage === 'download' || stage === 'packetLoss' ? 'down' : 'idle'} aria-hidden="true" />}
             {phase === 'setup' ? (
               <Gauge value={null}>
-                <button type="button" className="go ready magnetic" onClick={() => start()} disabled={locating || detecting} aria-describedby="go-hint">
+                <button type="button" className="go ready magnetic" onClick={go} disabled={detecting} aria-describedby="go-hint">
                   <span>GO</span>
                 </button>
                 {quick && net?.flag === 'mobile_data' && <button type="button" className="go-pills m-only" onClick={fullFlow}>This is my home router (FWA) →</button>}
                 {!quick && !missing && <button type="button" className="go-pills m-only" onClick={() => setSheet(true)}>{isp.name} · {CONN.find(c => c.value === connection)?.label} · change</button>}
-                <span id="go-hint" className="go-hint">{detecting ? 'Detecting your network…' : !quick && missing ? <><span className="d-only">{missing === 'isp' ? 'Choose your provider first' : 'Pick your connection first'}</span><span className="m-only">Takes about 40 seconds</span></> : locating ? 'Finding your location…' : 'Takes about 40 seconds'}</span>
+                <span id="go-hint" className="go-hint">{detecting ? 'Detecting your network…' : 'Takes about 40 seconds'}</span>
               </Gauge>
             ) : (
               <>
@@ -694,8 +712,8 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
         </div>
       )}
 
-      <LocationPicker open={pickerOpen} initial={pin} area={area} onClose={() => setPickerOpen(false)}
-        onPick={(p) => { setPickerOpen(false); run(p); }} />
+      {askPin?.sheet && <LocationPicker open optional={areaName} initial={pin} area={area || district}
+        onClose={() => askPin.resolve(null)} onPick={askPin.resolve} />}
     </div>
   );
 }
