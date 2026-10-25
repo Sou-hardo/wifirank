@@ -446,13 +446,15 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
     if (quick) return run(conn, false);
     const missing = !isp.name.trim() ? 'isp' : !conn ? 'connection' : null;
     if (missing) {
-      // Phones get the question in a bottom sheet; desktop already shows it beside the dial.
-      if (matchMedia('(max-width: 820px)').matches) setSheet(true);
+      // The questions live in a popup: a bottom sheet on phones, a centred modal on desktop.
+      if (!sheet) setSheet(true);
       else { setTried(true); if (missing === 'isp') changeIsp(); else document.getElementById(`f-${missing}`)?.focus(); }
       return;
     }
     run(conn, true);
   };
+  // Desktop shows only GO, so GO always opens the chooser there; phones skip it when everything is already known.
+  const go = () => (!detecting && !quick && matchMedia('(min-width: 821px)').matches ? setSheet(true) : start());
 
   // Quick tests (full = false) stay on the device and are never submitted.
   const run = async (conn: string, full: boolean) => {
@@ -538,7 +540,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
           <div className="tester-col">
             {phase === 'setup' && children && <div className="tester-intro">{children}</div>}
             {sheet && <button type="button" className="sheet-scrim" aria-label="Close" onClick={() => setSheet(false)} />}
-            <div className={`tester-side ${sheet ? 'open' : ''}`} data-over
+            <div className={`tester-side ${sheet ? 'open' : ''} ${quick ? '' : 'chooser'}`} data-over
               {...(sheet && { role: 'dialog', 'aria-modal': true, tabIndex: -1, 'aria-label': 'Test details', onKeyDown: (e: KeyboardEvent) => e.key === 'Escape' && setSheet(false) })}>
               {quick ? (
                 <div className="extras">
@@ -553,6 +555,13 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                 </div>
               ) : phase === 'setup' ? (
                 <form className="setup" onSubmit={(e) => { e.preventDefault(); start(); }} noValidate>
+                  {sheet && (
+                    <div className="chooser-head d-only">
+                      <h2>Before we start</h2>
+                      <p className="muted">Confirm your provider and pick how this device is connected.</p>
+                      <button type="button" className="btn btn-ghost btn-sm" onClick={() => setSheet(false)} aria-label="Close">✕</button>
+                    </div>
+                  )}
                   {!editIsp ? (
                     <div className="provider-summary">
                       <div className="provider-row">
@@ -649,12 +658,12 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
             {phase === 'running' && <dither-art class="stream" mode="stream" cell="8" dir={stage === 'upload' ? 'up' : stage === 'download' || stage === 'packetLoss' ? 'down' : 'idle'} aria-hidden="true" />}
             {phase === 'setup' ? (
               <Gauge value={null}>
-                <button type="button" className="go ready magnetic" onClick={() => start()} disabled={detecting} aria-describedby="go-hint">
+                <button type="button" className="go ready magnetic" onClick={go} disabled={detecting} aria-describedby="go-hint">
                   <span>GO</span>
                 </button>
                 {quick && net?.flag === 'mobile_data' && <button type="button" className="go-pills m-only" onClick={fullFlow}>This is my home router (FWA) →</button>}
                 {!quick && !missing && <button type="button" className="go-pills m-only" onClick={() => setSheet(true)}>{isp.name} · {CONN.find(c => c.value === connection)?.label} · change</button>}
-                <span id="go-hint" className="go-hint">{detecting ? 'Detecting your network…' : !quick && missing ? <><span className="d-only">{missing === 'isp' ? 'Choose your provider first' : 'Pick your connection first'}</span><span className="m-only">Takes about 40 seconds</span></> : 'Takes about 40 seconds'}</span>
+                <span id="go-hint" className="go-hint">{detecting ? 'Detecting your network…' : 'Takes about 40 seconds'}</span>
               </Gauge>
             ) : (
               <>
