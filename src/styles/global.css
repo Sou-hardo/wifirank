@@ -683,7 +683,7 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 .tester-stage { padding-bottom: env(safe-area-inset-bottom); }
 .rating-toast { bottom: calc(24px + env(safe-area-inset-bottom)); }
 .dmap .maplibregl-ctrl-group button { width: 44px; height: 44px; }
-:is(.tmap, .dmap) .maplibregl-ctrl-attrib-button { min-width: 44px; min-height: 44px; }
+:is(.tmap, .dmap) .maplibregl-ctrl-attrib-button { min-width: 44px; min-height: 44px; background-repeat: no-repeat; background-position: center; }
 .dmap-detail { scroll-margin-top: calc(var(--header-h) + 16px); }
 @media (max-width: 860px) {
   .site-header .wrap { gap: 12px; }
