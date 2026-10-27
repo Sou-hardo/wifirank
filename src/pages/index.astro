@@ -2,20 +2,16 @@
 import { DISTRICTS, PROVIDERS } from '../lib/directory';
 import Base from '../layouts/Base.astro';
 import SpeedTest from '../components/SpeedTest';
-import RankTable from '../components/RankTable.astro';
 import { sql } from '../lib/db';
-import { leaderboard, MIN_DEVICES } from '../lib/stats';
 
 const districtSlugs = DISTRICTS.map(d => d.slug);
 const bySlug = new Map(PROVIDERS.map(i => [i.slug, i]));
-const [isps, [totals], board] = await Promise.all([
+const [isps, [totals]] = await Promise.all([
   sql<{ id: number; name: string; slug: string; aliases: string[] }[]>`select id, name, slug, aliases from isps where approved order by id`,
   sql<{ tests: number; devices: number; isps: number; areas: number }[]>`
     select count(*)::int as tests, count(distinct device_id)::int as devices, count(distinct isp_id)::int as isps, count(distinct area)::int as areas
     from tests where flag is null`,
-  leaderboard(sql, {}),
 ]);
-const top = board.filter((r) => r.devices >= MIN_DEVICES).slice(0, 8);
 
 const schema = [
   { '@type': 'WebApplication', name: 'WifiRank Speed Test', url: Astro.site?.href, applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any',
@@ -24,39 +20,25 @@ const schema = [
 const n = (v: number) => v.toLocaleString('en');
 const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
 ---
-<Base schema={schema} jsonAlt="/api/stats" dither={false}>
+<Base schema={schema} jsonAlt="/api/stats" dither={false} bare>
   <section class="hero">
     <SpeedTest client:load providers={isps.map(({ id, name, aliases, slug }) => [id, name, aliases.filter(a => a !== name), (bySlug.get(slug)?.districts ?? []).map(d => districtSlugs.indexOf(d)).join(','), bySlug.get(slug)?.nationwide ? 1 : 0, bySlug.get(slug)?.tech === 'fwa' ? 1 : 0, slug])} districtSlugs={districtSlugs}>
       <h1 aria-label="How fast is your internet, really?">
         {headline.map((w, i) => <><span aria-hidden="true" style={`--i:${i}`}>{w}</span>{i === 1 || i === 3 ? <br /> : ' '}</>)}
       </h1>
       <p class="lede rise" style="--i:3">Test your connection.</p>
+      {totals.tests > 0 && (
+        <div class="band band-hero rise" style="--i:4">
+          <div><strong data-count>{n(totals.tests)}</strong><span>Speed tests run</span></div>
+          <div><strong data-count>{totals.isps}</strong><span>Providers measured</span></div>
+          <div><strong data-count>{totals.areas}</strong><span>Areas on the map</span></div>
+          <div>
+            <p>Anonymous and crowdsourced. Each person counts once, so nobody can stuff the numbers.</p>
+            <a class="btn btn-sm" href="/methodology">How it works</a>
+          </div>
+        </div>
+      )}
     </SpeedTest>
   </section>
-
-  <section class="wrap">
-    {totals.tests > 0 && (
-      <div class="band reveal">
-        <div><strong data-count>{n(totals.tests)}</strong><span>Speed tests run</span></div>
-        <div><strong data-count>{totals.isps}</strong><span>Providers measured</span></div>
-        <div><strong data-count>{totals.areas}</strong><span>Areas on the map</span></div>
-        <div>
-          <p>Anonymous and crowdsourced. Each person counts once, so nobody can stuff the numbers.</p>
-          <a class="btn btn-sm" href="/methodology">How it works</a>
-        </div>
-      </div>
-    )}
-  </section>
-
-  {top.length > 0 && (
-    <section class="wrap block">
-      <div class="sec-head reveal">
-        <h2><span class="hl">Rankings</span></h2>
-        <p>The fastest providers across Bangladesh right now, by median download speed over the last 90 days.</p>
-        <a class="btn" href="/isps">All {board.length} providers</a>
-      </div>
-      <div class="reveal"><RankTable rows={top} caption="Fastest internet providers across Bangladesh by median download speed" /></div>
-    </section>
-  )}
 
 </Base>
