@@ -731,9 +731,10 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
   .mobile-table .bar { display: none; }
 }
 @media (hover: none), (prefers-reduced-motion: reduce) {
-  .spin, .bob, .go.ready::before, .go.ready::after, .tm-me.busy i, .feature:hover .a-down, .feature:hover .a-up, .feature:hover .wave, .feature:hover .eq { animation: none; }
+  .spin, .bob, .go.ready::before, .go.ready::after, .feature:hover .a-down, .feature:hover .a-up, .feature:hover .wave, .feature:hover .eq { animation: none; }
   .tilt { will-change: auto; transform: none; }
 }
+@media (prefers-reduced-motion: reduce) { .tm-me.busy i { animation: none; } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal, .rise { animation: none; opacity: 1; translate: none; }

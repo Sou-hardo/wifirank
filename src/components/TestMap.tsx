@@ -10,7 +10,9 @@ type Props = { phase: 'setup' | 'running' | 'saving' | 'done'; stage: string | n
 
 // ponytail: illustrative spot for Cloudflare's Dhaka edge; the real site isn't published.
 const EDGE: LngLat = [90.3925, 23.7639];
-const calm = () => matchMedia('(prefers-reduced-motion: reduce), (hover: none)').matches;
+// Reduced motion stops everything; touch screens keep the packets and rings but skip the camera sway.
+const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+const calm = () => reduced() || matchMedia('(hover: none)').matches;
 const fc = (features: object[]) => ({ type: 'FeatureCollection', features });
 const pt = (c: LngLat, properties = {}) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: c }, properties });
 const f1 = (v: number) => (v < 10 ? v.toFixed(1) : Math.round(v).toString());
@@ -72,6 +74,14 @@ export default function TestMap({ phase, stage, mbps, at, result, picking = fals
         map.addSource('arc', { type: 'geojson', data: fc([]) as any });
         map.addLayer({ id: 'arc', type: 'line', source: 'arc', layout: { 'line-cap': 'round' },
           paint: { 'line-color': '#191a23', 'line-width': 1.6, 'line-dasharray': [1, 2.5], 'line-opacity': 0.7 } });
+        // Locationless runs: rings that lie flat on the tilted city around the edge.
+        map.addSource('spokes', { type: 'geojson', data: fc([]) as any });
+        map.addLayer({ id: 'spokes', type: 'line', source: 'spokes', layout: { 'line-cap': 'round' },
+          paint: { 'line-color': '#191a23', 'line-width': 1.2, 'line-dasharray': [1, 3], 'line-opacity': 0.45 } });
+        map.addSource('waves', { type: 'geojson', data: fc([]) as any });
+        map.addLayer({ id: 'waves', type: 'circle', source: 'waves',
+          paint: { 'circle-radius': ['get', 'r'], 'circle-color': '#b9ff66', 'circle-opacity': ['*', ['get', 'o'], 0.12],
+            'circle-stroke-width': 1.5, 'circle-stroke-color': '#191a23', 'circle-stroke-opacity': ['get', 'o'], 'circle-pitch-alignment': 'map' } });
         map.addSource('packets', { type: 'geojson', data: fc([]) as any });
         map.addLayer({ id: 'packets', type: 'circle', source: 'packets',
           paint: { 'circle-radius': ['get', 'r'], 'circle-color': '#b9ff66', 'circle-stroke-width': 1.5, 'circle-stroke-color': '#191a23' } });
@@ -101,7 +111,7 @@ export default function TestMap({ phase, stage, mbps, at, result, picking = fals
   useEffect(() => {
     const map = mapRef.current;
     if (!ready || !map || !at || phase !== 'running' || picking) return;
-    const path = arc(EDGE, at), still = calm();
+    const path = arc(EDGE, at), still = calm(), frozen = reduced();
     map.getSource('arc').setData(fc([{ type: 'Feature', geometry: { type: 'LineString', coordinates: path }, properties: {} }]));
     me.current!.marker.setLngLat(at).addTo(map);
     let swaying = false, sway = 0;
@@ -132,7 +142,7 @@ export default function TestMap({ phase, stage, mbps, at, result, picking = fals
       me.current!.node.style.setProperty('--beat', `${Math.max(0.5, 2.2 - Math.log10(1 + (v ?? 0)) * 0.6)}s`);
       raf = requestAnimationFrame(tick);
     };
-    if (!still) raf = requestAnimationFrame(tick);
+    if (!frozen) raf = requestAnimationFrame(tick);
     me.current!.node.classList.add('busy');
     return () => {
       cancelAnimationFrame(raf);
@@ -140,6 +150,63 @@ export default function TestMap({ phase, stage, mbps, at, result, picking = fals
       map.getSource('packets').setData(fc([]));
     };
   }, [ready, phase === 'running', picking, at?.[0], at?.[1]]); // at can arrive mid-run (geolocation or the optional pin)
+
+  // No location given: we don't know which way the link runs, so the edge broadcasts to the whole city.
+  // Rings ripple out across the tilted map while packets ride spokes in every direction:
+  // outward on download, converging on upload, and a single ring that pings out and echoes back on latency.
+  // It keeps playing under the optional pin prompt, with the camera left alone so the map stays tappable.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!ready || !map || at || phase !== 'running') return;
+    const still = calm(), frozen = reduced();
+    const SPOKES = 16, L = 0.075, k = Math.cos((EDGE[1] * Math.PI) / 180);
+    // Golden-angle bearings with uneven lengths, so the spokes read as a network rather than a clock face.
+    const spokes = Array.from({ length: SPOKES }, (_, i) => {
+      const a = i * 2.39996, len = L * (0.6 + 0.4 * ((i * 7) % 5) / 4);
+      return [EDGE, [EDGE[0] + (Math.cos(a) * len) / k, EDGE[1] + Math.sin(a) * len]] as [LngLat, LngLat];
+    });
+    map.getSource('spokes').setData(fc([{ type: 'Feature', geometry: { type: 'MultiLineString', coordinates: spokes }, properties: {} }]));
+    let orbiting = false;
+    if (!picking) {
+      map.flyTo({ ...frame([EDGE], 12.2), pitch: 58, bearing: -18, duration: still ? 0 : 2600, essential: false });
+      map.once('moveend', () => { orbiting = !still; });
+    }
+
+    let raf = 0, last = performance.now(), clock = 0, ping = 0;
+    const tick = (t: number) => {
+      const dt = Math.min(t - last, 64); last = t;
+      const { stage: s, mbps: v } = live.current;
+      const probing = s === 'latency' || !s, up = s === 'upload';
+      const speed = Math.log10(1 + (v ?? 0));
+      clock += (dt / 1000) * (0.1 + speed * 0.16);
+      ping += dt / 1000 / 1.6;
+      const { width, height } = el.current!.getBoundingClientRect(), R = Math.min(width, height) * 0.55;
+      const waves = probing
+        ? [(() => { const p = ping % 1, e = 1 - Math.abs(1 - 2 * p); return pt(EDGE, { r: 8 + e * R * 0.7, o: 0.9 - e * 0.5 }); })()]
+        : Array.from({ length: 4 }, (_, i) => {
+          let p = (clock * 1.4 + i / 4) % 1;
+          if (up) p = 1 - p;
+          return pt(EDGE, { r: 8 + p * R, o: (1 - p) * 0.85 * Math.min(1, p * 8) });
+        });
+      map.getSource('waves').setData(fc(waves));
+      const packets = probing ? [] : spokes.map(([a, b], i) => {
+        let p = (clock + (i * 0.618) % 1) % 1;
+        if (up) p = 1 - p;
+        return pt([a[0] + (b[0] - a[0]) * p, a[1] + (b[1] - a[1]) * p], { r: 2 + 2.5 * Math.sin(Math.PI * p) });
+      });
+      map.getSource('packets').setData(fc(packets));
+      if (orbiting) map.setBearing(map.getBearing() + dt * 0.004);
+      raf = requestAnimationFrame(tick);
+    };
+    if (!frozen) raf = requestAnimationFrame(tick);
+    else map.getSource('waves').setData(fc([0.35, 0.7].map((p) => pt(EDGE, { r: 120 * p, o: 0.6 }))));
+    return () => {
+      cancelAnimationFrame(raf);
+      map.getSource('waves').setData(fc([]));
+      map.getSource('packets').setData(fc([]));
+      map.getSource('spokes').setData(fc([]));
+    };
+  }, [ready, phase === 'running', picking, !!at]);
 
   // Picking: the show pauses, the map goes flat and interactive, and a tap or drag places the pin.
   useEffect(() => {
@@ -151,7 +218,7 @@ export default function TestMap({ phase, stage, mbps, at, result, picking = fals
     el.current!.classList.add('picking');
     me.current!.marker.remove();
     map.getSource('arc').setData(fc([]));
-    map.easeTo({ ...(at ? frame([at], 13.5) : {}), pitch: 0, bearing: 0, duration: calm() ? 0 : 1200 });
+    map.easeTo({ ...(at ? frame([at], 13.5) : frame([EDGE], 12)), pitch: 0, bearing: 0, duration: calm() ? 0 : 1200 });
     const node = Object.assign(document.createElement('div'), { className: 'pin' });
     const pin = new core.current.maplibregl.Marker({ element: node, draggable: true, anchor: 'bottom' });
     // Tapping the pin lifts it off again; a drag also ends in a click, so ignore that one.
@@ -190,8 +257,9 @@ export default function TestMap({ phase, stage, mbps, at, result, picking = fals
   // Landing: settle top-down over the tester and drop a pin in the result's speed colour.
   useEffect(() => {
     const map = mapRef.current;
-    if (!ready || !map || !at || phase !== 'done') return;
+    if (!ready || !map || phase !== 'done') return;
     map.getSource('arc').setData(fc([]));
+    if (!at) return void map.easeTo({ pitch: 0, bearing: 0, duration: calm() ? 0 : 1800 }); // nowhere to land: just settle
     map.easeTo({ ...frame([at], 13.2), pitch: 0, duration: calm() ? 0 : 1800 });
     const { node } = me.current!;
     node.style.setProperty('--pin', core.current.binColor('local_down', result));
