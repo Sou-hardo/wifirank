@@ -1,6 +1,10 @@
 ---
 import '../styles/global.css';
 import Logo from '../components/Logo.astro';
+// Preloaded so text paints in the real faces instead of flashing the fallback while the CSS-discovered fonts arrive.
+import groteskUrl from '@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2?url';
+import dotoUrl from '@fontsource-variable/doto/files/doto-latin-wght-normal.woff2?url';
+import monoUrl from '@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2?url';
 
 interface Props {
   title?: string;
@@ -43,6 +47,7 @@ const graph = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin />
+    {[groteskUrl, dotoUrl, monoUrl].map((href) => <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />)}
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
