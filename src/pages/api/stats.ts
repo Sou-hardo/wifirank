@@ -15,7 +15,7 @@ export const GET: APIRoute = async ({ url, site }) => {
   ]);
   const body = {
     about: 'Crowdsourced ISP speed tests in Dhaka, Bangladesh. Medians over the last 90 days; each device counts once.',
-    units: { down_up: 'Mbps', ping_jitter: 'ms', loss: 'ratio 0-1' },
+    units: { down_up: 'Mbps', ping: 'ms', loss: 'ratio 0-1' },
     measured_against: 'Cloudflare edge in Dhaka (domestic path). International speed is not measured.',
     reliable_from_devices: MIN_DEVICES,
     filters: { accessType, area: area && { slug: area, name: AREAS[area] }, plan: plan && PLANS[plan as keyof typeof PLANS] },

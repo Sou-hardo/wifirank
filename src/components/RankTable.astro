@@ -22,7 +22,6 @@ const hasRating = rows.some((r) => 'rating' in r);
         <th scope="col">Download</th>
         <th scope="col">Upload</th>
         <th scope="col">Ping</th>
-        <th scope="col">Jitter</th>
         {hasRating && <th scope="col">Rating</th>}
         <th scope="col">Testers</th>
       </tr>
@@ -38,7 +37,6 @@ const hasRating = rows.some((r) => 'rating' in r);
           </td>
           <td class="num">{fmt(r.local_up)}</td>
           <td class="num">{fmt(r.local_ping)}</td>
-          <td class="num">{fmt(r.local_jitter)}</td>
           {hasRating && <td class="num">{r.rating == null ? '—' : <><span class="stars-static" aria-hidden="true">★</span> {r.rating.toFixed(1)} <span class="muted">({r.reviews})</span></>}</td>}
           <td class="num">{r.devices}</td>
         </tr>

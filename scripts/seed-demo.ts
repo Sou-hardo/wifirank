@@ -40,7 +40,7 @@ for (const area of slugs) {
         ...(rnd() < 0.5
           ? { lat: Math.round((lat + (rnd() - 0.5) * 0.012) * 200) / 200, lng: Math.round((lng + (rnd() - 0.5) * 0.012) * 200) / 200 }
           : { lat: null, lng: null }),
-        local_down: down, local_up: down * (0.8 + rnd() * 0.2), local_ping: 3 + rnd() * 9, local_jitter: 1 + rnd() * 6, local_loss: rnd() * 0.01,
+        local_down: down, local_up: down * (0.8 + rnd() * 0.2), local_ping: 3 + rnd() * 9, local_loss: rnd() * 0.01,
         ip_hash: 'demo', created_at: at(peak),
       });
     }

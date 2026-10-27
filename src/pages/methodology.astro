@@ -1,15 +1,69 @@
 ---
 import Base from '../layouts/Base.astro';
 import { MIN_DEVICES } from '../lib/stats';
+const faq = [
+  ['Which ISP is the best in Dhaka?', 'It depends on where you live. The same provider can be excellent in Gulshan and poor in Mirpur, because each area is served by different local lines and resellers. Pick your area on the map or the rankings page to see which providers actually perform well there.'],
+  ['What exactly does the test measure?', 'Download speed, upload speed and ping (round-trip latency) between your device and Cloudflare’s server in Dhaka. That is the domestic path, which covers the locally cached content most big sites serve. It does not measure speed to servers abroad, so it cannot tell you how overseas games or downloads will perform.'],
+  ['Why is my speed lower than the package I pay for?', 'Common causes: you are on 2.4 GHz Wi-Fi or far from the router, other people are using the connection, it is peak time (8 pm to midnight), or your ISP shares its bandwidth among too many customers. Test on a cable to rule out Wi-Fi, then compare your result with others on the same ISP in your area.'],
+  ['Is the test anonymous?', 'Yes. There is no account. We store your results, the area you chose, the name of the network your connection came from, and a hashed (scrambled) IP used to prevent abuse and suggest providers from anonymous local choices. If you drop a pin, it is rounded to about 500 metres before saving.'],
+  ['How do you stop ISPs from faking results?', 'Every device counts once per ISP no matter how many tests it runs. Phone mobile data and foreign IPs are excluded. Fixed wireless home internet, such as gpfi, is included only when declared as a home-router connection. Reviews can only be posted from a device that ran a test on that ISP. Rankings use medians, so a few extreme results cannot move them.'],
+];
+const schema = [
+  { '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+];
 ---
 <Base title="How WifiRank measures and ranks ISPs"
-  description="How WifiRank tests internet speed in Dhaka, what the test does and does not measure, how results are checked for abuse, and how provider rankings are calculated.">
+  description="How WifiRank tests internet speed in Dhaka, what the test does and does not measure, how results are checked for abuse, and how provider rankings are calculated."
+  schema={schema}>
   <article class="wrap prose" style="padding-top:clamp(28px,5vw,56px);max-width:780px">
     <h1>How it works</h1>
     <p class="lede">WifiRank exists because ISP reviews in Bangladesh contradict each other. We replace opinions with measurements, and we show exactly how those measurements are made.</p>
+  </article>
 
-    <h2 class="reveal"><span class="hl">What the test measures</span></h2>
-    <p>The test runs in your browser against Cloudflare’s server in Dhaka, the same way Fast.com works: several connections at once, so your line fills up the way it does in real use. We record download and upload speed (Mbps), ping (round-trip latency, ms) and jitter (how much ping varies, ms). Packet loss is measured when available.</p>
+  <section class="wrap block" style="padding-top:0">
+    <div class="sec-head reveal">
+      <h2><span class="hl">What we measure</span></h2>
+      <p>Speed, responsiveness and performance during peak hours help tell the full story.</p>
+    </div>
+    <div class="grid grid-3">
+      <article class="card pop tilt feature reveal">
+        <div class="top">
+          <h3><span>Download</span><br /><span>and upload</span></h3>
+          <svg class="glyph" viewBox="0 0 104 104" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="52" cy="52" r="36" /><g class="orbit"><ellipse cx="52" cy="52" rx="50" ry="15" transform="rotate(-22 52 52)" /></g>
+            <g stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path class="a-down" d="M40 34v30m0 0-9-9m9 9 9-9" /><path class="a-up" d="M64 70V40m0 0-9 9m9-9 9 9" /></g>
+          </svg>
+        </div>
+        <p class="text-2">Download is streaming and browsing. Upload is video calls, backups and sending files. Many packages are fast one way and slow the other.</p>
+      </article>
+      <article class="card pop tilt feature lime reveal">
+        <div class="top">
+          <h3><span>Ping</span></h3>
+          <svg class="glyph" viewBox="0 0 104 104" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M4 52h100M4 28h100M4 76h100" opacity=".35" />
+            <path class="wave" pathLength="1" d="M6 52h16l9-24 13 48 11-36 8 20 7-8h28" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="6" cy="52" r="4" fill="currentColor" /><circle cx="98" cy="52" r="4" fill="currentColor" />
+          </svg>
+        </div>
+        <p>How quickly your connection responds. Low ping makes games and video calls feel smooth, even on a fast line.</p>
+      </article>
+      <article class="card pop tilt feature dark reveal">
+        <div class="top">
+          <h3><span>Peak</span><br /><span>hours</span></h3>
+          <svg class="glyph" viewBox="0 0 104 104" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path class="moon" d="M74 14a16 16 0 1 0 16 22 13 13 0 0 1-16-22z" fill="#b9ff66" stroke="none" />
+            <path d="M6 92h92" />
+            <g stroke-width="9" stroke-linecap="round">{[[16, 50], [34, 40], [52, 58], [70, 72], [88, 66]].map(([x, y], i) => <path class="eq" style={`--i:${i}`} d={`M${x} 92V${y}`} />)}</g>
+          </svg>
+        </div>
+        <p>Between 8 pm and midnight everyone is online. A provider that is fast at noon can crawl at night, so we show both for every ISP.</p>
+      </article>
+    </div>
+  </section>
+
+  <article class="wrap prose" style="max-width:780px">
+    <h2 class="reveal"><span class="hl">How the speed test runs</span></h2>
+    <p>The test runs in your browser against Cloudflare’s server in Dhaka, the same way Fast.com works: several connections at once, so your line fills up the way it does in real use. We record download and upload speed (Mbps), ping (round-trip latency, ms). Packet loss is measured when available.</p>
     <p><strong>This is the domestic path.</strong> It reflects how you reach content served from inside Bangladesh, which includes the local caches most big sites use. It does not measure speed to servers abroad, so a provider that looks fast here can still be slow for overseas games, calls or downloads.</p>
     <p>Download uses six connections and upload four. The start of each is left out, because a connection starts slow while it ramps up, and the speed it settles at is what a download or video call actually gets. Ping is the median of ten round trips before any load.</p>
 
@@ -49,6 +103,37 @@ import { MIN_DEVICES } from '../lib/stats';
     <h2 class="reveal"><span class="hl">Open data</span></h2>
     <p>All aggregated results are available as JSON at <a href="/api/stats"><code>/api/stats</code></a> and <a href="/api/map"><code>/api/map</code></a>, free to reuse with attribution (CC BY 4.0). AI agents can start at <a href="/llms.txt"><code>/llms.txt</code></a>.</p>
   </article>
+
+  <section class="wrap block">
+    <div class="sec-head reveal">
+      <h2><span class="hl">Questions</span></h2>
+      <p>What the numbers mean, and how we keep them honest.</p>
+    </div>
+    <div class="faq-list">
+      {faq.map(([q, a], i) => <details class="faq reveal" open={i === 0}><summary>{q}</summary><div>{a}</div></details>)}
+    </div>
+  </section>
+
+  <section class="wrap block" style="padding-top:0">
+    <div class="cta reveal">
+      <div>
+        <h2>Put your street on the map</h2>
+        <p>One test adds your neighbourhood to the comparison and helps the next person choose their provider with real numbers.</p>
+        <a class="btn btn-primary" href="/">Run the speed test</a>
+      </div>
+      <svg class="art" viewBox="0 0 340 230" fill="none" aria-hidden="true">
+        <g stroke="#191a23" stroke-width="1.2">
+          <ellipse cx="170" cy="118" rx="150" ry="34" /><ellipse cx="170" cy="118" rx="150" ry="34" transform="rotate(8 170 118)" /><ellipse cx="170" cy="118" rx="150" ry="34" transform="rotate(-8 170 118)" />
+        </g>
+        <g class="bob">
+          <circle cx="170" cy="92" r="54" fill="#191a23" />
+          <ellipse cx="153" cy="88" rx="7" ry="13" fill="#fff" /><ellipse cx="187" cy="88" rx="7" ry="13" fill="#fff" />
+        </g>
+        <path class="spin" d="M252 116l9 27 28 4-22 18 8 28-23-17-23 17 8-28-22-18 28-4z" fill="#b8b8b3" />
+        <path class="spin" style="animation-direction:reverse;animation-duration:18s" d="M112 128c4 28 10 34 38 38-28 4-34 10-38 38-4-28-10-34-38-38 28-4 34-10 38-38z" fill="#b9ff66" stroke="#191a23" stroke-width="1.2" />
+      </svg>
+    </div>
+  </section>
 </Base>
 <style>
   .prose h2 { margin-top: 2.2em; }

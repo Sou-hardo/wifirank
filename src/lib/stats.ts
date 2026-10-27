@@ -3,7 +3,7 @@
 import type { Sql } from 'postgres';
 import districts from '../../data/districts.json' with { type: 'json' };
 
-export const METRICS = ['local_down', 'local_up', 'local_ping', 'local_jitter', 'local_loss'] as const;
+export const METRICS = ['local_down', 'local_up', 'local_ping', 'local_loss'] as const;
 export type Metric = (typeof METRICS)[number];
 export type Row = Record<Metric, number | null> & { devices: number; tests: number };
 
@@ -30,7 +30,7 @@ function where(sql: Sql, f: Filter) {
 
 export async function leaderboard(sql: Sql, f: Filter & { sort?: string | null } = {}) {
   const sort = (METRICS as readonly string[]).includes(f.sort ?? '') ? f.sort! : 'local_down';
-  const dir = /ping|jitter|loss/.test(sort) ? 'asc' : 'desc';
+  const dir = /ping|loss/.test(sort) ? 'asc' : 'desc';
   return sql<(Row & { name: string; slug: string; rating: number | null; reviews: number })[]>`
     with dev as (
       select t.isp_id, t.device_id, count(*) as n, ${sql.unsafe(perDevice)}

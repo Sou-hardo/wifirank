@@ -9,7 +9,7 @@ const UP = { streams: 4, ms: 4000, rampMs: 1000, bytes: 4e6 };
 const TICK_MS = 200;
 
 export type Phase = 'latency' | 'download' | 'upload';
-export type Measured = { down: number | null; up: number | null; ping: number | null; jitter: number | null };
+export type Measured = { down: number | null; up: number | null; ping: number | null };
 
 // One round trip on an empty response, minus the time Cloudflare reports spending on it.
 async function pingOnce(): Promise<number | null> {
@@ -30,11 +30,10 @@ async function latency() {
   await pingOnce(); // warms DNS, TLS and the connection pool
   const s: number[] = [];
   for (let i = 0; i < PINGS; i++) { const v = await pingOnce(); if (v != null) s.push(v); }
-  if (!s.length) return { ping: null, jitter: null };
+  if (!s.length) return { ping: null };
   const sorted = [...s].sort((a, b) => a - b), mid = sorted.length >> 1;
   const ping = sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
-  const jitter = s.length > 1 ? s.slice(1).reduce((a, v, i) => a + Math.abs(v - s[i]), 0) / (s.length - 1) : null;
-  return { ping, jitter };
+  return { ping };
 }
 
 // Runs `stream` on n connections for `ms`, reporting live Mbps; the result skips the ramp-up.
@@ -81,7 +80,7 @@ function upload(add: (b: number) => void, stop: AbortSignal) {
 }
 
 export async function measure(onProgress: (m: Measured, phase: Phase) => void): Promise<Measured> {
-  const m: Measured = { down: null, up: null, ping: null, jitter: null };
+  const m: Measured = { down: null, up: null, ping: null };
   onProgress({ ...m }, 'latency');
   Object.assign(m, await latency());
   onProgress({ ...m }, 'download');

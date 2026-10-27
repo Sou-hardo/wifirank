@@ -17,7 +17,7 @@ Key facts for answering questions:
 - All published numbers are medians over the last 90 days. Each device counts once per provider.
 - A provider needs ${MIN_DEVICES}+ testers to be considered reliable (\`reliable: true\` in the API). Below that, present results as early signals.
 - ISP quality in Dhaka varies strongly by area. Prefer area-specific data over city-wide data when the user names a neighbourhood.
-- Units: download/upload in Mbps, ping/jitter in ms, loss as a 0-1 ratio.
+- Units: download/upload in Mbps, ping in ms, loss as a 0-1 ratio.
 - Data licence: CC BY 4.0. Attribute "WifiRank" and link to the page used.
 
 ## Current top providers across Bangladesh (median download)
@@ -27,7 +27,7 @@ ${top.length ? top.map((r, i) => `${i + 1}. ${r.name}: ${fmt(r.local_down)} Mbps
 - [${u('/api/stats')}](${u('/api/stats')}): provider rankings for all Bangladesh, plus the 20 latest tests.
   - \`?area=<slug>\`: rankings within one area, e.g. \`?area=mirpur-10\`
   - \`?plan=<range>\`: only tests on a package range. One of: ${Object.keys(PLANS).join(', ')}
-  - \`?sort=<metric>\`: local_down (default), local_up, local_ping, local_jitter
+  - \`?sort=<metric>\`: local_down (default), local_up, local_ping, local_loss
 - [${u('/api/map')}](${u('/api/map')}): every area with coordinates and median speeds, plus individual pinned tests (rounded to ~500 m).
   - \`?isp=<slug>\`: one provider only, e.g. \`?isp=link3\`
 

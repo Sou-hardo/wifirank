@@ -63,7 +63,6 @@ const periods: [string, string, Row | null][] = [['All day', 'Every test', all],
       <div class="stat"><dt>Upload</dt><dd><span data-count>{fmt(all.local_up)}</span><small>Mbps</small></dd></div>
       <div class="stat"><dt>Ping</dt><dd><span data-count>{fmt(all.local_ping)}</span><small>ms</small></dd></div>
       {drop != null && <div class="stat"><dt>Peak drop</dt><dd>{drop}<small>%</small></dd></div>}
-      <div class="stat"><dt>Jitter</dt><dd><span data-count>{fmt(all.local_jitter)}</span><small>ms</small></dd></div>
       {all.local_loss != null && <div class="stat"><dt>Packet loss</dt><dd>{(all.local_loss * 100).toFixed(1)}<small>%</small></dd></div>}
     </dl> : <div class="isp-empty">
       <div class="empty-dial" aria-hidden="true"><dither-art mode="flow" cell="6" /><span class="dot">– –</span></div>

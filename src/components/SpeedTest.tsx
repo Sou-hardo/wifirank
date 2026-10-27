@@ -15,7 +15,7 @@ type Pkg = { name: string | null; mbps: number; bdt: number };
 // Typical Dhaka monthly bills, offered when we have no package list for the provider.
 const BILLS = [400, 500, 600, 800, 1000, 1200, 1500, 1800, 2000, 2500, 3000];
 type Isp = { slug: string; id: number; name: string; aliases: string[]; districts: string[]; nationwide: boolean; fixedWireless: boolean };
-type Metrics = { down: number | null; up: number | null; ping: number | null; jitter: number | null; loss?: number | null };
+type Metrics = { down: number | null; up: number | null; ping: number | null; loss?: number | null };
 type Stage = 'latency' | 'download' | 'upload' | 'packetLoss';
 type Pin = { lat: number; lng: number; area: string };
 type Net = Detection & { asOrg: string | null; district?: string | null };
@@ -98,7 +98,6 @@ function ResultPanel({ title, sub, m, peer }: { title: string; sub: string; m: M
           <div className="stat"><dt>Download</dt><dd>{f1(m.down)}<small>Mbps</small></dd></div>
           <div className="stat"><dt>Upload</dt><dd>{f1(m.up)}<small>Mbps</small></dd></div>
           <div className="stat"><dt>Ping</dt><dd>{f1(m.ping)}<small>ms</small></dd></div>
-          <div className="stat"><dt>Jitter</dt><dd>{f1(m.jitter)}<small>ms</small></dd></div>
           {'loss' in m && m.loss != null && <div className="stat"><dt>Loss</dt><dd>{(m.loss * 100).toFixed(1)}<small>%</small></dd></div>}
         </dl>
       ) : <p className="muted">Not measured.</p>}
