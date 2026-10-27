@@ -3,6 +3,7 @@ import { sql } from '../lib/db';
 import { leaderboard, MIN_DEVICES } from '../lib/stats';
 import { AREAS, PLANS } from '../lib/options';
 import { fmt } from '../lib/format';
+import { DISTRICTS } from '../lib/directory';
 
 // https://llmstxt.org: a plain-language map of the site for AI agents, with live headline numbers.
 export const GET: APIRoute = async ({ site }) => {
@@ -27,18 +28,19 @@ ${top.length ? top.map((r, i) => `${i + 1}. ${r.name}: ${fmt(r.local_down)} Mbps
 - [${u('/api/stats')}](${u('/api/stats')}): provider rankings for all Bangladesh, plus the 20 latest tests.
   - \`?area=<slug>\`: rankings within one area, e.g. \`?area=mirpur-10\`
   - \`?plan=<range>\`: only tests on a package range. One of: ${Object.keys(PLANS).join(', ')}
+  - \`?accessType=<type>\`: fixed_line or fixed_wireless
   - \`?sort=<metric>\`: local_down (default), local_up, local_ping, local_loss
 - [${u('/api/map')}](${u('/api/map')}): every area with coordinates and median speeds, plus individual pinned tests (rounded to ~500 m).
   - \`?isp=<slug>\`: one provider only, e.g. \`?isp=link3\`
 
 ## Directory
-- Browse 64 districts at /district/<slug>, e.g. /district/bogura. Profiles include historical licence categories, addresses and published packages. Nationwide licence scope is not verified service availability. No published packages means no researched price data; it does not mean the provider offers no plans.
+- Browse ${DISTRICTS.length} districts at /district/<slug>, e.g. /district/bogura. Profiles include historical licence categories, addresses and published packages. Nationwide licence scope is not verified service availability. No published packages means no researched price data; it does not mean the provider offers no plans.
 
 ## Pages
 - [Speed test](${u('/')}): run a test (requires a browser; agents cannot submit tests on a user's behalf)
 - [Rankings](${u('/isps')}): national ISP directory, searchable by name and district, plus measured speed rankings
 - [Map](${u('/map')}): speed by neighbourhood
-- [Methodology](${u('/methodology')}): how tests work, what is stored, how rankings and anti-abuse checks work
+- [How it works](${u('/methodology')}): how tests work, what is stored, how rankings and anti-abuse checks work
 - [Contributors](${u('/contributors')}): people who shaped the project, and how to contribute on GitHub
 - Provider page: \`${u('/isp/')}<slug>\`: overall stats, peak vs off-peak, speed by area, reviews
 - Area page: \`${u('/area/')}<slug>\`: providers ranked within that area
