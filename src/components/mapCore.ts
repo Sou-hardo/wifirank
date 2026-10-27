@@ -51,6 +51,9 @@ export function createMap(container: HTMLElement, opts: Partial<maplibregl.MapOp
   });
   map.touchZoomRotate.disableRotation();
   // Compact attribution starts expanded on wide maps; fold it to the ⓘ button (OSM credit stays one tap away).
-  map.once('load', () => container.querySelector('.maplibregl-compact-show')?.classList.remove('maplibregl-compact-show'));
+  // Fold now and again on load, so the full credit never paints and then collapses (a layout shift).
+  const fold = () => container.querySelector('.maplibregl-compact-show')?.classList.remove('maplibregl-compact-show');
+  fold();
+  map.once('load', fold);
   return map;
 }
