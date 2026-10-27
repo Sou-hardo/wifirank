@@ -28,15 +28,12 @@ const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
       </h1>
       <p class="lede rise" style="--i:3">Test your connection.</p>
       {totals.tests > 0 && (
-        <div class="band band-hero rise" style="--i:4">
-          <div><strong data-count>{n(totals.tests)}</strong><span>Speed tests run</span></div>
-          <div><strong data-count>{totals.isps}</strong><span>Providers measured</span></div>
-          <div><strong data-count>{totals.areas}</strong><span>Areas on the map</span></div>
-          <div>
-            <p>Anonymous and crowdsourced. Each person counts once, so nobody can stuff the numbers.</p>
-            <a class="btn btn-sm" href="/methodology">How it works</a>
-          </div>
-        </div>
+        <p class="hero-stats rise" style="--i:4">
+          <span><strong data-count>{n(totals.tests)}</strong> tests</span>
+          <span><strong data-count>{totals.isps}</strong> providers tested</span>
+          <span><strong data-count>{totals.areas}</strong> areas</span>
+          <a href="/methodology">How it works →</a>
+        </p>
       )}
     </SpeedTest>
   </section>
