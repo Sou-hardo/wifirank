@@ -422,7 +422,37 @@ export default function SpeedTest({ providers, districtSlugs, children }: { prov
   const missing = !isp.name.trim() ? 'isp' : !connection ? 'connection' : null;
 
   // Focus the sheet itself, not a field: focusing the provider search would pop the phone keyboard straight away.
-  useEffect(() => { if (sheet) document.querySelector<HTMLElement>('.tester-side.open')?.focus(); }, [sheet]);
+  useEffect(() => {
+    if (!sheet) return;
+    const panel = document.querySelector<HTMLElement>('.tester-side.open');
+    const previous = document.activeElement as HTMLElement | null;
+    panel?.focus({ preventScroll: true });
+    const viewport = window.visualViewport;
+    const resize = () => {
+      if (!viewport || !panel) return;
+      panel.style.setProperty('--visual-height', `${viewport.height}px`);
+      panel.style.setProperty('--keyboard-inset', `${Math.max(0, window.innerHeight - viewport.height - viewport.offsetTop)}px`);
+    };
+    const trapFocus = (event: globalThis.KeyboardEvent) => {
+      if (event.key !== 'Tab' || !panel) return;
+      const targets = [...panel.querySelectorAll<HTMLElement>('button:not(:disabled), input:not(:disabled), select, textarea, a[href], [tabindex="0"]')].filter(el => el.getClientRects().length);
+      const first = targets[0], last = targets.at(-1);
+      if (event.shiftKey && (document.activeElement === first || document.activeElement === panel)) { event.preventDefault(); last?.focus(); }
+      else if (!event.shiftKey && (document.activeElement === last || document.activeElement === panel)) { event.preventDefault(); first?.focus(); }
+    };
+    resize();
+    viewport?.addEventListener('resize', resize);
+    viewport?.addEventListener('scroll', resize);
+    panel?.addEventListener('keydown', trapFocus);
+    return () => {
+      viewport?.removeEventListener('resize', resize);
+      viewport?.removeEventListener('scroll', resize);
+      panel?.removeEventListener('keydown', trapFocus);
+      panel?.style.removeProperty('--visual-height');
+      panel?.style.removeProperty('--keyboard-inset');
+      previous?.focus({ preventScroll: true });
+    };
+  }, [sheet]);
 
   // A connection tile is the answer that starts the test, so it passes its value straight in.
   const start = async (conn = connection) => {
@@ -544,7 +574,7 @@ export default function SpeedTest({ providers, districtSlugs, children }: { prov
               ) : phase === 'setup' ? (
                 <form className="setup" onSubmit={(e) => { e.preventDefault(); start(); }} noValidate>
                   {sheet && (
-                    <div className="chooser-head d-only">
+                    <div className="chooser-head">
                       <h2>Before we start</h2>
                       <p className="muted">Confirm your provider and pick how this device is connected.</p>
                       <button type="button" className="btn btn-ghost btn-sm" onClick={() => setSheet(false)} aria-label="Close">✕</button>

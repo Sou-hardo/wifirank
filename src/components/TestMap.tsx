@@ -10,7 +10,7 @@ type Props = { phase: 'setup' | 'running' | 'saving' | 'done'; stage: string | n
 
 // ponytail: illustrative spot for Cloudflare's Dhaka edge; the real site isn't published.
 const EDGE: LngLat = [90.3925, 23.7639];
-const calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+const calm = () => matchMedia('(prefers-reduced-motion: reduce), (hover: none)').matches;
 const fc = (features: object[]) => ({ type: 'FeatureCollection', features });
 const pt = (c: LngLat, properties = {}) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: c }, properties });
 const f1 = (v: number) => (v < 10 ? v.toFixed(1) : Math.round(v).toString());
@@ -107,7 +107,7 @@ export default function TestMap({ phase, stage, mbps, at, result, picking = fals
     let swaying = false, sway = 0;
     // Framed flat, then tilted: the near half grows under pitch, so back off half a zoom to keep both ends clear.
     const cam = frame([EDGE, at], 14.5);
-    map.flyTo({ ...cam, zoom: cam.zoom - 0.5, pitch: 55, bearing: -18, duration: still ? 0 : 2600, essential: true });
+    map.flyTo({ ...cam, zoom: cam.zoom - 0.5, pitch: 55, bearing: -18, duration: still ? 0 : 2600, essential: false });
     map.once('moveend', () => { swaying = !still; });
 
     let raf = 0, last = performance.now(), clock = 0;

@@ -26,6 +26,15 @@ const geo = (d: Data) => ({
 export default function DhakaMap({ initial, providers, districtSlugs, compact }: Props) {
   const [district, setDistrict] = useState('');
   const el = useRef<HTMLDivElement>(null);
+  const detail = useRef<HTMLDivElement>(null);
+  const selectArea = (slug: string) => {
+    setSelected(slug);
+    // The panel follows the map on phones. Reveal the updated result, including
+    // repeat taps on the same bubble, after React commits it.
+    requestAnimationFrame(() => {
+      if (matchMedia('(max-width: 860px)').matches) detail.current?.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+    });
+  };
   const mapRef = useRef<any>(null);
   const core = useRef<any>(null);
   const [data, setData] = useState(initial);
@@ -86,13 +95,16 @@ export default function DhakaMap({ initial, providers, districtSlugs, compact }:
           layout: { 'text-field': ['get', 'name'], 'text-font': ['Noto Sans Regular'], 'text-size': 11, 'text-offset': [0, 1.6], 'text-anchor': 'top', 'text-optional': true },
           paint: { 'text-color': '#191a23', 'text-halo-color': '#ffffff', 'text-halo-width': 1.6 } });
 
+        // A 44px invisible hit area keeps small, sparse bubbles tappable.
+        const touch = matchMedia('(pointer: coarse)').matches;
+        if (touch) map.addLayer({ id: 'area-hit', type: 'circle', source: 'areas', filter: ['>', ['get', 'devices'], 0], paint: { 'circle-radius': 22, 'circle-opacity': 0 } });
         let hovered: string | null = null;
         const hover = (id: string | null) => {
           if (hovered) map.setFeatureState({ source: 'areas', id: hovered }, { hover: false });
           hovered = id;
           if (id) map.setFeatureState({ source: 'areas', id }, { hover: true });
         };
-        for (const layer of ['areas']) {
+        for (const layer of [touch ? 'area-hit' : 'areas']) {
           map.on('mousemove', layer, (e: any) => {
             const p = e.features[0].properties;
             map.getCanvas().style.cursor = 'pointer';
@@ -104,7 +116,7 @@ export default function DhakaMap({ initial, providers, districtSlugs, compact }:
                 : `<small>No tests yet. Be the first.</small>`)).addTo(map);
           });
           map.on('mouseleave', layer, () => { map.getCanvas().style.cursor = ''; hover(null); popup.remove(); });
-          map.on('click', layer, (e: any) => setSelected(e.features[0].properties.slug));
+          map.on('click', layer, (e: any) => selectArea(e.features[0].properties.slug));
         }
         map.on('mousemove', 'points', (e: any) => {
           const p = e.features[0].properties, key = metricRef.current;
@@ -204,7 +216,7 @@ export default function DhakaMap({ initial, providers, districtSlugs, compact }:
         </div>
 
         {sel ? (
-          <div className="dmap-detail" key={sel.slug}>
+          <div className="dmap-detail" key={sel.slug} ref={detail} aria-live="polite">
             <div className="row-between">
               <h3>{sel.name}</h3>
               <button type="button" className="btn btn-ghost btn-sm" onClick={() => setSelected(null)} aria-label="Close area details">✕</button>
@@ -228,13 +240,13 @@ export default function DhakaMap({ initial, providers, districtSlugs, compact }:
             )}
           </div>
         ) : (
-          <div className="dmap-detail">
+          <div className="dmap-detail" ref={detail} aria-live="polite">
             <h3>{m.lowerIsBetter ? 'Lowest' : 'Fastest'} areas{data.isp ? ` on ${data.isp.name}` : ''}</h3>
             {hasMetric ? (
               <ol className="dmap-list">
                 {top.map((a) => (
                   <li key={a.slug}>
-                    <button type="button" onClick={() => setSelected(a.slug)} onMouseEnter={() => spot(a.slug, true)} onMouseLeave={() => spot(a.slug, false)}
+                    <button type="button" onClick={() => selectArea(a.slug)} onMouseEnter={() => spot(a.slug, true)} onMouseLeave={() => spot(a.slug, false)}
                       onFocus={() => spot(a.slug, true)} onBlur={() => spot(a.slug, false)}>{a.name}</button>
                     <span className="num">{fmt(a[metric])}<small> {m.unit}</small></span>
                   </li>
