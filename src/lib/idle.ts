@@ -1,15 +1,9 @@
-// Runs fn once the page has loaded and the main thread is idle, so heavy work (MapLibre) doesn't hold up first paint.
-export function whenIdle(fn: () => void): () => void {
-  let id = 0, cancelled = false;
-  const idle = () => {
-    if (cancelled) return;
-    id = 'requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: 1500 }) : setTimeout(fn, 200) as unknown as number;
-  };
-  if (document.readyState === 'complete') idle();
-  else window.addEventListener('load', idle, { once: true });
-  return () => {
-    cancelled = true;
-    window.removeEventListener('load', idle);
-    if ('cancelIdleCallback' in window) cancelIdleCallback(id); else clearTimeout(id);
-  };
+// Starts loading `load` at once (network runs in parallel with first paint), then hands the result to `fn`
+// right after the first frame paints, so heavy work (MapLibre) never holds up the hero but doesn't wait for
+// the window 'load' event or an idle slot either.
+export function whenIdle<T>(load: () => Promise<T>, fn: (v: T) => void, onError?: () => void): () => void {
+  let cancelled = false, raf = 0, timer = 0;
+  const painted = new Promise<void>((res) => { raf = requestAnimationFrame(() => { timer = setTimeout(res, 0) as unknown as number; }); });
+  Promise.all([load(), painted]).then(([v]) => { if (!cancelled) fn(v); }).catch(() => { if (!cancelled) onError?.(); });
+  return () => { cancelled = true; cancelAnimationFrame(raf); clearTimeout(timer); };
 }
