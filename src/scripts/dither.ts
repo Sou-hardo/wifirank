@@ -13,7 +13,7 @@ class DitherArt extends HTMLElement {
     canvas.style.cssText = 'display:block;width:100%;height:100%';
     this.append(canvas);
     const g = canvas.getContext('2d')!;
-    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const still = matchMedia('(prefers-reduced-motion: reduce), (hover: none)').matches;
     const cell = Number(this.getAttribute('cell')) || 7;
     let w = 0, h = 0, cols = 0, rows = 0, color = '#000', visible = false, last = 0;
     let px = -1e4, py = -1e4; // pointer, in cells

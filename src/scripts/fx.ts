@@ -1,12 +1,12 @@
-// Small page-wide interactions. No dependencies; everything is skipped for reduced motion.
+// Small page-wide interactions. No dependencies; decorative motion respects reduced motion.
 const calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Dot-confetti burst, used to say thanks when a result or review is saved.
 export function burst(x: number, y: number, count = 80) {
-  if (calm()) return;
+  if (calm() || matchMedia('(hover: none)').matches) return;
   const c = document.createElement('canvas'), dpr = Math.min(devicePixelRatio || 1, 2);
   c.width = innerWidth * dpr; c.height = innerHeight * dpr;
-  c.style.cssText = 'position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:999';
+  c.style.cssText = 'position:fixed;inset:0;width:100vw;height:100dvh;pointer-events:none;z-index:999';
   document.body.append(c);
   const g = c.getContext('2d')!;
   g.scale(dpr, dpr);
@@ -32,7 +32,17 @@ export function burst(x: number, y: number, count = 80) {
   requestAnimationFrame(tick);
 }
 
-if (typeof document !== 'undefined' && !calm()) {
+if (typeof document !== 'undefined') {
+  // Add labels from the actual column headers so all page tables share the phone layout.
+  document.querySelectorAll<HTMLTableElement>('.table-wrap table').forEach((table) => {
+    const headings = [...table.querySelectorAll('thead th')].map(th => th.textContent?.trim() ?? '');
+    if (!headings.length) return;
+    table.querySelectorAll('tbody tr').forEach(tr => [...tr.children].forEach((cell, i) => {
+      if (i > 0) cell.setAttribute('data-label', headings[i] ?? '');
+    }));
+    table.setAttribute('role', 'table'); // Preserve table semantics in Safari's block layout.
+    table.classList.add('mobile-table');
+  });
   // Figures count up to their rendered value the first time they scroll into view.
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) {
@@ -49,7 +59,7 @@ if (typeof document !== 'undefined' && !calm()) {
       requestAnimationFrame(tick);
     }
   });
-  document.querySelectorAll('[data-count]').forEach((el) => io.observe(el));
+  if (!calm() && matchMedia('(hover: hover)').matches) document.querySelectorAll('[data-count]').forEach((el) => io.observe(el));
 
   const PAGE = 10;
   // Stagger index for table rows (drives the row and bar entrance in CSS).
@@ -91,7 +101,7 @@ if (typeof document !== 'undefined' && !calm()) {
 
   // Delegated so it also covers elements React renders later.
   // .tilt leans toward the pointer; .magnetic drifts toward it.
-  if (matchMedia('(hover: hover)').matches) {
+  if (!calm() && matchMedia('(hover: hover)').matches) {
     document.addEventListener('pointermove', (e) => {
       const t = e.target as Element;
       const tilt = t.closest?.<HTMLElement>('.tilt');

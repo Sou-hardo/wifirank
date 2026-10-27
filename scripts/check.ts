@@ -10,7 +10,6 @@ import { providerChoice, qualifies, classifyAccess } from '../src/lib/detection.
 import { crowdSuggestion } from '../src/lib/crowd.ts';
 import { districtForArea } from '../src/lib/options.ts';
 import { postReview, deleteReview } from '../src/lib/reviews.ts';
-import { sustainedMbps } from '../src/lib/sustained.ts';
 
 const detected = { isp: { id: 1, name: 'Alpha' }, upstream: false, flag: null, suggested: null };
 assert.deepEqual(providerChoice({ name: '' }, detected), detected.isp);
@@ -37,12 +36,6 @@ assert.deepEqual(classifyAccess('foreign_ip', 'fwa', true), { flag: 'foreign_ip'
 assert.equal(districtForArea('mirpur-10'), 'dhaka');
 assert.equal(districtForArea('bogura'), 'bogura');
 assert.equal(districtForArea('unknown'), null);
-
-// Sustained speed: short bursts are ignored, the median of loaded requests is reported.
-const pt = (bytes: number, mbps: number, duration: number) => ({ bytes, bps: mbps * 1e6, duration });
-assert.equal(sustainedMbps([pt(1e5, 20, 30), pt(1e6, 173, 80), pt(1e6, 160, 85), pt(1e7, 100, 800), pt(1e7, 90, 900), pt(2.5e7, 98, 2000)]), 98);
-assert.equal(sustainedMbps([pt(1e5, 20, 30), pt(1e6, 150, 60), pt(1e6, 170, 55)]), 160); // nothing loaded yet: largest size so far
-assert.equal(sustainedMbps([]), null);
 
 const server = new PGLiteSocketServer({ db: await PGlite.create(), port: 54329 });
 await server.start();

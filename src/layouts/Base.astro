@@ -93,7 +93,6 @@ const graph = {
           {nav.map(([href, label]) => (
             <a href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}</a>
           ))}
-          <a class="btn btn-primary btn-sm" href="/" aria-current={path === '/' ? 'page' : undefined}>{/* shortened on phones, where the full label doesn't fit */}<span class="wide">Run a test</span><span class="narrow">Test</span></a>
         </nav>
       </div>
     </header>
@@ -123,6 +122,8 @@ const graph = {
       const header = document.querySelector('.site-header');
       const setOpen = (open: boolean) => { header?.classList.toggle('menu-open', open); btn?.setAttribute('aria-expanded', String(open)); };
       btn?.addEventListener('click', () => setOpen(!header?.classList.contains('menu-open')));
+      document.querySelector('#main-nav')?.addEventListener('click', (e) => { if ((e.target as Element).closest('a')) setOpen(false); });
+      window.addEventListener('pageshow', () => setOpen(false));
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
       document.addEventListener('click', (e) => { if (!header?.contains(e.target as Node)) setOpen(false); });
     </script>
