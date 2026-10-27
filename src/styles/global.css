@@ -310,11 +310,20 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 .band p { margin: 0; font-size: .95rem; color: var(--text-2); }
 /* Compact band tucked under the hero copy */
 .band-hero { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 22px; border: 1px solid var(--ink); }
-.band-hero > div { min-height: 0; padding: 14px 16px; }
+.band-hero > div { min-height: 0; padding: 14px 16px; justify-content: flex-start; }
+.band-hero .btn { flex: none; white-space: nowrap; }
 .band-hero > div:nth-child(3) { border-right: 0; }
 .band-hero > div:last-child { grid-column: 1 / -1; border-top: 1px solid var(--line); flex-direction: row; align-items: center; }
 .band-hero strong { font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.2rem); }
 .band-hero span, .band-hero p { font-size: .82rem; }
+@media (max-height: 760px) { .band-hero > div:last-child { display: none; } }
+@media (max-width: 860px) {
+  .band-hero { margin-top: 16px; }
+  .band-hero > div { padding: 10px 12px; gap: 2px; }
+  .band-hero > div:last-child { display: none; }
+  .tester.is-setup .tester-grid:has(.band-hero) { padding-block: 16px 12px; }
+  .band-hero span { font-size: .74rem; line-height: 1.25; }
+}
 @media (max-width: 860px) {
   .band { grid-template-columns: repeat(3, 1fr); }
   .band > div { min-height: 0; padding: 18px 14px; }
