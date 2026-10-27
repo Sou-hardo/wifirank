@@ -7,7 +7,6 @@ import Gauge from './Gauge';
 import LocationPicker from './LocationPicker';
 import TestMap from './TestMap';
 import { AREA_COORDS, nearestArea } from '../lib/areas';
-import type { MapArea } from '../lib/mapData';
 import { burst } from '../scripts/fx';
 import { measure } from '../lib/measure';
 import { providerChoice, type Detection } from '../lib/detection';
@@ -326,7 +325,7 @@ function Review({ testId, ispId, ispName, down, value, onChange, onPending }: { 
 
 // ── Main flow ───────────────────────────────────────────
 // Tuples avoid repeating property names and long district slugs in Astro's HTML props.
-export default function SpeedTest({ providers, districtSlugs, areas, children }: { providers: [number, string, string[], string, number, number, string][]; districtSlugs: string[]; areas: MapArea[]; children?: ReactNode }) {
+export default function SpeedTest({ providers, districtSlugs, children }: { providers: [number, string, string[], string, number, number, string][]; districtSlugs: string[]; children?: ReactNode }) {
   const isps = useMemo<Isp[]>(() => providers.map(([id, name, aliases, districts, nationwide, fwa, slug]) => ({ id, name, slug, aliases, districts: districts ? districts.split(',').map(d => districtSlugs[Number(d)]) : [], nationwide: !!nationwide, fixedWireless: !!fwa })), [providers, districtSlugs]);
   const [phase, setPhase] = useState<'setup' | 'running' | 'saving' | 'done'>('setup');
   const [isp, setIsp] = useState<{ id?: number; name: string }>({ name: '' });
@@ -523,7 +522,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
     <div className={`tester is-${phase}`}>
       <div className="tester-hero">
         <TestMap phase={phase} stage={stage} mbps={gaugeValue} at={spot} picking={!!askPin} draft={draft && [draft.lng, draft.lat]} dropRef={dropRef}
-          onDraft={(c) => (c ? placeDraft(c[0], c[1]) : setDraft(null))} result={local?.down ?? null} areas={areas} />
+          onDraft={(c) => (c ? placeDraft(c[0], c[1]) : setDraft(null))} result={local?.down ?? null} />
         <div className="tester-grid">
           {/* Left: setup, then optional details while the test runs */}
           <div className="tester-col">
