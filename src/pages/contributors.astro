@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+
+const REPO = 'https://github.com/Sou-hardo/wifirank';
+// Anyone whose contribution is approved and merged gets a line here.
+const people = [
+  {
+    handle: 'jabir02',
+    note: 'Moved house, stared at the list of ISPs, and couldn’t decide which one to get. Instead of just suffering quietly like a normal person, he wrote down every feature that would have helped him choose. Half this site is that list.',
+  },
+  {
+    handle: 'EhsanulHaqueSiam',
+    note: 'For his inputs on shaping this project, back when it was mostly a vague idea and a lot of confidence. The idea got clearer. The confidence stayed the same.',
+  },
+];
+---
+<Base title="Contributors"
+  description="The people who shaped WifiRank. The code is open on GitHub and contributions are welcome; anything merged gets you a spot here.">
+  <article class="wrap prose" style="padding-top:clamp(28px,5vw,56px);max-width:780px">
+    <p class="eyebrow">Contributors</p>
+    <h1>Built with a little help</h1>
+    <p class="lede">WifiRank started because picking an internet provider in Dhaka is mostly guesswork and asking your cousin. It’s open source now, so if you can make it better, please do.</p>
+
+    <h2 class="reveal"><span class="hl">Contributions are welcome</span></h2>
+    <p>The code lives at <a href={REPO}>github.com/Sou-hardo/wifirank</a>. Open an issue, send a pull request, fix my typos. Any contribution that gets approved and merged shows up on this page, with your name on it. No pressure, but it’s a nicer reward than a GitHub star.</p>
+
+    <h2 class="reveal"><span class="hl">The people</span></h2>
+    <ul>
+      {people.map((p) => (
+        <li><a href={`https://github.com/${p.handle}`}><strong>@{p.handle}</strong></a>: {p.note}</li>
+      ))}
+    </ul>
+    <p>Your name could go here. Bro, it’s one pull request.</p>
+  </article>
+</Base>

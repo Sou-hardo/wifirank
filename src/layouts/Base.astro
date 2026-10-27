@@ -27,7 +27,7 @@ const fullTitle = title ? `${title} · ${SITE}` : `${SITE}: Compare internet pro
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const og = new URL(ogImage, Astro.site);
 const path = Astro.url.pathname;
-const nav = [['/map', 'Map'], ['/isps', 'Rankings'], ['/methodology', 'How it works']];
+const nav = [['/map', 'Map'], ['/isps', 'Rankings'], ['/methodology', 'How it works'], ['/contributors', 'Contributors']];
 const graph = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -75,8 +75,14 @@ const graph = {
     {dither && <dither-art class="page-dither" mode="signal" aria-hidden="true"></dither-art>}
     <header class="site-header">
       <div class="wrap">
-        <a href="/" class="brand" aria-label={`${SITE} home`}><Logo /><span>{SITE}</span></a>
-        <nav class="nav" aria-label="Main">
+        <div class="brand-row">
+          <a href="/" class="brand" aria-label={`${SITE} home`}><Logo /><span>{SITE}</span></a>
+          <a class="credit" href="https://sou-hardo.com" rel="author">made by @sou-hardo</a>
+        </div>
+        <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="main-nav">
+          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <nav class="nav" id="main-nav" aria-label="Main">
           {nav.map(([href, label]) => (
             <a href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>{label}</a>
           ))}
@@ -92,7 +98,7 @@ const graph = {
           <div class="top">
             <a href="/" class="brand" aria-label={`${SITE} home`}><Logo /><span>{SITE}</span></a>
             <nav aria-label="Footer">
-              <a href="/isps">Rankings</a><a href="/map">Map</a><a href="/methodology">Methodology</a>
+              <a href="/isps">Rankings</a><a href="/map">Map</a><a href="/methodology">Methodology</a><a href="/contributors">Contributors</a>
               <a href="/api/stats">Open data</a><a href="/llms.txt">llms.txt</a>
             </nav>
           </div>
@@ -106,6 +112,12 @@ const graph = {
     <script>
       import '../scripts/dither';
       import '../scripts/fx';
+      const btn = document.querySelector<HTMLButtonElement>('.menu-btn');
+      const header = document.querySelector('.site-header');
+      const setOpen = (open: boolean) => { header?.classList.toggle('menu-open', open); btn?.setAttribute('aria-expanded', String(open)); };
+      btn?.addEventListener('click', () => setOpen(!header?.classList.contains('menu-open')));
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+      document.addEventListener('click', (e) => { if (!header?.contains(e.target as Node)) setOpen(false); });
     </script>
   </body>
 </html>

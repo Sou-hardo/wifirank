@@ -39,6 +39,7 @@ ${top.length ? top.map((r, i) => `${i + 1}. ${r.name}: ${fmt(r.local_down)} Mbps
 - [Rankings](${u('/isps')}): national ISP directory, searchable by name and district, plus measured speed rankings
 - [Map](${u('/map')}): speed by neighbourhood
 - [Methodology](${u('/methodology')}): how tests work, what is stored, how rankings and anti-abuse checks work
+- [Contributors](${u('/contributors')}): people who shaped the project, and how to contribute on GitHub
 - Provider page: \`${u('/isp/')}<slug>\`: overall stats, peak vs off-peak, speed by area, reviews
 - Area page: \`${u('/area/')}<slug>\`: providers ranked within that area
 
