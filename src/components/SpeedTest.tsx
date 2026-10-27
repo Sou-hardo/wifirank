@@ -640,7 +640,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                 </button>
                 {quick && net?.flag === 'mobile_data' && <button type="button" className="go-pills m-only" onClick={fullFlow}>This is my home router (FWA) →</button>}
                 {!quick && !missing && <button type="button" className="go-pills m-only" onClick={() => setSheet(true)}>{isp.name} · {CONN.find(c => c.value === connection)?.label} · change</button>}
-                <span id="go-hint" className="go-hint">{detecting ? 'Detecting your network…' : 'Takes about 40 seconds'}</span>
+                <span id="go-hint" className="go-hint">{detecting ? 'Detecting your network…' : 'Tap GO to start'}</span>
               </Gauge>
             ) : (
               <>

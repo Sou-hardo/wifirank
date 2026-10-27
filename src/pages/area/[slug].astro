@@ -33,7 +33,7 @@ const desc = best
   ? `${best.name} is currently the fastest measured ISP in ${name} at ${fmt(best.local_down)} Mbps. Compare all ${rows.length} providers in ${name}, Dhaka by real speed tests from ${testers} residents.`
   : rows.length
     ? `${rows.length} internet providers tested in ${name}, Dhaka. Early results from ${testers} residents: compare speeds and add your own test.`
-    : `Which ISP is best in ${name}, Dhaka? No tests yet. Run a 40-second speed test and help your neighbours choose.`;
+    : `Which ISP is best in ${name}, Dhaka? No tests yet. Run a speed test and help your neighbours choose.`;
 ---
 <Base title={`Best internet providers in ${name}, Dhaka`} description={desc} schema={schema} noindex={rows.length === 0}
   ogImage={`/og/area/${slug}.png`} jsonAlt={`/api/stats?area=${slug}`}>
@@ -51,7 +51,7 @@ const desc = best
     </div>
 
     {rows.length === 0
-      ? <div class="card pop"><h3>Be the first in {name}</h3><p class="text-2" style="margin:0">One 40-second test puts {name} on the map and starts the comparison for everyone who lives here.</p></div>
+      ? <div class="card pop"><h3>Be the first in {name}</h3><p class="text-2" style="margin:0">One test puts {name} on the map and starts the comparison for everyone who lives here.</p></div>
       : <RankTable rows={rows} caption={`Internet providers in ${name} ranked by median speed`} />}
 
     {latest.length > 0 && (

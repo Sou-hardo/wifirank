@@ -40,7 +40,7 @@ const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
       <h1 aria-label="How fast is your internet, really?">
         {headline.map((w, i) => <><span aria-hidden="true" style={`--i:${i}`}>{w}</span>{i === 1 || i === 3 ? <br /> : ' '}</>)}
       </h1>
-      <p class="lede rise" style="--i:3">Test your connection in 40 seconds.</p>
+      <p class="lede rise" style="--i:3">Test your connection.</p>
     </SpeedTest>
   </section>
 
@@ -114,7 +114,7 @@ const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
     <div class="cta reveal">
       <div>
         <h2>Put your street on the map</h2>
-        <p>One 40-second test adds your neighbourhood to the comparison and helps the next person choose their provider with real numbers.</p>
+        <p>One test adds your neighbourhood to the comparison and helps the next person choose their provider with real numbers.</p>
         <a class="btn btn-primary" href="#main">Run the speed test</a>
       </div>
       <svg class="art" viewBox="0 0 340 230" fill="none" aria-hidden="true">
