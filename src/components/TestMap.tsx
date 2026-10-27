@@ -138,7 +138,7 @@ export default function TestMap({ phase, stage, mbps, at, result, areas }: Props
       me.current!.node.classList.remove('busy');
       map.getSource('packets').setData(fc([]));
     };
-  }, [ready, phase === 'running']);
+  }, [ready, phase === 'running', at?.[0], at?.[1]]); // at can arrive mid-run (geolocation or the optional pin)
 
   // Landing: settle top-down over the tester and drop a pin in the result's speed colour.
   useEffect(() => {
