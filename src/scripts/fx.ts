@@ -51,8 +51,31 @@ if (typeof document !== 'undefined' && !calm()) {
   });
   document.querySelectorAll('[data-count]').forEach((el) => io.observe(el));
 
+  const PAGE = 10;
   // Stagger index for table rows (drives the row and bar entrance in CSS).
-  document.querySelectorAll('tbody').forEach((tb) => [...tb.rows].forEach((tr, i) => tr.style.setProperty('--i', String(Math.min(i, 14)))));
+  document.querySelectorAll('tbody').forEach((tb) => [...tb.rows].forEach((tr, i) => tr.style.setProperty('--i', String(i % PAGE))));
+
+  // Long tables show PAGE rows at a time. Every row stays in the HTML for search engines and screen readers.
+  document.querySelectorAll<HTMLTableSectionElement>('.table-wrap tbody').forEach((tb) => {
+    const rows = [...tb.rows], pages = Math.ceil(rows.length / PAGE);
+    if (pages < 2) return;
+    const nav = document.createElement('nav');
+    nav.className = 'table-pager';
+    nav.setAttribute('aria-label', 'Table pages');
+    nav.innerHTML = '<button class="btn" type="button">Previous</button><span class="muted small" aria-live="polite"></span><button class="btn" type="button">Next</button>';
+    const [prev, next] = nav.querySelectorAll('button'), label = nav.querySelector('span')!;
+    let page = 0;
+    const show = (p: number) => {
+      page = p;
+      rows.forEach((tr, i) => { tr.hidden = Math.floor(i / PAGE) !== p; });
+      prev.disabled = p === 0; next.disabled = p === pages - 1;
+      label.textContent = `Page ${p + 1} of ${pages}`;
+    };
+    prev.onclick = () => show(page - 1);
+    next.onclick = () => show(page + 1);
+    tb.closest('.table-wrap')!.after(nav);
+    show(0);
+  });
 
   // Delegated so it also covers elements React renders later.
   // .tilt leans toward the pointer; .magnetic drifts toward it.

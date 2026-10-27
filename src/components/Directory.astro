@@ -10,7 +10,7 @@ const evidence = (i: Provider) => tested.includes(i.slug) ? 0 : PACKAGES[i.name]
 const byEvidence = (a: Provider, b: Provider) => evidence(a) - evidence(b);
 const local = selected ? filtered.filter(i => i.districts.includes(selected)).sort(byEvidence) : [];
 const nationwide = selected ? filtered.filter(i => !i.districts.includes(selected)).sort(byEvidence) : [];
-const pages = Math.max(1, Math.ceil(filtered.length / 50));
+const pages = Math.max(1, Math.ceil(filtered.length / 10));
 const page = Math.min(pages, Math.max(1, Number.parseInt(Astro.url.searchParams.get('page') ?? '1') || 1));
 const pageUrl = (p: number) => { const u = new URL(Astro.url); u.searchParams.set('page', String(p)); return u.pathname + u.search; };
 ---
@@ -36,7 +36,7 @@ const pageUrl = (p: number) => { const u = new URL(Astro.url); u.searchParams.se
     </details>}
   </> : <>
     <p role="status">{filtered.length.toLocaleString('en')} {filtered.length === 1 ? 'provider' : 'providers'} · Page {page} of {pages}</p>
-    {filtered.length ? <ProviderTable list={filtered.slice((page - 1) * 50, page * 50)} /> : <p>No providers match. Try another name or district.</p>}
+    {filtered.length ? <ProviderTable list={filtered.slice((page - 1) * 10, page * 10)} /> : <p>No providers match. Try another name or district.</p>}
     <nav class="row-between" aria-label="Directory pages" style="margin-top:20px">
       {page > 1 ? <a class="btn" href={pageUrl(page - 1)}>Previous</a> : <span />}
       {page < pages && <a class="btn" href={pageUrl(page + 1)}>Next</a>}

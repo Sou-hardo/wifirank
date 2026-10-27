@@ -649,3 +649,5 @@ dialog.picker-optional::backdrop { backdrop-filter: none; background: rgb(25 26 
 .fwa-choice { display: flex; align-items: start; gap: 10px; margin-top: 14px; font-size: .85rem; cursor: pointer; }
 .fwa-choice input { flex-shrink: 0; margin-top: 4px; accent-color: var(--ink); }
 .fwa-choice small { display: block; margin-top: 4px; }
+.table-pager { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
+.table-pager .btn:disabled { opacity: .4; pointer-events: none; }
