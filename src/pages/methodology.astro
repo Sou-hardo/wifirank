@@ -10,9 +10,9 @@ import { MIN_DEVICES } from '../lib/stats';
     <p class="lede">WifiRank exists because ISP reviews in Bangladesh contradict each other. We replace opinions with measurements, and we show exactly how those measurements are made.</p>
 
     <h2 class="reveal"><span class="hl">What the test measures</span></h2>
-    <p>The test runs in your browser against Cloudflare’s server in Dhaka, using Cloudflare’s open-source <code>speedtest</code> engine. We record download and upload speed (Mbps), ping (round-trip latency, ms) and jitter (how much ping varies, ms). Packet loss is measured when available.</p>
+    <p>The test runs in your browser against Cloudflare’s server in Dhaka, the same way Fast.com works: several connections at once, so your line fills up the way it does in real use. We record download and upload speed (Mbps), ping (round-trip latency, ms) and jitter (how much ping varies, ms). Packet loss is measured when available.</p>
     <p><strong>This is the domestic path.</strong> It reflects how you reach content served from inside Bangladesh, which includes the local caches most big sites use. It does not measure speed to servers abroad, so a provider that looks fast here can still be slow for overseas games, calls or downloads.</p>
-    <p>The engine ramps up through larger and larger transfers. We report <strong>sustained speed</strong>: the median of the transfers long enough to load your line (a quarter of a second or more). Short bursts on small files are left out, because many connections start fast and then settle, and the settled speed is what a download or video call actually gets. This reads lower than tools that report peak or 90th-percentile speed.</p>
+    <p>Download uses six connections and upload four. The start of each is left out, because a connection starts slow while it ramps up, and the speed it settles at is what a download or video call actually gets. Ping is the median of ten round trips before any load.</p>
 
     <h2 class="reveal"><span class="hl">What we store</span></h2>
     <ul>

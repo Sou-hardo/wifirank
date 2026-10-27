@@ -67,7 +67,7 @@ const periods: [string, string, Row | null][] = [['All day', 'Every test', all],
       {all.local_loss != null && <div class="stat"><dt>Packet loss</dt><dd>{(all.local_loss * 100).toFixed(1)}<small>%</small></dd></div>}
     </dl> : <div class="isp-empty">
       <div class="empty-dial" aria-hidden="true"><dither-art mode="flow" cell="6" /><span class="dot">– –</span></div>
-      <div><h2>Nobody has tested {isp.name} yet</h2><p class="text-2" style="margin:0">One 40-second test starts the comparison for everyone on this provider.</p></div>
+      <div><h2>Nobody has tested {isp.name} yet</h2><p class="text-2" style="margin:0">One test starts the comparison for everyone on this provider.</p></div>
     </div>}
 
     <div class="row-between" style="justify-content:flex-start;margin:22px 0 28px">
