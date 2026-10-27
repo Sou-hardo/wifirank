@@ -69,9 +69,6 @@ export default function DhakaMap({ initial, providers, districtSlugs, compact }:
         map.addLayer({ id: 'points', type: 'circle', source: 'points', minzoom: 12.5,
           paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 12.5, 2.5, 16, 6], 'circle-color': c.colorExpr(metric),
             'circle-opacity': 0.9, 'circle-stroke-width': 1, 'circle-stroke-color': '#ffffff' } });
-        // Areas with no tests yet: hollow markers that invite the first test.
-        map.addLayer({ id: 'areas-empty', type: 'circle', source: 'areas', filter: ['==', ['get', 'devices'], 0],
-          paint: { 'circle-radius': 3.5, 'circle-color': 'transparent', 'circle-stroke-width': 1.5, 'circle-stroke-color': '#8b8d98' } });
         map.addLayer({ id: 'areas', type: 'circle', source: 'areas', filter: ['>', ['get', 'devices'], 0],
           paint: {
             // Size grows with testers but is capped, so busy areas don't swallow their neighbours.
@@ -94,7 +91,7 @@ export default function DhakaMap({ initial, providers, districtSlugs, compact }:
           hovered = id;
           if (id) map.setFeatureState({ source: 'areas', id }, { hover: true });
         };
-        for (const layer of ['areas', 'areas-empty']) {
+        for (const layer of ['areas']) {
           map.on('mousemove', layer, (e: any) => {
             const p = e.features[0].properties;
             map.getCanvas().style.cursor = 'pointer';
