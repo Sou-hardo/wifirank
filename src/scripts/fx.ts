@@ -55,6 +55,18 @@ if (typeof document !== 'undefined' && !calm()) {
   // Stagger index for table rows (drives the row and bar entrance in CSS).
   document.querySelectorAll('tbody').forEach((tb) => [...tb.rows].forEach((tr, i) => tr.style.setProperty('--i', String(i % PAGE))));
 
+  // A row with one link opens it from anywhere on the row; the link itself stays the keyboard target.
+  document.querySelectorAll('tbody tr').forEach((tr) => { if (tr.querySelectorAll('a[href]').length === 1) tr.classList.add('row-link'); });
+  const openRow = (e: MouseEvent) => {
+    const t = e.target as Element, tr = t.closest?.('tr.row-link');
+    if (!tr || t.closest('a, button, input, select, label') || getSelection()?.toString()) return;
+    const href = tr.querySelector<HTMLAnchorElement>('a[href]')!.href;
+    if (e.button === 1 || e.metaKey || e.ctrlKey) window.open(href, '_blank', 'noopener');
+    else if (e.button === 0) location.href = href;
+  };
+  document.addEventListener('click', openRow);
+  document.addEventListener('auxclick', openRow);
+
   // Long tables show PAGE rows at a time. Every row stays in the HTML for search engines and screen readers.
   document.querySelectorAll<HTMLTableSectionElement>('.table-wrap tbody').forEach((tb) => {
     const rows = [...tb.rows], pages = Math.ceil(rows.length / PAGE);

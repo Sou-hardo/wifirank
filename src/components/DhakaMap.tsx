@@ -199,7 +199,7 @@ export default function DhakaMap({ initial, providers, districtSlugs, compact }:
           <div className="label-row"><span>{m.long}</span><span className="muted">{m.unit}{m.lowerIsBetter ? ' · lower is better' : ''}</span></div>
           <div className="legend">{RAMP.map((c) => <i key={c} style={{ background: c, flex: 1 }} />)}</div>
           <div className="legend-labels">{ranges.map((r) => <span key={r}>{r}</span>)}</div>
-          <p className="muted small">Darker = faster. Bigger circle = more testers. Hollow dot = no tests yet.</p>
+          <p className="muted small">Darker = faster. Bigger circle = more testers.</p>
         </div>
 
         {sel ? (

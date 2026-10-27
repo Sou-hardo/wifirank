@@ -223,7 +223,11 @@ th:first-child, td:first-child { text-align: left; white-space: normal; padding-
 th:last-child, td:last-child { padding-right: 22px; }
 thead th { font: 500 .7rem/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: var(--surface-2); border-bottom-color: var(--ink); }
 tbody tr { transition: background .15s; animation: rise .5s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 35ms); }
-tbody tr:hover { background: var(--accent-soft); }
+tr.row-link { cursor: pointer; }
+tr.row-link:is(:hover, :focus-within) { background: var(--accent-soft); }
+tr.row-link a::after { content: '→' / ''; display: inline-block; margin-left: 8px; color: var(--muted); transition: transform .15s, color .15s; }
+tr.row-link:hover a::after { transform: translateX(3px); color: var(--ink); }
+tr.row-link:hover a { text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--s1); }
 tbody tr:last-child :is(td, th) { border-bottom: 0; }
 td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 td a, th a { text-decoration: none; font-weight: 500; }
