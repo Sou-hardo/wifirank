@@ -45,9 +45,14 @@ const pageUrl = (p: number) => { const u = new URL(Astro.url); u.searchParams.se
   {!district && <details style="margin-top:24px"><summary>Browse all 64 districts</summary><nav class="chips" aria-label="Districts">{DISTRICTS.map(d => <a href={`/district/${d.slug}`}>{d.name}</a>)}</nav></details>}
 </section>
 <style>
-.directory-filters { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); align-items:end; gap:14px; margin-top:24px; }
+/* Search gets the room, district is a narrower refinement, the button only as wide as its label. */
+.directory-filters { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr) auto; align-items:end; gap:12px; margin-top:24px; }
 .directory-filters.single { grid-template-columns:minmax(0,1fr) auto; }
-.directory-filters button { min-height:48px; }
+.directory-filters :is(.input, button) { height:50px; }
+.directory-filters button { padding-inline:28px; }
+@media (max-width:640px) {
+  .directory-filters, .directory-filters.single { grid-template-columns:1fr; }
+}
 .local-grid { list-style:none; padding:0; margin:12px 0 0; display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; }
 .local-card { display:flex; flex-direction:column; gap:6px; padding:18px 20px; }
 .directory-filters + [role=status] { margin-top:18px; }
