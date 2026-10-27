@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { whenIdle } from '../lib/idle';
 import type { MapArea, MapPoint } from '../lib/mapData';
 import { DISTRICT_NAMES, locationHref } from '../lib/options';
 import Combobox, { type Option } from './Combobox';
@@ -53,7 +54,7 @@ export default function DhakaMap({ initial, providers, districtSlugs, compact }:
   // ── Map setup (once) ──
   useEffect(() => {
     let dead = false;
-    import('./mapCore').then((c) => {
+    const cancelIdle = whenIdle(() => import('./mapCore').then((c) => {
       if (dead || !el.current) return;
       core.current = c;
       const map = c.createMap(el.current, compact ? { cooperativeGestures: true } : {});
@@ -116,8 +117,8 @@ export default function DhakaMap({ initial, providers, districtSlugs, compact }:
       map.on('error', (e: any) => console.warn('map:', e?.error?.message ?? e));
       // Tile or sprite hiccups also emit 'error'; only a map that never loads is fatal.
       setTimeout(() => setStatus((s) => (s === 'loading' ? 'error' : s)), 20000);
-    }).catch(() => setStatus('error'));
-    return () => { dead = true; mapRef.current?.remove(); mapRef.current = null; };
+    }).catch(() => setStatus('error')));
+    return () => { dead = true; cancelIdle(); mapRef.current?.remove(); mapRef.current = null; };
   }, []);
 
   // ── Keep the map in sync with state ──

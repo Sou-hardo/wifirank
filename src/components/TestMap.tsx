@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { whenIdle } from '../lib/idle';
 
 type LngLat = [number, number];
 // `picking`: the optional pin is on offer, so the map turns interactive and taps place `draft`.
@@ -62,7 +63,7 @@ export default function TestMap({ phase, stage, mbps, at, result, picking = fals
 
   useEffect(() => {
     let dead = false;
-    import('./mapCore').then((c) => {
+    const cancelIdle = whenIdle(() => import('./mapCore').then((c) => {
       if (dead || !el.current) return;
       core.current = c;
       const map = c.createMap(el.current, { interactive: false, zoom: 11.3 });
@@ -82,8 +83,8 @@ export default function TestMap({ phase, stage, mbps, at, result, picking = fals
         el.current?.classList.add('is-ready'); // not via className: MapLibre adds its own classes to this node
         setReady(true);
       });
-    });
-    return () => { dead = true; mapRef.current?.remove(); mapRef.current = null; };
+    }));
+    return () => { dead = true; cancelIdle(); mapRef.current?.remove(); mapRef.current = null; };
   }, []);
 
   // Picking an area pans to it, so the map answers the form before the test even starts.
