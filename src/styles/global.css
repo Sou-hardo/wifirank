@@ -290,7 +290,7 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 /* ── Hero: the speed test plays out on a live map of Dhaka ── */
 .hero h1 { font: 900 clamp(1.8rem, 1rem + 3vw, 3.4rem)/0.98 'Doto Variable', var(--mono); letter-spacing: -0.02em; word-spacing: -0.28em; text-transform: uppercase; margin: 0 0 .3em; }
 .hero h1 span { display: inline-block; animation: boot .7s steps(1) both; animation-delay: calc(var(--i, 0) * 110ms + 80ms); }
-@keyframes boot { 0% { opacity: 0; } 8% { opacity: 1; } 16% { opacity: .15; } 26% { opacity: 1; } 38% { opacity: .5; } 50%, 100% { opacity: 1; } }
+@keyframes boot { 0% { opacity: .15; } 8% { opacity: 1; } 16% { opacity: .15; } 26% { opacity: 1; } 38% { opacity: .5; } 50%, 100% { opacity: 1; } }
 
 /* Stat band under the tester */
 .band { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.3fr); background: var(--surface); border-radius: var(--r); margin-top: 26px; overflow: hidden; text-align: left; }
