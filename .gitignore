@@ -4,3 +4,7 @@ dist/
 .vercel/
 .env
 .pglite/
+
+# Local agent config
+CLAUDE.md
+.claude/
