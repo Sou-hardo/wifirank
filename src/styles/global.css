@@ -551,41 +551,29 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 .pin::after { content: ''; position: absolute; left: 8px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); }
 @keyframes drop { from { opacity: 0; translate: 0 -24px; } }
 
-dialog.picker { width: min(780px, 100vw - 24px); max-height: calc(100dvh - 24px); padding: 0; border: 1px solid var(--ink); border-radius: 34px; background: var(--surface); color: var(--ink); overflow: hidden; box-shadow: 0 8px 0 var(--ink); }
-dialog.picker::backdrop { background: rgb(25 26 35 / .55); backdrop-filter: blur(5px); }
-dialog.picker[open] { animation: sheet .4s var(--ease-out); }
-dialog.picker[open]::backdrop { animation: fade .3s ease-out; }
 @keyframes sheet { from { opacity: 0; transform: translateY(28px) scale(.97); } }
 @keyframes fade { from { opacity: 0; } }
-.picker-inner { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: min(690px, 100dvh - 32px); }
-.picker-inner > header { display: flex; justify-content: space-between; gap: 12px; padding: 24px 24px 16px; }
-.picker-inner h2 { font-size: 1.4rem; margin: 0 0 4px; }
-.picker-inner header p { margin: 0; font-size: .92rem; }
-.picker-map { position: relative; min-height: 0; border-block: 1px solid var(--ink); }
-.picker-map .locate { position: absolute; z-index: 3; left: 12px; top: 12px; box-shadow: 0 3px 0 var(--ink); }
-.picker-inner > footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 24px calc(18px + env(safe-area-inset-bottom)); }
-.picker-inner > footer > div { display: grid; font-size: .9rem; min-width: 0; }
-.picker-inner > footer strong { font-size: 1.15rem; font-weight: 500; }
-@media (max-width: 560px) {
-  dialog.picker { width: 100vw; max-width: 100vw; max-height: 100dvh; height: 100dvh; margin: 0; border-radius: 0; border: 0; box-shadow: none; }
-  .picker-inner { height: 100dvh; }
-}
 
-/* Optional pin, offered while the test runs: inline beside the gauge on desktop, a bottom sheet on phones. */
+/* Optional pin, offered while the test runs: the big test map does the picking; this card confirms.
+   Beside the gauge on desktop, a bar pinned to the bottom of the screen on phones. */
+.tmap.picking .maplibregl-canvas { cursor: crosshair; }
+.tmap.picking .maplibregl-canvas:active { cursor: grabbing; }
 .hl-500 { background: var(--accent); color: var(--ink); padding: 0 6px; border-radius: 6px; font-weight: 700; white-space: nowrap; box-shadow: inset 0 0 0 1.5px var(--ink); }
 .opt-tag { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px; background: var(--ink); color: var(--accent); font: 700 .7rem var(--mono); letter-spacing: .08em; text-transform: uppercase; }
-.picker-inner > footer > .picker-actions { display: flex; align-items: center; gap: 16px; flex: none; }
 .picker-inline { border: 1.5px solid var(--ink); border-radius: var(--r-sm); background: var(--accent-soft); box-shadow: 0 4px 0 var(--ink); overflow: hidden; animation: sheet .4s var(--ease-out); }
-.picker-inline .picker-inner { height: auto; grid-template-rows: auto 170px auto; }
-.picker-inline .picker-inner > header { padding: 14px 14px 12px; }
-.picker-inline h2 { font-size: 1.05rem; }
-.picker-inline .picker-inner > footer { padding: 10px 14px; background: var(--surface); }
-.picker-inline .picker-inner > footer strong { font-size: 1rem; }
+.picker-inner { display: grid; }
+.picker-inner > header { padding: 14px 14px 10px; }
+.picker-inner h2 { font-size: 1.05rem; margin: 0 0 4px; }
+.picker-inner header p { margin: 0; font-size: .92rem; }
+.picker-inner .locate { justify-self: start; margin: 0 14px 14px; box-shadow: 0 3px 0 var(--ink); }
+.picker-inner > footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; background: var(--surface); border-top: 1px solid var(--ink); }
+.picker-inner > footer > div { display: grid; font-size: .9rem; min-width: 0; }
+.picker-inner > footer strong { font-size: 1rem; font-weight: 500; }
+.picker-inner > footer > .picker-actions { display: flex; align-items: center; gap: 16px; flex: none; }
 .picker-inline .btn { padding-block: 8px; }
-dialog.picker.picker-optional { inset: auto 0 0; margin: 0; width: 100vw; max-width: 100vw; height: auto; max-height: 92dvh; border: 0; border-top: 1px solid var(--ink); border-radius: 26px 26px 0 0; box-shadow: none; }
-dialog.picker-optional .picker-inner { height: min(600px, 88dvh); }
-.picker-optional .picker-inner > header, .picker-inline .picker-inner > header { align-items: flex-start; }
-dialog.picker-optional::backdrop { backdrop-filter: none; background: rgb(25 26 35 / .4); }
+.picker-float { position: fixed; z-index: 30; inset: auto 10px calc(10px + env(safe-area-inset-bottom)); border-radius: 22px; }
+.picker-float .picker-inner > header p { font-size: .85rem; }
+.picker-float .opt-tag { margin-bottom: 6px; }
 
 .dmap { position: relative; display: grid; grid-template-columns: 350px minmax(0, 1fr); height: calc(100dvh - var(--header-h)); border-top: 1px solid var(--ink); }
 .dmap-canvas { position: relative; grid-column: 2; grid-row: 1; min-height: 0; }

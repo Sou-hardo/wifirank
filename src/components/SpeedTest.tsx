@@ -335,6 +335,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
   const [pin, setPin] = useState<Pin | null>(null);
   // Set while the optional pin is on offer: resolves the test's location with a pin, or null to use the district.
   const [askPin, setAskPin] = useState<{ resolve: (p: Pin | null) => void; sheet: boolean } | null>(null);
+  const [draft, setDraft] = useState<Pin | null>(null); // the pin being placed on the big map, before it's confirmed
   const [sheet, setSheet] = useState(false); // phones: GO opens the setup form as a bottom sheet
   const [fixedWireless, setFixedWireless] = useState(false);
   const providerFwa = isps.some(i => i.id === isp.id && i.fixedWireless);
@@ -455,8 +456,10 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
     if (full) {
       setEditIsp(false);
       localStorage.setItem('wr_last', JSON.stringify({ isp, conn, at: Date.now(), asOrg: net?.asOrg ?? null }));
-      located = locate().then((p) => p ?? new Promise<Pin | null>((resolve) =>
-        setAskPin({ resolve, sheet: matchMedia('(max-width: 820px)').matches })));
+      located = locate().then((p) => p ?? new Promise<Pin | null>((resolve) => {
+        setDraft(null);
+        setAskPin({ resolve, sheet: matchMedia('(max-width: 820px)').matches });
+      }));
       void located.then((p) => {
         setAskPin(null);
         if (p) { setPin(p); setArea(p.area); setDistrict(districtForArea(p.area) ?? ''); }
@@ -509,12 +512,15 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
   const areaName = AREAS[area] ?? DISTRICT_NAMES[district] ?? '';
   // A comparison with "others" only means something once there are a few of them.
   const peer = saved?.peer && saved.peer.devices >= 3 ? saved.peer : null;
+  const placeDraft = (lng: number, lat: number) => setDraft({ lng, lat, area: nearestArea(lat, lng).slug });
+  const pinCard = askPin && <LocationPicker floating={askPin.sheet} optional={areaName} pick={draft} onPlace={placeDraft}
+    onSkip={() => askPin.resolve(null)} onUse={askPin.resolve} />;
   const spot = !quick && pin ? [pin.lng, pin.lat] as [number, number] : !quick && AREA_COORDS[area] ? [AREA_COORDS[area][1], AREA_COORDS[area][0]] as [number, number] : null;
 
   return (
     <div className={`tester is-${phase}`}>
       <div className="tester-hero">
-        <TestMap phase={phase} stage={stage} mbps={gaugeValue} at={spot} result={local?.down ?? null} areas={areas} />
+        <TestMap phase={phase} stage={stage} mbps={gaugeValue} at={spot} picking={!!askPin} draft={draft && [draft.lng, draft.lat]} onDraft={placeDraft} result={local?.down ?? null} areas={areas} />
         <div className="tester-grid">
           {/* Left: setup, then optional details while the test runs */}
           <div className="tester-col">
@@ -597,8 +603,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
                     <>
                       <p className="eyebrow">While you wait</p>
                       <p className="muted small">Keep this tab open, and pause downloads and streaming on your network for the most accurate result.</p>
-                      {askPin && !askPin.sheet && <LocationPicker open inline optional={areaName} initial={pin} area={area || district}
-                        onClose={() => askPin.resolve(null)} onPick={askPin.resolve} />}
+                      {!askPin?.sheet && pinCard}
                     </>
                   ) : (
                     <div className="done-actions rise">
@@ -692,8 +697,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
         </div>
       )}
 
-      {askPin?.sheet && <LocationPicker open optional={areaName} initial={pin} area={area || district}
-        onClose={() => askPin.resolve(null)} onPick={askPin.resolve} />}
+      {askPin?.sheet && pinCard}
     </div>
   );
 }
