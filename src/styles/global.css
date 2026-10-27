@@ -549,8 +549,8 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 :is(.tmap, .dmap-canvas) .maplibregl-canvas { opacity: 0; transition: opacity .5s ease-out; }
 :is(.tmap, .dmap-canvas).is-ready .maplibregl-canvas { opacity: 1; }
 /* Home map: a still of the opening view (same centre and zoom) shows at once, and the live canvas fades in over it */
-.tmap.tmap { background: var(--bg) url(/map-placeholder.webp) center / 2400px 1500px no-repeat; }
-@media (max-width: 820px) { .tmap.tmap { background-image: url(/map-placeholder-m.webp); background-size: 800px 1000px; } }
+.tmap.tmap { background: var(--bg) image-set(url(/map-hero.webp) 1x, url(/map-hero@2x.webp) 2x) center / 2048px 1024px no-repeat; }
+@media (max-width: 820px) { .tmap.tmap { background-image: url(/map-hero-m@2x.webp); background-size: 900px 1000px; } }
 .maplibregl-ctrl-group { background: var(--surface) !important; border: 1px solid var(--ink); border-radius: 12px !important; overflow: hidden; box-shadow: 0 3px 0 var(--ink) !important; }
 .maplibregl-ctrl-group button { width: 36px; height: 36px; }
 .maplibregl-ctrl-group button + button { border-top: 1px solid var(--line) !important; }
