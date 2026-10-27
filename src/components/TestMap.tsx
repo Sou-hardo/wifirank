@@ -4,7 +4,9 @@ import type { MapArea } from '../lib/mapData';
 type LngLat = [number, number];
 // `picking`: the optional pin is on offer, so the map turns interactive and taps place `draft`.
 type Props = { phase: 'setup' | 'running' | 'saving' | 'done'; stage: string | null; mbps: number | null; at: LngLat | null; result: number | null; areas: MapArea[];
-  picking?: boolean; draft?: LngLat | null; onDraft?: (lng: number, lat: number) => void };
+  picking?: boolean; draft?: LngLat | null; onDraft?: (c: LngLat | null) => void;
+  // Set while picking: drops a pin at a screen point if it lands on the map (dragging the pin out of the card).
+  dropRef?: { current: ((x: number, y: number) => boolean) | null } };
 
 // ponytail: illustrative spot for Cloudflare's Dhaka edge; the real site isn't published.
 const EDGE: LngLat = [90.3925, 23.7639];
@@ -40,7 +42,7 @@ function padding(map: HTMLElement) {
 
 // The stage the speed test plays on: flies to the tester, streams packets to and from the edge,
 // sways while measuring, then lands a pin coloured by the result.
-export default function TestMap({ phase, stage, mbps, at, result, areas, picking = false, draft = null, onDraft }: Props) {
+export default function TestMap({ phase, stage, mbps, at, result, areas, picking = false, draft = null, onDraft, dropRef }: Props) {
   const el = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
   const core = useRef<any>(null);
@@ -158,15 +160,27 @@ export default function TestMap({ phase, stage, mbps, at, result, areas, picking
     map.easeTo({ ...(at ? frame([at], 13.5) : {}), pitch: 0, bearing: 0, duration: calm() ? 0 : 1200 });
     const node = Object.assign(document.createElement('div'), { className: 'pin' });
     const pin = new core.current.maplibregl.Marker({ element: node, draggable: true, anchor: 'bottom' });
-    pin.on('dragend', () => { const { lng, lat } = pin.getLngLat(); onDraftRef.current?.(lng, lat); });
+    // Tapping the pin lifts it off again; a drag also ends in a click, so ignore that one.
+    let dragged = false;
+    pin.on('dragstart', () => { dragged = true; });
+    pin.on('dragend', () => { const { lng, lat } = pin.getLngLat(); onDraftRef.current?.([lng, lat]); });
+    node.addEventListener('click', (e) => { e.stopPropagation(); if (!dragged) onDraftRef.current?.(null); dragged = false; });
     pinRef.current = pin;
-    const click = (e: any) => onDraftRef.current?.(e.lngLat.lng, e.lngLat.lat);
+    const click = (e: any) => onDraftRef.current?.([e.lngLat.lng, e.lngLat.lat]);
+    if (dropRef) dropRef.current = (x, y) => {
+      const r = el.current!.getBoundingClientRect(), under = document.elementFromPoint(x, y);
+      if (!under || !el.current!.contains(under)) return false;
+      const { lng, lat } = map.unproject([x - r.left, y - r.top]);
+      onDraftRef.current?.([lng, lat]);
+      return true;
+    };
     map.on('click', click);
     return () => {
       handlers.forEach((h) => h.disable());
       el.current?.classList.remove('picking');
       map.off('click', click);
       pin.remove(); pinRef.current = null;
+      if (dropRef) dropRef.current = null;
     };
   }, [ready, picking]);
 

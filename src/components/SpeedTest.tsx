@@ -336,6 +336,7 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
   // Set while the optional pin is on offer: resolves the test's location with a pin, or null to use the district.
   const [askPin, setAskPin] = useState<{ resolve: (p: Pin | null) => void; sheet: boolean } | null>(null);
   const [draft, setDraft] = useState<Pin | null>(null); // the pin being placed on the big map, before it's confirmed
+  const dropRef = useRef<((x: number, y: number) => boolean) | null>(null);
   const [sheet, setSheet] = useState(false); // phones: GO opens the setup form as a bottom sheet
   const [fixedWireless, setFixedWireless] = useState(false);
   const providerFwa = isps.some(i => i.id === isp.id && i.fixedWireless);
@@ -514,13 +515,15 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
   const peer = saved?.peer && saved.peer.devices >= 3 ? saved.peer : null;
   const placeDraft = (lng: number, lat: number) => setDraft({ lng, lat, area: nearestArea(lat, lng).slug });
   const pinCard = askPin && <LocationPicker floating={askPin.sheet} optional={areaName} pick={draft} onPlace={placeDraft}
+    onDrop={(x, y) => dropRef.current?.(x, y) ?? false}
     onSkip={() => askPin.resolve(null)} onUse={askPin.resolve} />;
   const spot = !quick && pin ? [pin.lng, pin.lat] as [number, number] : !quick && AREA_COORDS[area] ? [AREA_COORDS[area][1], AREA_COORDS[area][0]] as [number, number] : null;
 
   return (
     <div className={`tester is-${phase}`}>
       <div className="tester-hero">
-        <TestMap phase={phase} stage={stage} mbps={gaugeValue} at={spot} picking={!!askPin} draft={draft && [draft.lng, draft.lat]} onDraft={placeDraft} result={local?.down ?? null} areas={areas} />
+        <TestMap phase={phase} stage={stage} mbps={gaugeValue} at={spot} picking={!!askPin} draft={draft && [draft.lng, draft.lat]} dropRef={dropRef}
+          onDraft={(c) => (c ? placeDraft(c[0], c[1]) : setDraft(null))} result={local?.down ?? null} areas={areas} />
         <div className="tester-grid">
           {/* Left: setup, then optional details while the test runs */}
           <div className="tester-col">
