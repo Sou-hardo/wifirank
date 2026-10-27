@@ -9,7 +9,7 @@ import TestMap from './TestMap';
 import { AREA_COORDS, nearestArea } from '../lib/areas';
 import type { MapArea } from '../lib/mapData';
 import { burst } from '../scripts/fx';
-import { sustainedMbps } from '../lib/sustained';
+import { measure } from '../lib/measure';
 import { providerChoice, type Detection } from '../lib/detection';
 
 type Pkg = { name: string | null; mbps: number; bdt: number };
@@ -36,21 +36,6 @@ const remember = (result: Finished | null) => {
   } catch {} // A blocked or full store must not interrupt a test or review.
 };
 
-const MEASUREMENTS = [
-  { type: 'latency', numPackets: 1 },
-  { type: 'download', bytes: 1e5, count: 1, bypassMinDuration: true },
-  { type: 'latency', numPackets: 20 },
-  { type: 'download', bytes: 1e5, count: 9 },
-  { type: 'download', bytes: 1e6, count: 8 },
-  { type: 'upload', bytes: 1e5, count: 8 },
-  { type: 'upload', bytes: 1e6, count: 6 },
-  { type: 'download', bytes: 1e7, count: 6 },
-  { type: 'upload', bytes: 1e7, count: 4 },
-  { type: 'download', bytes: 2.5e7, count: 4 },
-  { type: 'upload', bytes: 2.5e7, count: 4 },
-  { type: 'download', bytes: 1e8, count: 3 },
-  { type: 'upload', bytes: 5e7, count: 3 },
-];
 
 const CONN = [
   { value: 'wifi5', label: '5 GHz', icon: 'M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0M12 20h.01' },
@@ -68,19 +53,14 @@ const deviceId = () => {
 const num = (f: () => number | undefined) => {
   try { const v = f(); return typeof v === 'number' && Number.isFinite(v) ? v : null; } catch { return null; }
 };
-const read = (r: any): Metrics => ({
-  down: num(() => sustainedMbps(r.getDownloadBandwidthPoints()) ?? undefined),
-  up: num(() => sustainedMbps(r.getUploadBandwidthPoints()) ?? undefined),
-  ping: num(() => r.getUnloadedLatency()),
-  jitter: num(() => r.getUnloadedJitter()),
-  loss: num(() => r.getPacketLoss()),
-});
-function runEngine(config: object, onProgress: (m: Metrics, stage: Stage) => void) {
-  return new Promise<Metrics>((resolve) => {
-    const t = new SpeedTestEngine(config as any);
-    t.onResultsChange = ({ type }) => onProgress(read(t.results), type as Stage);
-    t.onFinish = (r) => resolve(read(r));
-    t.onError = (e) => console.warn('speedtest:', e); // single failed measurements are non-fatal
+// Packet loss needs WebRTC through a TURN server, which only Cloudflare's engine does. Its packets go out
+// in the first second, during the ping stage, so they don't compete with the throughput streams.
+function packetLoss(creds: { username: string; credential: string }) {
+  return new Promise<number | null>((resolve) => {
+    const t = new SpeedTestEngine({ measurements: [{ type: 'packetLoss', numPackets: 1e3, responsesWaitTime: 3000 }],
+      turnServerUser: creds.username, turnServerPass: creds.credential } as any);
+    t.onFinish = (r) => resolve(num(() => r.getPacketLoss()));
+    t.onError = (e) => { console.warn('speedtest:', e); resolve(null); };
   });
 }
 
@@ -484,11 +464,8 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
     setPhase('running');
 
     const creds = await fetch('/api/turn-creds').then((r) => (r.ok ? r.json() : null)).catch(() => null);
-    const m = [...MEASUREMENTS];
-    if (creds) m.splice(6, 0, { type: 'packetLoss', numPackets: 1e3, responsesWaitTime: 3000 } as any);
-    const progress = (x: Metrics, s: Stage) => { setLive(x); setStage(s); };
-    let i = await runEngine({ measurements: m, ...(creds && { turnServerUser: creds.username, turnServerPass: creds.credential }) }, progress);
-    if (!creds) i = { ...i, loss: null };
+    const loss = creds ? packetLoss(creds) : Promise.resolve(null);
+    const i: Metrics = { ...(await measure((x, st) => { setLive(x); setStage(st); })), loss: await loss };
     setLocal(i);
     if (!full) { finish(i, null, null); return; }
 
