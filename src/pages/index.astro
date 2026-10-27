@@ -5,17 +5,15 @@ import SpeedTest from '../components/SpeedTest';
 import RankTable from '../components/RankTable.astro';
 import { sql } from '../lib/db';
 import { leaderboard, MIN_DEVICES } from '../lib/stats';
-import { mapData } from '../lib/mapData';
 
 const districtSlugs = DISTRICTS.map(d => d.slug);
 const bySlug = new Map(PROVIDERS.map(i => [i.slug, i]));
-const [isps, [totals], board, map] = await Promise.all([
+const [isps, [totals], board] = await Promise.all([
   sql<{ id: number; name: string; slug: string; aliases: string[] }[]>`select id, name, slug, aliases from isps where approved order by id`,
   sql<{ tests: number; devices: number; isps: number; areas: number }[]>`
     select count(*)::int as tests, count(distinct device_id)::int as devices, count(distinct isp_id)::int as isps, count(distinct area)::int as areas
     from tests where flag is null`,
   leaderboard(sql, {}),
-  mapData(sql),
 ]);
 const top = board.filter((r) => r.devices >= MIN_DEVICES).slice(0, 8);
 
@@ -36,7 +34,7 @@ const headline = ['How', 'fast', 'is', 'your', 'internet,', 'really?'];
 ---
 <Base schema={schema} jsonAlt="/api/stats" dither={false}>
   <section class="hero">
-    <SpeedTest client:load providers={isps.map(({ id, name, aliases, slug }) => [id, name, aliases.filter(a => a !== name), (bySlug.get(slug)?.districts ?? []).map(d => districtSlugs.indexOf(d)).join(','), bySlug.get(slug)?.nationwide ? 1 : 0, bySlug.get(slug)?.tech === 'fwa' ? 1 : 0, slug])} districtSlugs={districtSlugs} areas={map.areas}>
+    <SpeedTest client:load providers={isps.map(({ id, name, aliases, slug }) => [id, name, aliases.filter(a => a !== name), (bySlug.get(slug)?.districts ?? []).map(d => districtSlugs.indexOf(d)).join(','), bySlug.get(slug)?.nationwide ? 1 : 0, bySlug.get(slug)?.tech === 'fwa' ? 1 : 0, slug])} districtSlugs={districtSlugs}>
       <h1 aria-label="How fast is your internet, really?">
         {headline.map((w, i) => <><span aria-hidden="true" style={`--i:${i}`}>{w}</span>{i === 1 || i === 3 ? <br /> : ' '}</>)}
       </h1>

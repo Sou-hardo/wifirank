@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import type { MapArea } from '../lib/mapData';
 
 type LngLat = [number, number];
-type Props = { phase: 'setup' | 'running' | 'saving' | 'done'; stage: string | null; mbps: number | null; at: LngLat | null; result: number | null; areas: MapArea[] };
+// `picking`: the optional pin is on offer, so the map turns interactive and taps place `draft`.
+type Props = { phase: 'setup' | 'running' | 'saving' | 'done'; stage: string | null; mbps: number | null; at: LngLat | null; result: number | null;
+  picking?: boolean; draft?: LngLat | null; onDraft?: (c: LngLat | null) => void;
+  // Set while picking: drops a pin at a screen point if it lands on the map (dragging the pin out of the card).
+  dropRef?: { current: ((x: number, y: number) => boolean) | null } };
 
 // ponytail: illustrative spot for Cloudflare's Dhaka edge; the real site isn't published.
 const EDGE: LngLat = [90.3925, 23.7639];
@@ -38,12 +41,15 @@ function padding(map: HTMLElement) {
 
 // The stage the speed test plays on: flies to the tester, streams packets to and from the edge,
 // sways while measuring, then lands a pin coloured by the result.
-export default function TestMap({ phase, stage, mbps, at, result, areas }: Props) {
+export default function TestMap({ phase, stage, mbps, at, result, picking = false, draft = null, onDraft, dropRef }: Props) {
   const el = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
   const core = useRef<any>(null);
   const me = useRef<{ marker: any; node: HTMLDivElement } | null>(null);
   const [ready, setReady] = useState(false);
+  const pinRef = useRef<any>(null);
+  const onDraftRef = useRef(onDraft);
+  onDraftRef.current = onDraft;
   const live = useRef({ stage, mbps });
   live.current = { stage, mbps };
 
@@ -62,11 +68,6 @@ export default function TestMap({ phase, stage, mbps, at, result, areas }: Props
       const map = c.createMap(el.current, { interactive: false, zoom: 11.3 });
       mapRef.current = map;
       map.on('load', () => {
-        map.addSource('areas', { type: 'geojson', data: fc(areas.filter((a) => a.devices > 0).map((a) => pt([a.lng, a.lat], a))) as any });
-        map.addLayer({ id: 'areas', type: 'circle', source: 'areas', paint: {
-          'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, ['interpolate', ['linear'], ['sqrt', ['get', 'devices']], 1, 4, 15, 12], 14, ['interpolate', ['linear'], ['sqrt', ['get', 'devices']], 1, 9, 15, 28]],
-          'circle-color': c.colorExpr('local_down'), 'circle-opacity': 0.55, 'circle-stroke-width': 1.5, 'circle-stroke-color': '#ffffff',
-          'circle-opacity-transition': { duration: 600 } } });
         map.addSource('arc', { type: 'geojson', data: fc([]) as any });
         map.addLayer({ id: 'arc', type: 'line', source: 'arc', layout: { 'line-cap': 'round' },
           paint: { 'line-color': '#191a23', 'line-width': 1.6, 'line-dasharray': [1, 2.5], 'line-opacity': 0.7 } });
@@ -98,10 +99,9 @@ export default function TestMap({ phase, stage, mbps, at, result, areas }: Props
   // The run: fly in at an angle, then sway and stream packets until the engine finishes.
   useEffect(() => {
     const map = mapRef.current;
-    if (!ready || !map || !at || phase !== 'running') return;
+    if (!ready || !map || !at || phase !== 'running' || picking) return;
     const path = arc(EDGE, at), still = calm();
     map.getSource('arc').setData(fc([{ type: 'Feature', geometry: { type: 'LineString', coordinates: path }, properties: {} }]));
-    map.setPaintProperty('areas', 'circle-opacity', 0.25);
     me.current!.marker.setLngLat(at).addTo(map);
     let swaying = false, sway = 0;
     // Framed flat, then tilted: the near half grows under pitch, so back off half a zoom to keep both ends clear.
@@ -138,14 +138,59 @@ export default function TestMap({ phase, stage, mbps, at, result, areas }: Props
       me.current!.node.classList.remove('busy');
       map.getSource('packets').setData(fc([]));
     };
-  }, [ready, phase === 'running', at?.[0], at?.[1]]); // at can arrive mid-run (geolocation or the optional pin)
+  }, [ready, phase === 'running', picking, at?.[0], at?.[1]]); // at can arrive mid-run (geolocation or the optional pin)
+
+  // Picking: the show pauses, the map goes flat and interactive, and a tap or drag places the pin.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!ready || !map || !picking) return;
+    const handlers = [map.dragPan, map.scrollZoom, map.touchZoomRotate, map.doubleClickZoom, map.keyboard];
+    handlers.forEach((h) => h.enable());
+    map.touchZoomRotate.disableRotation();
+    el.current!.classList.add('picking');
+    me.current!.marker.remove();
+    map.getSource('arc').setData(fc([]));
+    map.easeTo({ ...(at ? frame([at], 13.5) : {}), pitch: 0, bearing: 0, duration: calm() ? 0 : 1200 });
+    const node = Object.assign(document.createElement('div'), { className: 'pin' });
+    const pin = new core.current.maplibregl.Marker({ element: node, draggable: true, anchor: 'bottom' });
+    // Tapping the pin lifts it off again; a drag also ends in a click, so ignore that one.
+    let dragged = false;
+    pin.on('dragstart', () => { dragged = true; });
+    pin.on('dragend', () => { const { lng, lat } = pin.getLngLat(); onDraftRef.current?.([lng, lat]); });
+    node.addEventListener('click', (e) => { e.stopPropagation(); if (!dragged) onDraftRef.current?.(null); dragged = false; });
+    pinRef.current = pin;
+    const click = (e: any) => onDraftRef.current?.([e.lngLat.lng, e.lngLat.lat]);
+    if (dropRef) dropRef.current = (x, y) => {
+      const r = el.current!.getBoundingClientRect(), under = document.elementFromPoint(x, y);
+      if (!under || !el.current!.contains(under)) return false;
+      const { lng, lat } = map.unproject([x - r.left, y - r.top]);
+      onDraftRef.current?.([lng, lat]);
+      return true;
+    };
+    map.on('click', click);
+    return () => {
+      handlers.forEach((h) => h.disable());
+      el.current?.classList.remove('picking');
+      map.off('click', click);
+      pin.remove(); pinRef.current = null;
+      if (dropRef) dropRef.current = null;
+    };
+  }, [ready, picking]);
+
+  // Follow the draft pin; bring it into view if it was placed off-screen (Use my location).
+  useEffect(() => {
+    const map = mapRef.current, pin = pinRef.current;
+    if (!map || !pin) return;
+    if (!draft) return void pin.remove();
+    pin.setLngLat(draft).addTo(map);
+    if (!map.getBounds().contains(draft)) map.easeTo({ ...frame([draft], 15), duration: calm() ? 0 : 1200 });
+  }, [ready, picking, draft?.[0], draft?.[1]]);
 
   // Landing: settle top-down over the tester and drop a pin in the result's speed colour.
   useEffect(() => {
     const map = mapRef.current;
     if (!ready || !map || !at || phase !== 'done') return;
     map.getSource('arc').setData(fc([]));
-    map.setPaintProperty('areas', 'circle-opacity', 0.55);
     map.easeTo({ ...frame([at], 13.2), pitch: 0, duration: calm() ? 0 : 1800 });
     const { node } = me.current!;
     node.style.setProperty('--pin', core.current.binColor('local_down', result));

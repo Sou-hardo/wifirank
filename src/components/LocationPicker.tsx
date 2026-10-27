@@ -1,120 +1,112 @@
-import { useEffect, useRef, useState } from 'react';
-import { AREA_COORDS, nearestArea } from '../lib/areas';
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
+import { nearestArea } from '../lib/areas';
 import { AREAS, DISTRICT_NAMES } from '../lib/options';
 
 type Pick = { lat: number; lng: number; area: string };
-// `optional` is the area the test already counts for; set, the picker is a skippable extra shown while the test runs.
-type Props = { open: boolean; initial: Pick | null; area: string; onClose: () => void; onPick: (p: Pick) => void; inline?: boolean; optional?: string };
+// `optional` is the area the test already counts for; skipping keeps it.
+// `onDrop` places the pin at a screen point if it's over the map, and says whether it was.
+type Props = { pick: Pick | null; optional: string; onPlace: (lng: number, lat: number) => void; onDrop: (x: number, y: number) => boolean;
+  onSkip: () => void; onUse: (p: Pick) => void; floating?: boolean };
 
-// Native <dialog> with a tap-to-pin map. The nearest listed area is filled in for the user;
-// the pin itself is what we store (rounded to ~500 m on the server).
-export default function LocationPicker({ open, initial, area, onClose, onPick, inline = false, optional }: Props) {
-  const dialog = useRef<HTMLDialogElement>(null);
-  const el = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<any>(null);
-  const markerRef = useRef<any>(null);
-  const [pick, setPick] = useState<Pick | null>(initial);
-  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
+const HAND = '<svg viewBox="0 0 24 24" width="46" height="46" fill="#fff" stroke="#191a23" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v4M14 10V4a2 2 0 0 0-4 0v2M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>';
+
+// A hand lifts the pin out of the card and sets it down on the map, so the gesture explains itself.
+function playHint(from: HTMLElement, floating: boolean) {
+  const map = document.querySelector('.tmap')?.getBoundingClientRect();
+  if (!map || matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};
+  const a = from.getBoundingClientRect(), card = from.closest('.picker')!.getBoundingClientRect();
+  const x0 = a.left + a.width / 2, y0 = a.bottom;
+  // Desktop: just right of the card. Phone: the middle of the map above the docked card.
+  const x1 = floating ? map.left + map.width * 0.55 : Math.min(card.right + 140, map.right - 80);
+  const y1 = floating ? Math.max(map.top + 80, Math.min(map.bottom, card.top) - 120) : card.top + card.height * 0.3;
+  const ghost = Object.assign(document.createElement('div'), { className: 'pin-hint', innerHTML: `<i class="pin-shape"></i><span>${HAND}</span>` });
+  document.body.append(ghost);
+  const at = (x: number, y: number, s = 1) => `translate(${x}px, ${y}px) scale(${s})`;
+  const run = ghost.animate([
+    { transform: at(x0, y0), opacity: 0 },
+    { transform: at(x0, y0), opacity: 1, offset: 0.12 },
+    { transform: at(x0, y0 - 8, 1.08), offset: 0.22 },
+    { transform: at(x1, y1 - 8, 1.08), offset: 0.68, easing: 'ease-in' },
+    { transform: at(x1, y1), opacity: 1, offset: 0.76 },
+    { transform: at(x1, y1), opacity: 0 },
+  ], { duration: 2600, delay: 500, iterations: 2, easing: 'cubic-bezier(.45,0,.25,1)', fill: 'both' });
+  ghost.querySelector('span')!.animate([
+    { translate: '0 0', opacity: 1, offset: 0.76 },
+    { translate: '14px -18px', opacity: 0 },
+  ], { duration: 2600, delay: 500, iterations: 2, fill: 'both' });
+  run.finished.then(() => ghost.remove(), () => ghost.remove());
+  return () => run.cancel();
+}
+
+// Controls for pinning your spot on the big test map: drag the pin out of the card, or tap the map.
+// Rounded to ~500 m on the server.
+export default function LocationPicker({ pick, optional, onPlace, onDrop, onSkip, onUse, floating = false }: Props) {
   const [geo, setGeo] = useState('');
+  const token = useRef<HTMLButtonElement>(null);
+  const stopHint = useRef(() => {});
 
   useEffect(() => {
-    const d = dialog.current;
-    if (!d) return;
-    if (open && !d.open) d.showModal();
-    if (!open && d.open) d.close();
-  }, [open]);
+    const t = setTimeout(() => { if (token.current) stopHint.current = playHint(token.current, floating); }, 400);
+    const stop = () => stopHint.current();
+    addEventListener('pointerdown', stop, { once: true });
+    return () => { clearTimeout(t); stop(); removeEventListener('pointerdown', stop); };
+  }, []);
 
-  const place = (lng: number, lat: number, fly = false) => {
-    const { slug } = nearestArea(lat, lng);
-    setPick({ lat, lng, area: slug });
-    markerRef.current?.setLngLat([lng, lat]).addTo(mapRef.current);
-    if (fly) mapRef.current?.flyTo({ center: [lng, lat], zoom: 15, duration: 1200 });
+  // Drag the pin out of the card; it follows the pointer by its tip and lands where it's let go.
+  const drag = (e: ReactPointerEvent) => {
+    e.preventDefault();
+    const ghost = Object.assign(document.createElement('div'), { className: 'pin-hint dragging', innerHTML: '<i class="pin-shape"></i>' });
+    document.body.append(ghost);
+    const move = (ev: PointerEvent) => { ghost.style.transform = `translate(${ev.clientX}px, ${ev.clientY - 12}px) scale(1.1)`; };
+    move(e.nativeEvent);
+    const end = (ev: PointerEvent) => {
+      removeEventListener('pointermove', move); removeEventListener('pointerup', end); removeEventListener('pointercancel', end);
+      ghost.remove();
+      if (ev.type === 'pointerup') onDrop(ev.clientX, ev.clientY - 12);
+    };
+    addEventListener('pointermove', move); addEventListener('pointerup', end); addEventListener('pointercancel', end);
   };
-
-  useEffect(() => {
-    if (!open || mapRef.current) return;
-    let cancelled = false;
-    import('./mapCore').then(({ createMap, maplibregl }) => {
-      if (cancelled || !el.current) return;
-      const start = initial ? [initial.lng, initial.lat] : AREA_COORDS[area] ? [AREA_COORDS[area][1], AREA_COORDS[area][0]] : null;
-      const map = createMap(el.current, start ? { center: start as [number, number], zoom: area in DISTRICT_NAMES ? 10 : 14 } : {});
-      mapRef.current = map;
-      const dot = document.createElement('div');
-      dot.className = 'pin';
-      markerRef.current = new maplibregl.Marker({ element: dot, draggable: true, anchor: 'bottom' });
-      markerRef.current.on('dragend', () => {
-        const { lng, lat } = markerRef.current.getLngLat();
-        place(lng, lat);
-      });
-      if (initial) markerRef.current.setLngLat([initial.lng, initial.lat]).addTo(map);
-      map.on('click', (e: any) => place(e.lngLat.lng, e.lngLat.lat));
-      map.on('load', () => setStatus('ready'));
-      map.on('error', (e: any) => console.warn('map:', e?.error?.message ?? e));
-      // Tile or sprite hiccups also emit 'error'; only a map that never loads is fatal.
-      setTimeout(() => setStatus((s) => (s === 'loading' ? 'error' : s)), 20000);
-    }).catch(() => setStatus('error'));
-    return () => { cancelled = true; };
-  }, [open]);
-
-  // The dialog animates in; MapLibre needs a resize once it has real dimensions.
-  useEffect(() => { if (open) setTimeout(() => mapRef.current?.resize(), 250); }, [open]);
 
   const locate = () => {
     setGeo('Finding you…');
     navigator.geolocation.getCurrentPosition(
-      (p) => { setGeo(''); place(p.coords.longitude, p.coords.latitude, true); },
-      () => setGeo('Couldn’t get your location. Tap the map instead.'),
+      (p) => { setGeo(''); onPlace(p.coords.longitude, p.coords.latitude); },
+      () => setGeo('Location is off. Tap the map.'),
       { enableHighAccuracy: true, timeout: 10000 },
     );
   };
 
   const far = pick && nearestArea(pick.lat, pick.lng).km > (pick.area in DISTRICT_NAMES ? 80 : 4);
 
-  const hl = <span className="hl-500">about 500&nbsp;m</span>;
-  const inner = (
-    <div className="picker-inner">
-      <header>
-        <div>
-          {optional && <span className="opt-tag"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Optional</span>}
-          <h2 id="picker-title">{optional ? 'Pin your spot for a sharper map' : 'Where are you testing from?'}</h2>
-          <p className="muted">{optional
-            ? <>Tap the map or drag the pin. We round it to {hl}. Skip it and your test counts for {optional}.</>
-            : <>Tap your district or Dhaka neighbourhood. Drag the pin to adjust. We round it to {hl}.</>}</p>
-        </div>
-        {!inline && <button type="button" className="btn btn-ghost btn-sm" onClick={onClose} aria-label={optional ? 'Skip' : 'Close'}>✕</button>}
-      </header>
-      <div className="picker-map" ref={el}>
-        {status === 'loading' && <div className="map-msg">Loading map…</div>}
-        {status === 'error' && <div className="map-msg">The map couldn’t load. Allow location access and try again.</div>}
-        <button type="button" className="btn btn-sm locate" onClick={locate}>
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg>
-          Use my location
-        </button>
-      </div>
-      <footer>
-        <div aria-live="polite">
-          {pick ? (
-            <>
-              <span className="muted">Nearest listed location</span>
-              <strong>{AREAS[pick.area]}</strong>
-              {far && <small className="muted">You’re outside our listed areas. We’ll use the closest one.</small>}
-            </>
-          ) : (
-            <span className="muted">{geo || 'No pin yet: tap the map.'}</span>
-          )}
-        </div>
-        <div className="picker-actions">
-          {optional && <button type="button" className="link-btn muted" onClick={onClose}>Skip</button>}
-          <button type="button" className="btn btn-primary" disabled={!pick} onClick={() => pick && onPick(pick)}>{optional ? 'Use this pin' : 'Use this location'}</button>
-        </div>
-      </footer>
-    </div>
-  );
-
-  if (inline) return <section className="picker picker-inline" aria-labelledby="picker-title">{inner}</section>;
   return (
-    <dialog ref={dialog} className={`picker ${optional ? 'picker-optional' : ''}`} onClose={onClose} onClick={(e) => e.target === dialog.current && onClose()} aria-labelledby="picker-title">
-      {inner}
-    </dialog>
+    <section className={`picker picker-inline ${floating ? 'picker-float' : ''}`} aria-labelledby="picker-title">
+      <div className="picker-inner">
+        <header>
+          <button type="button" ref={token} className={`pin-token ${pick ? 'placed' : ''}`} onPointerDown={drag}
+            aria-label="Drag this pin onto the map"><i className="pin-shape" /></button>
+          <div>
+            <h2 id="picker-title">Pin your spot <span className="opt-tag">Optional</span></h2>
+            <p className="muted">Drag the pin onto the map, or tap where you are. Rounded to <span className="hl-500">~500&nbsp;m</span>.</p>
+            <button type="button" className="link-btn locate" onClick={locate}>Use my location</button>
+          </div>
+        </header>
+        <footer>
+          <div aria-live="polite">
+            {pick ? (
+              <>
+                <strong>{AREAS[pick.area]}</strong>
+                <small className="muted">{far ? 'Outside our areas: we’ll use the closest.' : 'Tap the pin to remove it.'}</small>
+              </>
+            ) : (
+              <span className="muted">{geo || `No pin: counts for ${optional}.`}</span>
+            )}
+          </div>
+          <div className="picker-actions">
+            <button type="button" className="link-btn muted" onClick={onSkip}>Skip</button>
+            <button type="button" className="btn btn-primary" disabled={!pick} onClick={() => pick && onUse(pick)}>Use pin</button>
+          </div>
+        </footer>
+      </div>
+    </section>
   );
 }
