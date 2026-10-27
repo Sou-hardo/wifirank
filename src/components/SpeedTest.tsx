@@ -380,6 +380,9 @@ export default function SpeedTest({ providers, districtSlugs, areas, children }:
     if (provider) { setIsp({ id: provider.id, name: provider.name }); choiceTouched.current = true; }
     if (Object.hasOwn(AREAS, requestedArea)) { setArea(requestedArea); setDistrict(districtForArea(requestedArea) ?? ''); }
     if (provider || Object.hasOwn(AREAS, requestedArea)) return;
+    // Only Back/Forward or a reload brings the last run back; following a link home starts fresh.
+    const nav = (performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined)?.type;
+    if (nav !== 'back_forward' && nav !== 'reload') return void remember(null);
     try {
       const last: Finished = JSON.parse(sessionStorage.getItem(SESSION_KEY) ?? 'null');
       if (last && Number.isFinite(last.at) && Date.now() >= last.at && Date.now() - last.at < 30 * 60 * 1000 && last.local && last.isp && typeof last.area === 'string') {
