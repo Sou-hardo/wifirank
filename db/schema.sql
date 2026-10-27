@@ -9,7 +9,7 @@ create table if not exists isps (
   created_at timestamptz not null default now()
 );
 
--- Speeds in Mbps, latency/jitter in ms, loss as a 0..1 ratio. Null = not measured.
+-- Speeds in Mbps, latency in ms, loss as a 0..1 ratio. Null = not measured.
 create table if not exists tests (
   id bigserial primary key,
   device_id uuid not null,
@@ -21,7 +21,9 @@ create table if not exists tests (
   plan text,
   price text, -- monthly bill in ৳ (early rows hold range keys like '800-1200')
   -- Measured against Cloudflare's Dhaka edge (the domestic path)
-  local_down real, local_up real, local_ping real, local_jitter real, local_loss real,
+  local_down real, local_up real, local_ping real,
+  local_jitter real, -- legacy values remain for historical records; new tests do not populate or publish this field
+  local_loss real,
   ip_hash text not null,
   asn int,
   as_org text,

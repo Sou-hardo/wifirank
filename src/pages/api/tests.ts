@@ -19,7 +19,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (!(b.connection in CONNECTIONS)) return bad('Pick a connection type');
   const plan = b.plan in PLANS ? b.plan : null;
   const l = b.local ?? {};
-  const local = [num(l.down, 1e4), num(l.up, 1e4), num(l.ping, 1e4), num(l.jitter, 1e4), num(l.loss, 1)];
+  const local = [num(l.down, 1e4), num(l.up, 1e4), num(l.ping, 1e4), num(l.loss, 1)];
   if (local[0] == null) return bad('No speed results');
 
   const ipHash = hashIp(clientAddress);
@@ -52,10 +52,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const district = districtForArea(b.area);
   const [row] = await sql`
     insert into tests (device_id, isp_id, area, lat, lng, connection, plan,
-      local_down, local_up, local_ping, local_jitter, local_loss,
+      local_down, local_up, local_ping, local_loss,
       ip_hash, asn, as_org, country, flag, district, access_type)
     values (${b.deviceId}, ${ispId}, ${b.area}, ${grid(b.lat, 20, 27)}, ${grid(b.lng, 88, 93)}, ${b.connection}, ${plan},
-      ${local[0]}, ${local[1]}, ${local[2]}, ${local[3]}, ${local[4]},
+      ${local[0]}, ${local[1]}, ${local[2]}, ${local[3]},
       ${ipHash}, ${net.asn}, ${net.as_org}, ${net.country}, ${flag}, ${district}, ${accessType})
     returning id`;
   // How this result compares with everyone else on the same ISP in the same area.
