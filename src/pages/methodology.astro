@@ -15,12 +15,12 @@ const schema = [
 <Base title="How WifiRank measures and ranks ISPs"
   description="How WifiRank tests internet speed in Dhaka, what the test does and does not measure, how results are checked for abuse, and how provider rankings are calculated."
   schema={schema}>
-  <article class="wrap prose" style="padding-top:clamp(28px,5vw,56px);max-width:780px">
+  <article class="wrap prose intro">
     <h1>How it works</h1>
     <p class="lede">WifiRank exists because ISP reviews in Bangladesh contradict each other. We replace opinions with measurements, and we show exactly how those measurements are made.</p>
   </article>
 
-  <section class="wrap block" style="padding-top:0">
+  <section class="wrap block measure">
     <div class="sec-head reveal">
       <h2><span class="hl">What we measure</span></h2>
       <p>Speed, responsiveness and performance during peak hours help tell the full story.</p>
@@ -61,9 +61,9 @@ const schema = [
     </div>
   </section>
 
-  <article class="wrap prose" style="max-width:780px">
+  <article class="wrap prose">
     <h2 class="reveal"><span class="hl">How the speed test runs</span></h2>
-    <p>The test runs in your browser against Cloudflare’s server in Dhaka, the same way Fast.com works: several connections at once, so your line fills up the way it does in real use. We record download and upload speed (Mbps), ping (round-trip latency, ms). Packet loss is measured when available.</p>
+    <p>The test runs in your browser against Cloudflare’s server in Dhaka, the same way Fast.com works: several connections at once, so your line fills up the way it does in real use. We record download and upload speed (Mbps), and ping (round-trip latency, ms). Packet loss is measured when available.</p>
     <p><strong>This is the domestic path.</strong> It reflects how you reach content served from inside Bangladesh, which includes the local caches most big sites use. It does not measure speed to servers abroad, so a provider that looks fast here can still be slow for overseas games, calls or downloads.</p>
     <p>Download uses six connections and upload four. The start of each is left out, because a connection starts slow while it ramps up, and the speed it settles at is what a download or video call actually gets. Ping is the median of ten round trips before any load.</p>
 
@@ -104,7 +104,7 @@ const schema = [
     <p>All aggregated results are available as JSON at <a href="/api/stats"><code>/api/stats</code></a> and <a href="/api/map"><code>/api/map</code></a>, free to reuse with attribution (CC BY 4.0). AI agents can start at <a href="/llms.txt"><code>/llms.txt</code></a>.</p>
   </article>
 
-  <section class="wrap block">
+  <section class="wrap block questions">
     <div class="sec-head reveal">
       <h2><span class="hl">Questions</span></h2>
       <p>What the numbers mean, and how we keep them honest.</p>
@@ -136,6 +136,11 @@ const schema = [
   </section>
 </Base>
 <style>
+  /* One left edge for the whole page: prose keeps a readable measure but lines up with the full-width sections. */
+  .prose > * { max-width: 760px; }
+  .intro { padding-top: clamp(28px, 5vw, 56px); }
+  .measure { padding-top: clamp(32px, 5vw, 56px); padding-bottom: clamp(8px, 2vw, 24px); }
+  .questions { padding-bottom: clamp(24px, 4vw, 48px); }
   .prose h2 { margin-top: 2.2em; }
   .prose p, .prose li, .prose dd { color: var(--text-2); }
   .prose li { margin-bottom: .5em; }
