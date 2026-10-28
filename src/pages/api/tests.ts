@@ -23,11 +23,6 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (local[0] == null) return bad('No speed results');
 
   const ipHash = hashIp(clientAddress);
-  const [recent] = await sql`
-    select count(*) filter (where device_id = ${b.deviceId} and created_at > now() - interval '1 minute')::int as dev,
-           count(*) filter (where ip_hash = ${ipHash})::int as ip
-    from tests where created_at > now() - interval '1 hour' and (device_id = ${b.deviceId} or ip_hash = ${ipHash})`;
-  if (recent.dev > 0 || recent.ip >= 30) return bad('Too many tests, try again later', 429);
 
   let ispId: number | null = null;
   if (Number.isInteger(b.ispId)) {
