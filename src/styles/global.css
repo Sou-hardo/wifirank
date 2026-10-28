@@ -390,7 +390,8 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 /* While the map is busy the gauge docks smaller in the corner, a frosted dial over the city */
 .tester:is(.is-running, .is-saving, .is-done) .tester-stage { align-self: end; width: min(100%, 330px); }
 .tester-stage .gauge { border-radius: 50%; background: radial-gradient(closest-side, rgb(255 255 255 / .94) 78%, rgb(255 255 255 / .6) 92%, transparent); }
-.tester-stage .steps { background: rgb(255 255 255 / .85); border-radius: 999px; padding: 4px; }
+.tester-stage .steps { background: rgb(255 255 255 / .85); border-radius: 8px; padding: 8px 10px 10px; }
+.tester.is-done .steps { display: none; }
 /* Data stream behind the gauge: falls on download, rises on upload */
 .stream { position: absolute; inset: -6% -4% 12%; opacity: .2; mask-image: radial-gradient(closest-side, transparent 52%, #000 62%, transparent 100%); animation: fade .6s ease-out; }
 .tester-stage > :not(.stream) { position: relative; }
@@ -401,7 +402,8 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 .net-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); animation: net-pulse 1.2s ease-in-out infinite; }
 @keyframes net-pulse { 50% { opacity: .25; } }
 @media (prefers-reduced-motion: reduce) { .net-chip, .net-chip .dot { animation: none; } }
-.tier { display: inline-block; margin-top: 8px; padding: 5px 13px; border-radius: 999px; background: var(--accent); color: var(--ink); box-shadow: 0 0 0 1px var(--ink), 0 3px 0 var(--ink); font: 500 .7rem var(--mono); letter-spacing: .1em; text-transform: uppercase; animation: rise .5s var(--ease-out) .25s both; }
+.tier { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; padding: 4px 10px; border-radius: 6px; background: rgb(255 255 255 / .85); color: var(--ink); font: 500 .7rem var(--mono); letter-spacing: .1em; text-transform: uppercase; animation: rise .5s var(--ease-out) .25s both; }
+.tier::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: var(--accent); box-shadow: 0 0 0 1px var(--ink); }
 .thanks { margin: 0; color: var(--text-2); font-size: .95rem; max-width: 34ch; }
 
 .gauge { position: relative; width: min(100%, 430px); aspect-ratio: 320 / 300; container-type: inline-size; }
@@ -439,9 +441,13 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 .go-hint { position: absolute; inset: calc(53.33% + var(--go) / 2 + 18px) 0 auto; font-size: .84rem; color: var(--muted); }
 
 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; width: min(100%, 330px); }
-.step { text-align: center; font: 500 .72rem var(--mono); letter-spacing: .04em; text-transform: uppercase; padding: 8px 4px; border-radius: 999px; background: var(--surface); color: var(--muted); border: 1px solid var(--line-strong); transition: all .35s var(--ease-out); }
-.step.active { color: var(--ink); border-color: var(--ink); background: var(--accent); }
-.step.done { color: #fff; background: var(--ink); border-color: var(--ink); }
+.step { text-align: center; font: 500 .68rem var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+/* A progress track, not buttons: label over a bar that fills as each stage runs. */
+.step::after { content: ''; display: block; height: 4px; margin-top: 6px; border-radius: 2px; background: var(--surface-3); transition: background .35s var(--ease-out); }
+.step.active { color: var(--ink); }
+.step.active::after { background: var(--accent); box-shadow: inset 0 0 0 1px var(--ink); }
+.step.done { color: var(--ink); }
+.step.done::after { background: var(--ink); }
 
 .results { display: grid; gap: 20px; margin-top: 24px; }
 .result { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(18px, 2.5vw, 26px); }
@@ -540,7 +546,6 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
   /* Once the test is done the map and dial shrink so the rating is on the first screen. */
   .tester.is-done .tmap.tmap { height: 22dvh; min-height: 150px; }
   .tester.is-done .tester-stage { width: min(100%, 210px); }
-  .tester.is-done .steps { display: none; }
 }
 
 /* ── Maps ───────────────────────────────────────────── */

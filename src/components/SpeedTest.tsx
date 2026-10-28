@@ -568,7 +568,7 @@ export default function SpeedTest({ providers, districtSlugs, children }: { prov
                   {(phase === 'setup' ? net : quickResult)?.flag === 'mobile_data' && (phase === 'setup' || phase === 'done') && (
                     <button type="button" className="link-btn muted" onClick={fullFlow}>This is my home router (FWA) →</button>
                   )}
-                  {phase === 'done' && <button type="button" className="btn btn-sm btn-ghost" disabled={reviewBusy} onClick={testAgain}>Test again</button>}
+                  {phase === 'done' && <button type="button" className="btn btn-sm" disabled={reviewBusy} onClick={testAgain}><Icon d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6" /> Test again</button>}
                 </div>
               ) : phase === 'setup' ? (
                 <form className="setup" onSubmit={(e) => { e.preventDefault(); start(); }} noValidate>
@@ -660,7 +660,7 @@ export default function SpeedTest({ providers, districtSlugs, children }: { prov
                           const href = e.currentTarget.href;
                           void pendingReview.current.then(() => window.location.assign(href));
                         }}>Compare ISPs</a>
-                        <button type="button" className="btn btn-sm btn-ghost" disabled={reviewBusy} onClick={testAgain}>Test again</button>
+                        <button type="button" className="btn btn-sm" disabled={reviewBusy} onClick={testAgain}><Icon d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6" /> Test again</button>
                       </div>
                     </div>
                   )}
