@@ -89,28 +89,6 @@ function Steps({ stage, done }: { stage: Stage | null; done: boolean }) {
   );
 }
 
-function ResultPanel({ title, sub, m, peer }: { title: string; sub: string; m: Metrics | null; peer?: number | null }) {
-  return (
-    <section className="result rise">
-      <header><h3>{title}</h3><span className="muted">{sub}</span></header>
-      {m ? (
-        <dl className="stat-row">
-          <div className="stat"><dt>Download</dt><dd>{f1(m.down)}<small>Mbps</small></dd></div>
-          <div className="stat"><dt>Upload</dt><dd>{f1(m.up)}<small>Mbps</small></dd></div>
-          <div className="stat"><dt>Ping</dt><dd>{f1(m.ping)}<small>ms</small></dd></div>
-          {'loss' in m && m.loss != null && <div className="stat"><dt>Loss</dt><dd>{(m.loss * 100).toFixed(1)}<small>%</small></dd></div>}
-        </dl>
-      ) : <p className="muted">Not measured.</p>}
-      {peer != null && m?.down != null && (
-        <p className="peer">
-          Others on this ISP in your area get <strong className="num">{f1(peer)} Mbps</strong> (median).{' '}
-          {m.down >= peer * 1.1 ? 'You’re above typical.' : m.down <= peer * 0.9 ? 'You’re below typical: check your router or plan.' : 'You’re right on typical.'}
-        </p>
-      )}
-    </section>
-  );
-}
-
 async function shareImage(isp: string, area: string, m: Metrics | null) {
   await Promise.all(['900 150px "Doto Variable"', '900 150px "DotPunct"', '500 64px "Space Grotesk Variable"'].map((f) => document.fonts.load(f))).catch(() => {});
   const W = 1080, H = 1080, INK = '#191a23', LIME = '#b9ff66', c = document.createElement('canvas');
@@ -705,6 +683,12 @@ export default function SpeedTest({ providers, districtSlugs, children }: { prov
                   </dl>
                 )}
                 {phase === 'done' && local?.down != null && <span className="tier">{tier(local.down)} connection</span>}
+                {phase === 'done' && peer?.local_down != null && local?.down != null && (
+                  <p className="stage-peer">
+                    Others on this ISP in your area get <strong className="num">{f1(peer.local_down)} Mbps</strong> (median).{' '}
+                    {local.down >= peer.local_down * 1.1 ? 'You’re above typical.' : local.down <= peer.local_down * 0.9 ? 'You’re below typical: check your router or plan.' : 'You’re right on typical.'}
+                  </p>
+                )}
                 <p className="sr-only" aria-live="polite">{phase === 'saving' ? 'Test finished, saving' : phase === 'done' ? 'Test complete' : ''}</p>
               </>
             )}
@@ -736,7 +720,6 @@ export default function SpeedTest({ providers, districtSlugs, children }: { prov
                 That’s normal: many neighbourhood providers rent their line from a bigger ISP. Your result counts toward {isp.name}.</span>
             </div>
           )}
-          <ResultPanel title="Your result" sub={quickResult?.flag === 'foreign_ip' ? 'Measured against Cloudflare’s server' : saved?.accessType === 'fixed_wireless' ? 'Fixed wireless · Cloudflare’s server in Dhaka' : 'Measured against Cloudflare’s server in Dhaka'} m={local} peer={peer?.local_down} />
         </div>
       )}
 

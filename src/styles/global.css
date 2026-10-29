@@ -410,6 +410,7 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 .stage-stats dt { font: 500 .62rem var(--mono); letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
 .stage-stats dd { margin: 0; font: 900 1.35rem/1.1 var(--dot); white-space: nowrap; }
 .stage-stats small { margin-left: 3px; font-size: .65rem; font-weight: 500; font-family: inherit; }
+.stage-peer { max-width: 300px; margin: 8px auto 0; color: var(--ink); padding: 6px 10px; border-radius: 6px; background: rgb(255 255 255 / .85); font-size: .78rem; line-height: 1.4; text-align: center; animation: rise .5s var(--ease-out) .3s both; }
 .tier::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: var(--accent); box-shadow: 0 0 0 1px var(--ink); }
 .thanks { margin: 0; color: var(--text-2); font-size: .95rem; max-width: 34ch; }
 
@@ -457,11 +458,7 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 .step.done::after { background: var(--ink); }
 
 .results { display: grid; gap: 20px; margin-top: 24px; }
-.result { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: clamp(18px, 2.5vw, 26px); }
-.result header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; margin-bottom: 16px; }
-.result h3 { margin: 0; }
-.result header span { font-size: .88rem; }
-.peer { margin: 16px 0 0; font-size: .95rem; color: var(--text-2); }
+.results:empty { display: none; }
 .review { display: grid; gap: 12px; }
 .review h3, .review p { margin: 0; }
 .review h3 .muted { font-size: .8rem; font-weight: 400; margin-left: 6px; }
