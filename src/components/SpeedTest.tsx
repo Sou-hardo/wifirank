@@ -453,7 +453,6 @@ export default function SpeedTest({ providers, districtSlugs, children }: { prov
     };
   }, [sheet]);
 
-  // A connection tile is the answer that starts the test, so it passes its value straight in.
   const start = async (conn = connection) => {
     if (detecting) return;
     if (quick) return run(conn, false);
@@ -581,12 +580,15 @@ export default function SpeedTest({ providers, districtSlugs, children }: { prov
                   )}
                   {!editIsp ? (
                     <div className="provider-summary">
-                      <div className="provider-row">
-                        {isp.name.trim() ? <span className="provider-chip"><strong title={isp.name}>{isp.name}</strong>{detected && <span> · detected</span>}</span> : <span className="muted provider-placeholder">{detecting ? 'Detecting your provider…' : 'Choose your provider'}</span>}
-                        <button type="button" className="link-btn muted" onClick={changeIsp}>Change</button>
-                        <small className="muted provider-district" title={DISTRICT_NAMES[district]}>{AREAS[area] ?? DISTRICT_NAMES[district]}</small>
-                      </div>
-                      {net?.upstream && detected && <small className="provider-upstream muted">Pay a local ISP on this line? <button type="button" className="link-btn" onClick={changeIsp}>Change</button></small>}
+                      <span className="label">Internet provider</span>
+                      <button type="button" className="provider-field" onClick={changeIsp} aria-label={`Internet provider: ${isp.name || 'not chosen'}. Change`}>
+                        {isp.name.trim()
+                          ? <><strong title={isp.name}>{isp.name}</strong>{detected && <span className="provider-tag">Detected</span>}</>
+                          : <span className="muted">{detecting ? 'Detecting your provider…' : 'Choose your provider'}</span>}
+                        <span className="provider-change">Change <span aria-hidden="true">▾</span></span>
+                      </button>
+                      <small className="muted provider-district" title={DISTRICT_NAMES[district]}>{AREAS[area] ?? DISTRICT_NAMES[district]}</small>
+                      {net?.upstream && detected && <small className="provider-upstream muted">Pay a local ISP on this line? Tap the box to pick it.</small>}
                     </div>
                   ) : (
                   <div className="field">
@@ -607,7 +609,7 @@ export default function SpeedTest({ providers, districtSlugs, children }: { prov
                       {CONN.map((c) => (
                         <label key={c.value}>
                           <input type="radio" name="conn" value={c.value} checked={connection === c.value} disabled={detecting}
-                            onChange={() => { setConnection(c.value); start(c.value); }} onClick={() => connection === c.value && start(c.value)} />
+                            onChange={() => setConnection(c.value)} />
                           <span><Icon d={c.icon} />{c.label}</span>
                         </label>
                       ))}
@@ -619,8 +621,11 @@ export default function SpeedTest({ providers, districtSlugs, children }: { prov
                       </label>
                     )}
                     {tried && missing === 'connection' && <small className="error">How is this device connected?</small>}
-                    <small className="muted">Tap your connection to start.</small>
                   </fieldset>
+
+                  <button type="submit" className="btn btn-primary start-btn" disabled={detecting || editIsp}>
+                    Start test{!missing && <small>{isp.name} · {CONN.find((c) => c.value === connection)?.label}</small>}
+                  </button>
 
                   {error && <p className="error" role="alert">{error}</p>}
                 </form>
