@@ -405,6 +405,11 @@ details.faq > div { padding: 22px 0 28px; border-top: 1px solid var(--ink); colo
 @keyframes net-pulse { 50% { opacity: .25; } }
 @media (prefers-reduced-motion: reduce) { .net-chip, .net-chip .dot { animation: none; } }
 .tier { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; padding: 4px 10px; border-radius: 6px; background: rgb(255 255 255 / .85); color: var(--ink); font: 500 .7rem var(--mono); letter-spacing: .1em; text-transform: uppercase; animation: rise .5s var(--ease-out) .25s both; }
+.stage-stats { display: flex; justify-content: center; gap: 6px; margin: 4px 0 0; animation: rise .5s var(--ease-out) .15s both; }
+.stage-stats > div { min-width: 0; padding: 6px 12px; border: 1.5px solid var(--ink); border-radius: 8px; background: #fff; color: var(--ink); }
+.stage-stats dt { font: 500 .62rem var(--mono); letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
+.stage-stats dd { margin: 0; font: 900 1.35rem/1.1 var(--dot); white-space: nowrap; }
+.stage-stats small { margin-left: 3px; font-size: .65rem; font-weight: 500; font-family: inherit; }
 .tier::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: var(--accent); box-shadow: 0 0 0 1px var(--ink); }
 .thanks { margin: 0; color: var(--text-2); font-size: .95rem; max-width: 34ch; }
 

@@ -697,6 +697,13 @@ export default function SpeedTest({ providers, districtSlugs, children }: { prov
                   ) : undefined}
                 </Gauge>
                 <Steps stage={stage} done={phase !== 'running'} />
+                {phase === 'done' && local && (
+                  <dl className="stage-stats">
+                    <div><dt>Upload</dt><dd className="num">{f1(local.up)}<small>Mbps</small></dd></div>
+                    <div><dt>Ping</dt><dd className="num">{f1(local.ping)}<small>ms</small></dd></div>
+                    {'loss' in local && local.loss != null && <div><dt>Loss</dt><dd className="num">{(local.loss * 100).toFixed(1)}<small>%</small></dd></div>}
+                  </dl>
+                )}
                 {phase === 'done' && local?.down != null && <span className="tier">{tier(local.down)} connection</span>}
                 <p className="sr-only" aria-live="polite">{phase === 'saving' ? 'Test finished, saving' : phase === 'done' ? 'Test complete' : ''}</p>
               </>
